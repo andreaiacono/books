@@ -125,7 +125,6 @@ h1 {
     }
 
     .book-date {
-        display: block;
-        margin-bottom: 5px;
+        margin-top: 30px;
     }
 }
