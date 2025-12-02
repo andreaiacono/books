@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List</title>p
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Reading List</h1>
+        <p class="subtitle">Libri che ho letto negli ultimi anni. In verde i titoli che mi sono piaciuti molto.</p>
+        <div id="booksList"></div>
+    </div>
+
+    <script>
+        // Parse date from DD/MM/YYYY format
+        function parseDate(dateStr) {
+            const parts = dateStr.split('/');
+            return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+        }
+
+        // Format date to DD/MM/YY
+        function formatDate(dateStr) {
+            return dateStr;
+        }
+
+        // Load and parse the CSV file
+        fetch('data/books.csv')
+            .then(response => response.text())
+            .then(csvData => {
+                Papa.parse(csvData, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        displayBooks(results.data);
+                    }
+                });
+            })
+            .catch(err => {
+                console.error('Error loading CSV:', err);
+                document.getElementById('booksList').innerHTML = '<p>Error loading books data.</p>';
+            });
+
+        function displayBooks(books) {
+
+            // Group books by year
+            const booksByYear = {};
+            books.forEach(book => {
+                const date = parseDate(book.date);
+                const year = date.getFullYear();
+
+                if (!booksByYear[year]) {
+                    booksByYear[year] = [];
+                }
+                booksByYear[year].push(book);
+            });
+
+            // Sort years in descending order
+            const years = Object.keys(booksByYear).sort((a, b) => b - a);
+
+            // Build HTML
+            const booksListDiv = document.getElementById('booksList');
+            let html = '';
+
+            years.forEach(year => {
+                const yearCount = booksByYear[year].length;
+                html += `<div class="year-section">
+                    <h2 class="year-header">Anno ${year} <span class="year-book-count">(${yearCount} libri letti)</span></h2>`;
+
+                // Sort books within year by date (most recent first)
+                booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+                booksByYear[year].forEach(book => {
+                    const bookUrl = book.isbn ?
+                        `https://books.google.it/books?vid=${book.isbn}` : '#';
+
+                    const titleClass = book.marked == "false" ? "book-title" : "marked-book-title"
+                    html += `<div class="book"><span class="book-date">${formatDate(book.date)}</span>
+                        <a href="${bookUrl}" class="${titleClass}" target="_blank">${book.title}</a>
+ di <span class="book-authors">${book.creators}</span>`;
+                      if (book.comment && book.comment.trim()) {
+                        html += `: <span class="book-comment">${book.comment}</span>`;
+                    }
+                    html += `
+                </div>`;
+                });
+
+                html += '</div>';
+            });
+
+            booksListDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

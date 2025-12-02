@@ -1,0 +1,320 @@
+Date,Title,Comment,Authors,ISBN,Status
+17/03/2014,Furore,molto bello.,,,unmatched
+22/03/2014,Allucinazioni,bello.,,,unmatched
+19/05/2014,Il grande Gatsby,bello.,,,unmatched
+08/06/2014,La sezione aurea,interessante.,,,unmatched
+01/08/2014,Roderick Duddle,,,,unmatched
+12/08/2014,L'armata dei sonnambuli,,,,unmatched
+23/03/2015,La ballata di Abu Ghraib,agghiacciante.,,,unmatched
+23/04/2016,Prometheus,bello!,,,unmatched
+21/05/2016,Franny e Zooey,,,,unmatched
+17/07/2016,Obsolescenza programmata,,,,unmatched
+24/07/2016,la strage dei congiunitvi,,,,unmatched
+01/09/2016,Numeri incredibili,bello.,,,unmatched
+18/09/2019,The Testaments,molto bello.,,,unmatched
+28/08/2022,Adelphiana #1,,,,unmatched
+17/09/2022,Admissions,carino.,,,unmatched
+19/09/2022,Caos,interessante.,"Marco Malvaldi, Stefano Marmi",9788815280084,matched
+24/09/2022,La seconda fondazione,bello.,,,unmatched
+29/09/2022,Passoscuro,bof.,,,unmatched
+20/10/2022,"Sulle origini della vita, del significato e dell'universo",bof.,,,unmatched
+22/10/2022,Gli ultimi giorni dell'Europa,bello.,,,unmatched
+26/10/2022,UFO 78,carino.,"Wu Ming,",9788858440919,matched
+31/10/2022,confini invisibili,bof.,,,unmatched
+15/11/2022,L'incarico,strano ma carino.,,,unmatched
+18/11/2022,Il libro delle nuvole,,,,unmatched
+19/11/2022,Cuore puro,carino.,,,unmatched
+23/11/2022,Senza Respiro,bello.,,,unmatched
+24/11/2022,"Notti in bianco, baci a colazione",carino.,Matteo Bussola,9788806230517,matched
+25/11/2022,Grand River,bof.,Wu Ming,9788817020435,matched
+27/11/2022,"Houston, abbiamo un problema",bello.,,,unmatched
+28/11/2022,Lettera ala tirbu' dei bianchI,bello.,,,unmatched
+30/11/2022,Se la strada potesse parlare,bello.,James Baldwin,9788860445803,matched
+02/12/2022,Il richiamo del corno,bello.,"Sarban, Roberto Colajanni",9788845937262,matched
+07/12/2022,La matematica dell'infinito,bello.,,,unmatched
+11/12/2022,The every,bello.,"Dave Eggers, Francesco Pacifico",9788807035159,matched
+14/12/2022,Curiosi,bof.,,,unmatched
+15/12/2022,Storie dal mondo nuovo,molto interessante.,Daniele Rielli,9788845931086,matched
+23/12/2022,Per questo,interessante.,,,unmatched
+24/12/2022,Zeitoun,bello.,Eggers,9788807893636,matched
+28/12/2022,L'uomo che credeva di essere morto,bello.,,,unmatched
+29/12/2022,Le gemelle che non parlavano,bello.,"Marjorie Wallace, Gabriella Luzzani",9788845937484,matched
+30/12/2022,Perche' non eravamo pronti,,"David Quammen, Milena Zemira Ciccimarra",9788845935473,matched
+01/01/2023,Tokyo tutto l'anno,carino.,"Laura Imai Messina, Igort",9788806252854,matched
+06/01/2023,Voli di Fantasia,carino.,,,unmatched
+08/01/2023,Origini,molto bello.,,,unmatched
+10/01/2023,La fine del mondo e il paese delle meraviglie,bello.,,,unmatched
+15/01/2023,Biscotti e radici quadrate,carino.,,,unmatched
+22/01/2023,Cotto,,,,unmatched
+23/01/2023,Codice 612,bof.,,,unmatched
+24/01/2023,Solaris,bello.,,,unmatched
+28/01/2023,De l'infinito universo e mondi,strano.,,,unmatched
+30/01/2023,Viva l'Italia!,,,,unmatched
+01/02/2023,La brigata dei bastardi,proprio bello.,,,unmatched
+02/02/2023,Dialoghi sul male,bello.,,,unmatched
+08/02/2023,Lo sappiamo quando lo vediamo,molto interessante.,,,unmatched
+09/02/2023,I miei giorni alla libreria Morisaki,molto leggero.,"Satoshi Yagisawa, Gala Maria Follaco",9788807034947,matched
+11/02/2023,La Panne,,,,unmatched
+16/02/2023,I demoni di Salvini,interessante.,,,unmatched
+20/02/2023,La vedova,carino.,"José Saramago, Rita Desti",9788807035166,matched
+24/02/2023,Imparare,interessante.,,,unmatched
+28/02/2023,Metazoa,interessante.,,,unmatched
+01/03/2023,The Inhabitable Earth,molto interessante e desolante.,,,unmatched
+05/03/2023,Le regole del contagio,interessante anche se un po' di palo in frasca.,"Adam Kucharski, Francesco Peri",9788829706976,matched
+06/03/2023,Il mare della tranquillita',carino.,,,unmatched
+09/03/2023,Pendulum,interessante.,,,unmatched
+12/03/2023,La vita segreta,molto interessante.,,,unmatched
+13/03/2023,L'anomalia,carino.,,,unmatched
+16/03/2023,La prigione della fede,molto bello.,,,unmatched
+22/03/2023,Cantonate,bof.,,,unmatched
+24/03/2023,Il dono oscuro,molto bello e interessante.,"John M. Hull, F. Pacifico",9788845934094,matched
+27/03/2023,Buchi Bianchi,interessante.,Carlo Rovelli,9788845937538,matched
+02/04/2023,Autostop con Buddha,carino.,,,unmatched
+04/04/2023,Il calamaro gigante,carino.,Fabio Genovesi,9788858847725,matched
+07/04/2023,Zorba il greco,bello.,"Nikos Kazantzakis, N. Crocetti",9788883063299,matched
+11/04/2023,I have landed,bello ma prolisso.,,,unmatched
+14/04/2023,Dune,molto bello.,,,unmatched
+17/04/2023,La terra che sussurra,bof.,,,unmatched
+22/04/2023,Filosofia del futuro,,,,unmatched
+01/05/2023,Il mondo senza di noi,interessante.,"Alan Weisman, N. Gobetti",9788806236113,matched
+02/05/2023,La sola colpa di essere nati,,"Gherardo Colombo, Liliana Segre",9788811003496,matched
+09/05/2023,L'ultima tentazione,bello!,,,unmatched
+14/05/2023,Chi e' dunque l'altro,bof.,,,unmatched
+21/05/2023,Perche' il vetro e' trasparente,complesso ma molto interessante.,,,unmatched
+26/05/2023,Shape,"carino, ma poco di nuovo.",Jordan Ellenberg,9780141991511,matched
+27/05/2023,Se i gatti scomparissero dal mondo,bof.,"Genki Kawamura, A. Specchio",9788806245702,matched
+03/06/2023,Perche' oggi non e' possibile una rivoluzione,"spunti interessanti, ma bof.",,,unmatched
+12/06/2023,Perche' l'intelligenza umana batte ancora gli algoritmi,interessante.,"Gerd Gigerenzer, Riccardo Mazzeo",9788832855029,matched
+16/06/2023,I numeri non mentono,carino.,,,unmatched
+22/06/2023,Range,molto interessante.,,,unmatched
+26/06/2023,Le sfide di Marte,molto interessante.,Paolo Ferri,9788832855289,matched
+28/06/2023,Eleanor oliphant sta benissimo,molto bello e commovente.,"Gail Honeyman, Stefano Beretta",9788811007715,matched
+03/07/2023,La tirannia del merito,molto interessante.,Sandel,9788807897719,matched
+05/07/2023,Il fiume della vita,bello.,Farmer Philip Jose',,matched
+07/07/2023,Alle sorgenti del fiume,bello.,Farmer Philip Jose',,matched
+12/07/2023,Il grande disegno,comincia a diventare un po' prolisso.,Farmer Philip Jose',,matched
+15/07/2023,Il labirinito magico,,,,unmatched
+16/07/2023,Gli dei del fiume,carino.,Farmer Philip Jose',,matched
+17/07/2023,Solo bagaglio a mano,carino.,Gabriele Romagnoli,9788858822456,matched
+19/07/2023,Storia del tempo,interessante ma me lo immaginavo diverso.,,,unmatched
+22/07/2023,Storia di Tonle e L'anno della vittoria,bello.,,,unmatched
+24/07/2023,Nel paese degli algoritmi,a tratti interessante.,"Aurelie Jean, Elena Dal Pra",9788854521391,matched
+27/07/2023,"Oltre il tempo, Galassia",carino.,,,unmatched
+29/07/2023,Noi rifugiati,me lo immaginavo diverso.,"Hannah Arendt, Donatella Di Cesare",9788806257286,matched
+01/08/2023,Ci sono posti al mondo dove piu' che le regole e' importante la gentilezza,interessante.,,,unmatched
+03/08/2023,Il bambino che sognava la fine del mondo,bello.,Antonio Scurati,9788845265976,matched
+04/08/2023,I ragazzi di zinco,bello e agghiacciante.,,,unmatched
+05/08/2023,Brutti incontri al chiaro di luna,proprio carino.,,,unmatched
+07/08/2023,Non è un paese per vecchi,bello.,Cormac McCarthy,9788806233983,matched
+09/08/2023,In un volo di storni,,,,unmatched
+10/08/2023,La fabbrica delle scelte,interessante ma bof.,,,unmatched
+14/08/2023,"L'età, se esiste",spunti interessanti.,,,unmatched
+15/08/2023,Cose che succedono di notte,bof.,,,unmatched
+16/08/2023,Cosa faresti se,molto carino.,Gabriele Romagnoli,9788807034411,matched
+19/08/2023,Cervelli in guerra,molto interessante.,,,unmatched
+20/08/2023,Neanche gli dei,bello.,,,unmatched
+21/08/2023,Dei delitti e delle pene,molto interessante.,Cesare Beccaria,9788807901577,matched
+23/08/2023,The inner fish,molto interessante.,,,unmatched
+24/08/2023,La piattaforma,bello.,,,unmatched
+27/08/2023,Skeleton Keys,interessante.,Riley Black (Brian Switek),9780525539124,matched
+29/08/2023,La simmetria dei desideri,"mmhh, carino ma bof.",,,unmatched
+02/09/2023,Dopamine nation,interessante.,,,unmatched
+04/09/2023,Le particelle elementari,bello.,Michel Houellebecq,9788845244575,matched
+09/09/2023,The devil you know,molto interessante.,,,unmatched
+11/09/2023,Flood,,,,unmatched
+17/09/2023,Suoni fragili e selvaggi,prolisso ma spunti interessanti.,,,unmatched
+19/09/2023,Racconti brevi e straordinari,,"Jorge Luis Borges, Adolfo Bioy Casares, T. Scarano",9788845934773,matched
+21/09/2023,Preghiera per Cernobyl,molto bello.,,,unmatched
+28/09/2023,Superbatteri,interessante ma un po' superficiale.,,,unmatched
+03/10/2023,I miei stupidi intenti,molto carino.,Bernardo Zannoni,9788838942303,matched
+12/10/2023,Probable Impossibilities,bof.,Alan Lightman,9781524749019,matched
+20/10/2023,Sentire e conoscere,bof.,,,unmatched
+29/10/2023,Imparare a rischiare,interessante.,,,unmatched
+30/10/2023,L'isola del Dott. Moreau,carino.,,,unmatched
+31/10/2023,La macchina del tempo,"carino, neanche troppo datato.",Herbert George Wells,9788807903748,matched
+02/11/2023,Guerre,,,,unmatched
+03/11/2023,Wohpe,bello.,Salvatore Sanfilippo,9791280845115,matched
+09/11/2023,Tempo di seconda mano,molto bello e duro.,,,unmatched
+11/11/2023,Electric State,molto carino.,,,unmatched
+12/11/2023,Storia sentimentale del telefono,,,,unmatched
+25/11/2023,Come il cervello crea la coscienza,molto interessante.,"Anil Seth, Sara Parmigiani",9788832854954,matched
+26/11/2023,Istruzioni per diventare fascisti,"bello, grande perdita la Murgia.",Michela Murgia,9788806240608,matched
+27/11/2023,Il capitano e la gloria,carino.,"Dave Eggers, N. Russell, V. Mantovani",9788807034183,matched
+28/11/2023,Scolpitelo nel vostro cuore,bello.,,,unmatched
+29/11/2023,La russia in quattro criminali,,Federico Varese,9788806257903,matched
+01/12/2023,Il grifone,bello.,,,unmatched
+07/12/2023,Prospettive cosmiche,interessante.,,,unmatched
+09/12/2023,"Oggi, per sempre","filtrata un bel po' di fuffa, ma interessante.","Deborah Wearing, T. Franzosi",9788820039837,matched
+13/12/2023,La fame che abbiamo,,,9788804544111,matched
+22/12/2023,Storie straordinarie delle materie prime,interessante.,"Alessandro Giraudo, S. Prencipe",9788867832361,matched
+26/12/2023,La carta e il territorio,"carino, non il migliore di Houellebecq.",Houellebecq Michel,9788845268366,matched
+28/12/2023,Fantasmagonia,"bello, ultimi due racconti un po' cosi', molto belli gli altri.",Michele Mari,9788806253073,matched
+29/12/2023,"Lo sapevo, qui, sopra il fiume Hao",bello.,Carlo Rovelli,9788828213314,matched
+04/01/2024,Ignoranza,bof.,,,unmatched
+13/01/2024,How civil wars start,molto interessante.,Barbara F. Walter,9780593443378,matched
+14/01/2024,L'altra figlia,"mmh, giudizio sospeso.",,,unmatched
+15/01/2024,Il posto,bof.,Annie Ernaux,9788898038152,matched
+24/01/2024,Mondi paralleli,interessante.,,,unmatched
+27/01/2024,Niente asilo politico,molto bello.,Enrico Calamai,9788807887819,matched
+29/01/2024,La scomparsa di Josef Mengele,bello.,Olivier Guez,9788865596883,matched
+30/01/2024,What If 2,sempre interessante.,Randall Munroe,9780525537113,matched
+31/01/2024,La fuga di Enea,spunti interessanti.,,,unmatched
+02/02/2024,La tirannia della scelta,"bof, piuttosto deluso.","Renata Salecl, F. Orsi",9788842095002,matched
+03/02/2024,La vasca di Archimede,bof.,,,unmatched
+04/02/2024,Adelphiana 3,interessante.,,,unmatched
+11/02/2024,Viaggiare nello spazio tempo: la scienza di interstellar,molto molto interessante.,,,unmatched
+12/02/2024,Man's Search For Meaning,interessante.,,,unmatched
+14/02/2024,Adelphiana 4,come gli altri interessante.,,,unmatched
+19/02/2024,Il secolo mobile,molto molto bello e interessante.,,,unmatched
+24/02/2024,Dio e' matematico,interessante ma non il migliore di Livio.,,,unmatched
+05/03/2024,Poteri illegittimi,il solito buon vecchio Chomsky.,,,unmatched
+10/03/2024,Flatterland,"carino ma me lo immaginavo diverso, piu' legato alle dimensioni che alla fisica.",Ian Stewart,9780738204420,matched
+14/03/2024,Lo strano caso del lago Vittoria,carino!,,,unmatched
+15/03/2024,"Scorrete lacrime, disse il poliziotto",bello.,,,unmatched
+17/03/2024,Il popolo dell'autunno,"non proprio il mio genere, cmq carino.",,,unmatched
+18/03/2024,La sentinella,molto carino.,,,unmatched
+19/03/2024,Il fabbricante di universi,bof.,,,unmatched
+21/03/2024,City,carino.,,,unmatched
+23/03/2024,L'amnistia Togliatti,molto interessante.,,,unmatched
+26/03/2024,L'eta' dello tsunami,molto interessante.,,,unmatched
+30/03/2024,PFAS,"molto inquietante, molto molto.",,,unmatched
+03/04/2024,8 secondi,"bof, lo stile mi ha profondamente irritato.",,,unmatched
+06/04/2024,Frontiera,interessante.,,,unmatched
+09/04/2024,Il costo della spedizione gratuita,interessante ma ripetitivo.,,,unmatched
+14/04/2024,Guerra,interessante ma prolisso.,,,unmatched
+24/04/2024,La misura del mondo,carino.,Daniel Kehlmann,9788807017025,matched
+27/04/2024,Un mondo senza confini,giudizio sospeso.,,,unmatched
+04/05/2024,Le guerre illegali della Nato,molto interessante.,"Daniele Ganser, Carlo Rovelli, Alessandro De Lachenal",9788893254786,matched
+07/05/2024,Le strane storie di Fukiage,bof.,"Banana Yoshimoto, Gala Maria Follaco",9788807035173,matched
+15/05/2024,"Sangue, Ferro e Oro",molto interessante.,,,unmatched
+17/05/2024,La virata,carino.,"William Langewiesche, M. Codignola",9788845920714,matched
+21/05/2024,Dieci lezioni sul male,molto interessante.,,,unmatched
+23/05/2024,Africa - Andata e ritorno,a tratti veramente commovente.,Medici con l'Africa Cuamm,9788858152447,matched
+29/05/2024,Patient H69,"interessante la prima parte, bof il resto.",Vanessa Potter,9781472936103,matched
+30/05/2024,Esecuzioni a distanza,carino.,Langerwiesche William,9788845926471,matched
+31/05/2024,The programmer's brain,molto molto interessante.,Felienne Hermans,9781617298677,matched
+01/06/2024,"Major Taylor, Il negro volante",molto interessante.,,,unmatched
+08/06/2024,Silicio,"interessante la parte autobiografica, molto meno quella finale.",,,unmatched
+10/06/2024,L'equazione di Dio,interessante.,,,unmatched
+11/06/2024,T,triste ma carino.,"Chetna Maroo, Gioia Guerzoni",9788845938580,matched
+14/06/2024,"Aggiustare il mondo. La vita, il processo e l'eredita' di Aaron Swartz",molto molto interessante e di ispirazione.,,,unmatched
+17/06/2024,Una lanterna nel buio,interessante.,,,unmatched
+20/06/2024,Il bazar atomico,"molto interessante, un'introduzione a come costruirsi una bomba atomica.","William Langewiesche, M. Codignola",9788845921650,matched
+24/06/2024,Il pasaseggero,proprio bello.,,,unmatched
+26/06/2024,Stella Maris,"strepitoso, uno dei piu' bei romanzi letti negli ultimi anni.","Cormac McCarthy, Maurizia Balmelli",9788806259587,matched
+03/07/2024,l'universo in una scatola,interessante.,,,unmatched
+05/07/2024,"Pachinko, la moglie coreana",molto bello.,"Min Jin Lee, Federica Merani",9788855446877,matched
+08/07/2024,Notre-Dame de Paris,molto bello.,,,unmatched
+09/07/2024,Hiroshima,"bello, forse un po' datato.",John Hersey,9780141982243,matched
+12/07/2024,La fisica della lavatrice,molto interessante.,,,unmatched
+17/07/2024,The other pandemic,molto interessante e inquietante.,James Ball,9781526671851,matched
+18/07/2024,Longitudine,carino.,,,unmatched
+19/07/2024,Maniac,bello.,Benjamín Labatut,9788845938320,matched
+21/07/2024,Locus desperatus,Mari non si smentisce mai.,Michele Mari,9788806264512,matched
+22/07/2024,Brief Answers to big questions,interessante.,,,unmatched
+28/07/2024,Storie proprio cosi',molto carino.,Kipling Rudyard,9788845926310,matched
+30/07/2024,La stanza dell'imperatore,molto bello.,,,unmatched
+03/08/2024,"Piu' ci rinchiudono, piu' diventiamo forti",bof.,,,unmatched
+07/08/2024,Le meraviglie del possibile,molto bello.,,,unmatched
+11/08/2024,The Labyrinth,molto carino.,"Simon Stålenhag, Francesco Matteuzzi",9788804758501,matched
+12/08/2024,Gli anelli della vita,interessante.,,,unmatched
+16/08/2024,Fillosofia e storia,molto interessnte.,,,unmatched
+17/08/2024,Blink,molto molto interessante.,Malcolm Gladwell,9780141022048,matched
+18/08/2024,Lo sguardo di Medusa,bello.,"Natalie Haynes, Ginevra Lamberti",9788845414138,matched
+24/08/2024,I reietti dell'altro pianeta,interessante: piu' sociologico che fantascientifico.,"Ursula K. Le Guin, R. Valla",9788804689973,matched
+25/08/2024,I duellanti,bello.,Joseph Conrad,9788876411953,matched
+29/08/2024,Meridiano di sangue,"bof, carino a tratti.",Cormac McCarthy,9788806223229,matched
+31/08/2024,Discorso sulla servitu' volontaria,bof: molto datato e superficiale.,,,unmatched
+02/09/2024,Le civette impossibili,carino.,Brian Phillips,9788845935091,matched
+04/09/2024,La guerra dei mondi,"cariino, fa specie pensare a una guerra senza aviazione.","Herbert George Wells, Mirko Esposito",9788807904301,matched
+06/09/2024,Magnificat,bello.,Sonia Aggio,9791259671424,matched
+08/09/2024,Think Again,"molto molto interessante, al pari degli altri suoi simili.",,,unmatched
+12/09/2024,Salute!,"bof, proprio deludente.",,,unmatched
+17/09/2024,Il punto di Giano,"bof, molto complesso e la seconda meta' l'ho letta molto velocemente.",,,unmatched
+18/09/2024,Il mare,carino ma bof.,"John Banville, Eva Kampmann",9788823522077,matched
+19/09/2024,Vita in pugno,carino.,,,unmatched
+21/09/2024,Regole di ingaggio,"interessante, meritava un approfondimento.","William Langewiesche, M. Codignola",9788845922190,matched
+25/09/2024,Zero Kill,divertente e irriverente.,"Yassir Benmiloud, J. De Michelis",9788804536550,matched
+28/09/2024,Il volto del male,interessante.,,,unmatched
+05/10/2024,La conoscenza necessaria,molto molto interessante.,,,unmatched
+12/10/2024,L'ordine nascosto,"molto interessante, un mondo completamente sconosciuto.",,,unmatched
+14/10/2024,L'oro della patria,"molto interessante, una storia sconosciuta e triste.",,,unmatched
+19/10/2024,Guardate meglio,molto interessante e difficile da mettere in pratica.,,,unmatched
+22/10/2024,"Kim-Ji Young, nata nel 1982",agghiacciante.,"Nam-Joo Cho, Filippo Bernardini",9788894814347,matched
+24/10/2024,L'avversario,disturbante.,,,unmatched
+27/10/2024,Misurare la storia,"interessante, fa il paio con quello sulla dendrocronologia.",,,unmatched
+08/11/2024,Storia universale delle lingue,"interessante, anche se molte parti fin troppo dettagliate!",,,unmatched
+09/11/2024,Il paese di sogno,"bof, proprio niente di che.","David Diop, Giovanni Zucca",9788854530713,matched
+10/11/2024,Di turno la notte di natale,leggero e carino.,"Adam Kay, Gioia Sartori",9788804731559,matched
+12/11/2024,L'uomo invisibile,"carino, per nulla datato.",,,unmatched
+16/11/2024,Tutti i mondi possibili,molto interessante.,,,unmatched
+18/11/2024,"Non e' vero, ma ci credo",qualche intervento interessante.,,,unmatched
+20/11/2024,Quattro ipotesi sull'origine del linguaggio,molto interessante.,Lorenzo Pinna,9791254501153,matched
+27/11/2024,Il cuore selvaggio della natura,molto bello.,,,unmatched
+01/12/2024,This is going to hurt,"carino, e fa pensare.",,,unmatched
+10/12/2024,Donnie Brasco,"interessante, anche se Pistone soffre un po' del mito del mondo di strada.",,,unmatched
+14/12/2024,Ti con zero,"interessante, ma non tutti i racconti ben riusciti.",Italo Calvino,9788804772781,matched
+18/12/2024,La notte non fa paura,"molto bello e delicato, una lettura importante.",,,unmatched
+25/12/2024,La stiva e l'abisso,"Mari non si smentisce, anche se a tratti e fin troppo aulico.",Michele Mari,9788806237950,matched
+28/12/2024,Why we read,"interessanti alcuni spunti, meno interessanti altri.",AA.VV.,9781802060959,matched
+02/01/2025,Greco cerca Greca,"molto carino, con due finali!","Friedrich Dürrenmatt, Margherita Belardetti",9788845939334,matched
+09/01/2025,Scintille,"interessante, forse un filo troppo lungo.",,,unmatched
+11/01/2025,Il lato nobile,bof.,,,unmatched
+13/01/2025,M. L'ora del destino,"molto bello, come gli altri.",Antonio Scurati,9788830104976,matched
+17/01/2025,Irresistible,"interessante, anche se va un po' di palo in frasca.",Adam Alter,9780735222847,matched
+28/01/2025,Il male per una buona causa,"un po' troppo unversitario, ma nel finale si riprende.",,,unmatched
+02/02/2025,Trappole alimentari,molto molto interessante.,Stefano Vendrame,9788830462540,matched
+04/02/2025,Il ladro di piume,bello!,Kirk Wallace Johnson,9791255480235,matched
+09/02/2025,Contro la moda,molto bof.,,,unmatched
+12/03/2025,I confini di Babele,"molto interessante, devo trovare qualcos'altro su linguaggio e pensiero.",,,unmatched
+29/03/2025,I miserabili,molto bello a parte le solite digressioni.,,,unmatched
+30/03/2025,Musica per camaleonti,che tipo quel Truman.,Truman Capote,9788811684213,matched
+01/04/2025,Kindred,molto bello e agghiacciante.,Octavia E. Butler,9781472258229,matched
+06/04/2025,Il mondo fino a ieri,"interessante, ma niente di particolarmente nuovo.",,,unmatched
+07/04/2025,L'agente segreto,"carino, mi aspettavo qualcosa di completamente diverso.",,,unmatched
+20/04/2025,La versione degli alberi,"proprio carino, speriamo scriva anche il seguito.",Stefano Mancuso,9788806262952,matched
+21/04/2025,Libera,molto bello e quanta rabbia.,Alessandra Ziniti,9791222500508,matched
+29/04/2025,Educazione Siberiana,"bello, anche se in un mondo parallelo.",Nicolai Lilin,9788806202569,matched
+30/04/2025,Caduta Libera,"bello anche questo, ma rovinato dal fatto che ho poi letto che sia fiction e non autobiografia come presentato.",Nicolai Lilin,9788806207885,matched
+02/05/2025,Il libri degli esseri a malapena immaginabili,"carino, qualche passo notevole.",,,unmatched
+06/05/2025,Avidita',"crudo, cinico e agghiacciante, pero' mi e' piaciuto nonostante la lettura faticosa.","Elfriede Jelinek, Barbara Agnese",9788834619230,matched
+08/05/2025,Per la pace perpetua,"interessante, sono secoli che ci si pensa ma ancora siamo lontani.",Immanuel Kant,9788807900327,matched
+20/05/2025,Work,super prolisso e per buona parte fuori tema.,,,unmatched
+26/05/2025,Tempo,interessante anche se nulla di particolarmente nuovo.,,,unmatched
+01/06/2025,Just Babies,"interessante, titolo un po' misleading ma comunque tante info interessanti.",Paul Bloom,9780307886859,matched
+02/06/2025,Nelle strade di Teheran,"molto molto carino, mannaggia a quelle merde di mullah e tutti gli altri.",Nila,9791256240180,matched
+06/06/2025,Joker scatenato,"interessante, ma solo a tratti.",Guido Vitiello,9791256240487,matched
+10/06/2025,Breath,"molto molto interessante, provero' a metterle in pratica.",,,unmatched
+13/06/2025,L'eleganza del vuoto,molto bello e interessante.,,,unmatched
+20/06/2025,La storia,bello e triste.,Elsa Morante,9788806219642,matched
+25/06/2025,L'uomo venuto dal futuro,"molto interessante, un sacco di cose che non sapevo su Von Neumann.",,,unmatched
+30/06/2025,Fancy Bear Goes Phishing,molto interessante.,,,unmatched
+07/07/2025,The remains of the Day,proprio bello.,,,unmatched
+12/07/2025,The optimism bias,"interessante, ma niente di veramente nuovo.",,,unmatched
+17/07/2025,Nexus,"molto molto interessante, come sempre da Harari.",,,unmatched
+20/07/2025,Civilized to Death,"illuminante, forse uno dei migliori libri mai letti, tira le somme di un sacco di pensieri e riflessioni.",,,unmatched
+21/07/2025,Nutshell,bello.,,,unmatched
+01/08/2025,Il canto della cellula,"molto carino, non ne sapevo quasi nulla.",,,unmatched
+04/08/2025,"Michelangelo, una vita inquieta",molto bello e interessante.,Antonio Forcellino,9788842084761,matched
+05/08/2025,Uno studio in rosso,avvincente.,,,unmatched
+06/08/2025,Il segno dei quattro,carino.,,,unmatched
+07/08/2025,Le avventure di Sherlock Holmes,"carino, mi piace la logica deduttiva.",,,unmatched
+08/08/2025,Le memorie di Sherlock Holmes,"carine, concluse con la morte di Sherlock.",,,unmatched
+09/08/2025,Il mastino dei Baskerville,"devo dire che me l'aspettavo molto meglio, ho preferito tutti gli altri a questo.",,,unmatched
+10/08/2025,Il gioco degli dei,carino.,,,unmatched
+11/08/2025,Come siamo diventati stupidi,provocatorio ma interessante.,,,unmatched
+12/08/2025,A spasso con il cane Luna,"carino, lui e' sempre tosto.",Giorgio Vallortigara,9788845939853,matched
+15/08/2025,Il canto delle sirene,interessante lo spunto sull'attenzione come risorsa e a cascata i suoi effetti nella societa' capitalistica.,,,unmatched
+18/08/2025,la valle del caos,veramente bizzarro.,Friedrich Dürrenmatt,9788806118327,matched
+22/08/2025,Incognito,"molti spunti interessanti, ma niente di particolarmente nuovo.",David Eagleman,9781782112464,matched
+24/08/2025,Math without numbers,proprio carino.,Milo Beckman,9780141996325,matched
+25/08/2025,Cos'è la scienza,"molto bello, cattura in pieno la mia visione.",,,unmatched
+31/08/2025,Why we remember,"molto interessante, anche se siamo lontani anni luce dall'aver capito come funziona davvero.",Charan Ranganath,9780571374168,matched
+05/09/2025,"Eat, poop, die","interessante, non immaginavo proprio tutti questi studi.",,,unmatched
+06/09/2025,La tribu' degli alberi,"carino, peccato averlo letto dopo il secondo.",Stefano Mancuso,9788806262723,matched
+08/09/2025,Dimmi come ti chiami e ti diro' chi sei,un sacco di aneddoti interessanti.,,,unmatched
+12/09/2025,Immune,"molto interessante, un po' di risposte.",,,unmatched
+14/09/2025,May Contain Lies,"molto interessante, come fare debunking di paper e articoli, e poi in generale come applicarlo in aziende e nella societa'.",,,unmatched
+27/09/2025,La nazione delle piante,un paio di spunti molto interessanti.,Stefano Mancuso,9788858135815,matched
+01/10/2025,Steve Jobs non abita piu' qui,"reportage colto sulla california del nord, interessante.",Michele Masneri,9788845934643,matched
+26/10/2025,The culture code,molto interessante.,,,unmatched
