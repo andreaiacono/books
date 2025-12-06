@@ -1,17 +1,26 @@
 date,title,comment,creators,isbn,marked
+05/08/2022,La canzone di Achille,bellissimo,Madeline Miller,9788831780988, true
+07/08/2022,Febbre da fieno,strano,Stanislaw Lem,9788862433778,false
+16/08/2022,La formula della bellezza,,Benoît B. Mandelbrot,9788817074841,false
+19/08/2022,The 6th extinction,,Elizabeth Kolbert,9781408851241,false
+22/08/2022,Decifrare la vita,,Walter Isaacson,978880473912,false
+27/08/2022,Il ritorno di un re,bello,William Dalrymple,9788845929977,false
+28/08/2022,Adelphiana #1,,AA.VV.,9788845916953,false
+01/09/2022,Gli impuniti,,Carla Del Ponte,9788820066383,false
+07/09/2022,Il meraviglioso mondo dei numeri,,Alex Bellos,9788806195892,false
 17/09/2022,Admissions,carino.,Henry Marsh,9781474603874,false
-19/09/2022,Caos,interessante.,"Marco Malvaldi, Stefano Marmi",9788815280084,false
-24/09/2022,La seconda fondazione,bello.,,,false
+19/09/2022,Caos,interessante.,Marco Malvaldi,9788815280084,false
+25/09/2022,Ciclo delle fondazioni,"bello, non me l'aspettavo cosi'",Isaac Asimov,9788804664994,false
 29/09/2022,Passoscuro,bof.,Massimo Ammaniti,9788830106956,false
 20/10/2022,"Sulle origini della vita, del significato e dell'universo",bof.,"Sean Carroll, A. Gewurz Daniele",9788806247768,false
 22/10/2022,Gli ultimi giorni dell'Europa,bello.,Antonio Scurati,9788830104969,false
-26/10/2022,UFO 78,carino.,"Wu Ming,",9788858440919,false
+26/10/2022,UFO 78,carino,"Wu Ming",9788858440919,false
 31/10/2022,confini invisibili,bof.,Barbara Gallavotti,9788804741176,false
 14/11/2022,Thinking Fast and Slow,fondamentale.,Daniel Kahneman,9780141033570,false
 15/11/2022,L'incarico,strano ma carino.,Friedrich Dürrenmatt,9788811671619,false
 18/11/2022,Il libro delle nuvole,,Vincenzo Levizzani,9788842826828,false
 19/11/2022,Cuore puro,carino.,Roberto Saviano,9788809977860,false
-23/11/2022,Senza Respiro,bello.,"David Quammen, Zemira Ciccimarra Milena",9788845937392,false
+23/11/2022,Senza Respiro,bello.,"David Quammen",9788845937392,false
 24/11/2022,"Notti in bianco, baci a colazione",carino.,Matteo Bussola,9788806230517,false
 25/11/2022,Grand River,bof.,Wu Ming,9788817020435,false
 27/11/2022,"Houston, abbiamo un problema",bello.,"Filippo Bonaventura, Lorenzo Colombo, Matteo Miluzio",9788817162388,false
@@ -24,105 +33,105 @@ date,title,comment,creators,isbn,marked
 15/12/2022,Storie dal mondo nuovo,molto interessante.,Daniele Rielli,9788845931086,false
 23/12/2022,Per questo,interessante.,"Anna Politkovskaja, Claudia Zonghetti",9788845937101,false
 24/12/2022,Zeitoun,bello.,Eggers,9788807893636,false
-28/12/2022,L'uomo che credeva di essere morto,bello.,"Vilayanur S. Ramachandran, Laura Serra",9788804682714,false
-29/12/2022,Le gemelle che non parlavano,bello.,"Marjorie Wallace, Gabriella Luzzani",9788845937484,false
-30/12/2022,Perche' non eravamo pronti,,"David Quammen, Milena Zemira Ciccimarra",9788845935473,false
+28/12/2022,L'uomo che credeva di essere morto,bello.,"Vilayanur S. Ramachandran",9788804682714,false
+29/12/2022,Le gemelle che non parlavano,bello.,"Marjorie Wallace",9788845937484,false
+30/12/2022,Perche' non eravamo pronti,,"David Quammen",9788845935473,false
 01/01/2023,Tokyo tutto l'anno,carino.,"Laura Imai Messina, Igort",9788806252854,false
 02/01/2023,Nudge,e poi a nanna alla 1/2.,"Richard H. Thaler, Cass R. Sunstein",9788807884436,false
 06/01/2023,Voli di Fantasia,carino.,Richard Dawkins,9788804749028,false
-08/01/2023,Origini,molto bello.,"Sean Carroll, A. Gewurz Daniele",9788806247768,false
+08/01/2023,Origini,molto bello.,"Sean Carroll",9788806247768,false
 10/01/2023,La fine del mondo e il paese delle meraviglie,bello.,Haruki Murakami,9788806216979,false
 15/01/2023,Biscotti e radici quadrate,carino.,Eugenia Cheng,9788868332501,false
-22/01/2023,Cotto,,"Michael Pollan, Isabella C. Blum",9788845935510,false
+22/01/2023,Cotto,,"Michael Pollan",9788845935510,false
 23/01/2023,Codice 612,bof.,"Michel Bussi, Alberto Bracci Testasecca",9788833575605,false
 24/01/2023,Solaris,bello.,Stanislaw Lem,9788838929106,false
 28/01/2023,De l'infinito universo e mondi,strano.,Sebastiano Vassalli,9788898983353,false
 30/01/2023,Viva l'Italia!,,Roberta Cairoli,9788899270049,false
-01/02/2023,La brigata dei bastardi,proprio bello.,"Sam Kean, Luigi Civalleri",9788845936753,false
+01/02/2023,La brigata dei bastardi,proprio bello.,"Sam Kean",9788845936753,false
 02/02/2023,Dialoghi sul male,bello.,Luigi Zoja,9788833937847,false
-08/02/2023,Lo sappiamo quando lo vediamo,molto interessante.,"Richard Masland, Silvio Ferraresi",9788806247195,false
-09/02/2023,I miei giorni alla libreria Morisaki,molto leggero.,"Satoshi Yagisawa, Gala Maria Follaco",9788807034947,false
+08/02/2023,Lo sappiamo quando lo vediamo,molto interessante.,"Richard Masland",9788806247195,false
+09/02/2023,I miei giorni alla libreria Morisaki,molto leggero.,"Satoshi Yagisawa",9788807034947,false
 11/02/2023,La Panne,,Friedrich Dürrenmatt,9788845928703,false
 16/02/2023,I demoni di Salvini,interessante.,Claudio Gatti,9788832961973,false
 20/02/2023,La vedova,carino.,"José Saramago, Rita Desti",9788807035166,false
 21/02/2023,Noise,"di kahneman, bof.","Daniel Kahneman, Olivier Sibony, Cass R. Sunstein",9780008534448,false
 24/02/2023,Imparare,interessante.,Raffaele Bella,9788872260302,false
-28/02/2023,Metazoa,interessante.,"Peter Godfrey-Smith, Isabella C. Blum",9788845936210,false
+28/02/2023,Metazoa,interessante.,"Peter Godfrey-Smith",9788845936210,false
 01/03/2023,The Uninhabitable Earth,molto interessante e desolante.,David Wallace-Wells,9780141988870,false
-05/03/2023,Le regole del contagio,interessante anche se un po' di palo in frasca.,"Adam Kucharski, Francesco Peri",9788829706976,false
-06/03/2023,Mare della Tranquillita',carino.,"Emily St. John Mandel, Elena Malanga",9788834612477,false
-09/03/2023,Pendulum,interessante.,"Amir D. Aczel, G. Rigamonti",9788856502442,false
+05/03/2023,Le regole del contagio,interessante anche se un po' di palo in frasca.,"Adam Kucharski",9788829706976,false
+06/03/2023,Mare della Tranquillita',carino.,"Emily St. John Mandel",9788834612477,false
+09/03/2023,Pendulum,interessante.,"Amir D. Aczel",9788856502442,false
 12/03/2023,La vita segreta,molto interessante.,Andrew O'Hagan,9788845932151,false
 13/03/2023,L'anomalia,carino.,Hervé Le Tellier,9788834605301,false
-16/03/2023,La prigione della fede,molto bello.,"Lawrence Wright, M. Z. Ciccimarra",9788845930270,false
+16/03/2023,La prigione della fede,molto bello.,"Lawrence Wright",9788845930270,false
 22/03/2023,Cantonate,bof.,"Mario Livio, S. Galli",9788817075947,false
-24/03/2023,Il dono oscuro,molto bello e interessante.,"John M. Hull, F. Pacifico",9788845934094,false
+24/03/2023,Il dono oscuro,molto bello e interessante.,"John M. Hull",9788845934094,false
 27/03/2023,Buchi Bianchi,interessante.,Carlo Rovelli,9788845937538,false
 02/04/2023,Autostop con Buddha,carino.,Will Ferguson,9788807881060,false
 04/04/2023,Il calamaro gigante,carino.,Fabio Genovesi,9788858847725,false
-07/04/2023,Zorba il greco,bello.,"Nikos Kazantzakis, N. Crocetti",9788883063299,false
-11/04/2023,I have landed,bello ma prolisso.,"Stephen Jay Gould, T. Pievani, I. C. Blum",9788875781217,false
+07/04/2023,Zorba il greco,bello.,"Nikos Kazantzakis",9788883063299,false
+11/04/2023,I have landed,bello ma prolisso.,"Stephen Jay Gould, T. Pievani",9788875781217,false
 14/04/2023,Dune,molto bello.,Frank Herbert,9788834741948,false
 17/04/2023,La terra che sussurra,bof.,Gerald Durrell,9788845902871,false
 22/04/2023,Filosofia del futuro,,"Samuele Iaquinto, Giuliano Torrengo",9788832850147,false
-01/05/2023,Il mondo senza di noi,interessante.,"Alan Weisman, N. Gobetti",9788806236113,false
+01/05/2023,Il mondo senza di noi,interessante.,"Alan Weisman",9788806236113,false
 02/05/2023,La sola colpa di essere nati,,"Gherardo Colombo, Liliana Segre",9788811003496,false
 04/05/2023,Il professore e il pazzo,bello.,Simon Winchester,9788845932601,false
-09/05/2023,L'ultima tentazione,bello!,"Nikos Kazantzakis, Gilda Tentorio",9788883063411,false
+09/05/2023,L'ultima tentazione,bello!,"Nikos Kazantzakis",9788883063411,false
 14/05/2023,Chi e' dunque l'altro,bof.,Marc Augé,9788832850796,false
-21/05/2023,Perche' il vetro e' trasparente,complesso ma molto interessante.,"Bellur S. Chandrasekhar, G. Rigamonti",9788842807414,false
+21/05/2023,Perche' il vetro e' trasparente,complesso ma molto interessante.,"Bellur S. Chandrasekhar",9788842807414,false
 26/05/2023,Shape,"carino, ma poco di nuovo.",Jordan Ellenberg,9780141991511,false
-27/05/2023,Se i gatti scomparissero dal mondo,bof.,"Genki Kawamura, A. Specchio",9788806245702,false
-03/06/2023,Perche' oggi non e' possibile una rivoluzione,"spunti interessanti, ma bof.","Byung-Chul Han, Simone Aglan-Buttazzi",9788874529834,false
+27/05/2023,Se i gatti scomparissero dal mondo,bof.,"Genki Kawamura",9788806245702,false
+03/06/2023,Perche' oggi non e' possibile una rivoluzione,"spunti interessanti, ma bof.","Byung-Chul Han",9788874529834,false
 07/06/2023,Operatori e cose,interessante.,"Barbara O'Brien, Michael Maccoby, Maria Baiocchi, Anna Tagliavini",9788845936173,false
-12/06/2023,Perche' l'intelligenza umana batte ancora gli algoritmi,interessante.,"Gerd Gigerenzer, Riccardo Mazzeo",9788832855029,false
-16/06/2023,I numeri non mentono,carino.,"Vaclav Smil, Giacomo Manconi",9788806258146,false
+12/06/2023,Perche' l'intelligenza umana batte ancora gli algoritmi,interessante.,"Gerd Gigerenzer",9788832855029,false
+16/06/2023,I numeri non mentono,carino.,"Vaclav Smil",9788806258146,false
 22/06/2023,Range,molto interessante.,Malcolm Gladwell,9780241351581,false
 26/06/2023,Le sfide di Marte,molto interessante.,Paolo Ferri,9788832855289,false
-28/06/2023,Eleanor oliphant sta benissimo,molto bello e commovente.,"Gail Honeyman, Stefano Beretta",9788811007715,false
+28/06/2023,Eleanor oliphant sta benissimo,molto bello e commovente.,"Gail Honeyman",9788811007715,false
 03/07/2023,La tirannia del merito,molto interessante.,Sandel,9788807897719,false
 05/07/2023,Il fiume della vita,bello.,Farmer Philip Jose',,false
 07/07/2023,Alle sorgenti del fiume,bello.,Farmer Philip Jose',,false
 12/07/2023,Il grande disegno,comincia a diventare un po' prolisso.,Farmer Philip Jose',,false
-15/07/2023,Il labirinito magico,,,,false
+15/07/2023,Il labirinito magico,,Farmer Philip Jose',,false
 16/07/2023,Gli dei del fiume,carino.,Farmer Philip Jose',,false
 17/07/2023,Solo bagaglio a mano,carino.,Gabriele Romagnoli,9788858822456,false
-19/07/2023,Storia del tempo,interessante ma me lo immaginavo diverso.,"Joseph Mazur, G. Malafarina",9788842827269,false
+19/07/2023,Storia del tempo,interessante ma me lo immaginavo diverso.,"Joseph Mazur",9788842827269,false
 22/07/2023,Storia di Tonl,bello.,Mario Rigoni Stern,9788806222567,false
-24/07/2023,Nel paese degli algoritmi,a tratti interessante.,"Aurelie Jean, Elena Dal Pra",9788854521391,false
-27/07/2023,Oltre il tempo,carino.,"Heinlein Robert, Bufryd Algis, Aldani Lino",,false
-29/07/2023,Noi rifugiati,me lo immaginavo diverso.,"Hannah Arendt, Donatella Di Cesare",9788806257286,false
+24/07/2023,Nel paese degli algoritmi,a tratti interessante.,"Aurelie Jean",9788854521391,false
+27/07/2023,Oltre il tempo,carino.,"Heinlein Robert, Bufryd Algis",,false
+29/07/2023,Noi rifugiati,me lo immaginavo diverso.,"Hannah Arendt",9788806257286,false
 01/08/2023,Ci sono luoghi al mondo dove piu' che le regole e' importante la gentilezza,interessante.,Carlo Rovelli,9788828203865,false
 03/08/2023,Il bambino che sognava la fine del mondo,bello.,Antonio Scurati,9788845265976,false
 04/08/2023,ragazzi di zinco,bello e agghiacciante.,Svetlana Aleksievic,9788866327158,false
 05/08/2023,Brutti incontri al chiaro di luna,proprio carino.,William Stanley Moss,9788845932472,false
 07/08/2023,Non e' un paese per vecchi,bello.,Cormac McCarthy,9788806233983,false
 09/08/2023,In un volo di storni,,Giorgio Parisi,9788817179348,false
-10/08/2023,La fabbrica delle scelte,interessante ma bof.,"Richard Shotton, Roberto Merlini",9788836200405,false
+10/08/2023,La fabbrica delle scelte,interessante ma bof.,"Richard Shotton",9788836200405,false
 12/08/2023,gli ultimi testimoni,bello e toccante.,Svetlana Aleksievic,9788845281242,false
 14/08/2023,"L'eta', se esiste",spunti interessanti.,Isabella Saggio,9788815295637,false
-15/08/2023,Cose che succedono la notte,bof.,"Peter Cameron, G. Oneto",9788845935077,false
+15/08/2023,Cose che succedono la notte,bof.,"Peter Cameron",9788845935077,false
 16/08/2023,Cosa faresti se,molto carino.,Gabriele Romagnoli,9788807034411,false
 19/08/2023,Cervelli in guerra,molto interessante.,Mari Fitzduff,9791254500156,false
-20/08/2023,Neanche gli dei,bello.,,,false
+20/08/2023,Neanche gli dei,bello.,Isaac Asimov,9788804406839,false
 21/08/2023,Dei delitti e delle pene,molto interessante.,Cesare Beccaria,9788807901577,false
 23/08/2023,Your inner fish,molto interessante.,Neil Shubin,9780307277459,false
 24/08/2023,piattaforma,bello.,Michel Houellebecq,9788845254079,false
-27/08/2023,Skeleton Keys,interessante.,Riley Black (Brian Switek),9780525539124,false
+27/08/2023,Skeleton Keys,interessante.,Riley Black,9780525539124,false
 29/08/2023,La simmetria dei desideri,"mmhh, carino ma bof.",Eshkol Nevo,9788865590980,false
 02/09/2023,Dopamine nation,interessante.,Anna Lembke,9781472294128,false
 04/09/2023,Le particelle elementari,bello.,Michel Houellebecq,9788845244575,false
 09/09/2023,The devil you know,molto interessante.,"Gwen Adshead, Eileen Horne",9780571357628,false
-11/09/2023,Flood,,,,false
-17/09/2023,Suoni fragili e selvaggi,prolisso ma spunti interessanti.,"David George Haskell, Antonio Casto",9788806253028,false
-19/09/2023,Racconti brevi e straordinari,,"Jorge Luis Borges, Adolfo Bioy Casares, T. Scarano",9788845934773,false
+11/09/2023,Flood,suggestivo,Simon Stålenhag,9788804741251,false
+17/09/2023,Suoni fragili e selvaggi,prolisso ma spunti interessanti.,"David George Haskell",9788806253028,false
+19/09/2023,Racconti brevi e straordinari,,"Jorge Luis Borges, Adolfo Bioy Casares",9788845934773,false
 21/09/2023,Preghiera per Cernobyl,molto bello.,Svetlana Aleksievic,9788866327141,false
 28/09/2023,Superbatteri,interessante ma un po' superficiale.,"Fabrizio Pregliasco, Paola Arosio",9788832855357,false
 01/10/2023,California,interessante.,Francesco Costa,9788804755210,false
 03/10/2023,I miei stupidi intenti,molto carino.,Bernardo Zannoni,9788838942303,false
 12/10/2023,Probable Impossibilities,bof.,Alan Lightman,9781524749019,false
 15/10/2023,Sbagliando non si impara,molto carino.,Sara Garofalo,9788842826910,false
-20/10/2023,Sentire e conoscere,bof.,"Antonio Damasio, Isabella C. Blum",9788845936555,false
+20/10/2023,Sentire e conoscere,bof.,"Antonio Damasio",9788845936555,false
 29/10/2023,Imparare a rischiare,interessante.,Gerd Gigerenzer,9788860307309,false
 30/10/2023,isola del dottor Moreau,carino.,H.G. Wells,9788807903274,false
 31/10/2023,La macchina del tempo,"carino, neanche troppo datato.",Herbert George Wells,9788807903748,false
@@ -131,20 +140,20 @@ date,title,comment,creators,isbn,marked
 09/11/2023,Tempo di seconda mano,molto bello e duro.,Svetlana Aleksievic,9788845277078,false
 11/11/2023,Electric State,molto carino.,Simon Stålenhag,9788804714965,false
 12/11/2023,Storia sentimentale del telefono,,Bruno Mastroianni,9788842830801,false
-25/11/2023,Come il cervello crea la coscienza,molto interessante.,"Anil Seth, Sara Parmigiani",9788832854954,false
+25/11/2023,Come il cervello crea la coscienza,molto interessante.,"Anil Seth",9788832854954,false
 26/11/2023,Istruzioni per diventare fascisti,"bello, grande perdita la Murgia.",Michela Murgia,9788806240608,false
-27/11/2023,Il capitano e la gloria,carino.,"Dave Eggers, N. Russell, V. Mantovani",9788807034183,false
+27/11/2023,Il capitano e la gloria,carino.,"Dave Eggers, N. Russell",9788807034183,false
 28/11/2023,Scolpitelo nel vostro cuore,bello.,Liliana Segre,9788856667547,false
 29/11/2023,La russia in quattro criminali,,Federico Varese,9788806257903,false
 01/12/2023,Il grifone,bello.,"Nicola Gratteri, Antonio Nicaso",9788804782360,false
-07/12/2023,Prospettive cosmiche,interessante.,"Neil deGrasse Tyson, Tullio Cannillo",9788804769170,false
-09/12/2023,"Oggi, per sempre","filtrata un bel po' di fuffa, ma interessante.","Deborah Wearing, T. Franzosi",9788820039837,false
+07/12/2023,Prospettive cosmiche,interessante.,"Neil deGrasse Tyson",9788804769170,false
+09/12/2023,"Oggi, per sempre","filtrata un bel po' di fuffa, ma interessante.","Deborah Wearing",9788820039837,false
 13/12/2023,La fame che abbiamo,,Dave Eggers,9788804544111,false
 22/12/2023,Storie straordinarie delle materie prime,interessante.,"Alessandro Giraudo, S. Prencipe",9788867832361,false
 26/12/2023,La carta e il territorio,"carino, non il migliore di Houellebecq.",Houellebecq Michel,9788845268366,false
 28/12/2023,Fantasmagonia,"bello, ultimi due racconti un po' cosi', molto belli gli altri.",Michele Mari,9788806253073,false
 29/12/2023,"Lo sapevo, qui, sopra il fiume Hao",bello.,Carlo Rovelli,9788828213314,false
-04/01/2024,Ignoranza,bof.,,9788806216276,false
+04/01/2024,Ignoranza,bof.,Peter Burke,9788806216276,false
 13/01/2024,How civil wars start,molto interessante.,Barbara F. Walter,9780593443378,false
 14/01/2024,L'altra figlia,"mmh, giudizio sospeso.",Annie Ernaux,9788898038978,false
 15/01/2024,Il posto,bof.,Annie Ernaux,9788898038152,false
@@ -153,31 +162,31 @@ date,title,comment,creators,isbn,marked
 29/01/2024,La scomparsa di Josef Mengele,bello.,Olivier Guez,9788865596883,false
 30/01/2024,What If 2,sempre interessante.,Randall Munroe,9780525537113,false
 31/01/2024,La fuga di Enea,spunti interessanti.,Antonio Scurati,9788828207665,false
-02/02/2024,La tirannia della scelta,"bof, piuttosto deluso.","Renata Salecl, F. Orsi",9788842095002,false
+02/02/2024,La tirannia della scelta,"bof, piuttosto deluso.","Renata Salecl",9788842095002,false
 03/02/2024,La vasca di Archimede,bof.,"Sven Ortoli, Nicolas Witkowski, M. Gregorio",9788870785005,false
 04/02/2024,Adelphiana. Pubblicazione permanente (Vol. 3),interessante.,aa.vv.,9788845918698,false
 08/02/2024,La terra e' rotonda,molto interessante.,"Nicola Sofri, Jacopo Rosati",9788870919233,false
-11/02/2024,Viaggiare nello spaziotempo: la scienza di interstellar,molto molto interessante.,"Kip Thorne, Christopher Nolan, Daniele Didero",9788830120068,false
+11/02/2024,Viaggiare nello spaziotempo: la scienza di interstellar,molto molto interessante.,"Kip Thorne, Christopher Nolan",9788830120068,false
 12/02/2024,Man's Search For Meaning,interessante.,Viktor E Frankl,9781846041242,false
-14/02/2024,Adelphiana. Pubblicazione permanente (Vol. 4),come gli altri interessante.,Anonimo,9788845919831,false
+14/02/2024,Adelphiana. Pubblicazione permanente (Vol. 4),come gli altri interessante.,AA.VV.,9788845919831,false
 19/02/2024,Il secolo mobile,molto molto bello e interessante.,Gabriele Del Grande,9788804718420,false
 24/02/2024,Dio e' un matematico,interessante ma non il migliore di Livio.,Mario Livio,9788817039017,false
 26/02/2024,Semplicita' insormontabili,,"Roberto Casati, Achille C. Varzi",9788842073048,false
-05/03/2024,Poteri illegittimi,il solito buon vecchio Chomsky.,"Noam Chomsky, C. J. Polychroniou, Valentina Nicolì",9788833319605,false
+05/03/2024,Poteri illegittimi,il solito buon vecchio Chomsky.,"Noam Chomsky, C. J. Polychroniou",9788833319605,false
 10/03/2024,Flatterland,"carino ma me lo immaginavo diverso, piu' legato alle dimensioni che alla fisica.",Ian Stewart,9780738204420,false
-14/03/2024,Lo strano caso del lago Vittoria,carino!,"Tijs Goldschmidt, L. Pignatti",9788806149833,false
-15/03/2024,"Scorrete lacrime, disse il poliziotto",bello.,,,false
-17/03/2024,Il popolo dell'autunno,"non proprio il mio genere, cmq carino.",,,false
-18/03/2024,La sentinella,molto carino.,,,false
-19/03/2024,Il fabbricante di universi,bof.,,,false
+14/03/2024,Lo strano caso del lago Vittoria,carino!,"Tijs Goldschmidt",9788806149833,false
+15/03/2024,"Scorrete lacrime, disse il poliziotto",bello.,Philick Dick,9788834740262,false
+17/03/2024,Il popolo dell'autunno,"non proprio il mio genere, cmq carino.",Ray Bradbury,9788852040078,false
+18/03/2024,La sentinella,molto carino.,Arthur Clarke,9788851521547,false
+19/03/2024,Il fabbricante di universi,bof.,Jose Farmer,9788842903123,false
 21/03/2024,City,carino.,Charlie English,9780008184902,false
-23/03/2024,L'amnistia Togliatti,molto interessante.,,,false
-26/03/2024,L'eta' dello tsunami,molto interessante.,,,false
+23/03/2024,L'amnistia Togliatti,molto interessante.,Mimmo Franzinelli,9788804553342,false
+26/03/2024,L'eta' dello tsunami,molto interessante.,Alberto Pellai,9788851141127,false
 30/03/2024,PFAS,"molto inquietante, molto molto.",Giuseppe Ungherese,9788865165126,false
 01/04/2024,"Eroica, folle e visionaria",molto bello.,Silvia Bencivelli,9788833941745,false
 03/04/2024,8 secondi,"bof, lo stile mi ha profondamente irritato.",Lisa Iotti,9788842826316,false
-06/04/2024,Frontiera,interessante.,,9788854016934,false
-09/04/2024,Il costo della spedizione gratuita,interessante ma ripetitivo.,"Jake Alimahomed-Wilson, Ellen Reese, Federico Biolchi, Nicholas Foletti, Elisa Pantaleo",9788865165089,false
+06/04/2024,Frontiera,interessante.,Francesco Costa,9788854016934,false
+09/04/2024,Il costo della spedizione gratuita,interessante ma ripetitivo.,AA.VV.,9788865165089,false
 14/04/2024,Guerra,interessante ma prolisso.,Gore Vidal,9788881123773,false
 21/04/2024,Prima del big bang,bello.,Gian Francesco Giudice,9788817182133,false
 24/04/2024,La misura del mondo,carino.,Daniel Kehlmann,9788807017025,false
@@ -199,76 +208,76 @@ date,title,comment,creators,isbn,marked
 14/06/2024,Aggiustare il mondo,molto molto interessante e di ispirazione.,Giovanni Ziccardi,9791255100065,false
 17/06/2024,Una lanterna nel buio,interessante.,Bruno Cianci,9788858150290,false
 20/06/2024,Il bazar atomico,"molto interessante, un'introduzione a come costruirsi una bomba atomica.","William Langewiesche, M. Codignola",9788845921650,false
-24/06/2024,Il passeggero,proprio bello.,"Cormac McCarthy, Maurizia Balmelli",9788806259570,false
-26/06/2024,Stella Maris,"strepitoso, uno dei piu' bei romanzi letti negli ultimi anni.","Cormac McCarthy, Maurizia Balmelli",9788806259587,false
+24/06/2024,Il passeggero,proprio bello.,"Cormac McCarthy",9788806259570,false
+26/06/2024,Stella Maris,"strepitoso, uno dei piu' bei romanzi letti negli ultimi anni.","Cormac McCarthy",9788806259587,false
 03/07/2024,l'universo in una scatola,interessante.,Andrew Pontzen,9788845938610,false
-05/07/2024,"Pachinko, la moglie coreana",molto bello.,"Min Jin Lee, Federica Merani",9788855446877,false
+05/07/2024,"Pachinko, la moglie coreana",molto bello.,"Min Jin Lee",9788855446877,false
 08/07/2024,Notre-Dame de Paris,molto bello.,Victor Hugo,9788817016094,false
 09/07/2024,Hiroshima,"bello, forse un po' datato.",John Hersey,9780141982243,false
-12/07/2024,fisica della lavatrice,molto interessante.,"Chris Woodford, A. Panini",9788842825371,false
+12/07/2024,fisica della lavatrice,molto interessante.,"Chris Woodford",9788842825371,false
 17/07/2024,The other pandemic,molto interessante e inquietante.,James Ball,9781526671851,false
 18/07/2024,Longitudine,carino.,Dava Sobel,9788817092760,false
 19/07/2024,Maniac,bello.,Benjamín Labatut,9788845938320,false
 21/07/2024,Locus desperatus,Mari non si smentisce mai.,Michele Mari,9788806264512,false
 22/07/2024,Brief Answers to the big questions,interessante.,Stephen Hawking,9781529345421,false
-27/07/2024,E la quarta volta siamo annegati,bello e straziante.,"Sally Hayden, Bianca Bertola",9788833941363,false
+27/07/2024,E la quarta volta siamo annegati,bello e straziante.,"Sally Hayden",9788833941363,false
 28/07/2024,Storie proprio cosi',molto carino.,Kipling Rudyard,9788845926310,false
 30/07/2024,La stanza dell'imperatore,molto bello.,Sonia Aggio,9791259675125,false
-03/08/2024,"Piu' ci rinchiudono, piu' diventiamo forti",bof.,"Narges Mohammadi, Manuela Faimali",9788804786849,false
-07/08/2024,Le meraviglie del possibile,molto bello.,,9788806222635,false
+03/08/2024,"Piu' ci rinchiudono, piu' diventiamo forti",bof.,"Narges Mohammadis",9788804786849,false
+07/08/2024,Le meraviglie del possibile,molto bello.,AA.VV.,9788806222635,false
 09/08/2024,Atlas Obscura,pazzesco.,"Joshua Foer, Dylan Thuras, Ella Morton",9788804731894,false
-11/08/2024,The Labyrinth,molto carino.,"Simon Stålenhag, Francesco Matteuzzi",9788804758501,false
-12/08/2024,Gli anelli della vita,interessante.,"Valerie Trouet, Bianca Bertola",9788833937878,false
+11/08/2024,The Labyrinth,molto carino.,"Simon Stålenhag",9788804758501,false
+12/08/2024,Gli anelli della vita,interessante.,"Valerie Trouet",9788833937878,false
 15/08/2024,Le impronte del signor Neanderthal,una cagata.,Giuseppe Remuzzi,9788828207368,false
 16/08/2024,Filosofia e storia,molto interessnte.,Marco Santambrogio,9788834617359,false
 17/08/2024,Blink,molto molto interessante.,Malcolm Gladwell,9780141022048,false
-18/08/2024,Lo sguardo di Medusa,bello.,"Natalie Haynes, Ginevra Lamberti",9788845414138,false
-24/08/2024,I reietti dell'altro pianeta,interessante: piu' sociologico che fantascientifico.,"Ursula K. Le Guin, R. Valla",9788804689973,false
+18/08/2024,Lo sguardo di Medusa,bello.,"Natalie Haynes",9788845414138,false
+24/08/2024,I reietti dell'altro pianeta,interessante: piu' sociologico che fantascientifico.,"Ursula K. Le Guin",9788804689973,false
 25/08/2024,I duellanti,bello.,Joseph Conrad,9788876411953,false
-26/08/2024,Lord Jim,in realta  abbandonato.,"Joseph Conrad, A. Ceni",9788807821608,false
+26/08/2024,Lord Jim,in realta  abbandonato.,"Joseph Conrad",9788807821608,false
 29/08/2024,Meridiano di sangue,"bof, carino a tratti.",Cormac McCarthy,9788806223229,false
 31/08/2024,Discorso della servitu' volontaria,bof: molto datato e superficiale.,Étienne de la Boétie,9788858861196,false
 02/09/2024,Le civette impossibili,carino.,Brian Phillips,9788845935091,false
-04/09/2024,La guerra dei mondi,"cariino, fa specie pensare a una guerra senza aviazione.","Herbert George Wells, Mirko Esposito",9788807904301,false
+04/09/2024,La guerra dei mondi,"cariino, fa specie pensare a una guerra senza aviazione.","Herbert George Wells",9788807904301,false
 06/09/2024,Magnificat,bello.,Sonia Aggio,9791259671424,false
 08/09/2024,Think Again,"molto molto interessante, al pari degli altri suoi simili.",Adam Grant,9780753553916,false
 12/09/2024,Salute!,"bof, proprio deludente.","Richard H. Thaler, Cass R. Sunstein",9788807884436,false
-17/09/2024,Il punto di Giano,"bof, molto complesso e la seconda meta' l'ho letta molto velocemente.","Julian Barbour, Simonetta Frediani",9788806237486,false
-18/09/2024,Il mare,carino ma bof.,"John Banville, Eva Kampmann",9788823522077,false
-19/09/2024,Vita in pugno,carino.,"Rita Bullwinkel, Sara Reggiani",9788833942681,false
-21/09/2024,Regole di ingaggio,"interessante, meritava un approfondimento.","William Langewiesche, M. Codignola",9788845922190,false
+17/09/2024,Il punto di Giano,"bof, molto complesso e la seconda meta' l'ho letta molto velocemente.","Julian Barbour",9788806237486,false
+18/09/2024,Il mare,carino ma bof.,"John Banville",9788823522077,false
+19/09/2024,Vita in pugno,carino.,"Rita Bullwinkel",9788833942681,false
+21/09/2024,Regole di ingaggio,"interessante, meritava un approfondimento.","William Langewiesche",9788845922190,false
 24/09/2024,Una brevissima introduzione alla filosofia,super interessante.,Thomas Nagel,9788842820246,false
-25/09/2024,Zero Kill,divertente e irriverente.,"Yassir Benmiloud, J. De Michelis",9788804536550,false
+25/09/2024,Zero Kill,divertente e irriverente.,"Yassir Benmiloud",9788804536550,false
 28/09/2024,Il volto del male,interessante.,Stefano Nazzi,9788804789086,false
-05/10/2024,La conoscenza necessaria,molto molto interessante.,"Lewis Dartnell, Doriana Comerlati",9788804661375,false
-12/10/2024,L'ordine nascosto,"molto interessante, un mondo completamente sconosciuto.","Merlin Sheldrake, Anita Taroni, Stefano Travagli",9788829712960,false
+05/10/2024,La conoscenza necessaria,molto molto interessante.,"Lewis Dartnell",9788804661375,false
+12/10/2024,L'ordine nascosto,"molto interessante, un mondo completamente sconosciuto.","Merlin Sheldrake",9788829712960,false
 14/10/2024,L'oro e la patria,"molto interessante, una storia sconosciuta e triste.",Federico Fubini,9788804769194,false
-19/10/2024,Guardate meglio,molto interessante e difficile da mettere in pratica.,"Tali Sharot, Cass R. Sunstein, Virginio B. Sala",9788832856552,false
-22/10/2024,"Kim-Ji Young, nata nel 1982",agghiacciante.,"Nam-Joo Cho, Filippo Bernardini",9788894814347,false
+19/10/2024,Guardate meglio,molto interessante e difficile da mettere in pratica.,"Tali Sharot, Cass R. Sunstein",9788832856552,false
+22/10/2024,"Kim-Ji Young, nata nel 1982",agghiacciante.,"Nam-Joo Cho",9788894814347,false
 24/10/2024,L'avversario,disturbante.,Emmanuel Carrère,9788845927867,false
 27/10/2024,Misurare la storia,"interessante, fa il paio con quello sulla dendrocronologia.",Sahra Talamo,9788832856347,false
-08/11/2024,Storia universale delle lingue,"interessante, anche se molte parti fin troppo dettagliate!","Harald Haarmann, Claudia Acher Marinelli",9788833937663,false
-09/11/2024,Il paese di sogno,"bof, proprio niente di che.","David Diop, Giovanni Zucca",9788854530713,false
-10/11/2024,Di turno la notte di natale,leggero e carino.,"Adam Kay, Gioia Sartori",9788804731559,false
+08/11/2024,Storia universale delle lingue,"interessante, anche se molte parti fin troppo dettagliate!","Harald Haarmann",9788833937663,false
+09/11/2024,Il paese di sogno,"bof, proprio niente di che.","David Diop",9788854530713,false
+10/11/2024,Di turno la notte di natale,leggero e carino.,"Adam Kay",9788804731559,false
 12/11/2024,L'uomo invisibile,"carino, per nulla datato.",Wells,9788807904592,false
 16/11/2024,Tutti i mondi possibili,molto interessante.,Telmo Pievani,9788832856873,false
-18/11/2024,"Non e' vero, ma ci credo",qualche intervento interessante.,"J. Brockman, A. Arduini",9788856502435,false
+18/11/2024,"Non e' vero, ma ci credo",qualche intervento interessante.,"J. Brockman",9788856502435,false
 20/11/2024,Quattro ipotesi sull'origine del linguaggio,molto interessante.,Lorenzo Pinna,9791254501153,false
-27/11/2024,Il cuore selvaggio della natura,molto bello.,"David Quammen, Milena Zemira Ciccimarra",9788845939228,false
+27/11/2024,Il cuore selvaggio della natura,molto bello.,"David Quammen",9788845939228,false
 01/12/2024,This is going to hurt,"carino, e fa pensare.",Adam Kay,9781529062335,false
-07/12/2024,Santi e bevitori,"bof, un'agiografia dell'alcol che mi vede anni luce distante.","Lawrence Osborne, Mariagrazia Gini",9788845939020,false
+07/12/2024,Santi e bevitori,"bof, un'agiografia dell'alcol che mi vede anni luce distante.","Lawrence Osborne",9788845939020,false
 10/12/2024,Donnie Brasco,"interessante, anche se Pistone soffre un po' del mito del mondo di strada.",Joseph Pistone,9788804593720,false
 12/12/2024,In volo dal silenzio - la storia di Genie,molto drammatico ed esplicativo della natura umana.,Rymer Russ,9788885987357,false
 14/12/2024,Ti con zero,"interessante, ma non tutti i racconti ben riusciti.",Italo Calvino,9788804772781,false
-18/12/2024,La notte non fa paura,"molto bello e delicato, una lettura importante.","Kathryn Mannix, E. Craveri, M. O. Crosio",9788867003259,false
+18/12/2024,La notte non fa paura,"molto bello e delicato, una lettura importante.","Kathryn Mannix",9788867003259,false
 20/12/2024,Atlante delle bugie,"interessante, anche se ha perso la traccia iniziale.",Francesco Petronella,9791255410003,false
 25/12/2024,La stiva e l'abisso,"Mari non si smentisce, anche se a tratti e fin troppo aulico.",Michele Mari,9788806237950,false
 28/12/2024,Why we read,"interessanti alcuni spunti, meno interessanti altri.",AA.VV.,9781802060959,false
-01/01/2025,Breve storia del sangue,"molto interessante, un taglio molto femminista.","Rose George, Fabrizio Coppola",9788875788742,false
-02/01/2025,Greco cerca Greca,"molto carino, con due finali!","Friedrich Dürrenmatt, Margherita Belardetti",9788845939334,false
+01/01/2025,Breve storia del sangue,"molto interessante, un taglio molto femminista.","Rose George",9788875788742,false
+02/01/2025,Greco cerca Greca,"molto carino, con due finali!","Friedrich Dürrenmatt",9788845939334,false
 03/01/2025,"Cadere sette volte, rialzarsi otto",molto interessante.,Flavio Parisi,9791221215649,false
-09/01/2025,Scintille,"interessante, forse un filo troppo lungo.","Ian Johnson, Annalisa Di Liddo, Loredana Serratore",9788854530744,false
-11/01/2025,Il lato nobile,bof.,"Jean-Marie Gustave Le Clézio, Maurizia Balmelli",9788817184045,false
+09/01/2025,Scintille,"interessante, forse un filo troppo lungo.","Ian Johnson",9788854530744,false
+11/01/2025,Il lato nobile,bof.,"Jean-Marie Gustave Le Clézio",9788817184045,false
 13/01/2025,M. L'ora del destino,"molto bello, come gli altri.",Antonio Scurati,9788830104976,false
 17/01/2025,Irresistible,"interessante, anche se va un po' di palo in frasca.",Adam Alter,9780735222847,false
 24/01/2025,Opening Skinners Box,molto interessante.,Lauren Slater,9780393326550,false
@@ -277,7 +286,7 @@ date,title,comment,creators,isbn,marked
 04/02/2025,Il ladro di piume,bello!,Kirk Wallace Johnson,9791255480235,false
 09/02/2025,Contro la moda,molto bof.,Anouchka Grose,9791281858008,false
 10/02/2025,La leggendaria storia di Heisenberg,una cagata pazzesca.,Gabriella Greison,9788893816571,false
-23/02/2025,L'onda che verra',"interessante, apocalittico e un po' prolisso.","Mustafa Suleyman, Michael Bhaskar, Francesco Zago",9788811011897,false
+23/02/2025,L'onda che verra',"interessante, apocalittico e un po' prolisso.","Mustafa Suleyman",9788811011897,false
 01/03/2025,Mezzanotte in Messico,"interessante, ma tutta la parte biografica e' piuttosto irrilevante.",Alfredo Corchado,9788852066115,false
 12/03/2025,I confini di Babele,"molto interessante, devo trovare qualcos'altro su linguaggio e pensiero.",Andrea Moro,9788815279323,false
 15/03/2025,Tutti gli indirizzi perduti,molto poetico.,Laura Imai Messina,9788806255770,false
@@ -294,49 +303,49 @@ date,title,comment,creators,isbn,marked
 26/04/2025,La scienza della persuasione,"interessante, sulla stessa linea di Nudge.",Sharot,9788807892844,false
 29/04/2025,Educazione Siberiana,"bello, anche se in un mondo parallelo.",Nicolai Lilin,9788806202569,false
 30/04/2025,Caduta Libera,"bello anche questo, ma rovinato dal fatto che ho poi letto che sia fiction e non autobiografia come presentato.",Nicolai Lilin,9788806207885,false
-02/05/2025,Il libro degli esseri a malapena immaginabili,"carino, qualche passo notevole.","Caspar Henderson, R. Abbiati, M. Bocchiola",9788845933219,false
-06/05/2025,Avidita',"crudo, cinico e agghiacciante, pero' mi e' piaciuto nonostante la lettura faticosa.","Elfriede Jelinek, Barbara Agnese",9788834619230,false
+02/05/2025,Il libro degli esseri a malapena immaginabili,"carino, qualche passo notevole.","Caspar Henderson",9788845933219,false
+06/05/2025,Avidita',"crudo, cinico e agghiacciante, pero' mi e' piaciuto nonostante la lettura faticosa.","Elfriede Jelinek",9788834619230,false
 08/05/2025,Per la pace perpetua,"interessante, sono secoli che ci si pensa ma ancora siamo lontani.",Immanuel Kant,9788807900327,false
 20/05/2025,Work,super prolisso e per buona parte fuori tema.,Yanis Varoufakis,9781784705756,false
 22/05/2025,Sum,"racconti molto carini, raccolta notevole.",David Eagleman,9781847674272,false
-26/05/2025,Tempo,interessante anche se nulla di particolarmente nuovo.,"Jacques Derrida, Anne Dufourmantelle",9788884902825,false
+26/05/2025,Tempo,interessante anche se nulla di particolarmente nuovo.,"Jacques Derrida",9788884902825,false
 01/06/2025,Just Babies,"interessante, titolo un po' misleading ma comunque tante info interessanti.",Paul Bloom,9780307886859,false
 02/06/2025,Nelle strade di Teheran,"molto molto carino, mannaggia a quelle merde di mullah e tutti gli altri.",Nila,9791256240180,false
 06/06/2025,Joker scatenato,"interessante, ma solo a tratti.",Guido Vitiello,9791256240487,false
 10/06/2025,Breath,"molto molto interessante, provero' a metterle in pratica.",James Nestor,9780593420218,false
 13/06/2025,L'eleganza del vuoto,molto bello e interessante.,Guido Tonelli,9788807174865,false
 20/06/2025,La storia,bello e triste.,Elsa Morante,9788806219642,false
-25/06/2025,L'uomo venuto dal futuro,"molto interessante, un sacco di cose che non sapevo su Von Neumann.","Ananyo Bhattacharya, Luigi Civalleri",9788845938801,false
+25/06/2025,L'uomo venuto dal futuro,"molto interessante, un sacco di cose che non sapevo su Von Neumann.","Ananyo Bhattacharya",9788845938801,false
 30/06/2025,Fancy Bear Goes Phishing,molto interessante.,Scott Shapiro,9780141993843,false
-04/07/2025,Narcotopia,"super interessante, una storia di cui non sapevo nulla.","Patrick Winn, Roberto Saviano, Svevo D'Onofrio",9788845939235,false
+04/07/2025,Narcotopia,"super interessante, una storia di cui non sapevo nulla.","Patrick Winn",9788845939235,false
 07/07/2025,The remains of the Day,proprio bello.,Kazuo Ishiguro,9780571154913,false
 12/07/2025,optimism bias,"interessante, ma niente di veramente nuovo.",Tali Sharot,9781780332635,false
 17/07/2025,Nexus,"molto molto interessante, come sempre da Harari.",Mark Buchanan,9788804533337,false
 20/07/2025,Civilized to Death,"illuminante, forse uno dei migliori libri mai letti, tira le somme di un sacco di pensieri e riflessioni.",Christopher Ryan,9781451659115,false
 21/07/2025,Nutshell,bello.,Ian Mcewan,9781911214335,false
 28/07/2025,Beyond Measure,"prima metà un po' noiosa, poi recupera nel finale.",James Vincent,9780571354214,false
-01/08/2025,Il canto della cellula,"molto carino, non ne sapevo quasi nulla.","Siddhartha Mukherjee, Laura Serra",9788804800477,false
+01/08/2025,Il canto della cellula,"molto carino, non ne sapevo quasi nulla.","Siddhartha Mukherjee",9788804800477,false
 02/08/2025,Lettera al padre,sarebbe interessante sentire anche l'altra campana.,Franz Kafka,9788807900310,false
 04/08/2025,"Michelangelo, una vita inquieta",molto bello e interessante.,Antonio Forcellino,9788842084761,false
-05/08/2025,Uno studio in rosso,avvincente.,,,false
-06/08/2025,Il segno dei quattro,carino.,,,false
-07/08/2025,Le avventure di Sherlock Holmes,"carino, mi piace la logica deduttiva.",,,false
-08/08/2025,Le memorie di Sherlock Holmes,"carine, concluse con la morte di Sherlock.",,,false
-09/08/2025,Il mastino dei Baskerville,"devo dire che me l'aspettavo molto meglio, ho preferito tutti gli altri a questo.",,,false
+05/08/2025,Uno studio in rosso,avvincente.,Arthur Conan Doyle,9788807901652,false
+06/08/2025,Il segno dei quattro,carino.,Arthur Conan Doyle,9788807902567,false
+07/08/2025,Le avventure di Sherlock Holmes,"carino, mi piace la logica deduttiva.",Arthur Conan Doyle,9788807903809,false
+08/08/2025,Le memorie di Sherlock Holmes,"carine, concluse con la morte di Sherlock.",Arthur Conan Doyle,9788858848005,false
+09/08/2025,Il mastino dei Baskerville,"devo dire che me l'aspettavo molto meglio, ho preferito tutti gli altri a questo.",Arthur Conan Doyle,9788807901843,false
 10/08/2025,Il gioco degli dei,carino.,Paolo Maurensig,9788806240745,false
 11/08/2025,Come siamo diventati stupidi,provocatorio ma interessante.,Armando Massarenti,9788862509107,false
 12/08/2025,A spasso con il cane Luna,"carino, lui e' sempre tosto.",Giorgio Vallortigara,9788845939853,false
-15/08/2025,Il canto delle sirene,interessante lo spunto sull'attenzione come risorsa e a cascata i suoi effetti nella societa' capitalistica.,"Chris Hayes, Luca Bernardi",9788828217473,false
+15/08/2025,Il canto delle sirene,interessante lo spunto sull'attenzione come risorsa e a cascata i suoi effetti nella societa' capitalistica.,"Chris Hayes",9788828217473,false
 16/08/2025,I racconti,di Tomasi di Lampedusa: interessante la parte iniziale e negli gli altri racconti.,Italo Calvino,9788804376309,false
 17/08/2025,Genesi,"di Tonelli: molto bello, chiaro e completo, come gli altri.",Guido Tonelli,9788807492549,false
 18/08/2025,la valle del caos,veramente bizzarro.,Friedrich Dürrenmatt,9788806118327,false
 22/08/2025,Incognito,"molti spunti interessanti, ma niente di particolarmente nuovo.",David Eagleman,9781782112464,false
-23/08/2025,M. La fine e il principio,"bello, degna conclusione della pentalogia.",,,false
+23/08/2025,M. La fine e il principio,"bello, degna conclusione della pentalogia.",Antonio Scurati,9788830106987,false
 24/08/2025,Math without numbers,proprio carino.,Milo Beckman,9780141996325,false
 25/08/2025,Che cos'e' la scienza,"molto bello, cattura in pieno la mia visione.",Carlo Rovelli,9788804672098,false
 27/08/2025,fluke,"niente di nuovo direi, da con qualche spunto interessante.",Brian Klaas,9781399804530,false
 31/08/2025,Why we remember,"molto interessante, anche se siamo lontani anni luce dall'aver capito come funziona davvero.",Charan Ranganath,9780571374168,false
-02/09/2025,Fa' che non sia matto,"bof, che fosse strano lo si intuiva fin dall'inizio.","A. K. Benjamin, Carla Lazzari",9788804712213,false
+02/09/2025,Fa' che non sia matto,"bof, che fosse strano lo si intuiva fin dall'inizio.","A. K. Benjamin",9788804712213,false
 05/09/2025,"Eat, poop, die","interessante, non immaginavo proprio tutti questi studi.",Joe Roman,9781805221708,false
 06/09/2025,La tribu' degli alberi,"carino, peccato averlo letto dopo il secondo.",Stefano Mancuso,9788806262723,false
 08/09/2025,Dimmi come ti chiami e ti diro' perche',un sacco di aneddoti interessanti.,Enzo Caffarelli,9788858106488,false
@@ -347,8 +356,8 @@ date,title,comment,creators,isbn,marked
 26/09/2025,Incredible Journeys,"interessante, molti aneddoti, anche se poco scorrevole.",David Barrie,9781473656857,false
 27/09/2025,La nazione delle piante,un paio di spunti molto interessanti.,Stefano Mancuso,9788858135815,false
 01/10/2025,Steve Jobs non abita piu' qui,"reportage colto sulla california del nord, interessante.",Michele Masneri,9788845934643,false
-04/10/2025,Il canto del mare,"interrotta lettura a meta', una cacata pazzesca, ho proprio fatto un errore a comprarlo.","Doreen Cunningham, Duccio Sacchi",9788806255442,false
-07/10/2025,Storie della tua vita,"wow, una raccolta di racconti strepitosa, forse il punto piu' bello e' la battaglia mentale fra i due super geni.",,,false
+04/10/2025,Il canto del mare,"interrotta lettura a meta', una cacata pazzesca, ho proprio fatto un errore a comprarlo.","Doreen Cunningham",9788806255442,false
+07/10/2025,Storie della tua vita,"wow, una raccolta di racconti strepitosa, forse il punto piu' bello e' la battaglia mentale fra i due super geni.",Ted Chiang,9791281777576,false
 08/10/2025,Gli squali,carino.,Giacomo Mazzariol,9788806243432,false
 17/10/2025,Once upon a prime,inizio molto interessante e poi velocemente diventato noioso e senza spunti particolari.,Sarah Hart,9780008601119,false
 20/10/2025,Different Kinds of Minds,"interessante, pero' e' la versione per ragazzi e quindi sospendo il giudizio.","Temple Grandin PhD, Ann D. Koffsky",9780593352885,false
@@ -356,7 +365,7 @@ date,title,comment,creators,isbn,marked
 28/10/2025,L'amore mio non muore,"Saviano non si smentisce, bellissimo libro, una rabbia tremenda.",Roberto Saviano,9788806265175,false
 30/10/2025,The Medici Effect,prima parte interessante e poi una serie di ricette molto vaghe e di difficile applicazione.,Frans Johansson,9781422102824,false
 31/10/2025,Il giovane meraviglioso,un peccato che menti cosi' brillanti sprechino tutta la loro vita dietro alle minchiate della religione.,Raphael Ebgi,9788806254957,false
-03/11/2025,Istruzioni per un funerale,a parte un paio di racconti proprio bruttino.,"David Means, A. Martinese",9788833890418,false
+03/11/2025,Istruzioni per un funerale,a parte un paio di racconti proprio bruttino.,"David Means",9788833890418,false
 06/11/2025,Noi siamo tecnologia,tutto gia' letto a parte alcuni spunti interessanti.,Massimo Temporelli,9788804737940,false
 08/11/2025,Dall'alto i problemi sembrano piu' piccoli,"interessante, forse veramente la soluzione ai problemi del mondo sarebbe mandare tutti in orbita.",Paolo Nespoli,9788804763291,false
 09/11/2025,A little book of language,"interessante, alcuni spunti nuovi.",David Crystal,9780300283235,false
