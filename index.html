@@ -43,6 +43,9 @@
                 document.getElementById('booksList').innerHTML = '<p>Error loading books data.</p>';
             });
 
+        const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+                             'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+
         function displayBooks(books) {
 
             // Group books by year
@@ -72,7 +75,17 @@
                 // Sort books within year by date (most recent first)
                 booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
 
+                let currentMonth = null;
                 booksByYear[year].forEach(book => {
+                    const date = parseDate(book.date);
+                    const month = date.getMonth();
+
+                    // Add month header when month changes
+                    if (currentMonth !== null && month !== currentMonth) {
+                        html += `<div class="month-divider"><span class="month-name">${monthNames[month]}</span></div>`;
+                    }
+                    currentMonth = month;
+
                     const bookUrl = book.isbn ?
                         `https://books.google.it/books?vid=${book.isbn}` : '#';
 
