@@ -6,105 +6,156 @@
     <title>Reading List</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        .year-header {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .year-header:hover {
+            opacity: 0.7;
+        }
+
+        .toggle-icon {
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .year-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .year-content.collapsed {
+            max-height: 0 !important;
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Reading List</h1>
-        <p class="subtitle">Libri che ho letto negli ultimi anni. In verde i titoli che mi sono piaciuti molto.</p>
-        <div id="booksList"></div>
-    </div>
+<div class="container">
+    <h1>Reading List</h1>
+    <p class="subtitle">Libri che ho letto negli ultimi anni. In verde i titoli che mi sono piaciuti molto.</p>
+    <div id="booksList"></div>
+</div>
 
-    <script>
-        // Parse date from DD/MM/YYYY format
-        function parseDate(dateStr) {
-            const parts = dateStr.split('/');
-            return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-        }
+<script>
+    // Parse date from DD/MM/YYYY format
+    function parseDate(dateStr) {
+        const parts = dateStr.split('/');
+        return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+    }
 
-        // Format date to DD/MM/YY
-        function formatDate(dateStr) {
-            return dateStr;
-        }
+    // Format date to DD/MM/YY
+    function formatDate(dateStr) {
+        return dateStr;
+    }
 
-        // Load and parse the CSV file
-        fetch('data/books.csv')
-            .then(response => response.text())
-            .then(csvData => {
-                Papa.parse(csvData, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: function(results) {
-                        displayBooks(results.data);
-                    }
-                });
-            })
-            .catch(err => {
-                console.error('Error loading CSV:', err);
-                document.getElementById('booksList').innerHTML = '<p>Error loading books data.</p>';
-            });
+    // Toggle year section
+    function toggleYear(year) {
+        const content = document.getElementById(`year-content-${year}`);
+        const icon = document.getElementById(`toggle-icon-${year}`);
 
-        const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
-                             'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('collapsed');
+    }
 
-        function displayBooks(books) {
-
-            // Group books by year
-            const booksByYear = {};
-            books.forEach(book => {
-                const date = parseDate(book.date);
-                const year = date.getFullYear();
-
-                if (!booksByYear[year]) {
-                    booksByYear[year] = [];
+    // Load and parse the CSV file
+    fetch('data/books.csv')
+        .then(response => response.text())
+        .then(csvData => {
+            Papa.parse(csvData, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    displayBooks(results.data);
                 }
-                booksByYear[year].push(book);
             });
+        })
+        .catch(err => {
+            console.error('Error loading CSV:', err);
+            document.getElementById('booksList').innerHTML = '<p>Error loading books data.</p>';
+        });
 
-            // Sort years in descending order
-            const years = Object.keys(booksByYear).sort((a, b) => b - a);
+    const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+        'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
-            // Build HTML
-            const booksListDiv = document.getElementById('booksList');
-            let html = '';
+    function displayBooks(books) {
 
-            years.forEach(year => {
-                const yearCount = booksByYear[year].length;
-                html += `<div class="year-section">
-                    <h2 class="year-header">Anno ${year} <span class="year-book-count">(${yearCount} libri letti)</span></h2>`;
+        // Group books by year
+        const booksByYear = {};
+        books.forEach(book => {
+            const date = parseDate(book.date);
+            const year = date.getFullYear();
 
-                // Sort books within year by date (most recent first)
-                booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+            if (!booksByYear[year]) {
+                booksByYear[year] = [];
+            }
+            booksByYear[year].push(book);
+        });
 
-                let currentMonth = null;
-                booksByYear[year].forEach(book => {
-                    const date = parseDate(book.date);
-                    const month = date.getMonth();
+        // Sort years in descending order
+        const years = Object.keys(booksByYear).sort((a, b) => b - a);
 
-                    // Add month header when month changes
-                    if (currentMonth !== null && month !== currentMonth) {
-                        html += `<div class="month-divider"><span class="month-name">${monthNames[month]}</span></div>`;
-                    }
-                    currentMonth = month;
+        // Build HTML
+        const booksListDiv = document.getElementById('booksList');
+        let html = '';
 
-                    const bookUrl = book.isbn ?
-                        `https://books.google.it/books?vid=${book.isbn}` : '#';
+        years.forEach(year => {
+            const yearCount = booksByYear[year].length;
+            html += `<div class="year-section">
+                    <h2 class="year-header" onclick="toggleYear(${year})">
+                        <span class="toggle-icon" id="toggle-icon-${year}">▼</span>
+                        Anno ${year} <span class="year-book-count">(${yearCount} libri letti)</span>
+                    </h2>
+                    <div class="year-content" id="year-content-${year}">`;
 
-                    const titleClass = book.marked == "false" ? "book-title" : "marked-book-title"
-                    html += `<div class="book"><span class="book-date">${formatDate(book.date)}</span>
+            // Sort books within year by date (most recent first)
+            booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+            let currentMonth = null;
+            booksByYear[year].forEach(book => {
+                const date = parseDate(book.date);
+                const month = date.getMonth();
+
+                // Add month header when month changes
+                if (currentMonth !== null && month !== currentMonth) {
+                    html += `<div class="month-divider"><span class="month-name">${monthNames[month]}</span></div>`;
+                }
+                currentMonth = month;
+
+                const bookUrl = book.isbn ?
+                    `https://books.google.it/books?vid=${book.isbn}` : '#';
+
+                const titleClass = book.marked == "false" ? "book-title" : "marked-book-title"
+                html += `<div class="book"><span class="book-date">${formatDate(book.date)}</span>
                         <a href="${bookUrl}" class="${titleClass}" target="_blank">${book.title}</a>
  di <span class="book-authors">${book.creators}</span>`;
-                      if (book.comment && book.comment.trim()) {
-                        html += `: <span class="book-comment">${book.comment}</span>`;
-                    }
-                    html += `
+                if (book.comment && book.comment.trim()) {
+                    html += `: <span class="book-comment">${book.comment}</span>`;
+                }
+                html += `
                 </div>`;
-                });
-
-                html += '</div>';
             });
 
-            booksListDiv.innerHTML = html;
-        }
-    </script>
+            html += '</div></div>';
+        });
+
+        booksListDiv.innerHTML = html;
+
+        // Set initial max-height for smooth transitions
+        years.forEach(year => {
+            const content = document.getElementById(`year-content-${year}`);
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+    }
+</script>
 </body>
 </html>
