@@ -108,6 +108,9 @@
         const booksListDiv = document.getElementById('booksList');
         let html = '';
 
+        const currentYear = new Date().getFullYear();
+        const currentMonthIndex = new Date().getMonth();
+
         years.forEach(year => {
             const yearCount = booksByYear[year].length;
             html += `<div class="year-section">
@@ -120,16 +123,20 @@
             // Sort books within year by date (most recent first)
             booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
 
-            let currentMonth = null;
+            // Add initial month header
+            const initialMonth = parseInt(year) === currentYear ? currentMonthIndex : 11; // December is index 11
+            html += `<div class="month-divider"><span class="month-name">${monthNames[initialMonth]}</span></div>`;
+
+            let currentMonth = initialMonth;
             booksByYear[year].forEach(book => {
                 const date = parseDate(book.date);
                 const month = date.getMonth();
 
                 // Add month header when month changes
-                if (currentMonth !== null && month !== currentMonth) {
+                if (month !== currentMonth) {
                     html += `<div class="month-divider"><span class="month-name">${monthNames[month]}</span></div>`;
+                    currentMonth = month;
                 }
-                currentMonth = month;
 
                 const bookUrl = book.isbn ?
                     `https://books.google.it/books?vid=${book.isbn}` : '#';
