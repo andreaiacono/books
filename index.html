@@ -1,168 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading List</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <style>
-        .year-header {
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .year-header:hover {
-            opacity: 0.7;
-        }
-
-        .toggle-icon {
-            font-size: 0.8em;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-icon.collapsed {
-            transform: rotate(-90deg);
-        }
-
-        .year-content {
-            overflow: hidden;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
-        }
-
-        .year-content.collapsed {
-            max-height: 0 !important;
-            opacity: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiblioTrack — Library</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f0e0d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<div class="container">
-    <h1>Reading List</h1>
-    <p class="subtitle">Libri che ho letto negli ultimi anni. In verde i titoli che mi sono piaciuti molto.</p>
-    <div id="booksList"></div>
-</div>
 
-<script>
-    // Parse date from DD/MM/YYYY format
-    function parseDate(dateStr) {
-        const parts = dateStr.split('/');
-        return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+<nav class="nav">
+  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <ul class="nav__links">
+    <li><a href="index.html" class="active">Library</a></li>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add</a>
+  </div>
+</nav>
+
+<main class="page">
+  <header class="page-header">
+    <h1>My Library</h1>
+    <p id="subtitle">Loading…</p>
+  </header>
+
+  <div id="stats-bar" class="stats-bar" style="display:none">
+    <div class="stat"><span class="stat__value" id="stat-total">—</span><span class="stat__label">books</span></div>
+    <div class="stat"><span class="stat__value" id="stat-read">—</span><span class="stat__label">read</span></div>
+    <div class="stat"><span class="stat__value" id="stat-unread">—</span><span class="stat__label">unread</span></div>
+    <div class="stat"><span class="stat__value" id="stat-fav">—</span><span class="stat__label">favourites</span></div>
+  </div>
+
+  <div id="filter-bar-container"></div>
+  <div id="book-grid" class="book-grid"></div>
+</main>
+
+<!-- Dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+
+<script type="module">
+  import { getEnrichedCatalog } from './js/data.js';
+  import { renderBookCard, buildFilterBar, applyFilterSort, showLoader, hideLoader, toast } from './js/ui.js';
+
+  let allBooks = [];
+
+  async function init() {
+    showLoader('Loading your library…');
+    try {
+      allBooks = await getEnrichedCatalog();
+
+      // Stats
+      const readCount   = allBooks.filter(b => b.reading).length;
+      const markedCount = allBooks.filter(b => b.reading?.marked).length;
+      document.getElementById('stat-total').textContent  = allBooks.length;
+      document.getElementById('stat-read').textContent   = readCount;
+      document.getElementById('stat-unread').textContent = allBooks.length - readCount;
+      document.getElementById('stat-fav').textContent    = markedCount;
+      document.getElementById('stats-bar').style.display = '';
+      document.getElementById('subtitle').textContent =
+        `${allBooks.length} books · ${readCount} read`;
+
+      // Filter bar
+      const filterBar = buildFilterBar((filter, sort) => {
+        const filtered = applyFilterSort(allBooks, filter, sort);
+        renderGrid(filtered);
+      });
+      document.getElementById('filter-bar-container').appendChild(filterBar);
+
+      // Initial render sorted by title
+      renderGrid(applyFilterSort(allBooks, 'all', 'title'));
+
+    } catch (err) {
+      console.error(err);
+      toast('Failed to load library. Check console for details.', 'error');
+      document.getElementById('subtitle').textContent = 'Error loading data';
+    } finally {
+      hideLoader();
+    }
+  }
+
+  function renderGrid(books) {
+    const grid = document.getElementById('book-grid');
+    grid.innerHTML = '';
+
+    if (!books.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-state__icon">📚</div>
+          <h2>No books found</h2>
+          <p>Try a different filter, or <a href="add.html">add your first book</a>.</p>
+        </div>`;
+      return;
     }
 
-    // Format date to DD/MM/YY
-    function formatDate(dateStr) {
-        return dateStr;
-    }
+    const fragment = document.createDocumentFragment();
+    for (const book of books) fragment.appendChild(renderBookCard(book));
+    grid.appendChild(fragment);
+  }
 
-    // Toggle year section
-    function toggleYear(year) {
-        const content = document.getElementById(`year-content-${year}`);
-        const icon = document.getElementById(`toggle-icon-${year}`);
-
-        content.classList.toggle('collapsed');
-        icon.classList.toggle('collapsed');
-    }
-
-    // Load and parse the CSV file
-    fetch('data/books.csv')
-        .then(response => response.text())
-        .then(csvData => {
-            Papa.parse(csvData, {
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    displayBooks(results.data);
-                }
-            });
-        })
-        .catch(err => {
-            console.error('Error loading CSV:', err);
-            document.getElementById('booksList').innerHTML = '<p>Error loading books data.</p>';
-        });
-
-    const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
-        'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
-
-    function displayBooks(books) {
-
-        // Group books by year
-        const booksByYear = {};
-        books.forEach(book => {
-            const date = parseDate(book.date);
-            const year = date.getFullYear();
-
-            if (!booksByYear[year]) {
-                booksByYear[year] = [];
-            }
-            booksByYear[year].push(book);
-        });
-
-        // Sort years in descending order
-        const years = Object.keys(booksByYear).sort((a, b) => b - a);
-
-        // Build HTML
-        const booksListDiv = document.getElementById('booksList');
-        let html = '';
-
-        const currentYear = new Date().getFullYear();
-        const currentMonthIndex = new Date().getMonth();
-
-        years.forEach(year => {
-            const yearCount = booksByYear[year].length;
-            html += `<div class="year-section">
-                    <h2 class="year-header" onclick="toggleYear(${year})">
-                        <span class="toggle-icon" id="toggle-icon-${year}">▼</span>
-                        Anno ${year} <span class="year-book-count">(${yearCount} libri letti)</span>
-                    </h2>
-                    <div class="year-content" id="year-content-${year}">`;
-
-            // Sort books within year by date (most recent first)
-            booksByYear[year].sort((a, b) => parseDate(b.date) - parseDate(a.date));
-
-            // Add initial month header
-            const initialMonth = parseInt(year) === currentYear ? currentMonthIndex : 11; // December is index 11
-            html += `<div class="month-divider"><span class="month-name">${monthNames[initialMonth]}</span></div>`;
-
-            let currentMonth = initialMonth;
-            booksByYear[year].forEach(book => {
-                const date = parseDate(book.date);
-                const month = date.getMonth();
-
-                // Add month header when month changes
-                if (month !== currentMonth) {
-                    html += `<div class="month-divider"><span class="month-name">${monthNames[month]}</span></div>`;
-                    currentMonth = month;
-                }
-
-                const bookUrl = book.isbn ?
-                    `https://books.google.it/books?vid=${book.isbn}` : '#';
-
-                const titleClass = book.marked == "false" ? "book-title" : "marked-book-title"
-                html += `<div class="book"><span class="book-date">${formatDate(book.date)}</span>
-                        <a href="${bookUrl}" class="${titleClass}" target="_blank">${book.title}</a>
- di <span class="book-authors">${book.creators}</span>`;
-                if (book.comment && book.comment.trim()) {
-                    html += `: <span class="book-comment">${book.comment}</span>`;
-                }
-                html += `
-                </div>`;
-            });
-
-            html += '</div></div>';
-        });
-
-        booksListDiv.innerHTML = html;
-
-        // Set initial max-height for smooth transitions
-        years.forEach(year => {
-            const content = document.getElementById(`year-content-${year}`);
-            content.style.maxHeight = content.scrollHeight + 'px';
-        });
-    }
+  init();
 </script>
+
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>

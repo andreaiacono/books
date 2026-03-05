@@ -1,0 +1,14 @@
+{
+  "isbn": "9780132350884",
+  "title": "Clean Code: A Handbook of Agile Software Craftsmanship (Robert C. Martin)",
+  "author": "Robert C. Martin",
+  "year": 2009,
+  "cover": "covers/9780132350884.webp",
+  "publisher": "Pearson Education",
+  "pages": 431,
+  "description": "An extremely pragmatic method for writing better code from the start, and ultimately producing more robust applications.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2014-09-12",
+  "source": "libib"
+}

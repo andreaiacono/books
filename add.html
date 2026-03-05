@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiblioTrack — Add Book</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f0e0d">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <ul class="nav__links">
+    <li><a href="index.html">Library</a></li>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html" class="active">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main class="page" style="max-width:760px">
+  <header class="page-header">
+    <h1>Add a Book</h1>
+    <p>Enter an ISBN to fetch metadata automatically, or fill in the fields manually.</p>
+  </header>
+
+  <!-- ISBN lookup -->
+  <div style="display:flex;gap:0.75rem;margin-bottom:1.75rem">
+    <input type="text" id="isbn-input" placeholder="ISBN-13 (e.g. 9780141033570)"
+           style="font-family:var(--font-mono);letter-spacing:0.05em" maxlength="17">
+    <button class="btn btn--primary" id="fetch-btn" style="white-space:nowrap">
+      Fetch metadata
+    </button>
+  </div>
+
+  <!-- Preview + form -->
+  <div id="form-area" style="display:none">
+    <div style="display:grid;grid-template-columns:140px 1fr;gap:1.5rem;margin-bottom:1.5rem" id="preview-row">
+      <div>
+        <img id="cover-preview" src="assets/no-cover.svg" alt="Cover"
+             style="width:140px;height:210px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)">
+        <p style="font-size:11px;color:var(--text-faint);margin-top:0.4rem;text-align:center" id="cover-status"></p>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label" for="f-title">Title *</label>
+          <input type="text" id="f-title" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-author">Author(s) *</label>
+          <input type="text" id="f-author" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-year">Year</label>
+            <input type="number" id="f-year" min="1000" max="2099">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-isbn-ro">ISBN</label>
+            <input type="text" id="f-isbn-ro" readonly style="opacity:0.6;cursor:default">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="f-publisher">Publisher</label>
+        <input type="text" id="f-publisher">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="f-pages">Pages</label>
+        <input type="number" id="f-pages" min="1">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="f-subjects">Subjects (comma-separated)</label>
+      <input type="text" id="f-subjects">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="f-description">Description</label>
+      <textarea id="f-description" rows="4" style="resize:vertical"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="f-language">Language</label>
+      <input type="text" id="f-language" placeholder="e.g. en">
+    </div>
+
+    <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
+      <button class="btn btn--primary" id="save-btn">Save to Library</button>
+      <button class="btn btn--ghost" id="reset-btn">Reset</button>
+    </div>
+
+    <div id="save-progress" style="display:none;margin-top:1rem">
+      <div style="height:4px;background:var(--bg-raised);border-radius:2px;overflow:hidden">
+        <div id="progress-bar" style="height:100%;width:0%;background:var(--accent);transition:width 0.4s ease"></div>
+      </div>
+      <p id="save-status" style="font-size:13px;color:var(--text-muted);margin-top:0.5rem"></p>
+    </div>
+  </div>
+
+  <div id="not-configured" style="display:none" class="empty-state">
+    <div class="empty-state__icon">⚙️</div>
+    <h2>GitHub not configured</h2>
+    <p>Set your Personal Access Token and repository in <a href="settings.html">Settings</a> to enable saving books.</p>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script type="module">
+  import { fetchISBNMetadata, fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
+  import { toast } from './js/ui.js';
+
+  // Check GitHub config
+  if (!isConfigured()) {
+    document.getElementById('not-configured').style.display = 'flex';
+    document.getElementById('form-area').style.display = 'none';
+  }
+
+  let currentMeta = null;
+  let coverBase64 = null;
+
+  // ── ISBN fetch ──────────────────────────────────────────────────────────
+  document.getElementById('fetch-btn').addEventListener('click', async () => {
+    const raw = document.getElementById('isbn-input').value.trim().replace(/[^0-9X]/gi, '');
+    if (raw.length < 10) { toast('Please enter a valid ISBN', 'warning'); return; }
+
+    const btn = document.getElementById('fetch-btn');
+    btn.disabled = true; btn.textContent = 'Fetching…';
+
+    try {
+      const meta = await fetchISBNMetadata(raw);
+      if (!meta) { toast('No metadata found for this ISBN', 'error'); return; }
+
+      currentMeta = meta;
+      populateForm(meta);
+      document.getElementById('form-area').style.display = '';
+
+      // Fetch cover
+      if (meta.coverUrl) {
+        document.getElementById('cover-status').textContent = 'Downloading cover…';
+        try {
+          coverBase64 = await fetchCoverAsBase64(meta.coverUrl);
+          document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
+          document.getElementById('cover-status').textContent = 'Cover ready';
+        } catch {
+          document.getElementById('cover-status').textContent = 'Cover unavailable';
+          toast('Could not fetch cover image', 'warning');
+        }
+      }
+
+      toast(`Found: "${meta.title}"`, 'success');
+
+    } catch (err) {
+      console.error(err);
+      toast('Fetch failed — check your connection', 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Fetch metadata';
+    }
+  });
+
+  // Allow Enter key on ISBN input
+  document.getElementById('isbn-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('fetch-btn').click();
+  });
+
+  function populateForm(meta) {
+    document.getElementById('f-title').value        = meta.title ?? '';
+    document.getElementById('f-author').value       = meta.author ?? '';
+    document.getElementById('f-year').value         = meta.year ?? '';
+    document.getElementById('f-isbn-ro').value      = meta.isbn ?? '';
+    document.getElementById('f-publisher').value    = meta.publisher ?? '';
+    document.getElementById('f-pages').value        = meta.pages ?? '';
+    document.getElementById('f-subjects').value     = Array.isArray(meta.subjects)
+                                                        ? meta.subjects.join(', ') : '';
+    document.getElementById('f-description').value  = meta.description ?? '';
+    document.getElementById('f-language').value     = meta.language ?? '';
+  }
+
+  // ── Save ────────────────────────────────────────────────────────────────
+  document.getElementById('save-btn').addEventListener('click', async () => {
+    if (!isConfigured()) {
+      toast('Configure GitHub settings first', 'warning'); return;
+    }
+
+    const isbn  = document.getElementById('f-isbn-ro').value.trim();
+    const title = document.getElementById('f-title').value.trim();
+    const author = document.getElementById('f-author').value.trim();
+
+    if (!isbn || !title) { toast('Title and ISBN are required', 'warning'); return; }
+
+    const gridEntry = {
+      isbn,
+      title,
+      author,
+      year:  parseInt(document.getElementById('f-year').value) || null,
+      cover: `covers/${isbn}.webp`,
+    };
+
+    const subjects = document.getElementById('f-subjects').value
+      .split(',').map(s => s.trim()).filter(Boolean);
+
+    const detailEntry = {
+      ...gridEntry,
+      publisher:   document.getElementById('f-publisher').value.trim(),
+      pages:       parseInt(document.getElementById('f-pages').value) || null,
+      language:    document.getElementById('f-language').value.trim(),
+      description: document.getElementById('f-description').value.trim(),
+      subjects,
+      source:      currentMeta?.source ?? 'manual',
+      addedAt:     new Date().toISOString(),
+    };
+
+    // Show progress
+    document.getElementById('save-progress').style.display = '';
+    document.getElementById('save-btn').disabled = true;
+    const bar = document.getElementById('progress-bar');
+    const status = document.getElementById('save-status');
+
+    const steps = ['cover', 'detail', 'grid'];
+    let done = 0;
+    const updateProgress = (msg) => {
+      done++;
+      bar.style.width = `${Math.round(done / steps.length * 100)}%`;
+      status.textContent = msg;
+    };
+
+    try {
+      status.textContent = 'Uploading cover…';
+      await saveNewBook(gridEntry, detailEntry, coverBase64, 'image/webp');
+      updateProgress('Saved! Redirecting…');
+      toast(`"${title}" added to your library`, 'success');
+      setTimeout(() => window.location.href = 'index.html', 1200);
+    } catch (err) {
+      console.error(err);
+      toast(`Save failed: ${err.message}`, 'error');
+      document.getElementById('save-btn').disabled = false;
+      status.textContent = `Error: ${err.message}`;
+    }
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    document.getElementById('form-area').style.display = 'none';
+    document.getElementById('isbn-input').value = '';
+    document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+    currentMeta = null; coverBase64 = null;
+  });
+</script>
+
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
+</body>
+</html>

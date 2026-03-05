@@ -1,0 +1,18 @@
+{
+  "isbn": "9780321503626",
+  "title": "Growing Object-Oriented Software, Guided by Tests (Beck Signature)",
+  "author": "Steve Freeman, Nat Pryce",
+  "cover": "covers/9780321503626.webp",
+  "publisher": "a book suffused with code that exposes the deep symbiosis between TDD and OOD. This one's a keeper.\"\" --Robert C. Martin   \"\"If you want to be an expert in the state of the art in TDD",
+  "description": "Foreword by Kent Beck   \"The authors of this book have led a revolution in the craft of programming by controlling the environment in which software grows.\"\" --Ward Cunningham   \"\"At last",
+  "subjects": [
+    "two TDD pioneers show how to let tests guide your development and \"\"grow\"\" software that is coherent"
+  ],
+  "notes": "reliable",
+  "copies": 1,
+  "status": "and Object-Oriented Design come together     in the context of a real software development project *   Using Mock Objects to guide object-oriented designs *   Succeeding where TDD is difficult: managing complex test data",
+  "rating": "more expressive",
+  "review": "more sustainable code *   Using tests to stay relentlessly focused on sustaining quality *   Understanding how TDD",
+  "addedAt": "2009-10-12",
+  "source": "libib"
+}

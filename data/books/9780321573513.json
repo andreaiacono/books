@@ -1,0 +1,15 @@
+{
+  "isbn": "9780321573513",
+  "title": "Algorithms",
+  "author": "Robert Sedgewick, Kevin Wayne",
+  "cover": "covers/9780321573513.webp",
+  "publisher": "extensive online assessments",
+  "description": "This fourth edition of Robert Sedgewick and Kevin Wayne's Algorithms is the leading textbook on algorithms today and is widely used in colleges and universities worldwide. This book surveys the most important computer algorithms currently in use and provides a full treatment of data structures and algorithms for sorting, searching, graph processing, and string processing--including fifty algorithms every programmer should know. In this edition, new Java implementations are written in an accessible modular programming style, where all of the code is exposed to the reader and ready to use.   The algorithms in this book represent a body of knowledge developed over the last 50 years that has become indispensable, not just for professional programmers and computer science students but for any student with interests in science, mathematics, and engineering, not to mention students who use computation in the liberal arts.   The companion web site, algs4.cs.princeton.edu, contains An online synopsis Full Java implementations Test data Exercises and answers Dynamic visualizations Lecture slides Programming assignments with checklists Links to related material The MOOC related to this book is accessible via the \"Online Course\"\" link at algs4.cs.princeton.edu. The course offers more than 100 video lecture segments that are integrated with the text",
+  "subjects": [
+    "enabling people all around the world to discover new ways of learning and teaching. By integrating their textbook"
+  ],
+  "notes": "online content",
+  "copies": 1,
+  "review": "976",
+  "source": "libib"
+}

@@ -1,0 +1,14 @@
+{
+  "isbn": "9780201889543",
+  "title": "The C++ Programming Language",
+  "author": "Bjarne Stroustrup",
+  "year": 1997,
+  "cover": "covers/9780201889543.webp",
+  "publisher": "Addison Wesley Professional",
+  "pages": 1040,
+  "description": "NOTE: Customers of this book, Errata for page 833 is now available in pdf form and can be downloaded from this page. This is a complete rewrite of the most widely read and most trusted book on C++. Based on the ANSI/ISO C++ final draft, this book covers the C++ language, its standard library, and key design techniques as an integrated whole. The C++ Programming Language provides comprehensive coverage of C++ language features and standard library components. For example: abstract classes as interfaces class hierarchies for object-oriented programming templates as the basis for type-safe generic software exceptions for regular error handling namespaces for modularity in large-scale software run-time type identification for loosely coupled systems the C subset of C++ for C compatibility and system-level work standard containers and algorithms standard strings, I/O streams, and numerics With this third edition, Stroustrup makes C++ even more accessible to those new to the language while adding information and techniques that even expert C++ programmers will find invaluable. Get a value-added service Try out all the examples from this book at www codesaw. com. CodeSaw is a free online",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "1999-12-21",
+  "source": "libib"
+}

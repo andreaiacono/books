@@ -1,0 +1,13 @@
+{
+  "isbn": "9781590595169",
+  "title": "SCJD Exam with J2SE 5 2nd Edition (Expert's Voice in Java)",
+  "author": "Andrew Monkhouse, Terry Camerlengo",
+  "year": 2005,
+  "cover": "covers/9781590595169.webp",
+  "publisher": "Apress L. P.",
+  "description": "* An update of the popular first edition, the second edition covers changes to the exam per the release of J2SE 5. * Co-authored by Mehran Habibi, member of the official Sun certification team, author of the first edition, and author of the Apress book Java Regular Expressions: Taming the java.util.regex Engine (Apress, 2004). * Guides the reader through a complete project implementation, familiarizing him with the key concepts, requirements, and pitfalls sure to come up in the exam.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2011-01-23",
+  "source": "libib"
+}

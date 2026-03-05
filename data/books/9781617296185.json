@@ -1,0 +1,17 @@
+{
+  "isbn": "9781617296185",
+  "title": "Grokking Artificial Intelligence Algorithms",
+  "author": "Rishal Hurbans",
+  "cover": "covers/9781617296185.webp",
+  "publisher": "Product Advance Local Key Features Master the core algorithms of deep learning and AI Build an intuitive understanding of AI problems and solutions Written in simple language",
+  "description": "\"This book takes an impossibly broad area of computer science and communicates what working developers need to understand in a clear and thorough way.\"\" - David Jacobs",
+  "subjects": [
+    "interpreting the meaning of text"
+  ],
+  "notes": "or looking for patterns in data to spot fraud and other anomalies.  Mastering the core algorithms for search",
+  "copies": 1,
+  "rating": "Manning Publications Company",
+  "review": "2020-09-01",
+  "addedAt": "392",
+  "source": "libib"
+}

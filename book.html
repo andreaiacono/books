@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiblioTrack — Book</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f0e0d">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <ul class="nav__links">
+    <li><a href="index.html">Library</a></li>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button class="btn btn--ghost" onclick="history.back()" style="font-size:13px;padding:0.35rem 0.85rem">
+      ← Back
+    </button>
+  </div>
+</nav>
+
+<main class="page" style="max-width:900px" id="main-content">
+  <div class="empty-state">
+    <div class="loader__spinner" style="width:32px;height:32px;margin:0 auto"></div>
+  </div>
+</main>
+
+<style>
+  .book-detail { display: grid; grid-template-columns: 200px 1fr; gap: 2.5rem; }
+  @media (max-width: 600px) { .book-detail { grid-template-columns: 1fr; } }
+
+  .book-detail__cover {
+    width: 200px; border-radius: var(--radius-lg);
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  @media (max-width: 600px) { .book-detail__cover { width: 140px; } }
+
+  .book-detail__title {
+    font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700; line-height: 1.2; margin-bottom: 0.3rem;
+  }
+  .book-detail__author {
+    font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;
+  }
+
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-item__label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+  .meta-item__value { font-size: 14px; }
+
+  .subjects { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .subject-tag {
+    padding: 0.2rem 0.65rem; border-radius: 999px;
+    border: 1px solid var(--border); font-size: 12px; color: var(--text-muted);
+  }
+
+  .reading-block {
+    background: var(--bg-raised); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-top: 1.5rem;
+  }
+  .reading-block h3 {
+    font-family: var(--font-display); font-size: 1rem; font-weight: 400;
+    color: var(--text-muted); margin-bottom: 0.75rem;
+  }
+  .reading-date { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+  .reading-comment { font-style: italic; color: var(--text); margin-top: 0.5rem; font-size: 15px; }
+  .reading-marked { display: inline-flex; align-items: center; gap: 0.35rem;
+    color: var(--fav-gold); font-size: 13px; margin-top: 0.5rem; }
+
+  .description {
+    font-size: 14px; line-height: 1.75; color: var(--text-muted);
+    border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 1.25rem;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script type="module">
+  import { loadGrid, loadReadingLog, loadBookDetail } from './js/data.js';
+  import { escHtml, formatDate } from './js/ui.js';
+
+  async function init() {
+    const params = new URLSearchParams(location.search);
+    const isbn = params.get('isbn');
+    if (!isbn) { render404(); return; }
+
+    const [grid, readMap, detail] = await Promise.all([
+      loadGrid(),
+      loadReadingLog(),
+      loadBookDetail(isbn),
+    ]);
+
+    const gridEntry = grid.find(b => b.isbn === isbn);
+    if (!gridEntry) { render404(); return; }
+
+    const reading = readMap.get(isbn) ?? null;
+    const book = { ...gridEntry, ...(detail ?? {}), reading };
+
+    document.title = `${book.title} — BiblioTrack`;
+    renderBook(book);
+  }
+
+  function renderBook(book) {
+    const main = document.getElementById('main-content');
+    const subjects = Array.isArray(book.subjects) ? book.subjects : [];
+    const reading = book.reading;
+
+    main.innerHTML = `
+      <div class="book-detail">
+        <div>
+          <img class="book-detail__cover"
+               src="${escHtml(book.cover ?? 'assets/no-cover.svg')}"
+               alt="${escHtml(book.title)}"
+               onerror="this.src='assets/no-cover.svg'">
+        </div>
+        <div>
+          <h1 class="book-detail__title">${escHtml(book.title)}</h1>
+          <p class="book-detail__author">${escHtml(book.author ?? '')}</p>
+
+          <div class="meta-grid">
+            ${book.year       ? metaItem('Year', book.year) : ''}
+            ${book.publisher  ? metaItem('Publisher', book.publisher) : ''}
+            ${book.pages      ? metaItem('Pages', book.pages) : ''}
+            ${book.language   ? metaItem('Language', book.language.toUpperCase()) : ''}
+            ${book.isbn       ? metaItem('ISBN', `<span style="font-family:var(--font-mono);font-size:12px">${escHtml(book.isbn)}</span>`) : ''}
+          </div>
+
+          ${subjects.length ? `
+            <div class="subjects">
+              ${subjects.map(s => `<span class="subject-tag">${escHtml(s)}</span>`).join('')}
+            </div>` : ''}
+
+          ${reading ? `
+            <div class="reading-block">
+              <h3>Your reading record</h3>
+              ${reading.dateFinished
+                ? `<p class="reading-date">Finished ${formatDate(reading.dateFinished)}</p>`
+                : ''}
+              ${reading.comment
+                ? `<p class="reading-comment">"${escHtml(reading.comment)}"</p>`
+                : ''}
+              ${reading.marked
+                ? `<p class="reading-marked">★ Marked as favourite</p>`
+                : ''}
+            </div>` : ''}
+
+          ${book.description ? `
+            <div class="description">
+              ${escHtml(book.description)}
+            </div>` : ''}
+
+          <div style="margin-top:1.5rem">
+            ${book.isbn
+              ? `<a href="https://books.google.it/books?vid=${encodeURIComponent(book.isbn)}"
+                    target="_blank" rel="noopener" class="btn btn--ghost" style="font-size:13px">
+                   View on Google Books ↗
+                 </a>`
+              : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function metaItem(label, value) {
+    return `<div class="meta-item">
+      <span class="meta-item__label">${escHtml(label)}</span>
+      <span class="meta-item__value">${value}</span>
+    </div>`;
+  }
+
+  function render404() {
+    document.getElementById('main-content').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">📖</div>
+        <h2>Book not found</h2>
+        <p>This ISBN isn't in your library. <a href="add.html">Add it?</a></p>
+      </div>`;
+  }
+
+  init();
+</script>
+
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
+</body>
+</html>

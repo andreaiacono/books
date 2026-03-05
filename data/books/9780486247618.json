@@ -1,0 +1,14 @@
+{
+  "isbn": "9780486247618",
+  "title": "Codes, Ciphers and Secret Writing",
+  "author": "Martin Gardner",
+  "cover": "covers/9780486247618.webp",
+  "publisher": "challenging book.\"\" -- A. L. A. Booklist. Experiment with cryptography -- the science of secret writing. Cipher and decipher codes: transposition and polyalphabetical ciphers",
+  "description": "\"A fascinating",
+  "subjects": [
+    "codes that use playing cards"
+  ],
+  "notes": "knots",
+  "copies": 1,
+  "source": "libib"
+}

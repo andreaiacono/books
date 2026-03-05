@@ -1,0 +1,14 @@
+{
+  "isbn": "9780201633542",
+  "title": "Tcp/Ip Illustrated, Volume 2",
+  "author": "Gary R. Wright, W. Richard Stevens",
+  "year": 1995,
+  "cover": "covers/9780201633542.webp",
+  "publisher": "Addison Wesley Professional",
+  "pages": 1200,
+  "description": "TCP/IP Illustrated, an ongoing series covering the many facets of TCP/IP, brings a highly-effective visual approach to learning about this networking protocol suite. TCP/IP Illustrated, Volume 2 contains a thorough explanation of how TCP/IP protocols are implemented. There isn't a more practical or up-to-date bookothis volume is the only one to cover the de facto standard implementation from the 4.4BSD-Lite release, the foundation for TCP/IP implementations run daily on hundreds of thousands of systems worldwide. Combining 500 illustrations with 15,000 lines of real, working code, TCP/IP Illustrated, Volume 2 uses a teach-by-example approach to help you master TCP/IP implementation. You will learn about such topics as the relationship between the sockets API and the protocol suite, and the differences between a host implementation and a router. In addition, the book covers the newest features of the 4.4BSD-Lite release, including multicasting, long fat pipe support, window scale, timestamp options, and protection against wrapped sequence numbers, and many other topics. Comprehensive in scope, based on a working standard, and thoroughly illustrated, this book is an indispensable resource for anyone working with TCP/IP.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2000-12-02",
+  "source": "libib"
+}

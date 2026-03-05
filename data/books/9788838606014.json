@@ -1,0 +1,14 @@
+{
+  "isbn": "9788838606014",
+  "title": "Computer Graphics. Corso di programmazione",
+  "author": "Steven Harrington",
+  "year": 1987,
+  "cover": "covers/9788838606014.webp",
+  "publisher": "McGraw-Hill Education",
+  "pages": 520,
+  "description": "Gli algoritmi sono scritti in un immaginario linguaggio di programmazione di tipo ALGOL.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "1991-12-25",
+  "source": "libib"
+}

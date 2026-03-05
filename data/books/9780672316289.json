@@ -1,0 +1,14 @@
+{
+  "isbn": "9780672316289",
+  "title": "Linux: A Network Solution for Your Office",
+  "author": "Viktor Toth",
+  "year": 1999,
+  "cover": "covers/9780672316289.webp",
+  "publisher": "Sams",
+  "pages": 544,
+  "description": "Linux as a Business OS is a step-by-step, focused tutorial on installing and reliably maintaining a comprehensive Internet solution, including a corporate mail server, Web Server and more on a shoestring budget. Topics include: Set up and Installation, Connecting to the Internet, Basic services-mail and news, Setting up a Web server, Security, Advanced networking, Managing the system--accounts, logs, backups, configuring workstations, and Troubleshooting.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "1999-11-26",
+  "source": "libib"
+}

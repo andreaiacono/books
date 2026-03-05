@@ -1,0 +1,14 @@
+{
+  "isbn": "9780131411555",
+  "title": "UNIX Network Programming, Volume 1: The Sockets Networking API (3rd Edition)",
+  "author": "Richard W. Stevens, Bill Fenner, Andrew M. Rudoff, W. Richard Stevens",
+  "year": 2003,
+  "cover": "covers/9780131411555.webp",
+  "publisher": "Addison Wesley Professional",
+  "pages": 1024,
+  "description": "This revised guide to Unix networking APIs updates coverage of programming standards and debugging techniques, and covers operating systems including Red Hat 9, Solaris 9, HP-UX, Free BSD 4.8/5.0, AIX 5.x and Mac OS X.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2004-01-17",
+  "source": "libib"
+}

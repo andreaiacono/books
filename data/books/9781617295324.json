@@ -1,0 +1,14 @@
+{
+  "isbn": "9781617295324",
+  "title": "Deep Learning and the Game of Go",
+  "author": "Kevin Ferguson, Max Pumperla",
+  "year": 2019,
+  "cover": "covers/9781617295324.webp",
+  "publisher": "Manning Publications Co. LLC",
+  "pages": 384,
+  "description": "It's nearly impossible to build a competent Go-playing machine using conventional programming techniques, let alone have it win. By applying advanced AI techniques, in particular deep learning and reinforcement learning, users can train their Go-bot in the rules and tactics of the game. Deep Learning and the Game of Go opens up the world of deep learning and AI by teaching readers to build their own Go-playing machine. Key Features · Getting started with neural networks · Building your Go AI · Improving how your Go-bot plays and reacts Audience No deep learning experience required. All you need is high school level math and basic Python skills. This book even teaches you how to play Go! Author Bio Max Pumperla is a Data Scientist and Engineer specializing in Deep Learning at the artificial intelligence company skymind.ai. He is the cofounder of the Deep Learning platform aetros.com. Kevin Ferguson has 18 years of experience in distributed systems and data science. He is a data scientist at Honor, and has experience at companies such as Google and Meebo. Together, Max and Kevin are co-authors of betago, one of very few open source Go bots, developed in Python.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2019-01-15",
+  "source": "libib"
+}

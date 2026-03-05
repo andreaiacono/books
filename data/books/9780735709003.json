@@ -1,0 +1,14 @@
+{
+  "isbn": "9780735709003",
+  "title": "Linux Firewalls",
+  "author": "Robert Ziegler, Carl Constaintine",
+  "year": 1999,
+  "cover": "covers/9780735709003.webp",
+  "publisher": "New Riders Publishing",
+  "pages": 496,
+  "description": "An Internet-connected Linux machine is in a high-risk situation. This book details security steps that a small non-enterprise business user might take to protect themselves when dealing with what the attacker may gain and what a victim may lose. These steps include packet-level firewall filtering, IP masquerading, proxies, tcp wrappers, system integrity checking, and system security monitoring with an overall emphasis on filtering and protection. This book will provide a description of the need for security measures and solutions. The goal is to help people get their Internet security measures in place quickly, without the need to become an expert in security or firewalls.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2000-03-09",
+  "source": "libib"
+}

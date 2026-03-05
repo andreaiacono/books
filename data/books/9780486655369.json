@@ -1,0 +1,18 @@
+{
+  "isbn": "9780486655369",
+  "title": "Challenging Mathematical Problems With Elementary Solutions: 001",
+  "author": "A. M. Yaglom, I. M. Yaglom",
+  "cover": "covers/9780486655369.webp",
+  "publisher": "most can be solved with elementary mathematics. In fact",
+  "description": "Designed for advanced high school students, undergraduates, graduate students, mathematics teachers, and any lover of mathematical challenges, this two-volume set offers a broad spectrum of challenging problems -- ranging from relatively simple to extremely difficult. Indeed, some rank among the finest achievements of outstanding mathematicians. Translated from a well-known Russian work entitled Non-Elementary Problems in an Elementary Exposition, the chief aim of the book is to acquaint the readers with a variety of new mathematical facts, ideas, and methods. And while the majority of the problems represent questions in higher (\"non-elementary\"\") mathematics",
+  "subjects": [
+    "with detailed solutions"
+  ],
+  "notes": "all dealing with probability theory and combinatorial analysis. Topics include the representation of integers as sums and products",
+  "copies": 1,
+  "status": "nondecimal counting",
+  "rating": "topology",
+  "review": "convex polygons",
+  "addedAt": "followed by a section giving complete solutions. Answers and hints are given at the end of the book. Ideal as a text",
+  "source": "libib"
+}

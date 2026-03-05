@@ -1,0 +1,14 @@
+{
+  "isbn": "9781617292736",
+  "title": "Functional Programming in Java: How Functional Techniques Improve Your Java Programs",
+  "author": "Pierre-Yves Saumont",
+  "year": 2017,
+  "cover": "covers/9781617292736.webp",
+  "publisher": "Manning Publications Company",
+  "pages": 472,
+  "description": "Summary Functional Programming in Java teaches Java developers how to incorporate the most powerful benefits of functional programming into new and existing Java code. You'll learn to think functionally about coding tasks in Java and use FP to make your applications easier to understand, optimize, maintain, and scale. Purchase of the print book includes a free eBook in PDF, Kindle, and ePub formats from Manning Publications. About the Technology Here's a bold statement: learn functional programming and you'll be a better Java developer. Fortunately, you don't have to master every aspect of FP to get a big payoff. If you take in a few core principles, you'll see an immediate boost in the scalability, readability, and maintainability of your code. And did we mention that you'll have fewer bugs? Let's get started! About the Book Functional Programming in Java teaches you how to incorporate the powerful benefits of functional programming into new and existing Java code. This book uses easy-to-grasp examples, exercises, and illustrations to teach core FP principles such as referential transparency, immutability, persistence, and laziness. Along the way, you'll discover which of the new functionally inspired features of Java 8 will help you most. What's Inside Writing code that's easier to read and reason about Safer concurrent and parallel programming Handling errors without exceptions Java 8 features like lambdas, method references, and functional interfaces About the Reader Written for Java developers with no previous FP experience. About the Author Pierre-Yves Saumont is a seasoned Java developer with three decades of experience designing and building enterprise software. He is an R&D engineer at Alcatel-Lucent Submarine Networks. Table of Contents What is functional programming? Using functions in Java Making Java more functional Recursion, corecursion, and memoization Data handling with lists Dealing with optional data Handling errors and exceptions Advanced list handling Working with laziness More data handling with trees Solving real problems with advanced trees Handling state mutation in a functional way Functional input/output Sharing mutable state with actors Solving common problems functionally",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2017-02-10",
+  "source": "libib"
+}

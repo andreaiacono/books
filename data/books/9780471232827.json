@@ -1,0 +1,14 @@
+{
+  "isbn": "9780471232827",
+  "title": "Hack Attacks Revealed: A Complete Reference for UNIX, Windows, and Linux with Custom Security Toolkit",
+  "author": "John Chirillo",
+  "year": 2002,
+  "cover": "covers/9780471232827.webp",
+  "publisher": "John Wiley & Sons, Incorporated",
+  "pages": 928,
+  "description": "The much-anticipated second edition of the bestselling book that details network security through the hacker's eye Since the first edition of Hack Attacks Revealed was published, many new attacks have been made on all operating systems, including UNIX, Windows XP, Mac OS, and Linux, and on firewalls, proxies, and gateways. Security expert John Chirillo is ready to tackle these attacks with you again. He has packed the Second Edition of his all-in-one reference with forty percent new material. In this fascinating new edition, you'll discover: * The hacker's perspective on security holes in UNIX, Linux, and Windows networks * Over 170 new vulnerabilities and exploits * Advanced discovery techniques * A crash course in C for compiling hacker tools and vulnerability scanners * The top seventy-five hack attacks for UNIX and Windows * Malicious code coverage of Myparty, Goner, Sircam, BadTrans, Nimda, Code Red I/II, and many more * TigerSuite Professional 3.5 (full suite single license)",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2002-12-16",
+  "source": "libib"
+}

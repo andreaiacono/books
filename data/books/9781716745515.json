@@ -1,0 +1,14 @@
+{
+  "isbn": "9781716745515",
+  "title": "Competitive Programming 2",
+  "author": "Steven Halim, Felix Halim, Suhendry Effendy",
+  "year": 2020,
+  "cover": "covers/9781716745515.webp",
+  "publisher": "Lulu Press, Inc.",
+  "pages": 354,
+  "description": "This Competitive Programming book, 4th edition (CP4) is a must have for every competitive programmer. Mastering the contents of this book is a necessary (but admittedly not sufficient) condition if one wishes to take a leap forward from being just another ordinary coder to being among one of the world's finest competitive programmers. Typical readers of Book 1 (only) of CP4 would include: (1). Secondary or High School Students who are competing in the annual International Olympiad in Informatics (IOI) (including the National or Provincial Olympiads) as Book 1 covers most of the current IOI Syllabus, (2). Casual University students who are using this book as supplementary material for typical Data Structures and Algorithms courses, (3). Anyone who wants to prepare for typical fundamental data structure/algorithm part of a job interview at top IT companies. Typical readers of both Book 1 + Book 2 of CP4 would include: (1). University students who are competing in the annual International Collegiate Programming Contest (ICPC) Regional Contests (including the World Finals) as Book 2 covers much more Computer Science topics that have appeared in the ICPCs, (2). Teachers or Coaches who are looking for comprehensive training materials, (3). Anyone who loves solving problems through computer programs. There are numerous programming contests for those who are no longer eligible for ICPC, including Google CodeJam, Facebook Hacker Cup, TopCoder Open, CodeForces contest, Internet Problem Solving Contest (IPSC), etc.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2016-08-15",
+  "source": "libib"
+}

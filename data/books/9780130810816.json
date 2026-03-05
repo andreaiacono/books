@@ -1,0 +1,14 @@
+{
+  "isbn": "9780130810816",
+  "title": "UNIX Network Programming, Volume 2: Interprocess Communications, Second Edition",
+  "author": "W. Richard Stevens",
+  "year": 1998,
+  "cover": "covers/9780130810816.webp",
+  "publisher": "Prentice Hall PTR",
+  "pages": 592,
+  "description": "Well-implemented interprocess communications (IPC) are key to the performance of virtually every non-trivial UNIX program. This book provides coverage of various forms of IPC, including message passing, synchronization, shared memory, and Remote Procedure Calls (RPC). It offers a basic introduction to IPC and the problems it is intended to solve.",
+  "subjects": [],
+  "copies": 1,
+  "addedAt": "2004-01-10",
+  "source": "libib"
+}
