@@ -40,8 +40,24 @@
   </div>
 
   <div id="filter-bar-container"></div>
-  <div id="book-grid" class="book-grid"></div>
+  <div id="book-grid"></div>
 </main>
+
+<style>
+  .month-group { margin-bottom: 2.5rem; }
+
+  .month-group__header {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .month-group__title {
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 400;
+  }
+  .month-group__count {
+    font-size: 13px; color: var(--text-muted); font-family: var(--font-mono);
+  }
+</style>
 
 <!-- Dependencies -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -50,6 +66,9 @@
 <script type="module">
   import { getEnrichedCatalog } from './js/data.js';
   import { renderBookCard, buildFilterBar, applyFilterSort, showLoader, hideLoader, toast } from './js/ui.js';
+
+  const MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
 
   let allBooks = [];
 
@@ -71,8 +90,7 @@
 
       // Filter bar
       const filterBar = buildFilterBar((filter, sort) => {
-        const filtered = applyFilterSort(allBooks, filter, sort);
-        renderGrid(filtered);
+        renderGrid(applyFilterSort(allBooks, filter, sort));
       });
       document.getElementById('filter-bar-container').appendChild(filterBar);
 
@@ -89,12 +107,12 @@
   }
 
   function renderGrid(books) {
-    const grid = document.getElementById('book-grid');
-    grid.innerHTML = '';
+    const container = document.getElementById('book-grid');
+    container.innerHTML = '';
 
     if (!books.length) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
+      container.innerHTML = `
+        <div class="empty-state">
           <div class="empty-state__icon">📚</div>
           <h2>No books found</h2>
           <p>Try a different filter, or <a href="add.html">add your first book</a>.</p>
@@ -102,9 +120,48 @@
       return;
     }
 
+    // Group by month read; unread books go last
+    const groups = new Map(); // key: 'YYYY-MM' | 'unread'
+    for (const book of books) {
+      const date = book.reading?.dateFinished;
+      if (date) {
+        const [, m, y] = date.split('/');
+        const key = `${y}-${m.padStart(2, '0')}`;
+        if (!groups.has(key)) {
+          groups.set(key, { label: `${MONTHS[parseInt(m) - 1]} ${y}`, books: [] });
+        }
+        groups.get(key).books.push(book);
+      } else {
+        if (!groups.has('unread')) groups.set('unread', { label: 'Unread', books: [] });
+        groups.get('unread').books.push(book);
+      }
+    }
+
+    // Sort groups: dated ones descending, unread at the end
+    const sortedKeys = [...groups.keys()]
+      .filter(k => k !== 'unread')
+      .sort((a, b) => b.localeCompare(a));
+    if (groups.has('unread')) sortedKeys.push('unread');
+
     const fragment = document.createDocumentFragment();
-    for (const book of books) fragment.appendChild(renderBookCard(book));
-    grid.appendChild(fragment);
+    for (const key of sortedKeys) {
+      const { label, books: groupBooks } = groups.get(key);
+
+      const section = document.createElement('section');
+      section.className = 'month-group';
+      section.innerHTML = `
+        <div class="month-group__header">
+          <h2 class="month-group__title">${label}</h2>
+          <span class="month-group__count">${groupBooks.length} book${groupBooks.length !== 1 ? 's' : ''}</span>
+        </div>`;
+
+      const grid = document.createElement('div');
+      grid.className = 'book-grid';
+      for (const book of groupBooks) grid.appendChild(renderBookCard(book));
+      section.appendChild(grid);
+      fragment.appendChild(section);
+    }
+    container.appendChild(fragment);
   }
 
   init();
