@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-libib_migrate.py — Convert a Libib CSV export to BiblioTrack format.
+libib_migrate.py — Convert a Libib CSV export to Biblio format.
 
 Produces:
   - data/grid.json          (one entry per book: isbn, title, author, year, cover)
@@ -171,10 +171,10 @@ def convert_row(row, row_num):
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Migrate Libib CSV to BiblioTrack format.")
+    parser = argparse.ArgumentParser(description="Migrate Libib CSV to Biblio format.")
     parser.add_argument("csv_file", help="Path to the Libib CSV export")
-    parser.add_argument("--out", default="./bibliotrack_import",
-                        help="Output directory (default: ./bibliotrack_import)")
+    parser.add_argument("--out", default="./Biblio_import",
+                        help="Output directory (default: ./Biblio_import)")
     args = parser.parse_args()
 
     csv_path = Path(args.csv_file)
@@ -243,7 +243,7 @@ def main():
 
     # ── Report ────────────────────────────────────────────────────────────────
     report_lines = [
-        "BiblioTrack Migration Report",
+        "Biblio Migration Report",
         "=" * 40,
         f"Generated:    {datetime.now().strftime('%Y-%m-%d %H:%M')}",
         f"Source:       {csv_path.name}",
@@ -263,7 +263,7 @@ def main():
         *([s for s in skipped] or ["  none"]),
         "",
         "── Next steps ──",
-        "1. Copy data/ and covers/ into your BiblioTrack repo.",
+        "1. Copy data/ and covers/ into your Biblio repo.",
         "2. For books with slug keys (no ISBN), find ISBNs manually and rename",
         "   both the JSON file and the entry in grid.json.",
         "3. Run a cover fetch pass — e.g. fetch covers from Open Library for",

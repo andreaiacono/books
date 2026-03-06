@@ -79,7 +79,7 @@ def convert_to_webp(data: bytes, quality: int = 82) -> bytes:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Fetch book covers for BiblioTrack.")
+    parser = argparse.ArgumentParser(description="Fetch book covers for Biblio.")
     parser.add_argument("--grid",    default="data/grid.json", help="Path to grid.json")
     parser.add_argument("--out",     default="covers",         help="Output directory")
     parser.add_argument("--delay",   type=float, default=0.5,  help="Seconds between requests")
@@ -133,7 +133,7 @@ def main():
         iterator = pending
 
     session = requests.Session()
-    session.headers["User-Agent"] = "BiblioTrack/1.0 (cover fetch; +https://github.com)"
+    session.headers["User-Agent"] = "Biblio/1.0 (cover fetch; +https://github.com)"
 
     stats = {"ok": 0, "missing": 0, "error": 0}
     missing = []
@@ -144,6 +144,7 @@ def main():
         dest  = out_dir / f"{isbn}.webp"
 
         try:
+            print(f"Fetching cover for {title} ({isbn})")
             data = fetch_google_thumbnail(isbn, session, args.api_key)
             if data:
                 stats["ok"] += 1
@@ -163,6 +164,7 @@ def main():
                     iterator.set_postfix(src="—", isbn=isbn[-4:])
 
         except Exception as e:
+            print(f"Error fetching cover for {isbn}: {e}", file=sys.stderr)
             stats["error"] += 1
             missing.append({"isbn": isbn, "title": title, "error": str(e)})
 
