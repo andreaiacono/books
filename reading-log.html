@@ -128,7 +128,7 @@
 
           const row = document.createElement('p');
           row.className = 'log-entry';
-          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} di ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
+          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} <span class="log-comment"> di </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
           monthSection.appendChild(row);
         }
 
