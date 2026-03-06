@@ -1,4 +1,4 @@
-# BiblioTrack
+# Biblio
 
 A fully static personal library manager + reading diary. No backend. No build step. Hosted on GitHub Pages.
 
@@ -6,11 +6,13 @@ A fully static personal library manager + reading diary. No backend. No build st
 
 ## Features
 
-- **Library grid** — cover thumbnails with read/favourite badges, filter & sort
+- **Library grid** — cover thumbnails with read/favourite badges, grouped by month read, with filter & sort
+- **Stats bar** — total books, read, unread, and favourites at a glance
 - **Full-text search** — Lunr.js index with field weights (title > author > subjects > description)
-- **Book detail** — metadata, subjects, reading record, link to Google Books
+- **Book detail** — metadata, subjects, reading record, link to Google Books, inline "add reading entry" form
 - **Reading log** — your existing CSV diary, enriched with covers from the catalog, grouped by year/month and collapsible
 - **Add book** — type an ISBN, metadata is fetched from Open Library / Google Books automatically, cover downloaded, everything committed to GitHub via the API — entirely in the browser
+- **Light/dark theme** — toggle with system preference detection
 - **PWA** — installable, works offline after first load
 
 ---
@@ -32,9 +34,10 @@ A fully static personal library manager + reading diary. No backend. No build st
 ├── js/
 │   ├── data.js          Data layer (load, join, GitHub API writes)
 │   ├── search.js        Lunr search index
+│   ├── theme.js         Light/dark theme toggle
 │   └── ui.js            Shared rendering utilities
 ├── data/
-│   ├── grid.json        [{id, isbn, title, author, year, cover}]  ← loaded at startup
+│   ├── grid.json        [{isbn, title, author, year, cover}]  ← loaded at startup
 │   ├── reading-log.csv  Your reading diary (existing format, untouched)
 │   └── books/
 │       └── {isbn}.json  Full metadata per book (lazy loaded)
@@ -57,7 +60,7 @@ Create a new GitHub repository and enable GitHub Pages (Settings → Pages → D
 
 You have two options:
 
-**Option A — batch ISBN import script** (recommended for 2500 books):
+**Option A — batch ISBN import script** (recommended for large collections):
 ```bash
 node tools/import.js < my-isbns.txt
 ```
@@ -127,8 +130,8 @@ catalog book  +  reading log entry  →  enriched book
 (what you own)   (when you read it)    (shown in grid with ✓ badge)
 ```
 
-Books in the catalog but not the log → shown without read badge.  
-Books in the log but not the catalog (borrowed, ebooks, etc.) → shown in Reading Log only.  
+Books in the catalog but not the log → shown without read badge.
+Books in the log but not the catalog (borrowed, ebooks, etc.) → shown in Reading Log only.
 ~5% of log entries without ISBNs stay unlinked but appear in the log view.
 
 ---
@@ -137,11 +140,13 @@ Books in the log but not the catalog (borrowed, ebooks, etc.) → shown in Readi
 
 | Query | Meaning |
 |---|---|
-| `borges` | fuzzy match across all fields |
+| `borges` | fuzzy match (edit distance 1) + wildcard across all fields |
 | `author:borges` | author field only |
 | `title:"magic realism"` | exact phrase in title |
 | `borges -argentina` | borges, excluding argentina |
 | `sci*` | wildcard |
+
+Plain queries automatically apply fuzzy matching (edit distance 1) and a trailing wildcard per term. Queries containing Lunr syntax characters (`:`, `"`, `~`, `^`, `+`, `-`, `*`) are passed through directly to the Lunr engine.
 
 ---
 
