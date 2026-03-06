@@ -81,62 +81,6 @@ export function openBookDetail(isbn) {
   window.location.href = `book.html?isbn=${encodeURIComponent(isbn)}`;
 }
 
-// ─── Filter/sort bar ──────────────────────────────────────────────────────────
-
-export function buildFilterBar(onFilter) {
-  const bar = document.createElement('div');
-  bar.className = 'filter-bar';
-  bar.innerHTML = `
-    <button class="filter-btn filter-btn--active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="read">Read</button>
-    <button class="filter-btn" data-filter="unread">Unread</button>
-    <button class="filter-btn" data-filter="marked">Favourites</button>
-    <select class="filter-sort" aria-label="Sort">
-      <option value="title">Title A–Z</option>
-      <option value="title-desc">Title Z–A</option>
-      <option value="year-desc">Newest first</option>
-      <option value="year-asc">Oldest first</option>
-      <option value="author">Author A–Z</option>
-    </select>
-  `;
-
-  bar.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn--active'));
-      btn.classList.add('filter-btn--active');
-      const sort = bar.querySelector('.filter-sort').value;
-      onFilter(btn.dataset.filter, sort);
-    });
-  });
-
-  bar.querySelector('.filter-sort').addEventListener('change', e => {
-    const active = bar.querySelector('.filter-btn--active');
-    onFilter(active?.dataset.filter ?? 'all', e.target.value);
-  });
-
-  return bar;
-}
-
-export function applyFilterSort(books, filter, sort) {
-  let result = books.slice();
-
-  switch (filter) {
-    case 'read':    result = result.filter(b => b.reading); break;
-    case 'unread':  result = result.filter(b => !b.reading); break;
-    case 'marked':  result = result.filter(b => b.reading?.marked); break;
-  }
-
-  switch (sort) {
-    case 'title':       result.sort((a, b) => (a.title ?? '').localeCompare(b.title ?? '')); break;
-    case 'title-desc':  result.sort((a, b) => (b.title ?? '').localeCompare(a.title ?? '')); break;
-    case 'year-desc':   result.sort((a, b) => (b.year ?? 0) - (a.year ?? 0)); break;
-    case 'year-asc':    result.sort((a, b) => (a.year ?? 0) - (b.year ?? 0)); break;
-    case 'author':      result.sort((a, b) => (a.author ?? '').localeCompare(b.author ?? '')); break;
-  }
-
-  return result;
-}
-
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 export function escHtml(str) {
