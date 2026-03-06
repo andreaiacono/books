@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiblioTrack — Book</title>
+  <title>Biblio — Book</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
     <li><a href="search.html">Search</a></li>
@@ -20,6 +21,7 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
   <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle">☀</button>
     <button class="btn btn--ghost" onclick="history.back()" style="font-size:13px;padding:0.35rem 0.85rem">
       ← Back
     </button>
@@ -81,13 +83,27 @@
     font-size: 14px; line-height: 1.75; color: var(--text-muted);
     border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 1.25rem;
   }
+
+  .log-form {
+    margin-top: 1.5rem; padding: 1.25rem;
+    background: var(--bg-raised); border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .log-form h3 {
+    font-family: var(--font-display); font-weight: 400; font-size: 1rem;
+    color: var(--text-muted); margin-bottom: 1rem;
+  }
+  .log-form__marked {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 14px; cursor: pointer; margin-bottom: 1rem;
+  }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { loadGrid, loadReadingLog, loadBookDetail } from './js/data.js';
-  import { escHtml, formatDate } from './js/ui.js';
+  import { loadGrid, loadReadingLog, loadBookDetail, appendReadingLogEntry, isConfigured } from './js/data.js';
+  import { escHtml, formatDate, toast } from './js/ui.js';
 
   async function init() {
     const params = new URLSearchParams(location.search);
@@ -106,7 +122,7 @@
     const reading = readMap.get(isbn) ?? null;
     const book = { ...gridEntry, ...(detail ?? {}), reading };
 
-    document.title = `${book.title} — BiblioTrack`;
+    document.title = `${book.title} — Biblio`;
     renderBook(book);
   }
 
@@ -159,17 +175,80 @@
               ${escHtml(book.description)}
             </div>` : ''}
 
-          <div style="margin-top:1.5rem">
+          <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
             ${book.isbn
               ? `<a href="https://books.google.it/books?vid=${encodeURIComponent(book.isbn)}"
                     target="_blank" rel="noopener" class="btn btn--ghost" style="font-size:13px">
                    View on Google Books ↗
                  </a>`
               : ''}
+            <button id="add-log-btn" class="btn btn--ghost" style="font-size:13px">+ Add reading entry</button>
+          </div>
+
+          <div id="log-form" class="log-form" style="display:none">
+            <h3>New reading entry</h3>
+            <div class="form-group">
+              <label class="form-label" for="log-comment">Comment</label>
+              <textarea id="log-comment" rows="3" style="resize:vertical" placeholder="Your thoughts on this book…"></textarea>
+            </div>
+            <label class="log-form__marked">
+              <input type="checkbox" id="log-marked"> Mark as favourite
+            </label>
+            <div style="display:flex;gap:0.75rem;align-items:center">
+              <button id="log-submit" class="btn btn--primary">Save entry</button>
+              <button id="log-cancel" class="btn btn--ghost">Cancel</button>
+              <span id="log-status" style="font-size:13px;display:none"></span>
+            </div>
           </div>
         </div>
       </div>
     `;
+
+    // Wire up form
+    document.getElementById('add-log-btn').addEventListener('click', () => {
+      if (!isConfigured()) {
+        toast('Configure GitHub settings first', 'warning');
+        return;
+      }
+      document.getElementById('log-form').style.display = '';
+      document.getElementById('add-log-btn').style.display = 'none';
+    });
+
+    document.getElementById('log-cancel').addEventListener('click', () => {
+      document.getElementById('log-form').style.display = 'none';
+      document.getElementById('add-log-btn').style.display = '';
+    });
+
+    document.getElementById('log-submit').addEventListener('click', async () => {
+      const comment = document.getElementById('log-comment').value.trim();
+      const marked  = document.getElementById('log-marked').checked;
+      const now     = new Date();
+      const date    = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+
+      const submitBtn = document.getElementById('log-submit');
+      const status    = document.getElementById('log-status');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving…';
+      status.style.display = '';
+      status.style.color = 'var(--text-muted)';
+      status.textContent = 'Saving to GitHub…';
+
+      try {
+        await appendReadingLogEntry({
+          date, title: book.title, comment,
+          creators: book.author ?? '', isbn: book.isbn ?? '', marked,
+        });
+        status.style.color = 'var(--read-green)';
+        status.textContent = '✓ Saved!';
+        toast(`Entry for "${book.title}" saved`, 'success');
+        setTimeout(() => location.reload(), 1200);
+      } catch (err) {
+        status.style.color = 'var(--danger)';
+        status.textContent = `Error: ${err.message}`;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Save entry';
+      }
+    });
   }
 
   function metaItem(label, value) {
@@ -191,6 +270,7 @@
   init();
 </script>
 
+<script src="js/theme.js"></script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>

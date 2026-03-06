@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiblioTrack — Library</title>
+  <title>Biblio — Library</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,7 +14,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html" class="active">Library</a></li>
     <li><a href="search.html">Search</a></li>
@@ -22,6 +23,7 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
   <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle">☀</button>
     <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add</a>
   </div>
 </nav>
@@ -167,6 +169,7 @@
   init();
 </script>
 
+<script src="js/theme.js"></script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>

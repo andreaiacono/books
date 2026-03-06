@@ -1,6 +1,6 @@
 {
-  "name": "BiblioTrack",
-  "short_name": "BiblioTrack",
+  "name": "Biblio",
+  "short_name": "Biblio",
   "description": "Personal library manager",
   "start_url": "/index.html",
   "display": "standalone",

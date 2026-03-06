@@ -1,4 +1,4 @@
-/* css/style.css — BiblioTrack: dark editorial aesthetic */
+/* css/style.css — Biblio: dark editorial aesthetic */
 
 /* ─── Fonts ──────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap');
@@ -427,6 +427,53 @@ input:focus, select:focus, textarea:focus {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+/* ─── Light theme ────────────────────────────────────────────────────────── */
+html[data-theme="light"] {
+  --bg:           #faf8f5;
+  --bg-raised:    #f0ede8;
+  --bg-card:      #ede9e3;
+  --bg-card-hover:#e5dfd7;
+  --border:       #d5cfc6;
+  --border-light: #c0b9b0;
+
+  --text:         #1a1917;
+  --text-muted:   #6b6560;
+  --text-faint:   #a09890;
+
+  --accent:       #8b6914;
+  --accent-dim:   #a07a20;
+  --accent-glow:  rgba(139,105,20,0.12);
+
+  --read-green:   #2d7a4e;
+  --fav-gold:     #9a7215;
+  --danger:       #b03030;
+
+  --shadow:       0 4px 24px rgba(0,0,0,0.1);
+  --shadow-card:  0 2px 12px rgba(0,0,0,0.08);
+}
+
+html[data-theme="light"] .nav {
+  background: rgba(250,248,245,0.92);
+}
+
+/* ─── Theme toggle button ────────────────────────────────────────────────── */
+.theme-toggle {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theme-toggle:hover {
+  border-color: var(--border-light);
+  color: var(--text);
+  background: var(--bg-raised);
+}
 
 /* ─── Responsive nav ─────────────────────────────────────────────────────── */
 @media (max-width: 600px) {

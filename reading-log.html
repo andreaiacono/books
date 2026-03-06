@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiblioTrack — Reading Log</title>
+  <title>Biblio — Reading Log</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
     <li><a href="search.html">Search</a></li>
@@ -19,6 +20,9 @@
     <li><a href="add.html">Add Book</a></li>
     <li><a href="settings.html">Settings</a></li>
   </ul>
+  <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle">☀</button>
+  </div>
 </nav>
 
 <main class="page">
@@ -38,84 +42,38 @@
 </main>
 
 <style>
-  .year-section { margin-bottom: 2.5rem; }
+  .month-section { margin-bottom: 1.25rem; }
 
-  .year-header {
-    display: flex; align-items: baseline; gap: 0.75rem;
-    cursor: pointer; user-select: none;
-    padding: 0.5rem 0; border-bottom: 1px solid var(--border);
-    margin-bottom: 1.25rem;
-  }
-  .year-header h2 {
-    font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
-  }
-  .year-header .year-count {
-    font-size: 13px; color: var(--text-muted); font-family: var(--font-mono);
-  }
-  .year-header .year-chevron {
-    margin-left: auto; color: var(--text-faint); transition: transform 0.2s ease;
-  }
-  .year-section.collapsed .year-chevron { transform: rotate(-90deg); }
-  .year-section.collapsed .year-books   { display: none; }
-
-  .month-divider {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--text-faint); padding: 0.5rem 0 0.5rem;
-    margin-top: 0.75rem;
+  .month-header {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-faint); padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border); margin-bottom: 0.25rem;
   }
 
-  .log-entry {
-    display: grid; grid-template-columns: 48px 1fr;
-    gap: 0.75rem; align-items: start;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s ease;
-    border-radius: var(--radius);
-    cursor: pointer;
-  }
-  .log-entry:hover { background: var(--bg-raised); padding-left: 0.5rem; }
-  .log-entry:last-child { border-bottom: none; }
+  .log-entry { padding: 0.1rem 0; font-size: 14px; line-height: 1.7; }
 
-  .log-thumb {
-    width: 48px; height: 72px; object-fit: cover;
-    border-radius: 3px; border: 1px solid var(--border);
-    background: var(--bg-raised);
+  .log-date {
+    font-family: sans-serif;
+    font-size: 12px;
+    color: var(--text-muted); margin-right: 0.5rem;
   }
 
-  .log-info { display: flex; flex-direction: column; gap: 0.2rem; }
-  .log-title {
-    font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; line-height: 1.3;
-  }
-  .log-title.marked { color: var(--fav-gold); }
-  .log-author { font-size: 13px; color: var(--text-muted); }
-  .log-date   { font-size: 12px; color: var(--text-faint); font-family: var(--font-mono); }
-  .log-comment {
-    font-style: italic; font-size: 13px; color: var(--text-muted);
-    margin-top: 0.15rem; line-height: 1.4;
-  }
+  .log-title { font-weight: 700; color: var(--text); text-decoration: none; }
+  .log-title:hover { text-decoration: underline; }
+  .log-title--marked { color: var(--read-green); }
+
+  .log-comment { color: var(--text-muted); }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { loadReadingLog, loadGrid } from './js/data.js';
-  import { escHtml, formatDate } from './js/ui.js';
+  import { escHtml } from './js/ui.js';
 
   const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
                      'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
   async function init() {
-    const [readMap, grid] = await Promise.all([loadReadingLog(), loadGrid()]);
-
-    // Build cover lookup from catalog
-    const coverMap = new Map(grid.map(b => [b.isbn, b.cover]));
-
-    // Parse reading log entries back to array
-    const entries = [];
-    readMap.forEach((v, isbn) => entries.push({ ...v, isbn }));
-
-    // Also pull entries without ISBNs from raw CSV (readMap only has ISBNed entries)
-    // Re-parse CSV to get all entries including those without ISBNs
     const res = await fetch('data/reading-log.csv');
     const text = await res.text();
     const { data } = Papa.parse(text, { header: true, skipEmptyLines: true });
@@ -141,73 +99,44 @@
     document.getElementById('log-subtitle').textContent =
       `${total} books across ${years} years`;
 
-    // Group by year
-    const byYear = new Map();
+    // Group by month
+    const byMonth = new Map();
     for (const entry of sorted) {
-      const y = entry.date?.slice(-4) ?? 'Unknown';
-      if (!byYear.has(y)) byYear.set(y, []);
-      byYear.get(y).push(entry);
+      const date = entry.date;
+      const key = date ? date.slice(3) : 'unknown'; // "MM/YYYY"
+      if (!byMonth.has(key)) {
+        const label = date
+          ? `${MONTHS_IT[parseInt(date.slice(3, 5)) - 1]} ${date.slice(6)}`
+          : 'Data sconosciuta';
+        byMonth.set(key, { label, entries: [] });
+      }
+      byMonth.get(key).entries.push(entry);
     }
 
     const container = document.getElementById('log-container');
 
-    for (const [year, books] of byYear) {
+    for (const { label, entries } of byMonth.values()) {
       const section = document.createElement('section');
-      section.className = 'year-section';
+      section.className = 'month-section';
+      section.innerHTML = `<div class="month-header">${escHtml(label)}</div>`;
 
-      const header = document.createElement('div');
-      header.className = 'year-header';
-      header.innerHTML = `
-        <h2>${escHtml(year)}</h2>
-        <span class="year-count">${books.length} books</span>
-        <span class="year-chevron">▾</span>`;
-      header.addEventListener('click', () => section.classList.toggle('collapsed'));
-
-      const booksDiv = document.createElement('div');
-      booksDiv.className = 'year-books';
-
-      let lastMonth = null;
-
-      for (const entry of books) {
-        const month = getMonth(entry.date);
-        if (month !== lastMonth) {
-          const div = document.createElement('div');
-          div.className = 'month-divider';
-          div.textContent = month;
-          booksDiv.appendChild(div);
-          lastMonth = month;
-        }
-
+      for (const entry of entries) {
         const isbn   = entry.isbn?.trim();
-        const cover  = isbn ? (coverMap.get(isbn) ?? null) : null;
         const marked = entry.marked === 'true';
+        const title  = escHtml(entry.title ?? '');
+        const author = escHtml(entry.creators ?? '');
+        const comment = entry.comment?.trim();
 
-        const row = document.createElement('div');
+        const titleEl = isbn
+          ? `<a class="log-title${marked ? ' log-title--marked' : ''}" href="https://books.google.it/books?vid=${encodeURIComponent(isbn)}" target="_blank" rel="noopener">${title}</a>`
+          : `<strong class="log-title${marked ? ' log-title--marked' : ''}">${title}</strong>`;
+
+        const row = document.createElement('p');
         row.className = 'log-entry';
-        if (isbn) {
-          row.style.cursor = 'pointer';
-          row.addEventListener('click', () => window.location.href = `book.html?isbn=${encodeURIComponent(isbn)}`);
-        }
-
-        row.innerHTML = `
-          <img class="log-thumb"
-               src="${cover ? escHtml(cover) : 'assets/no-cover.svg'}"
-               alt=""
-               onerror="this.src='assets/no-cover.svg'">
-          <div class="log-info">
-            <span class="log-title${marked ? ' marked' : ''}">
-              ${marked ? '★ ' : ''}${escHtml(entry.title ?? '')}
-            </span>
-            <span class="log-author">${escHtml(entry.creators ?? '')}</span>
-            <span class="log-date">${formatDate(entry.date)}</span>
-            ${entry.comment ? `<span class="log-comment">${escHtml(entry.comment)}</span>` : ''}
-          </div>`;
-
-        booksDiv.appendChild(row);
+        row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} di ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
+        section.appendChild(row);
       }
 
-      section.appendChild(header);
-      section.appendChild(booksDiv);
       container.appendChild(section);
     }
   }
@@ -218,15 +147,10 @@
     return new Date(+y, +m - 1, +d).getTime();
   }
 
-  function getMonth(str) {
-    if (!str) return 'Unknown';
-    const [, m, y] = str.split('/');
-    return `${MONTHS_IT[parseInt(m) - 1]} ${y}`;
-  }
-
   init();
 </script>
 
+<script src="js/theme.js"></script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>

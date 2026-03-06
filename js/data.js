@@ -146,6 +146,22 @@ export async function saveNewBook(book, detailObj, coverBase64, coverMime) {
   return steps;
 }
 
+// ─── Reading log persistence ─────────────────────────────────────────────────
+
+export async function appendReadingLogEntry({ date, title, comment, creators, isbn, marked }) {
+  function csvField(v) {
+    const s = String(v ?? '');
+    return /[,"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }
+  const row = [date, title, comment, creators, isbn, String(marked)].map(csvField).join(',');
+
+  const csvFile = await ghGet('data/reading-log.csv');
+  const current = decodeURIComponent(escape(atob(csvFile.content.replace(/\n/g, ''))));
+  const updated = current.trimEnd() + '\n' + row;
+  const content = btoa(unescape(encodeURIComponent(updated)));
+  await ghPut('data/reading-log.csv', content, csvFile.sha, `log: ${title}`);
+}
+
 // ─── ISBN metadata fetch ─────────────────────────────────────────────────────
 
 export async function fetchISBNMetadata(isbn) {

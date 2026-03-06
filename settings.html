@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiblioTrack — Settings</title>
+  <title>Biblio — Settings</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio<em>Track</em></a>
+  <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
     <li><a href="search.html">Search</a></li>
@@ -19,6 +20,9 @@
     <li><a href="add.html">Add Book</a></li>
     <li><a href="settings.html" class="active">Settings</a></li>
   </ul>
+  <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle">☀</button>
+  </div>
 </nav>
 
 <main class="page" style="max-width:640px">
@@ -75,7 +79,7 @@
       About
     </h2>
     <div style="font-size:14px;color:var(--text-muted);line-height:1.8">
-      <p><strong style="color:var(--text)">BiblioTrack</strong> is a fully static personal library manager.
+      <p><strong style="color:var(--text)">Biblio</strong> is a fully static personal library manager.
       All data lives in your GitHub repository as JSON and CSV files.</p>
       <p style="margin-top:0.75rem">No backend. No database. No account required beyond GitHub.</p>
       <p style="margin-top:0.75rem">
@@ -164,6 +168,7 @@
   loadConfig();
 </script>
 
+<script src="js/theme.js"></script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
-// sw.js — BiblioTrack Service Worker
+// sw.js — Biblio Service Worker
 
-const CACHE_NAME = 'bibliotrack-v1';
+const CACHE_NAME = 'biblio-v1';
 const CACHE_SHELL = [
   '/',
   '/index.html',
