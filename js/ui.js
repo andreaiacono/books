@@ -71,6 +71,15 @@ export function renderBookCard(book) {
     </div>
   `;
 
+  const img = card.querySelector('.book-card__cover');
+  const wrap = card.querySelector('.book-card__cover-wrap');
+  img.addEventListener('load', () => {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    const scale = Math.min(wrap.clientWidth / img.naturalWidth, wrap.clientHeight / img.naturalHeight);
+    const sideSpace = (wrap.clientWidth - img.naturalWidth * scale) / 2;
+    if (sideSpace > 0) wrap.style.paddingTop = `${sideSpace}px`;
+  });
+
   card.addEventListener('click', () => openBookDetail(book.isbn));
   return card;
 }

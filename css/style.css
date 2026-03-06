@@ -7,7 +7,7 @@
 :root {
   --bg:           #0f0e0d;
   --bg-raised:    #1a1917;
-  --bg-card:      #201f1d;
+  --bg-card:      #131311;
   --bg-card-hover:#272523;
   --border:       #2e2c29;
   --border-light: #3d3b37;
@@ -160,19 +160,19 @@ input:focus, select:focus, textarea:focus {
 /* ─── Book grid ──────────────────────────────────────────────────────────── */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1.25rem;
 }
 
-@media (min-width: 768px) {
-  .book-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-}
+/*@media (min-width: 768px) {*/
+/*  .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }*/
+/*}*/
 
 /* ─── Book card ──────────────────────────────────────────────────────────── */
 .book-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
@@ -190,12 +190,12 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   aspect-ratio: 2/3;
   overflow: hidden;
-  background: var(--bg-raised);
+  background: var(--bg-card);
 }
 
 .book-card__cover {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
