@@ -2,9 +2,8 @@
 """
 fetch_covers.py — Download book cover images for all entries in grid.json.
 
-Sources (tried in order for each book):
-  1. Open Library Covers API  (https://covers.openlibrary.org)
-  2. Google Books API          (https://www.googleapis.com/books/v1)
+Source:
+  Google Books API  (https://www.googleapis.com/books/v1)
 
 Saves covers as JPEG (renamed .webp — browsers don't care about the extension,
 and converting to real WebP requires Pillow with WebP support; see --convert flag).
@@ -16,7 +15,6 @@ Options:
   --grid PATH       Path to grid.json          (default: data/grid.json)
   --out DIR         Output directory           (default: covers/)
   --delay SECONDS   Pause between requests     (default: 0.5)
-  --size L|M|S      Open Library cover size    (default: L)
   --convert         Convert to real WebP via Pillow (requires: pip install Pillow)
   --skip-existing   Skip ISBNs that already have a cover file (default: true)
   --force           Re-download even if cover already exists
@@ -29,7 +27,6 @@ Requirements:
 
 import argparse
 import json
-import os
 import sys
 import time
 from pathlib import Path
@@ -38,16 +35,17 @@ import requests
 
 # ── Sources ───────────────────────────────────────────────────────────────────
 
-def url_open_library(isbn, size="L"):
-    return f"https://covers.openlibrary.org/b/isbn/{isbn}-{size}.jpg"
-
-def url_google_books(isbn):
-    return f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
-
-def fetch_google_thumbnail(isbn, session):
+def fetch_google_thumbnail(isbn, session, api_key=None):
     """Ask Google Books API for the thumbnail URL, then fetch that image."""
     try:
-        r = session.get(url_google_books(isbn), timeout=10)
+        url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
+        if api_key:
+            url += f"&key={api_key}"
+        r = session.get(url, timeout=10)
+        if r.status_code == 429:
+            raise RuntimeError("Google Books API quota exceeded — pass --api-key to use your own quota")
+        if r.status_code == 403:
+            raise RuntimeError("Google Books API access denied — check your API key")
         r.raise_for_status()
         data = r.json()
         if data.get("totalItems", 0) == 0:
@@ -55,30 +53,17 @@ def fetch_google_thumbnail(isbn, session):
         links = data["items"][0].get("volumeInfo", {}).get("imageLinks", {})
         # Prefer largest available
         for key in ("extraLarge", "large", "medium", "thumbnail"):
-            url = links.get(key)
-            if url:
+            img_url = links.get(key)
+            if img_url:
                 # Force https and remove zoom restriction
-                url = url.replace("http://", "https://").replace("&edge=curl", "")
-                r2 = session.get(url, timeout=10)
+                img_url = img_url.replace("http://", "https://").replace("&edge=curl", "")
+                r2 = session.get(img_url, timeout=10)
                 r2.raise_for_status()
                 if len(r2.content) > 1000:   # ignore 1×1 placeholder responses
                     return r2.content
     except Exception:
         pass
     return None
-
-def fetch_open_library(isbn, size, session):
-    """Fetch directly from Open Library cover CDN."""
-    try:
-        url = url_open_library(isbn, size)
-        r = session.get(url, timeout=10)
-        r.raise_for_status()
-        # Open Library returns a 1×1 GIF when no cover exists
-        if len(r.content) < 1000 or r.headers.get("Content-Type", "").startswith("image/gif"):
-            return None
-        return r.content
-    except Exception:
-        return None
 
 # ── Conversion ────────────────────────────────────────────────────────────────
 
@@ -98,7 +83,7 @@ def main():
     parser.add_argument("--grid",    default="data/grid.json", help="Path to grid.json")
     parser.add_argument("--out",     default="covers",         help="Output directory")
     parser.add_argument("--delay",   type=float, default=0.5,  help="Seconds between requests")
-    parser.add_argument("--size",    default="L", choices=["L","M","S"], help="Open Library size")
+    parser.add_argument("--api-key", default=None,             help="Google Books API key (avoids shared quota limits)")
     parser.add_argument("--convert", action="store_true",      help="Convert to real WebP (needs Pillow)")
     parser.add_argument("--force",   action="store_true",      help="Re-download existing covers")
     parser.add_argument("--limit",   type=int, default=None,   help="Process only first N books")
@@ -150,7 +135,7 @@ def main():
     session = requests.Session()
     session.headers["User-Agent"] = "BiblioTrack/1.0 (cover fetch; +https://github.com)"
 
-    stats = {"ok_ol": 0, "ok_gb": 0, "missing": 0, "error": 0}
+    stats = {"ok": 0, "missing": 0, "error": 0}
     missing = []
 
     for book in iterator:
@@ -159,24 +144,9 @@ def main():
         dest  = out_dir / f"{isbn}.webp"
 
         try:
-            data = None
-            source = None
-
-            # 1. Try Open Library
-            data = fetch_open_library(isbn, args.size, session)
+            data = fetch_google_thumbnail(isbn, session, args.api_key)
             if data:
-                source = "OL"
-                stats["ok_ol"] += 1
-
-            # 2. Fall back to Google Books
-            if not data:
-                time.sleep(args.delay)   # extra pause before Google call
-                data = fetch_google_thumbnail(isbn, session)
-                if data:
-                    source = "GB"
-                    stats["ok_gb"] += 1
-
-            if data:
+                stats["ok"] += 1
                 if args.convert:
                     try:
                         data = convert_to_webp(data)
@@ -185,7 +155,7 @@ def main():
 
                 dest.write_bytes(data)
                 if hasattr(iterator, "set_postfix"):
-                    iterator.set_postfix(src=source, isbn=isbn[-4:])
+                    iterator.set_postfix(src="GB", isbn=isbn[-4:])
             else:
                 stats["missing"] += 1
                 missing.append({"isbn": isbn, "title": title})
@@ -199,9 +169,8 @@ def main():
         time.sleep(args.delay)
 
     # ── Summary ───────────────────────────────────────────────────────────────
-    total_ok = stats["ok_ol"] + stats["ok_gb"]
     print(f"\n── Cover fetch complete ────────────────")
-    print(f"  Found:         {total_ok}  ({stats['ok_ol']} Open Library, {stats['ok_gb']} Google Books)")
+    print(f"  Found:         {stats['ok']}  (Google Books)")
     print(f"  Not found:     {stats['missing']}")
     print(f"  Errors:        {stats['error']}")
 
@@ -211,7 +180,6 @@ def main():
             json.dump(missing, f, ensure_ascii=False, indent=2)
         print(f"\n  ISBNs with no cover saved to: {missing_path}")
         print(f"  You can search for these manually on:")
-        print(f"    https://covers.openlibrary.org/b/isbn/<ISBN>-L.jpg")
         print(f"    https://www.amazon.com/dp/<ISBN10>")
 
     print()
