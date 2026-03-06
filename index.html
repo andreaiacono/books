@@ -106,46 +106,83 @@
       return;
     }
 
-    // Group by month added; books without a date go last
-    const groups = new Map(); // key: 'YYYY-MM' | 'unknown'
+    const currentYear = new Date().getFullYear().toString();
+
+    // Group by year → month
+    const byYear = new Map(); // 'YYYY'|'unknown' → Map<'YYYY-MM'|'unknown', {label, books[]}>
     for (const book of books) {
-      const added = book.added; // e.g. "2023-05-15" or "2023-05-15 10:30:00"
-      const [y, m] = added ? added.split('-') : [];
+      const [y, m] = book.added ? book.added.split('-') : [];
       if (y && m) {
+        if (!byYear.has(y)) byYear.set(y, new Map());
         const key = `${y}-${m.padStart(2, '0')}`;
-        if (!groups.has(key)) {
-          groups.set(key, { label: `${MONTHS[parseInt(m) - 1]} ${y}`, books: [] });
-        }
-        groups.get(key).books.push(book);
+        const yearMap = byYear.get(y);
+        if (!yearMap.has(key)) yearMap.set(key, { label: MONTHS[parseInt(m) - 1], books: [] });
+        yearMap.get(key).books.push(book);
       } else {
-        if (!groups.has('unknown')) groups.set('unknown', { label: 'Unknown date', books: [] });
-        groups.get('unknown').books.push(book);
+        if (!byYear.has('unknown')) byYear.set('unknown', new Map());
+        const yearMap = byYear.get('unknown');
+        if (!yearMap.has('unknown')) yearMap.set('unknown', { label: 'Unknown date', books: [] });
+        yearMap.get('unknown').books.push(book);
       }
     }
 
-    // Sort groups: dated ones descending, unknown at the end
-    const sortedKeys = [...groups.keys()]
+    // Sort years descending, unknown last
+    const sortedYears = [...byYear.keys()]
       .filter(k => k !== 'unknown')
       .sort((a, b) => b.localeCompare(a));
-    if (groups.has('unknown')) sortedKeys.push('unknown');
+    if (byYear.has('unknown')) sortedYears.push('unknown');
 
     const fragment = document.createDocumentFragment();
-    for (const key of sortedKeys) {
-      const { label, books: groupBooks } = groups.get(key);
+    for (const yearKey of sortedYears) {
+      const monthMap = byYear.get(yearKey);
+      const totalInYear = [...monthMap.values()].reduce((n, g) => n + g.books.length, 0);
 
-      const section = document.createElement('section');
-      section.className = 'month-group';
-      section.innerHTML = `
-        <div class="month-group__header">
-          <h2 class="month-group__title">${label}</h2>
-          <span class="month-group__count">${groupBooks.length} book${groupBooks.length !== 1 ? 's' : ''}</span>
-        </div>`;
+      const yearSection = document.createElement('section');
+      yearSection.className = 'year-section' + (yearKey === currentYear ? '' : ' collapsed');
 
-      const grid = document.createElement('div');
-      grid.className = 'book-grid';
-      for (const book of groupBooks) grid.appendChild(renderBookCard(book));
-      section.appendChild(grid);
-      fragment.appendChild(section);
+      const yearHeader = document.createElement('div');
+      yearHeader.className = 'year-header';
+      yearHeader.innerHTML = `
+        <h2>${yearKey === 'unknown' ? 'Unknown date' : yearKey}</h2>
+        <span class="year-count">${totalInYear} book${totalInYear !== 1 ? 's' : ''}</span>
+        <span class="year-chevron">▾</span>`;
+      yearHeader.addEventListener('click', () => yearSection.classList.toggle('collapsed'));
+
+      const yearBody = document.createElement('div');
+      yearBody.className = 'year-body';
+
+      // Sort months descending within year
+      const sortedMonths = [...monthMap.keys()]
+        .filter(k => k !== 'unknown')
+        .sort((a, b) => b.localeCompare(a));
+      if (monthMap.has('unknown')) sortedMonths.push('unknown');
+
+      for (const monthKey of sortedMonths) {
+        const { label, books: monthBooks } = monthMap.get(monthKey);
+
+        const monthGroup = document.createElement('section');
+        monthGroup.className = 'month-group';
+
+        const monthHeader = document.createElement('div');
+        monthHeader.className = 'month-group__header';
+        monthHeader.innerHTML = `
+          <h3 class="month-group__title">${label}</h3>
+          <span class="month-group__count">${monthBooks.length} book${monthBooks.length !== 1 ? 's' : ''}</span>
+          <span class="month-group__chevron">▾</span>`;
+        monthHeader.addEventListener('click', () => monthGroup.classList.toggle('collapsed'));
+
+        const grid = document.createElement('div');
+        grid.className = 'book-grid';
+        for (const book of monthBooks) grid.appendChild(renderBookCard(book));
+
+        monthGroup.appendChild(monthHeader);
+        monthGroup.appendChild(grid);
+        yearBody.appendChild(monthGroup);
+      }
+
+      yearSection.appendChild(yearHeader);
+      yearSection.appendChild(yearBody);
+      fragment.appendChild(yearSection);
     }
     container.appendChild(fragment);
   }
