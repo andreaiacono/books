@@ -2,14 +2,13 @@
   "isbn": "9788860309501",
   "title": "Le lingue impossibili",
   "author": "Andrea Moro",
+  "year": 2017,
   "cover": "covers/9788860309501.webp",
-  "publisher": "attraverso l'insieme di proprietà che",
-  "description": "Può esistere una cosa come una lingua umana impossibile? Un biologo potrebbe definire impossibile un animale che contraddicesse le leggi fisiche della natura (l'entropia, per esempio, o la gravità). Esistono leggi simili in grado di condizionare le lingue? In questo libro, Andrea Moro, autorevole linguista e neuroscienziato, esplora l'esistenza delle lingue impossibili, alla ricerca dell'\"impronta digitale\"\" del linguaggio umano. L'autore ci conduce oltre i confini di Babele",
-  "subjects": [
-    "e indaga le fonti dell'ordine"
-  ],
-  "notes": "facendo riferimento a esperimenti che egli stesso ha contribuito a progettare. Paragona la sintassi al rovescio di un arazzo",
+  "publisher": "Cortina Raffaello",
+  "pages": 140,
+  "description": "Può esistere una cosa come una lingua umana impossibile? Un biologo potrebbe definire impossibile un animale che contraddicesse le leggi fisiche della natura (l'entropia, per esempio, o la gravità). Esistono leggi simili in grado di condizionare le lingue? In questo libro, Andrea Moro, autorevole linguista e neuroscienziato, esplora l'esistenza delle lingue impossibili, alla ricerca dell'\"impronta digitale\" del linguaggio umano. L'autore ci conduce oltre i confini di Babele, attraverso l'insieme di proprietà che, al di là delle apparenze, tutte le lingue condividono, e indaga le fonti dell'ordine, facendo riferimento a esperimenti che egli stesso ha contribuito a progettare. Paragona la sintassi al rovescio di un arazzo, rivelandone la struttura nascosta, descrive il cervello come un setaccio e ascolta il suono del pensiero attraverso la registrazione dell'attività elettrica encefalica. Parole e frasi, ci dice, sono come sinfonie e costellazioni: non hanno contenuto proprio, esistono perché le ascoltiamo e le guardiamo. Siamo parte dei dati.",
+  "subjects": [],
   "copies": 1,
-  "status": "140",
+  "addedAt": "2017-12-25",
   "source": "libib"
 }

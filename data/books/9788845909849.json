@@ -2,12 +2,13 @@
   "isbn": "9788845909849",
   "title": "La variante di Lüneburg",
   "author": "Paolo Maurensig",
+  "year": 1993,
   "cover": "covers/9788845909849.webp",
-  "publisher": "158 Pagine. Opera In Buone Condizioni",
-  "description": "Collana \"Fabula\"\". Volume Nella Sua Brossura Originale Con Copertina Illustrata A Colori",
-  "subjects": [
-    "1993-05-19"
-  ],
+  "publisher": "Adelphi",
+  "pages": 158,
+  "description": "Collana \"Fabula\". Volume Nella Sua Brossura Originale Con Copertina Illustrata A Colori, 158 Pagine. Opera In Buone Condizioni, Spedizione In 24 Ore Dalla Conferma Dell'Ordine.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2007-02-10",
   "source": "libib"
 }

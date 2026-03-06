@@ -2,16 +2,13 @@
   "isbn": "9781101974636",
   "title": "Heroes of the Frontier",
   "author": "Dave Eggers",
+  "year": 2017,
   "cover": "covers/9781101974636.webp",
-  "publisher": "The New York Times Longlisted for an Andrew Carnegie Medal for Excellence in Fiction Josie and her children's father have split up",
-  "description": "\"A picaresque adventure and spiritual coming-of-age tale -- On the Road crossed with Henderson the Rain King... Deeply affecting.\"\" --Michiko Kakutani",
-  "subjects": [
-    "Josie makes a run for it to Alaska with her kids"
-  ],
-  "notes": "Paul and Ana. At first their trip feels like a vacation: they see bears and bison",
+  "publisher": "Knopf Doubleday Publishing Group",
+  "pages": 448,
+  "description": "\"A picaresque adventure and spiritual coming-of-age tale -- On the Road crossed with Henderson the Rain King... Deeply affecting.\" --Michiko Kakutani, The New York Times Longlisted for an Andrew Carnegie Medal for Excellence in Fiction Josie and her children's father have split up, she's been sued by a former patient and lost her dental practice, and she's grieving the death of a young man senselessly killed shortly after enlisting. When her ex asks to take the children to meet his new fiancée's family, Josie makes a run for it to Alaska with her kids, Paul and Ana. At first their trip feels like a vacation: they see bears and bison, they eat hot dogs cooked on a bonfire, and they spend nights parked along icy cold rivers in dark forests. But as they drive in their rattling old RV, pushed north by the ubiquitous wildfires, Josie is chased by enemies both real and imagined, and past mistakes pursue her tiny family, even to the very edge of civilization. A captivating, often hilarious novel of family, loss, wilderness, and the curse of a violent America, Heroes of the Frontier is a powerful examination of our contemporary life and a rousing story of adventure.",
+  "subjects": [],
   "copies": 1,
-  "status": "Knopf Doubleday Publishing Group",
-  "rating": "wilderness",
-  "review": "and the curse of a violent America",
+  "addedAt": "2018-07-17",
   "source": "libib"
 }

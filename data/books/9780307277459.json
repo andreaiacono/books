@@ -2,13 +2,13 @@
   "isbn": "9780307277459",
   "title": "Your inner fish",
   "author": "Neil Shubin",
+  "year": 2009,
   "cover": "covers/9780307277459.webp",
-  "publisher": "tells a \"\"compelling scientific adventure story that will change forever how you understand what it means to be human\"\" (Oliver Sacks). By examining fossils and DNA",
-  "description": "The paleontologist and professor of anatomy who co-discovered Tiktaalik, the \"fish with hands",
-  "subjects": [
-    "and major parts of our genomes look and function like those of worms and bacteria. Your Inner Fish makes us look at ourselves and our world in an illuminating new light. This is science writing at its finest--enlightening"
-  ],
-  "notes": "accessible and told with irresistible enthusiasm.\"",
+  "publisher": "Knopf Doubleday Publishing Group",
+  "pages": 256,
+  "description": "The paleontologist and professor of anatomy who co-discovered Tiktaalik, the \"fish with hands,\" tells a \"compelling scientific adventure story that will change forever how you understand what it means to be human\" (Oliver Sacks). By examining fossils and DNA, he shows us that our hands actually resemble fish fins, our heads are organized like long-extinct jawless fish, and major parts of our genomes look and function like those of worms and bacteria. Your Inner Fish makes us look at ourselves and our world in an illuminating new light. This is science writing at its finest--enlightening, accessible and told with irresistible enthusiasm.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2023-05-25",
   "source": "libib"
 }

@@ -2,13 +2,13 @@
   "isbn": "9788845916281",
   "title": "Inquisizioni",
   "author": "Jorge L. Borges",
+  "year": 2001,
   "cover": "covers/9788845916281.webp",
-  "publisher": "ma non mancano i segni di una capacità precoce",
-  "description": "In \"Inquisizioni\"\" Borges privilegia autori e motivi legati alla cultura argentina - sul versante della cultura avanguardistica come su quello dell'ispirazione popolareggiante - e sullo sfondo si staglia il controverso rapporto che lega lo scrittore alla letteratura spagnola e all'eredità barocca in particolare",
-  "subjects": [
-    "probabilmente il primo apparso in America Latina o a quello su Sir Thomas Browne"
-  ],
-  "notes": "dove Borges disegna un autoritratto in fieri.\"",
+  "publisher": "Adelphi",
+  "pages": 155,
+  "description": "In \"Inquisizioni\" Borges privilegia autori e motivi legati alla cultura argentina - sul versante della cultura avanguardistica come su quello dell'ispirazione popolareggiante - e sullo sfondo si staglia il controverso rapporto che lega lo scrittore alla letteratura spagnola e all'eredità barocca in particolare, ma non mancano i segni di una capacità precoce, spesso folgorante, di misurarsi con le grandi questioni letterarie e culturali: basti pensare al saggio sull'\"Ulisse\" di Joyce, probabilmente il primo apparso in America Latina o a quello su Sir Thomas Browne, dove Borges disegna un autoritratto in fieri.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2021-08-01",
   "source": "libib"
 }

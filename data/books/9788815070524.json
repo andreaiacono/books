@@ -2,13 +2,13 @@
   "isbn": "9788815070524",
   "title": "La timidezza",
   "author": "Giovanna Axia",
+  "year": 1999,
   "cover": "covers/9788815070524.webp",
-  "publisher": "e in alcuni periodi storici essa è stata considerata una virtù. Su questo tema",
-  "description": "Può essere spiacevole per chi la vive, ma assolve una funzione fondamentale nell'evoluzione della specie. I timidi sono attenti e sensibili, a volte possono esagerare con la cautela, ma raramente si sbagliano a percepire il pericolo. Per questo non si sono mai \"estinti\"\". La loro prudente ritrosia compensa la sventata audacia dei coraggiosi e l'arroganza dei sicuri di sé. Del resto non tutte le culture penalizzano la timidezza",
-  "subjects": [
-    "Il Mulino"
-  ],
-  "notes": "1999-03-12",
+  "publisher": "Il Mulino",
+  "pages": 127,
+  "description": "Può essere spiacevole per chi la vive, ma assolve una funzione fondamentale nell'evoluzione della specie. I timidi sono attenti e sensibili, a volte possono esagerare con la cautela, ma raramente si sbagliano a percepire il pericolo. Per questo non si sono mai \"estinti\". La loro prudente ritrosia compensa la sventata audacia dei coraggiosi e l'arroganza dei sicuri di sé. Del resto non tutte le culture penalizzano la timidezza, e in alcuni periodi storici essa è stata considerata una virtù. Su questo tema, cui di recente la psicologia ha dedicato molti studi, fa il punto questo libro.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "1999-04-10",
   "source": "libib"
 }

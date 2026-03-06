@@ -2,14 +2,13 @@
   "isbn": "9788875783822",
   "title": "PHI. Un viaggio dal cervello all'anima",
   "author": "Giulio Tononi, Silvio Ferraresi",
+  "year": 2014,
   "cover": "covers/9788875783822.webp",
-  "publisher": "è Galileo Galilei. L'astronomo pisano viene guidato in questo viaggio onirico prima da Francis Crick",
-  "description": "Romanzo-saggio potente e suggestivo, PHI regala alla teoria sulla coscienza di Giulio Tononi un'inaspettata veste narrativa. Protagonista di questo libro, in più punti ispirato alla \"Divina Commedia\"\"",
-  "subjects": [
-    "e con lui il lettore"
-  ],
-  "notes": "scoprirà che la coscienza",
+  "publisher": "Codice",
+  "pages": 364,
+  "description": "Romanzo-saggio potente e suggestivo, PHI regala alla teoria sulla coscienza di Giulio Tononi un'inaspettata veste narrativa. Protagonista di questo libro, in più punti ispirato alla \"Divina Commedia\", è Galileo Galilei. L'astronomo pisano viene guidato in questo viaggio onirico prima da Francis Crick, poi da Alan Turing e infine da Charles Darwin, alla scoperta di cos'è la coscienza e di com'è generata dal cervello. Ma l'approdo finale di questa esplorazione è ancora più sorprendente delle sue premesse. Nel corso della narrazione Galileo, e con lui il lettore, scoprirà che la coscienza, da sempre considerata un mistero insondabile, appannaggio esclusivo della filosofia o mera illusione - laddove ciò che conta per la scienza è solo il brusio incessante delle cellule nervose - è in realtà la cosa più reale, più grande e più irriducibile che esista, ma non per questo non misurabile. Le sue forme sono geometriche, la sua misura un numero: PHI. Leggi di più Leggi meno",
+  "subjects": [],
   "copies": 1,
-  "status": "364",
+  "addedAt": "2021-04-23",
   "source": "libib"
 }

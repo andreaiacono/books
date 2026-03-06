@@ -2,14 +2,13 @@
   "isbn": "9788845918698",
   "title": "Adelphiana. Pubblicazione permanente (Vol. 3)",
   "author": "aa.vv.",
+  "year": 2004,
   "cover": "covers/9788845918698.webp",
-  "publisher": "insigniti del premio Nobel. Una prosa dedicata da Czeslaw Milosz alla sua Lituania",
-  "description": "Il terzo numero di \"Adelphiana\"\" si inaugura con testi di tre grandi poeti del nostro tempo",
-  "subjects": [
-    "del quale è qui presentato un incunabolo"
-  ],
-  "notes": "il primo scritto mai pubblicato che appartiene al ciclo del dottor Rönne. Dopo un reportage di William Langewiesche sulla pirateria che infesta gli oceani d'oggi si apre una sezione dedicata all'India",
+  "publisher": "Adelphi",
+  "pages": 288,
+  "description": "Il terzo numero di \"Adelphiana\" si inaugura con testi di tre grandi poeti del nostro tempo, insigniti del premio Nobel. Una prosa dedicata da Czeslaw Milosz alla sua Lituania, due brevi poemi di Derek Walcott e una delle interviste concesse da Wislawa Szymborska. Segue un confronto a distanza fra due medici-scrittori, Oliver Sacks e Gottfried Benn, del quale è qui presentato un incunabolo, il primo scritto mai pubblicato che appartiene al ciclo del dottor Rönne. Dopo un reportage di William Langewiesche sulla pirateria che infesta gli oceani d'oggi si apre una sezione dedicata all'India, mentre nell'ultima parte Charles Simic indaga su una fotografia di Berenice Abbott e Tim Judah ricostruisce i rapporti fra Tintin e il suo autore, Hérgé. Leggi di più",
+  "subjects": [],
   "copies": 1,
-  "rating": "288",
+  "addedAt": "2024-01-29",
   "source": "libib"
 }

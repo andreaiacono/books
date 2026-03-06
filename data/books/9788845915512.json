@@ -2,13 +2,13 @@
   "isbn": "9788845915512",
   "title": "Sei pezzi facili",
   "author": "Richard P. Feynman",
+  "year": 2000,
   "cover": "covers/9788845915512.webp",
-  "publisher": "atomi in moto",
-  "description": "Queste sono le prime lezioni di Feynman - saranno seguite da \"Sei pezzi meno facili\"\" - e partono da zero. Si dice di cos'è fatta la materia",
-  "subjects": [
-    "mettendone in luce il legame con le altre scienze. Ad ogni lettura cade una buccia della magica cipolla e si apre un nuovo affascinante scenario.\""
-  ],
-  "notes": "Adelphi",
+  "publisher": "Adelphi",
+  "pages": 212,
+  "description": "Queste sono le prime lezioni di Feynman - saranno seguite da \"Sei pezzi meno facili\" - e partono da zero. Si dice di cos'è fatta la materia, atomi in moto, che sotto la materia c'è dell'altro, il mondo quantistico e i suoi paradossi. L'autore riesce a dare il senso dell'evolversi della fisica nel secolo appena trascorso, mettendone in luce il legame con le altre scienze. Ad ogni lettura cade una buccia della magica cipolla e si apre un nuovo affascinante scenario.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2000-07-29",
   "source": "libib"
 }

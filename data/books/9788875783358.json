@@ -2,13 +2,13 @@
   "isbn": "9788875783358",
   "title": "La danza dei fotoni. Da Einstein al teletrasporto quantistico",
   "author": "Anton Zeilinger, V. L. Gili",
+  "year": 2012,
   "cover": "covers/9788875783358.webp",
-  "publisher": "un \"\"intreccio indissolubile\"\" grazie al quale è possibile trasferire alcune proprietà delle particelle in altre particelle",
-  "description": "\"Una misteriosa interazione istantanea a distanza\"\". Così Einstein liquidò con una certa diffidenza uno dei fenomeni più bizzarri e sfuggenti della meccanica quantistica: l'entanglement",
-  "subjects": [
-    "è in grado di replicare nel medesimo istante lo stesso identico numero. Ma quello che aveva infastidito Einstein è diventata la magnifica ossessione di Anton Zeilinger"
-  ],
-  "notes": "il fisico austriaco che ha definitivamente dimostrato che quella misteriosa interazione è una suggestiva coreografia",
+  "publisher": "Codice",
+  "pages": 336,
+  "description": "\"Una misteriosa interazione istantanea a distanza\". Così Einstein liquidò con una certa diffidenza uno dei fenomeni più bizzarri e sfuggenti della meccanica quantistica: l'entanglement, un \"intreccio indissolubile\" grazie al quale è possibile trasferire alcune proprietà delle particelle in altre particelle, senza ritardo temporale. È come lanciare un dado e sapere che il suo \"gemello\", anche se posto a grandissima distanza, è in grado di replicare nel medesimo istante lo stesso identico numero. Ma quello che aveva infastidito Einstein è diventata la magnifica ossessione di Anton Zeilinger, il fisico austriaco che ha definitivamente dimostrato che quella misteriosa interazione è una suggestiva coreografia, un fenomeno reale con applicazioni pratiche molto promettenti.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2012-12-25",
   "source": "libib"
 }

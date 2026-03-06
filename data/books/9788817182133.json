@@ -2,17 +2,13 @@
   "isbn": "9788817182133",
   "title": "Prima del Big Bang. Come è iniziato l'universo e cosa è avvenuto prima",
   "author": "Gian Francesco Giudice",
+  "year": 2023,
   "cover": "covers/9788817182133.webp",
-  "publisher": "di una chiarezza esemplare",
-  "description": "Dal direttore del Dipartimento di Fisica Teorica del CERN. \"In questo bellissimo libro",
-  "subjects": [
-    "incantevole. Una fiaba che racconta una storia vera lunga 13"
-  ],
-  "notes": "8 miliardi di anni. Emozionante dalla prima all'ultima pagina.\"\" - Fabiola Giannotti",
+  "publisher": "Rizzoli",
+  "pages": 252,
+  "description": "Dal direttore del Dipartimento di Fisica Teorica del CERN. \"In questo bellissimo libro, di una chiarezza esemplare, Gian Giudice ci guida per mano attraverso la storia e i misteri del Big Bang.\" - Giorgio Parisi, Premio Nobel per la Fisica 2021 \"Un racconto affascinante, incantevole. Una fiaba che racconta una storia vera lunga 13,8 miliardi di anni. Emozionante dalla prima all'ultima pagina.\" - Fabiola Giannotti, fisico delle particelle, direttrice generale del CERN Un fisico teorico tra i più importanti del CERN di Ginevra torna in treno da un convegno, gli occhi fissi su un denso articolo di cosmologia quantistica. All'improvviso, la voce di una bambina interrompe le sue riflessioni. «Cosa stai leggendo?» «È la storia dell'universo.» «Se racconta tutta la storia dell'universo, parla anche di me?» Da questa domanda, e dall'urgenza di spiegare - unendo la precisione dello scienziato al registro mai banale né ermetico del divulgatore - la storia del cosmo e delle teorie che lo descrivono prende l'avvio il libro che stringete tra le mani. Un viaggio attraverso l'evoluzione dell'universo, che si spinge ai limiti attuali delle possibilità di conoscenza umana, snodandosi tra relatività generale e costante cosmologica, meccanica quantistica e geometrie non euclidee, spazi a curvatura positiva e negativa, principio di indeterminazione di Heisenberg e multiverso... Gian Francesco Giudice riesce a unire scienza, storia della scienza e storia del pensiero, ripercorrendo il dibattito che ha animato una comunità di fisici e di astronomi di fronte all'ipotesi e poi alla conferma del Big Bang: non l'«Inizio di Tutto», l'ipotizzato evento all'origine dello spaziotempo cui spesso si collega questa espressione, ma il fenomeno fisico ormai assodato che segna l'avvento del cosmo descrivibile dalle leggi fisiche conosciute. «L'istante iniziale di una zuppa calda che contiene tutti gli ingredienti dell'odierno universo.» Dalle diatribe più accese alle prime conferme empiriche del Big Bang, questo libro ripercorre le scoperte di grandi pensatori e scienziati fino a condurci alle frontiere dell'attuale ricerca scientifica. Una parabola affascinante e stimolante, che affronta concetti complessi con la fluidità del racconto e ci permette di comprendere meglio l'universo attorno a noi. Leggi di più",
+  "subjects": [],
   "copies": 1,
-  "status": "storia della scienza e storia del pensiero",
-  "rating": "meccanica quantistica e geometrie non euclidee",
-  "review": "spazi a curvatura positiva e negativa",
-  "addedAt": "ma il fenomeno fisico ormai assodato che segna l'avvento del cosmo descrivibile dalle leggi fisiche conosciute. «L'istante iniziale di una zuppa calda che contiene tutti gli ingredienti dell'odierno universo.» Dalle diatribe più accese alle prime conferme empiriche del Big Bang",
+  "addedAt": "2024-03-28",
   "source": "libib"
 }

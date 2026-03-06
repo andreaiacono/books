@@ -2,16 +2,13 @@
   "isbn": "9788807903274",
   "title": "L' isola del dottor Moreau",
   "author": "H.G. Wells",
+  "year": 2019,
   "cover": "covers/9788807903274.webp",
-  "publisher": "e neppure la più spietata",
-  "description": "«L'isola del Dottor Moreau» fu pubblicato nel 1896, quando H.G. Wells aveva solo trent'anni. L'anno prima era uscito «La macchina del tempo» e, due anni dopo, avrebbe visto la luce «La guerra dei mondi», il libro che consacrerà Wells. \"Non avrebbe mai dovuto essere scritto\"\". La recensione apparsa sulla «Review of Reviews» subito dopo l'uscita del romanzo non è l'unica critica",
-  "subjects": [
-    "\"\"nauseante\"\""
-  ],
-  "notes": "\"\"un abisso di sgradevolezza repellente\"\"",
+  "publisher": "Feltrinelli",
+  "pages": 208,
+  "description": "«L'isola del Dottor Moreau» fu pubblicato nel 1896, quando H.G. Wells aveva solo trent'anni. L'anno prima era uscito «La macchina del tempo» e, due anni dopo, avrebbe visto la luce «La guerra dei mondi», il libro che consacrerà Wells. \"Non avrebbe mai dovuto essere scritto\". La recensione apparsa sulla «Review of Reviews» subito dopo l'uscita del romanzo non è l'unica critica, e neppure la più spietata, del capolavoro wellsiano. Definito, a più riprese, \"nauseante\", \"un abisso di sgradevolezza repellente\", \"una profonda manifestazione di imbecillità\", «L'isola del dottor Moreau» si è posto, fin dalla sua prima pubblicazione, come un testo estremo e perturbante, soffuso di atmosfere macabre e grottesche, saturo di immagini di violenza terribile che ne fanno un romanzo simbolo di una certa temperie scientista fin-de-siècle, quando l'orgoglio positivista delle \"umane sorti e progressive\" cede il passo a un'inquietudine spirituale squisitamente moderna. Che il tema centrale del romanzo - gli esperimenti biotecnologici del pazzo Dottor Moreau - dovesse costituire un possibile elemento di scandalo era cosa ben presente alla mente di Wells che, in maniera abbastanza inusuale per il periodo, decide di pubblicarlo nella sua interezza, senza parcellizzarlo sulle riviste, per non frammentarne il ritmo sostenuto e l'incastro sapiente di scene ricche di suspense e drammaticità. Postfazione di Margaret Atwood.",
+  "subjects": [],
   "copies": 1,
-  "status": "Feltrinelli",
-  "rating": "decide di pubblicarlo nella sua interezza",
-  "review": "senza parcellizzarlo sulle riviste",
+  "addedAt": "2023-10-19",
   "source": "libib"
 }

@@ -2,16 +2,13 @@
   "isbn": "9788834603321",
   "title": "Costruire il nemico",
   "author": "Umberto Eco",
+  "year": 2020,
   "cover": "covers/9788834603321.webp",
-  "publisher": "negli ultimi sessant'anni",
-  "description": "\"Una delle disgrazie del nostro paese",
-  "subjects": [
-    "il valore nostro. Pertanto"
-  ],
-  "notes": "quando il nemico non ci sia",
+  "publisher": "La nave di Teseo",
+  "pages": 64,
+  "description": "\"Una delle disgrazie del nostro paese, negli ultimi sessant'anni, è stata proprio di non avere avuto veri nemici. Avere un nemico è importante non solo per definire la nostra identità ma anche per procurarci un ostacolo rispetto al quale misurare il nostro sistema di valori e mostrare, nell'affrontarlo, il valore nostro. Pertanto, quando il nemico non ci sia, occorre costruirlo.\" La situazione mondiale del nostro tempo, segnata dall'aumento di forme di razzismo e da una feroce contrapposizione politica, rivela quanto sia opportuno, e inevitabile, conoscere i meccanismi che portano gli uomini a individuare sempre nuovi avversari. Umberto Eco, in questo intervento civile di straordinaria attualità, riflette sul nostro bisogno di avere, sempre e comunque, un nemico da attaccare: dalle invettive degli oratori antichi al culto medievale per l'integritas, una brillante divagazione letteraria che attraversa l'Iliade e i romanzi di James Bond, la caccia alle streghe, la propaganda bellica del passato e i populismi del presente.",
+  "subjects": [],
   "copies": 1,
-  "status": "la propaganda bellica del passato e i populismi del presente.\"",
-  "rating": "un nemico da attaccare: dalle invettive degli oratori antichi al culto medievale per l'integritas",
-  "review": "una brillante divagazione letteraria che attraversa l'Iliade e i romanzi di James Bond",
+  "addedAt": "2025-11-21",
   "source": "libib"
 }

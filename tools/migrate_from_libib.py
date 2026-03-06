@@ -127,6 +127,8 @@ def convert_row(row, row_num):
         isbn = f"noisbn_{slug}"
         warning = f"row {row_num}: no ISBN — using slug key: {isbn!r}"
 
+    added = clean(row.get(FIELD_ADDED))
+
     grid_entry = {
         "isbn":   isbn,
         "title":  title,
@@ -134,6 +136,8 @@ def convert_row(row, row_num):
         "year":   year,
         "cover":  cover_path(isbn),
     }
+    if added:
+        grid_entry["added"] = added
 
     # Pages: Libib stores it in 'length'
     pages_raw = clean(row.get(FIELD_LENGTH))
@@ -198,10 +202,7 @@ def main():
     duplicates = []
 
     with open(csv_path, newline="", encoding="utf-8-sig") as f:
-        # Libib uses tab-separated values
-        dialect = csv.Sniffer().sniff(f.read(4096))
-        f.seek(0)
-        reader = csv.DictReader(f, dialect=dialect)
+        reader = csv.DictReader(f, delimiter=',', quotechar='"')
         rows = list(reader)
 
     print(f"Read {len(rows)} rows from {csv_path.name}")

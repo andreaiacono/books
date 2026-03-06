@@ -106,28 +106,28 @@
       return;
     }
 
-    // Group by month read; unread books go last
-    const groups = new Map(); // key: 'YYYY-MM' | 'unread'
+    // Group by month added; books without a date go last
+    const groups = new Map(); // key: 'YYYY-MM' | 'unknown'
     for (const book of books) {
-      const date = book.reading?.dateFinished;
-      if (date) {
-        const [, m, y] = date.split('/');
+      const added = book.added; // e.g. "2023-05-15" or "2023-05-15 10:30:00"
+      const [y, m] = added ? added.split('-') : [];
+      if (y && m) {
         const key = `${y}-${m.padStart(2, '0')}`;
         if (!groups.has(key)) {
           groups.set(key, { label: `${MONTHS[parseInt(m) - 1]} ${y}`, books: [] });
         }
         groups.get(key).books.push(book);
       } else {
-        if (!groups.has('unread')) groups.set('unread', { label: 'Unread', books: [] });
-        groups.get('unread').books.push(book);
+        if (!groups.has('unknown')) groups.set('unknown', { label: 'Unknown date', books: [] });
+        groups.get('unknown').books.push(book);
       }
     }
 
-    // Sort groups: dated ones descending, unread at the end
+    // Sort groups: dated ones descending, unknown at the end
     const sortedKeys = [...groups.keys()]
-      .filter(k => k !== 'unread')
+      .filter(k => k !== 'unknown')
       .sort((a, b) => b.localeCompare(a));
-    if (groups.has('unread')) sortedKeys.push('unread');
+    if (groups.has('unknown')) sortedKeys.push('unknown');
 
     const fragment = document.createDocumentFragment();
     for (const key of sortedKeys) {

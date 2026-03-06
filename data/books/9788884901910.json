@@ -2,12 +2,13 @@
   "isbn": "9788884901910",
   "title": "Jack Frusciante è uscito dal gruppo",
   "author": "Enrico Brizzi",
+  "year": 2002,
   "cover": "covers/9788884901910.webp",
-  "publisher": "soprattutto",
-  "description": "Questo romanzo, scritto da un autore diciannovenne, racconta il mondo sommerso e inquieto dei giovani nati nella seconda metà degli anni settanta ed è una specie di \"affresco italiano\"\" sul passaggio dall'adolescenza all'età adulta. Il protagonista è un diciassettenne che ama i Pistols e i Red Hot Chili Peppers e",
-  "subjects": [
-    "2002-05-07"
-  ],
+  "publisher": "Dalai Editore",
+  "pages": 173,
+  "description": "Questo romanzo, scritto da un autore diciannovenne, racconta il mondo sommerso e inquieto dei giovani nati nella seconda metà degli anni settanta ed è una specie di \"affresco italiano\" sul passaggio dall'adolescenza all'età adulta. Il protagonista è un diciassettenne che ama i Pistols e i Red Hot Chili Peppers e, soprattutto, una ragazza che frequenta il suo stesso liceo.",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "1995-10-09",
   "source": "libib"
 }

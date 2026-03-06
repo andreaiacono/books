@@ -2,16 +2,13 @@
   "isbn": "9780525539124",
   "title": "Skeleton Keys",
   "author": "Riley Black (Brian Switek)",
+  "year": 2020,
   "cover": "covers/9780525539124.webp",
-  "publisher": "if you know how to listen. Bone is a marvel",
-  "description": "\"A provocative and entertaining magical mineral tour through the life and afterlife of bone.\"\" --Wall Street Journal Our bones have many stories to tell",
-  "subjects": [
-    "no other part of the human anatomy has such rich scientific and cultural significance"
-  ],
-  "notes": "both brimming with life and a potent symbol of death. In this delightful natural and cultural history of bone",
+  "publisher": "Penguin Publishing Group",
+  "pages": 288,
+  "description": "\"A provocative and entertaining magical mineral tour through the life and afterlife of bone.\" --Wall Street Journal Our bones have many stories to tell, if you know how to listen. Bone is a marvel, an adaptable and resilient building material developed over more than four hundred million years of evolutionary history. It gives your body its shape and the ability to move. It grows and changes with you, an undeniable document of who you are and how you lived. Arguably, no other part of the human anatomy has such rich scientific and cultural significance, both brimming with life and a potent symbol of death. In this delightful natural and cultural history of bone, Brian Switek explains where our skeletons came from, what they do inside us, and what others can learn about us when these artifacts of mineral and protein are all we've left behind. Bone is as embedded in our culture as it is in our bodies. Our species has made instruments and jewelry from bone, treated the dead like collectors' items, put our faith in skull bumps as guides to human behavior, and arranged skeletons into macabre tributes to the afterlife. Switek makes a compelling case for getting better acquainted with our skeletons, in all their surprising roles. Bridging the worlds of paleontology, anthropology, medicine, and forensics, Skeleton Keys illuminates the complex life of bones inside our bodies and out.",
+  "subjects": [],
   "copies": 1,
-  "status": "Penguin Publishing Group",
-  "rating": "medicine",
-  "review": "and forensics",
+  "addedAt": "2023-08-18",
   "source": "libib"
 }

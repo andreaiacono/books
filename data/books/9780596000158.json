@@ -2,13 +2,13 @@
   "isbn": "9780596000158",
   "title": "Java Performance Tuning",
   "author": "Jack Shirazi",
+  "year": 2000,
   "cover": "covers/9780596000158.webp",
-  "publisher": "right from such early considerations as setting goals",
-  "description": "No matter what language they're programming in, developers always wish things would run faster! Especially when writing mission-critical applications, no one wants to be limited by the programming environment.Java Performance Tuning provides all the details you need to know to \"performance tune\"\" any type of Java program and make Java code run significantly faster.Java Performance Tuning contains step-by-step instructions on all aspects of the performance tuning process",
-  "subjects": [
-    "and any pitfalls are identified. The book also provides performance tuning checklists that enable developers to make their tuning as comprehensive as possible.Java Performance Tuning is a book to help you \"\"roll up your sleeves\"\" and examine your code in detail in order to apply different tuning techniques to produce the best possible result.The book shows you how to: Create and plan a tuning strategy Avoid performance penalties from inefficient code Minimize the number of objects a program creates Improve the behavior of loops and switches Use threads effectively\""
-  ],
-  "notes": "O'Reilly Media, Incorporated",
+  "publisher": "O'Reilly Media, Incorporated",
+  "pages": 442,
+  "description": "No matter what language they're programming in, developers always wish things would run faster! Especially when writing mission-critical applications, no one wants to be limited by the programming environment.Java Performance Tuning provides all the details you need to know to \"performance tune\" any type of Java program and make Java code run significantly faster.Java Performance Tuning contains step-by-step instructions on all aspects of the performance tuning process, right from such early considerations as setting goals, measuring performance, and choosing a compiler. Extensive examples for tuning many parts of an application are described in detail, and any pitfalls are identified. The book also provides performance tuning checklists that enable developers to make their tuning as comprehensive as possible.Java Performance Tuning is a book to help you \"roll up your sleeves\" and examine your code in detail in order to apply different tuning techniques to produce the best possible result.The book shows you how to: Create and plan a tuning strategy Avoid performance penalties from inefficient code Minimize the number of objects a program creates Improve the behavior of loops and switches Use threads effectively",
+  "subjects": [],
   "copies": 1,
+  "addedAt": "2000-11-11",
   "source": "libib"
 }
