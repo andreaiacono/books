@@ -165,7 +165,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 @media (min-width: 768px) {
-  .book-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .book-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
 }
 
 /* ─── Book card ──────────────────────────────────────────────────────────── */
