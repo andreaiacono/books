@@ -51,7 +51,7 @@
 
     <div class="form-group">
       <label class="form-label" for="gh-branch">Branch</label>
-      <input type="text" id="gh-branch" placeholder="main">
+      <input type="text" id="gh-branch" placeholder="leave empty for default branch">
     </div>
 
     <div class="form-group">
@@ -99,7 +99,7 @@
 
   function loadConfig() {
     fields.repo.value   = localStorage.getItem('gh_repo')   ?? '';
-    fields.branch.value = localStorage.getItem('gh_branch') ?? 'main';
+    fields.branch.value = localStorage.getItem('gh_branch') ?? '';
     fields.token.value  = localStorage.getItem('gh_token')  ?? '';
     updateStatus();
   }
@@ -117,7 +117,9 @@
 
   document.getElementById('save-config').addEventListener('click', () => {
     localStorage.setItem('gh_repo',   fields.repo.value.trim());
-    localStorage.setItem('gh_branch', fields.branch.value.trim() || 'main');
+    const branch = fields.branch.value.trim();
+    if (branch) localStorage.setItem('gh_branch', branch);
+    else localStorage.removeItem('gh_branch');
     localStorage.setItem('gh_token',  fields.token.value.trim());
     updateStatus();
     // Simple toast equivalent

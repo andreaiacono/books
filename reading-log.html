@@ -75,45 +75,69 @@
     document.getElementById('log-subtitle').textContent =
       `${total} books across ${years} years`;
 
-    // Group by month
-    const byMonth = new Map();
+    // Group by year → month
+    const byYear = new Map();
     for (const entry of sorted) {
       const date = entry.date;
-      const key = date ? date.slice(3) : 'unknown'; // "MM/YYYY"
-      if (!byMonth.has(key)) {
-        const label = date
-          ? `${MONTHS_IT[parseInt(date.slice(3, 5)) - 1]} ${date.slice(6)}`
-          : 'Data sconosciuta';
-        byMonth.set(key, { label, entries: [] });
+      const year = date ? date.slice(6) : 'unknown';
+      const monthKey = date ? date.slice(3) : 'unknown'; // "MM/YYYY"
+      if (!byYear.has(year)) byYear.set(year, new Map());
+      const yearMap = byYear.get(year);
+      if (!yearMap.has(monthKey)) {
+        const monthLabel = date ? MONTHS_IT[parseInt(date.slice(3, 5)) - 1] : 'Data sconosciuta';
+        yearMap.set(monthKey, { label: monthLabel, entries: [] });
       }
-      byMonth.get(key).entries.push(entry);
+      yearMap.get(monthKey).entries.push(entry);
     }
 
+    const currentYear = String(new Date().getFullYear());
     const container = document.getElementById('log-container');
 
-    for (const { label, entries } of byMonth.values()) {
-      const section = document.createElement('section');
-      section.className = 'month-section';
-      section.innerHTML = `<div class="month-header">${escHtml(label)}</div>`;
+    for (const [year, monthMap] of byYear) {
+      const totalInYear = [...monthMap.values()].reduce((n, m) => n + m.entries.length, 0);
 
-      for (const entry of entries) {
-        const isbn   = entry.isbn?.trim();
-        const marked = entry.marked === 'true';
-        const title  = escHtml(entry.title ?? '');
-        const author = escHtml(entry.creators ?? '');
-        const comment = entry.comment?.trim();
+      const yearSection = document.createElement('section');
+      yearSection.className = 'year-section' + (year !== currentYear ? ' collapsed' : '');
 
-        const titleEl = isbn
-          ? `<a class="log-title${marked ? ' log-title--marked' : ''}" href="https://books.google.it/books?vid=${encodeURIComponent(isbn)}" target="_blank" rel="noopener">${title}</a>`
-          : `<strong class="log-title${marked ? ' log-title--marked' : ''}">${title}</strong>`;
+      const yearHeader = document.createElement('div');
+      yearHeader.className = 'year-header';
+      yearHeader.innerHTML = `
+        <h2>${escHtml(year)}</h2>
+        <span class="year-count">${totalInYear} libri</span>
+        <span class="year-chevron">▾</span>`;
+      yearHeader.addEventListener('click', () => yearSection.classList.toggle('collapsed'));
 
-        const row = document.createElement('p');
-        row.className = 'log-entry';
-        row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} di ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
-        section.appendChild(row);
+      const yearBody = document.createElement('div');
+      yearBody.className = 'year-body';
+
+      for (const { label, entries } of monthMap.values()) {
+        const monthSection = document.createElement('section');
+        monthSection.className = 'month-section';
+        monthSection.innerHTML = `<div class="month-header">${escHtml(label)}</div>`;
+
+        for (const entry of entries) {
+          const isbn    = entry.isbn?.trim();
+          const marked  = entry.marked === 'true';
+          const title   = escHtml(entry.title ?? '');
+          const author  = escHtml(entry.creators ?? '');
+          const comment = entry.comment?.trim();
+
+          const titleEl = isbn
+            ? `<a class="log-title${marked ? ' log-title--marked' : ''}" href="https://books.google.it/books?vid=${encodeURIComponent(isbn)}" target="_blank" rel="noopener">${title}</a>`
+            : `<strong class="log-title${marked ? ' log-title--marked' : ''}">${title}</strong>`;
+
+          const row = document.createElement('p');
+          row.className = 'log-entry';
+          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} di ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
+          monthSection.appendChild(row);
+        }
+
+        yearBody.appendChild(monthSection);
       }
 
-      container.appendChild(section);
+      yearSection.appendChild(yearHeader);
+      yearSection.appendChild(yearBody);
+      container.appendChild(yearSection);
     }
   }
 

@@ -63,7 +63,7 @@ function getConfig() {
   return {
     token: localStorage.getItem('gh_token'),
     repo:  localStorage.getItem('gh_repo'),   // e.g. "username/my-library"
-    branch: localStorage.getItem('gh_branch') ?? 'main',
+    branch: localStorage.getItem('gh_branch') || null,
   };
 }
 
@@ -90,7 +90,7 @@ async function ghPut(path, content /* base64 */, sha, message) {
       Accept: 'application/vnd.github+json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ message, content, sha, branch }),
+    body: JSON.stringify({ message, content, sha, ...(branch ? { branch } : {}) }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
