@@ -8,7 +8,5 @@
   "pages": 440,
   "description": "Performance tuning is an experimental science, but that doesn't mean engineers should resort to guesswork and folklore to get the job done. Yet that's often the case. With this practical book, intermediate to advanced Java technologists working with complex technology stacks will learn how to tune Java applications for performance using a quantitative, verifiable approach. Most resources on performance tend to discuss the theory and internals of Java virtual machines, but this book focuses on the practicalities of performance tuning by examining a wide range of aspects. There are no simple recipes, tips and tricks, or algorithms to learn. Performance tuning is a process of defining and determining desired outcomes. And it requires diligence. Learn how Java principles and technology make the best use of modern hardware and operating systems Explore several performance tests and common anti-patterns that can vex your team Understand the pitfalls of measuring Java performance numbers and the drawbacks of microbenchmarking Dive into JVM garbage collection logging, monitoring, tuning, and tools Explore JIT compilation and Java language performance techniques Learn performance aspects of the Java Collections API and get an overview of Java concurrency",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2018-10-01",
-  "source": "libib"
 }

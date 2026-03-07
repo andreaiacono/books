@@ -7,7 +7,5 @@
   "publisher": "Apress L. P.",
   "description": "Learning how to write multithreaded applications is the key to taking full advantage of the Java platform. In Taming Java Threads, well-known columnist and Java expert Allen Holub provides Java programmers with the information they need to write real multithreaded programsprograms with real code. Holub provides an in-depth explanation of how threads work along with information about how to solve common problems such as deadlocks and race conditions. He not only explains common problems, but also provides the uncommon solutions that mark the difference between production-level code and toy demos. While it is essential to build support for threading into a Java program from the very beginning, most books on the subjects of Java user interface construction and Java networking barely touch on threading topics. Along with being a basic Java reference, this book is a must-read for any Java developer.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2002-03-27",
-  "source": "libib"
 }

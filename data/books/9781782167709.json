@@ -8,7 +8,5 @@
   "pages": 60,
   "description": "Filled with practical, step-by-step instructions and clear explanations for the most important and useful tasks. This is a Packt Instant How-to guide, which provides concise and clear recipes for getting started with Hadoop.This book is for big data enthusiasts and would-be Hadoop programmers. It is also meant for Java programmers who either have not worked with Hadoop at all, or who know Hadoop and MapReduce but are not sure how to deepen their understanding.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2013-12-25",
-  "source": "libib"
 }

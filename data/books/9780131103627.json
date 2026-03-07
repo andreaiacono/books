@@ -8,7 +8,5 @@
   "pages": 288,
   "description": "This second edition describes C as defined by the ANSI standard. This book is meant to help the reader learn how to program in C. The book assumes some familiarity with basic programming concepts like variables, assignment statements, loops, and functions. A novice programmer should be able to read along and pick up the language.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2004-01-13",
-  "source": "libib"
 }

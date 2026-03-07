@@ -8,7 +8,5 @@
   "pages": 360,
   "description": "Volume 3 provides detailed coverage of four essential topics with which todays TCP/IP programmers and network administrators must be thoroughly familiar: * T/TCP (TCP for Transactions), an extension to TCP that makes client-server transactions faster, more efficient, and more reliable; * HTTP (Hypertext Transfer Protocol), the foundation for the rapidly expanding World Wide Web; * NNTP (the Network News Transfer Protocol), the basis for the Usenet news system; and * UNIX Domain Protocols, a set of protocols used heavily in UNIX implementations. As in the previous two volumes, the book is filled with examples and implementation details within the 4.4BSD-Lite networking code. The TCP/IP Illustrated series provides a complete picture of the protocol suite that drives the Internet, and gives programmers, system administrators, and serious users the information, understanding, and skills they need to remain at the forefront of networking technology.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2000-12-02",
-  "source": "libib"
 }

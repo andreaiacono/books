@@ -8,7 +8,5 @@
   "pages": 744,
   "description": "Bestselling UNIX author Stevens offers application and system programmers his professional, experienced-based guidance on using the system call interface with C. Since good examples are the key to a book like this, a simple shell program is developed in the first chapter and then expanded throughout the book to demonstrate the principles.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2004-01-10",
-  "source": "libib"
 }

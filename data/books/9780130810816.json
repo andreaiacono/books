@@ -8,7 +8,5 @@
   "pages": 592,
   "description": "Well-implemented interprocess communications (IPC) are key to the performance of virtually every non-trivial UNIX program. This book provides coverage of various forms of IPC, including message passing, synchronization, shared memory, and Remote Procedure Calls (RPC). It offers a basic introduction to IPC and the problems it is intended to solve.",
   "subjects": [],
-  "copies": 1,
   "addedAt": "2004-01-10",
-  "source": "libib"
 }
