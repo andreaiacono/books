@@ -6,6 +6,8 @@
   "cover": "covers/9788882893644.webp",
   "publisher": "Newton Compton",
   "pages": 448,
-  "subjects": [],
-  "addedAt": "1993-05-23",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1993-05-23"
 }

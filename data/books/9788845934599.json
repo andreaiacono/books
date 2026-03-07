@@ -5,6 +5,9 @@
   "year": 2020,
   "cover": "covers/9788845934599.webp",
   "publisher": "Adelphi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2022-11-26",
+  "pages": 149
 }

@@ -5,6 +5,10 @@
   "year": 1997,
   "cover": "covers/9780201633610.webp",
   "publisher": "Addison Wesley",
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2000-11-11",
+  "pages": 512,
+  "description": "Software -- Software Engineering."
 }

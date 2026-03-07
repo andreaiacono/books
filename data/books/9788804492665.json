@@ -6,6 +6,8 @@
   "cover": "covers/9788804492665.webp",
   "publisher": "Mondadori",
   "pages": 266,
-  "subjects": [],
-  "addedAt": "2003-04-14",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2003-04-14"
 }

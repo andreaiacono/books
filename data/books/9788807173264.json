@@ -6,6 +6,8 @@
   "cover": "covers/9788807173264.webp",
   "publisher": "Feltrinelli",
   "pages": 282,
-  "subjects": [],
-  "addedAt": "2017-11-12",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2017-11-12"
 }

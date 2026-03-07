@@ -5,6 +5,10 @@
   "year": 2009,
   "cover": "covers/9788833919720.webp",
   "pages": 309,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2013-04-23",
+  "description": "Detective story.",
+  "publisher": "Bollati Boringhieri"
 }

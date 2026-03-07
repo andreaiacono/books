@@ -6,6 +6,8 @@
   "cover": "covers/9788870787115.webp",
   "publisher": "Cortina Raffaello",
   "pages": 190,
-  "subjects": [],
-  "addedAt": "2004-10-30",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2004-10-30"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788845246883.webp",
   "publisher": "Bompiani",
   "pages": 275,
-  "subjects": [],
-  "addedAt": "2001-10-06",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2001-10-06"
 }

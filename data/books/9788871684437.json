@@ -6,6 +6,8 @@
   "cover": "covers/9788871684437.webp",
   "publisher": "Marcos y Marcos",
   "pages": 145,
-  "subjects": [],
-  "addedAt": "2006-12-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2006-12-25"
 }

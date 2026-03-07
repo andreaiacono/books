@@ -6,6 +6,8 @@
   "cover": "covers/9788881124275.webp",
   "publisher": "Fazi Editore",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "2003-05-25",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-05-25"
 }

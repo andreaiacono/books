@@ -6,6 +6,8 @@
   "cover": "covers/9788880893370.webp",
   "publisher": "Dalai Editore",
   "pages": 366,
-  "subjects": [],
-  "addedAt": "1998-07-15",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "1998-07-15"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788842810247.webp",
   "publisher": "Il Saggiatore",
   "pages": 288,
-  "subjects": [],
-  "addedAt": "2002-05-11",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2002-05-11"
 }

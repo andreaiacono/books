@@ -6,6 +6,8 @@
   "cover": "covers/9788817995085.webp",
   "publisher": "Rizzoli",
   "pages": 445,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2004-05-08"
 }

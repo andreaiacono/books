@@ -6,6 +6,8 @@
   "cover": "covers/9788845921940.webp",
   "publisher": "Adelphi",
   "pages": 589,
-  "subjects": [],
-  "addedAt": "2011-12-25",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2011-12-25"
 }

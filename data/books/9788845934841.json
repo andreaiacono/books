@@ -6,6 +6,8 @@
   "cover": "covers/9788845934841.webp",
   "publisher": "Adelphi",
   "pages": 253,
-  "subjects": [],
-  "addedAt": "2021-03-22",
+  "subjects": [
+    "Design"
+  ],
+  "addedAt": "2021-03-22"
 }

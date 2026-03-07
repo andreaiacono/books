@@ -5,6 +5,9 @@
   "year": 2009,
   "cover": "covers/9788806199470.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2021-12-09",
+  "pages": 175
 }

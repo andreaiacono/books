@@ -6,6 +6,8 @@
   "cover": "covers/9788807822032.webp",
   "publisher": "Feltrinelli",
   "pages": 561,
-  "subjects": [],
-  "addedAt": "2009-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2009-05-25"
 }

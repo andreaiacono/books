@@ -3,6 +3,10 @@
   "title": "Un terribile incantesimo",
   "author": "Carlo Sperduti",
   "cover": "covers/9788890719783.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2015-05-17",
+  "pages": 128,
+  "publisher": "Gorilla sapiens"
 }

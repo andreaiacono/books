@@ -6,6 +6,8 @@
   "cover": "covers/9788880120094.webp",
   "publisher": "Le Mani-Microart'S",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "1994-05-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-05-21"
 }

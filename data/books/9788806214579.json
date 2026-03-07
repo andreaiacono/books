@@ -6,6 +6,8 @@
   "cover": "covers/9788806214579.webp",
   "publisher": "Einaudi",
   "pages": 510,
-  "subjects": [],
-  "addedAt": "2013-05-19",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2013-05-19"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788817016094.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 541,
-  "subjects": [],
-  "addedAt": "2021-07-02",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-07-02"
 }

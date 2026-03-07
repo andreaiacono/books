@@ -5,6 +5,8 @@
   "cover": "covers/9788886435062.webp",
   "publisher": "Phoenix Enterprise",
   "pages": 156,
-  "subjects": [],
-  "addedAt": "1999-09-24",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-09-24"
 }

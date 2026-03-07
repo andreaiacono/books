@@ -6,6 +6,9 @@
   "cover": "covers/9788807120176.webp",
   "publisher": "Feltrinelli",
   "pages": 96,
-  "subjects": [],
+  "subjects": [
+    "Education"
+  ],
   "addedAt": "1994-11-30",
+  "description": "Place of publication from label."
 }

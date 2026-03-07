@@ -6,6 +6,8 @@
   "cover": "covers/9788817039000.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 494,
-  "subjects": [],
-  "addedAt": "2007-12-25",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2007-12-25"
 }

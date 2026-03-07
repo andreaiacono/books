@@ -4,6 +4,10 @@
   "author": "Luciano Arcuri, Mara Cadinu",
   "cover": "covers/9788815232311.webp",
   "description": "Tema centrale di ogni esame di Psicologia sociale, gli stereotipi rappresentano un campo di studio importante e significativo nei corsi non solo delle Facoltà di Psicologia, ma di tutte quelle Facoltà (come Scienze della formazione, Scienze della comunicazione ecc.) che ospitano corsi di Psicologia sociale. Questo volume, qui presentato nella nuova edizione profondamente aggiornata, fornisce una completa e approfondita panoramica del fenomeno. Scritto con un linguaggio semplice e con il continuo riferimento alla ricerca, da un lato vengono affrontate le teorie consolidate in ormai settant'anni di ricerche negli Stati Uniti e in Europa, dall'altro vengono proposti i contributi più recenti e attuali.",
-  "subjects": [],
+  "subjects": [
+    "Psychology"
+  ],
   "addedAt": "2003-10-10",
+  "pages": 238,
+  "publisher": "Il mulino"
 }

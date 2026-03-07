@@ -6,6 +6,8 @@
   "cover": "covers/9788889091548.webp",
   "publisher": "Nuovi Mondi",
   "pages": 272,
-  "subjects": [],
-  "addedAt": "2010-05-25",
+  "subjects": [
+    "Technology & Engineering"
+  ],
+  "addedAt": "2010-05-25"
 }

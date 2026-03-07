@@ -6,6 +6,8 @@
   "cover": "covers/9788844500047.webp",
   "publisher": "Electa Gallimard",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "1993-09-13",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "1993-09-13"
 }

@@ -5,6 +5,8 @@
   "year": 2019,
   "cover": "covers/9788869054846.webp",
   "pages": 238,
-  "subjects": [],
-  "addedAt": "2019-08-15",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2019-08-15"
 }

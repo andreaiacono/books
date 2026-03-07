@@ -6,6 +6,8 @@
   "cover": "covers/9788833929200.webp",
   "publisher": "Saggi. Scienze",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "2022-09-14",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2022-09-14"
 }

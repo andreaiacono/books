@@ -6,6 +6,9 @@
   "cover": "covers/9788804474173.webp",
   "publisher": "Mondadori",
   "description": "ROMANZI E SAGGI",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2006-08-21",
+  "pages": 1723
 }

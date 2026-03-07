@@ -6,6 +6,8 @@
   "cover": "covers/9788842822714.webp",
   "publisher": "Il Saggiatore",
   "pages": 382,
-  "subjects": [],
-  "addedAt": "2016-12-10",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2016-12-10"
 }

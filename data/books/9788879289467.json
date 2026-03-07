@@ -6,6 +6,8 @@
   "cover": "covers/9788879289467.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 438,
-  "subjects": [],
-  "addedAt": "2008-05-02",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2008-05-02"
 }

@@ -7,6 +7,8 @@
   "publisher": "Adelphi",
   "pages": 484,
   "description": "Narrativa",
-  "subjects": [],
-  "addedAt": "2014-12-25",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2014-12-25"
 }

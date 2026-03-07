@@ -6,6 +6,8 @@
   "cover": "covers/9788833923475.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 301,
-  "subjects": [],
-  "addedAt": "2020-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2020-05-25"
 }

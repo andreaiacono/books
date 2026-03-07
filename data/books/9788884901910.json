@@ -7,6 +7,8 @@
   "publisher": "Dalai Editore",
   "pages": 173,
   "description": "Questo romanzo, scritto da un autore diciannovenne, racconta il mondo sommerso e inquieto dei giovani nati nella seconda metà degli anni settanta ed è una specie di \"affresco italiano\" sul passaggio dall'adolescenza all'età adulta. Il protagonista è un diciassettenne che ama i Pistols e i Red Hot Chili Peppers e, soprattutto, una ragazza che frequenta il suo stesso liceo.",
-  "subjects": [],
-  "addedAt": "1995-10-09",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-10-09"
 }

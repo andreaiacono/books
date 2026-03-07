@@ -7,6 +7,8 @@
   "publisher": "Garzanti Libri",
   "pages": 304,
   "description": "Romanzi",
-  "subjects": [],
-  "addedAt": "1990-07-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1990-07-01"
 }

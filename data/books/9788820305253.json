@@ -6,6 +6,8 @@
   "cover": "covers/9788820305253.webp",
   "publisher": "Hoepli",
   "pages": 216,
-  "subjects": [],
-  "addedAt": "2002-07-21",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2002-07-21"
 }

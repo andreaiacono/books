@@ -7,6 +7,8 @@
   "publisher": "Giulio Einaudi Editore",
   "pages": 88,
   "description": "Una fiaba misteriosa sul potere della lettura: liberarci dalla prigione dell'infelicità.",
-  "subjects": [],
-  "addedAt": "2021-04-16",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-04-16"
 }

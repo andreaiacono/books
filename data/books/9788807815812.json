@@ -6,6 +6,8 @@
   "cover": "covers/9788807815812.webp",
   "publisher": "Feltrinelli",
   "pages": 312,
-  "subjects": [],
-  "addedAt": "2003-05-27",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2003-05-27"
 }

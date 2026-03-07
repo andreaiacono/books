@@ -5,6 +5,8 @@
   "cover": "covers/9788881298662.webp",
   "publisher": "Opportunity Books",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1997-08-23",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1997-08-23"
 }

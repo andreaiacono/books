@@ -6,6 +6,8 @@
   "cover": "covers/9788842810032.webp",
   "publisher": "Il Saggiatore",
   "pages": 544,
-  "subjects": [],
-  "addedAt": "2004-09-11",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2004-09-11"
 }

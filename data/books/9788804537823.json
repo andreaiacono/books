@@ -6,6 +6,8 @@
   "cover": "covers/9788804537823.webp",
   "publisher": "Mondadori",
   "pages": 185,
-  "subjects": [],
-  "addedAt": "2007-05-13",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2007-05-13"
 }

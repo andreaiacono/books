@@ -6,6 +6,8 @@
   "cover": "covers/9788806163075.webp",
   "publisher": "Einaudi",
   "pages": 248,
-  "subjects": [],
-  "addedAt": "2002-07-21",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2002-07-21"
 }

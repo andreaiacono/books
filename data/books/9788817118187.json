@@ -6,6 +6,8 @@
   "cover": "covers/9788817118187.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 420,
-  "subjects": [],
-  "addedAt": "2003-11-22",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-11-22"
 }

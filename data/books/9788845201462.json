@@ -5,6 +5,9 @@
   "year": 2004,
   "cover": "covers/9788845201462.webp",
   "pages": 311,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2008-06-21",
+  "publisher": "Bompiani"
 }

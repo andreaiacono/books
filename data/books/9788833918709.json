@@ -6,6 +6,8 @@
   "cover": "covers/9788833918709.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 260,
-  "subjects": [],
-  "addedAt": "2008-05-11",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2008-05-11"
 }

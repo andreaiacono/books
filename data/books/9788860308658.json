@@ -6,6 +6,8 @@
   "cover": "covers/9788860308658.webp",
   "publisher": "Cortina Raffaello",
   "pages": 267,
-  "subjects": [],
-  "addedAt": "2017-05-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2017-05-25"
 }

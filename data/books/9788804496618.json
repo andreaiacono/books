@@ -6,6 +6,9 @@
   "cover": "covers/9788804496618.webp",
   "publisher": "Mondadori",
   "description": "Volume imperdibile! Da avere nella propria collezione di libri!",
-  "subjects": [],
+  "subjects": [
+    "Drama"
+  ],
   "addedAt": "2007-02-10",
+  "pages": 235
 }

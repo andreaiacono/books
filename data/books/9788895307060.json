@@ -6,6 +6,8 @@
   "cover": "covers/9788895307060.webp",
   "publisher": "Libribianchi",
   "pages": 220,
-  "subjects": [],
-  "addedAt": "2008-11-14",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2008-11-14"
 }

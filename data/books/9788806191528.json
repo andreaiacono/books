@@ -5,6 +5,8 @@
   "year": 2008,
   "cover": "covers/9788806191528.webp",
   "pages": 232,
-  "subjects": [],
-  "addedAt": "2018-03-03",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2018-03-03"
 }

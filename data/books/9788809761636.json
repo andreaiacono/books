@@ -6,6 +6,8 @@
   "cover": "covers/9788809761636.webp",
   "publisher": "Giunti Editore",
   "pages": 50,
-  "subjects": [],
-  "addedAt": "1995-11-30",
+  "subjects": [
+    "Art"
+  ],
+  "addedAt": "1995-11-30"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788873058854.webp",
   "publisher": "Neri Pozza",
   "pages": 95,
-  "subjects": [],
-  "addedAt": "2003-04-12",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2003-04-12"
 }

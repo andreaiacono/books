@@ -1,8 +1,11 @@
 {
   "isbn": "9788842003304",
   "title": "Il discorso sul metodo",
-  "author": "",
+  "author": "Renato Cartesio",
   "cover": "covers/9788842003304.webp",
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "1990-01-01",
+  "pages": 160
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788880030355.webp",
   "publisher": "Tranchida",
   "pages": 107,
-  "subjects": [],
-  "addedAt": "1993-09-22",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-09-22"
 }

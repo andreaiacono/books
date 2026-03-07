@@ -6,6 +6,8 @@
   "cover": "covers/9788872265895.webp",
   "publisher": "Stampa Alternativa",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "2000-12-25",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2000-12-25"
 }

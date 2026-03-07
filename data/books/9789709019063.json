@@ -1,10 +1,13 @@
 {
   "isbn": "9789709019063",
   "title": "Popol vuh",
-  "author": "",
+  "author": "David B. Castledine",
   "year": 2001,
   "cover": "covers/9789709019063.webp",
   "publisher": "Monclem Ediciones",
-  "subjects": [],
+  "subjects": [
+    "Quiché Indians"
+  ],
   "addedAt": "2002-10-28",
+  "pages": 142
 }

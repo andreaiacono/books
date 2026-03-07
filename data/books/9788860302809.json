@@ -6,6 +6,8 @@
   "cover": "covers/9788860302809.webp",
   "publisher": "Cortina Raffaello",
   "pages": 500,
-  "subjects": [],
-  "addedAt": "2011-05-25",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2011-05-25"
 }

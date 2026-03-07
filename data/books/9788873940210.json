@@ -6,6 +6,8 @@
   "cover": "covers/9788873940210.webp",
   "publisher": "Castelvecchi",
   "pages": 406,
-  "subjects": [],
-  "addedAt": "2003-07-03",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "2003-07-03"
 }

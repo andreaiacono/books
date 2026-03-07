@@ -6,6 +6,8 @@
   "cover": "covers/9788811685807.webp",
   "publisher": "Garzanti Libri",
   "pages": 466,
-  "subjects": [],
-  "addedAt": "2003-05-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2003-05-25"
 }

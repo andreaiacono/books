@@ -6,6 +6,8 @@
   "cover": "covers/9788807815720.webp",
   "publisher": "Feltrinelli",
   "pages": 264,
-  "subjects": [],
-  "addedAt": "2004-10-30",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2004-10-30"
 }

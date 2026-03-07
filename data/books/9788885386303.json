@@ -5,6 +5,8 @@
   "year": 1995,
   "cover": "covers/9788885386303.webp",
   "pages": 178,
-  "subjects": [],
-  "addedAt": "1995-06-07",
+  "subjects": [
+    "Education"
+  ],
+  "addedAt": "1995-06-07"
 }

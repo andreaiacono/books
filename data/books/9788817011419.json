@@ -6,6 +6,9 @@
   "cover": "covers/9788817011419.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 283,
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "2007-05-13",
+  "description": "Includes bibliographical references."
 }

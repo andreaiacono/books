@@ -5,6 +5,10 @@
   "year": 1999,
   "cover": "covers/9781571762467.webp",
   "publisher": "FreeBSD Mall",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "2002-12-02",
+  "pages": 822,
+  "description": "This four-CD-ROM set offers four books in one, featuring how to run and install, use FreeBSD, Internet compatibility, and essential Man Pages."
 }

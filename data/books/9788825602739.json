@@ -1,8 +1,11 @@
 {
   "isbn": "9788825602739",
   "title": "Reti di computer",
-  "author": "",
+  "author": "Andrew S. Tanenbaum",
   "cover": "covers/9788825602739.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1995-11-29",
+  "pages": 756
 }

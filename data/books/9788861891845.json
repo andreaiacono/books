@@ -6,6 +6,8 @@
   "cover": "covers/9788861891845.webp",
   "publisher": "Terre di Mezzo",
   "pages": 205,
-  "subjects": [],
-  "addedAt": "2011-07-15",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2011-07-15"
 }

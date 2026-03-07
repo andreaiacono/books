@@ -6,6 +6,8 @@
   "cover": "covers/9788875787219.webp",
   "publisher": "Codice",
   "pages": 271,
-  "subjects": [],
-  "addedAt": "2018-12-25",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2018-12-25"
 }

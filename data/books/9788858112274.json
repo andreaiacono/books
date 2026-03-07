@@ -6,6 +6,8 @@
   "cover": "covers/9788858112274.webp",
   "publisher": "Laterza",
   "pages": 203,
-  "subjects": [],
-  "addedAt": "2016-05-15",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2016-05-15"
 }

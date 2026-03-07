@@ -6,6 +6,9 @@
   "cover": "covers/9788806174842.webp",
   "publisher": "Einaudi",
   "description": "Book by Renata Vigano",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1988-01-01",
+  "pages": 249
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788807816901.webp",
   "publisher": "Feltrinelli",
   "pages": 264,
-  "subjects": [],
-  "addedAt": "2000-05-14",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2000-05-14"
 }

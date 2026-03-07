@@ -6,6 +6,8 @@
   "cover": "covers/9788802072692.webp",
   "publisher": "UTET",
   "pages": 1120,
-  "subjects": [],
-  "addedAt": "2008-02-02",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2008-02-02"
 }

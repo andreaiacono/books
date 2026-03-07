@@ -6,6 +6,8 @@
   "cover": "covers/9788833312712.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 263,
-  "subjects": [],
-  "addedAt": "2022-02-01",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2022-02-01"
 }

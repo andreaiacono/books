@@ -6,6 +6,8 @@
   "cover": "covers/9788860306548.webp",
   "publisher": "Cortina Raffaello",
   "pages": 554,
-  "subjects": [],
-  "addedAt": "2014-09-28",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2014-09-28"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788886908269.webp",
   "publisher": "Ipermedium Libri",
   "pages": 346,
-  "subjects": [],
-  "addedAt": "2001-10-06",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2001-10-06"
 }

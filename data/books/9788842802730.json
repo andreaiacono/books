@@ -6,6 +6,9 @@
   "cover": "covers/9788842802730.webp",
   "publisher": "Il Saggiatore",
   "pages": 128,
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "1996-03-13",
+  "description": "Includes bibliographical references (p. 121-124) and index."
 }

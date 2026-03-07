@@ -6,6 +6,8 @@
   "publisher": "Rizzoli",
   "pages": 660,
   "description": "1994",
-  "subjects": [],
-  "addedAt": "2007-07-21",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2007-07-21"
 }

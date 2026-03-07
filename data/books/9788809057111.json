@@ -1,11 +1,13 @@
 {
   "isbn": "9788809057111",
   "title": "Le sette meraviglie del mondo antico",
-  "author": "",
+  "author": "Debora Barbagli",
   "year": 2008,
   "cover": "covers/9788809057111.webp",
   "publisher": "Giunti Editore",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "2008-05-11",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2008-05-11"
 }

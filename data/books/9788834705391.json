@@ -5,6 +5,9 @@
   "year": 1996,
   "cover": "covers/9788834705391.webp",
   "publisher": "Fanucci",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2006-11-14",
+  "pages": 255
 }

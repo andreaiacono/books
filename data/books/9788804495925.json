@@ -6,6 +6,9 @@
   "cover": "covers/9788804495925.webp",
   "publisher": "Mondadori",
   "description": "Volume imperdibile! non può mancare nella tua libreria!",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2007-11-30",
+  "pages": 491
 }

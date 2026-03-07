@@ -7,6 +7,8 @@
   "publisher": "Pearson Education",
   "pages": 431,
   "description": "An extremely pragmatic method for writing better code from the start, and ultimately producing more robust applications.",
-  "subjects": [],
-  "addedAt": "2014-09-12",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2014-09-12"
 }

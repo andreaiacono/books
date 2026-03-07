@@ -7,6 +7,8 @@
   "publisher": "Garzanti Linguistica",
   "pages": 480,
   "description": "Dizionario",
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2003-05-18"
 }

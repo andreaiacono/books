@@ -6,6 +6,8 @@
   "cover": "covers/9788842812791.webp",
   "publisher": "Il Saggiatore",
   "pages": 296,
-  "subjects": [],
-  "addedAt": "2011-12-25",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2011-12-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788841574867.webp",
   "publisher": "De Agostini",
   "pages": 320,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2005-05-08"
 }

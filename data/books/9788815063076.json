@@ -6,6 +6,9 @@
   "cover": "covers/9788815063076.webp",
   "publisher": "Il Mulino",
   "pages": 128,
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "1998-03-15",
+  "description": "Includes bibliographical references."
 }

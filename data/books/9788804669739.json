@@ -6,6 +6,8 @@
   "cover": "covers/9788804669739.webp",
   "publisher": "Mondadori",
   "pages": 139,
-  "subjects": [],
-  "addedAt": "2022-02-01",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2022-02-01"
 }

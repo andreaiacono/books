@@ -3,6 +3,9 @@
   "title": "Introduzione alla struttura interna di Unix",
   "author": "Le Van Huu",
   "cover": "covers/9788840001425.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1993-05-05",
+  "pages": 160
 }

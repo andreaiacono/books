@@ -5,6 +5,8 @@
   "year": 2001,
   "cover": "covers/9788815073310.webp",
   "pages": 144,
-  "subjects": [],
-  "addedAt": "2001-05-19",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2001-05-19"
 }

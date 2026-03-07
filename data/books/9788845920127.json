@@ -5,6 +5,8 @@
   "year": 2005,
   "cover": "covers/9788845920127.webp",
   "pages": 253,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2004-05-08"
 }

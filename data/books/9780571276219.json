@@ -1,9 +1,14 @@
 {
   "isbn": "9780571276219",
   "title": "How I Became a North Korean",
-  "author": "",
+  "author": "Krys Lee",
   "year": 2016,
   "cover": "covers/9780571276219.webp",
-  "subjects": [],
+  "subjects": [
+    "Korea, fiction",
+    "China, fiction",
+    "Fiction, general"
+  ],
   "addedAt": "2018-12-25",
+  "publisher": "Faber & Faber"
 }

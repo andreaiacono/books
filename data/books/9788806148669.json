@@ -4,6 +4,9 @@
   "author": "José Saramago",
   "cover": "covers/9788806148669.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1998-10-24",
+  "pages": 315
 }

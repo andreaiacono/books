@@ -6,6 +6,9 @@
   "cover": "covers/9788806162757.webp",
   "publisher": "Einaudi",
   "pages": 276,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2009-12-04",
+  "description": "Roman fra Paris i 1930'erne"
 }

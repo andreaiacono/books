@@ -6,6 +6,8 @@
   "cover": "covers/9788807806742.webp",
   "publisher": "Feltrinelli",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "1995-07-21",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "1995-07-21"
 }

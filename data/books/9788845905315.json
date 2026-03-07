@@ -3,6 +3,8 @@
   "title": "Epistolario",
   "author": "Carlo Michelstaedter, S. Campailla",
   "cover": "covers/9788845905315.webp",
-  "subjects": [],
-  "addedAt": "1999-10-19",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "1999-10-19"
 }

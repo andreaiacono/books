@@ -6,6 +6,9 @@
   "cover": "covers/9788830420441.webp",
   "publisher": "Longanesi",
   "pages": 288,
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "2004-11-09",
+  "description": "Includes bibliographical references and index."
 }

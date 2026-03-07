@@ -6,6 +6,8 @@
   "cover": "covers/9788820716882.webp",
   "publisher": "Liguori",
   "pages": 236,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2008-05-25"
 }

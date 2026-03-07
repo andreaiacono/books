@@ -6,6 +6,8 @@
   "cover": "covers/9788871793566.webp",
   "publisher": "24 Ore Cultura",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "2003-05-25",
+  "subjects": [
+    "Photography"
+  ],
+  "addedAt": "2003-05-25"
 }

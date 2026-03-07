@@ -6,6 +6,8 @@
   "cover": "covers/9788817118231.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 260,
-  "subjects": [],
-  "addedAt": "1996-01-16",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "1996-01-16"
 }

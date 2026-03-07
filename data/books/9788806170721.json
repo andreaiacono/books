@@ -6,6 +6,8 @@
   "cover": "covers/9788806170721.webp",
   "publisher": "Einaudi",
   "pages": 169,
-  "subjects": [],
-  "addedAt": "2006-05-07",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "2006-05-07"
 }

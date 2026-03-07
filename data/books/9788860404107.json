@@ -1,11 +1,13 @@
 {
   "isbn": "9788860404107",
   "title": "Bruxelles, Bruges, Anversa e Gand",
-  "author": "",
+  "author": "Catherine Le Nevez",
   "year": 2009,
   "cover": "covers/9788860404107.webp",
   "publisher": "EDT",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "2008-08-23",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2008-08-23"
 }

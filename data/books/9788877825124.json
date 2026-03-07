@@ -6,6 +6,8 @@
   "cover": "covers/9788877825124.webp",
   "publisher": "Salani",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1998-10-24",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1998-10-24"
 }

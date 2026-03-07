@@ -6,6 +6,8 @@
   "cover": "covers/9788879444583.webp",
   "publisher": "L'Airone Editrice Roma",
   "pages": 32,
-  "subjects": [],
-  "addedAt": "2001-05-25",
+  "subjects": [
+    "Crafts & Hobbies"
+  ],
+  "addedAt": "2001-05-25"
 }

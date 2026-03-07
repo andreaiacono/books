@@ -5,6 +5,9 @@
   "year": 2001,
   "cover": "covers/9788804496144.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1992-12-10",
+  "pages": 113
 }

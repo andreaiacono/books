@@ -6,6 +6,8 @@
   "cover": "covers/9788845907340.webp",
   "publisher": "Adelphi",
   "pages": 402,
-  "subjects": [],
-  "addedAt": "1991-10-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1991-10-01"
 }

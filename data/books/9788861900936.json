@@ -6,6 +6,9 @@
   "cover": "covers/9788861900936.webp",
   "publisher": "Chiarelettere",
   "pages": 464,
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2011-05-15",
+  "description": "Includes bibliographical references and index."
 }

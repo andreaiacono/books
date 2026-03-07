@@ -5,6 +5,9 @@
   "year": 2010,
   "cover": "covers/9788845218224.webp",
   "publisher": "Bompiani",
-  "subjects": [],
+  "subjects": [
+    "Religion"
+  ],
   "addedAt": "2004-05-08",
+  "pages": 327
 }

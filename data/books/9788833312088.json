@@ -7,6 +7,8 @@
   "publisher": "Ponte alle Grazie",
   "pages": 196,
   "description": "Google e Netflix, il navigatore satellitare e il cruise control sulle nostre auto, i sondaggi elettorali, le previsioni del tempo, persino gli orari dei treni: cos'hanno in comune tutte queste cose in apparenza così diverse fra loro? La risposta è molto semplice: la matematica. Ebbene sì, l'incubo che da sempre terrorizza gli studenti di tutto il mondo, quell'astrusa disciplina piena di numeri e segni incomprensibili, è alla base di moltissimi aspetti della nostra vita quotidiana, anche quelli più banali: è quanto spiega magistralmente in queste pagine il giovanissimo filosofo della matematica Stefan Buijsman, che con un linguaggio semplice e immediato - e senza ricorrere a calcoli complicati o alle tanto temute formule - riesce a chiarire argomenti ostici come integrali, differenziali, teoria dei grafi e calcolo delle probabilità, ripercorrendo la storia della disciplina attraverso i suoi personaggi più illustri, dall'antica Grecia di Archimede e Pitagora alle dispute fra Newton e Leibniz, fino alle conquiste più recenti. A conti fatti, la matematica non è un oscuro passatempo per studiosi con la testa perennemente fra le nuvole, ma uno strumento incredibilmente utile in svariati campi scientifici e tecnologici, nel mondo della rivoluzione digitale come nella comunicazione: «Proprio adesso che il mondo diventa sempre più complesso, ci serve qualcosa per renderlo più gestibile, ed è esattamente quello che fa la matematica».",
-  "subjects": [],
-  "addedAt": "2020-05-25",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2020-05-25"
 }

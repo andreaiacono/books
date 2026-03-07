@@ -6,6 +6,8 @@
   "cover": "covers/9788883022616.webp",
   "publisher": "L'Epos",
   "pages": 148,
-  "subjects": [],
-  "addedAt": "2004-12-25",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2004-12-25"
 }

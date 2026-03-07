@@ -1,11 +1,13 @@
 {
   "isbn": "9788834707784",
   "title": "Mary e il gigante",
-  "author": "",
+  "author": "Philip Kendred Dick",
   "year": 2000,
   "cover": "covers/9788834707784.webp",
   "publisher": "Fanucci",
   "pages": 288,
-  "subjects": [],
-  "addedAt": "2000-12-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2000-12-25"
 }

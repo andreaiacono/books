@@ -6,6 +6,8 @@
   "cover": "covers/9788831114240.webp",
   "publisher": "Città Nuova",
   "pages": 86,
-  "subjects": [],
-  "addedAt": "2001-05-19",
+  "subjects": [
+    "Bibles"
+  ],
+  "addedAt": "2001-05-19"
 }

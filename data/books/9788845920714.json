@@ -6,6 +6,8 @@
   "cover": "covers/9788845920714.webp",
   "publisher": "Adelphi",
   "pages": 68,
-  "subjects": [],
-  "addedAt": "2024-05-12",
+  "subjects": [
+    "Technology & Engineering"
+  ],
+  "addedAt": "2024-05-12"
 }

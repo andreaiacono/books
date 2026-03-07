@@ -5,6 +5,9 @@
   "year": 2003,
   "cover": "covers/9788872032046.webp",
   "publisher": "Marna",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2003-10-16",
+  "pages": 173
 }

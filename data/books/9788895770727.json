@@ -5,6 +5,8 @@
   "year": 2019,
   "cover": "covers/9788895770727.webp",
   "pages": 162,
-  "subjects": [],
-  "addedAt": "1994-04-29",
+  "subjects": [
+    "Poetry"
+  ],
+  "addedAt": "1994-04-29"
 }

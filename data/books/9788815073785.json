@@ -6,6 +6,8 @@
   "cover": "covers/9788815073785.webp",
   "publisher": "Il Mulino",
   "pages": 141,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-05-18"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788856500493.webp",
   "publisher": "Il Saggiatore",
   "pages": 1180,
-  "subjects": [],
-  "addedAt": "2013-04-07",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2013-04-07"
 }

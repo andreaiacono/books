@@ -6,6 +6,8 @@
   "cover": "covers/9788823837379.webp",
   "publisher": "EGEA",
   "pages": 150,
-  "subjects": [],
-  "addedAt": "2021-10-13",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2021-10-13"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788842907268.webp",
   "publisher": "Nord",
   "pages": 203,
-  "subjects": [],
-  "addedAt": "1994-02-02",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-02-02"
 }

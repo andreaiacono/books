@@ -6,6 +6,8 @@
   "cover": "covers/9788893442763.webp",
   "publisher": "La nave di Teseo",
   "pages": 326,
-  "subjects": [],
-  "addedAt": "2018-07-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2018-07-15"
 }

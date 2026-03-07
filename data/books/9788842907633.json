@@ -1,11 +1,13 @@
 {
   "isbn": "9788842907633",
   "title": "L' uomo di Turing",
-  "author": "",
+  "author": "Harry Harrison, Marvin Lee Minsky",
   "year": 1994,
   "cover": "covers/9788842907633.webp",
   "publisher": "Nord",
   "pages": 420,
-  "subjects": [],
-  "addedAt": "2001-09-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2001-09-01"
 }

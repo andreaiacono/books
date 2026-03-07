@@ -6,6 +6,8 @@
   "cover": "covers/9788861900479.webp",
   "publisher": "Chiarelettere",
   "pages": 236,
-  "subjects": [],
-  "addedAt": "2011-11-19",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2011-11-19"
 }

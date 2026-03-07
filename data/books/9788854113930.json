@@ -7,6 +7,8 @@
   "publisher": "Newton Compton",
   "pages": 190,
   "description": "Libro usato, buono stato",
-  "subjects": [],
-  "addedAt": "2006-01-08",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2006-01-08"
 }

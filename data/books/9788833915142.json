@@ -3,6 +3,9 @@
   "title": "Armi chimiche e biologiche",
   "author": "Eric Croddy, F. Ligabue",
   "cover": "covers/9788833915142.webp",
-  "subjects": [],
+  "subjects": [
+    "History"
+  ],
   "addedAt": "2004-05-08",
+  "pages": 366
 }

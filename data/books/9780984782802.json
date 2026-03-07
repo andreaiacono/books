@@ -5,6 +5,10 @@
   "year": 2011,
   "cover": "covers/9780984782802.webp",
   "publisher": "CareerCup",
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2015-03-03",
+  "pages": 500,
+  "description": "Now in the 5th edition, the book gives you the interview preparation you need to get the top software developer jobs. This is a deeply technical book and focuses on the software engineering skills to ace your interview. The book includes 150 programming interview questions and answers, as well as other advice."
 }

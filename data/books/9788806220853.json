@@ -6,6 +6,8 @@
   "cover": "covers/9788806220853.webp",
   "publisher": "Einaudi",
   "pages": 372,
-  "subjects": [],
-  "addedAt": "2021-11-25",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2021-11-25"
 }

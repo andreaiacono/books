@@ -6,6 +6,8 @@
   "cover": "covers/9788879286169.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 271,
-  "subjects": [],
-  "addedAt": "2006-04-23",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2006-04-23"
 }

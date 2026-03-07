@@ -6,6 +6,8 @@
   "cover": "covers/9788811666271.webp",
   "publisher": "Garzanti Libri",
   "pages": 246,
-  "subjects": [],
-  "addedAt": "2021-01-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-01-28"
 }

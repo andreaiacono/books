@@ -6,6 +6,8 @@
   "cover": "covers/9788845292057.webp",
   "publisher": "Bompiani",
   "pages": 186,
-  "subjects": [],
-  "addedAt": "1993-06-30",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1993-06-30"
 }

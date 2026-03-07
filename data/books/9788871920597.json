@@ -6,6 +6,8 @@
   "cover": "covers/9788871920597.webp",
   "publisher": "Pearson",
   "pages": 606,
-  "subjects": [],
-  "addedAt": "1995-11-29",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1995-11-29"
 }

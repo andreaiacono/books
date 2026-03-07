@@ -6,6 +6,8 @@
   "cover": "covers/9788806194208.webp",
   "publisher": "Einaudi",
   "pages": 140,
-  "subjects": [],
-  "addedAt": "2010-01-16",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2010-01-16"
 }

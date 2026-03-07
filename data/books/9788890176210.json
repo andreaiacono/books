@@ -6,6 +6,8 @@
   "cover": "covers/9788890176210.webp",
   "publisher": "Saraj",
   "pages": 124,
-  "subjects": [],
-  "addedAt": "2005-07-10",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2005-07-10"
 }

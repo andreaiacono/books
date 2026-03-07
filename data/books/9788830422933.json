@@ -1,8 +1,11 @@
 {
   "isbn": "9788830422933",
   "title": "I cari estinti. Vita e morte delle specie animali",
-  "author": "",
+  "author": "Richard Ellis",
   "cover": "covers/9788830422933.webp",
-  "subjects": [],
+  "subjects": [
+    "Nature"
+  ],
   "addedAt": "2010-12-18",
+  "pages": 494
 }

@@ -5,6 +5,9 @@
   "year": 1998,
   "cover": "covers/9788845238833.webp",
   "publisher": "Bompiani",
-  "subjects": [],
+  "subjects": [
+    "Medical"
+  ],
   "addedAt": "1993-02-01",
+  "pages": 425
 }

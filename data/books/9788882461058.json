@@ -6,6 +6,8 @@
   "cover": "covers/9788882461058.webp",
   "publisher": "Guanda",
   "pages": 320,
-  "subjects": [],
-  "addedAt": "2001-12-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2001-12-28"
 }

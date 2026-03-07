@@ -3,6 +3,9 @@
   "title": "La Fabbrica del pensiero",
   "author": "Piero Scaruffi",
   "cover": "covers/9788877830807.webp",
-  "subjects": [],
+  "subjects": [
+    "Psychology"
+  ],
   "addedAt": "1994-05-20",
+  "pages": 188
 }

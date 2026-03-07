@@ -6,6 +6,8 @@
   "cover": "covers/9788845916571.webp",
   "publisher": "Adelphi",
   "pages": 372,
-  "subjects": [],
-  "addedAt": "2021-05-31",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-05-31"
 }

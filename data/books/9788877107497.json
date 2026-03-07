@@ -1,11 +1,13 @@
 {
   "isbn": "9788877107497",
   "title": "Il libro della virtù e della via",
-  "author": "",
+  "author": "Tzu Lao",
   "year": 2008,
   "cover": "covers/9788877107497.webp",
   "publisher": "SE",
   "pages": 117,
-  "subjects": [],
-  "addedAt": "1993-11-08",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-11-08"
 }

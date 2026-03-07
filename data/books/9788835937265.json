@@ -6,6 +6,8 @@
   "cover": "covers/9788835937265.webp",
   "publisher": "Editori Riuniti",
   "pages": 174,
-  "subjects": [],
-  "addedAt": "1994-05-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-05-21"
 }

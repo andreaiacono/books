@@ -6,6 +6,8 @@
   "cover": "covers/9788817123570.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 294,
-  "subjects": [],
-  "addedAt": "1992-04-30",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1992-04-30"
 }

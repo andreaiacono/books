@@ -6,6 +6,8 @@
   "cover": "covers/9788804001072.webp",
   "publisher": "Il Saggiatore",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "1994-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1994-05-25"
 }

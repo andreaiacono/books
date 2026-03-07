@@ -6,6 +6,8 @@
   "cover": "covers/9788856502398.webp",
   "publisher": "Il Saggiatore",
   "pages": 347,
-  "subjects": [],
-  "addedAt": "2007-09-22",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2007-09-22"
 }

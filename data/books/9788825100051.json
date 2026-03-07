@@ -1,10 +1,13 @@
 {
   "isbn": "9788825100051",
   "title": "Pascal - Elementi di Semantica del Linguaggio",
-  "author": "",
+  "author": "Ugo Moscato, Mario Ornaghi",
   "year": 1991,
   "cover": "covers/9788825100051.webp",
   "publisher": "CittàStudi",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1991-11-01",
+  "pages": 141
 }

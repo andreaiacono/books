@@ -6,6 +6,8 @@
   "cover": "covers/9788845927645.webp",
   "publisher": "Adelphi",
   "pages": 247,
-  "subjects": [],
-  "addedAt": "2013-05-02",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2013-05-02"
 }

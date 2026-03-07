@@ -6,6 +6,8 @@
   "cover": "covers/9788879284028.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1997-11-17",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "1997-11-17"
 }

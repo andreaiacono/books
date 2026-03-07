@@ -6,6 +6,8 @@
   "cover": "covers/9788806160036.webp",
   "publisher": "Einaudi",
   "pages": 401,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2005-05-08"
 }

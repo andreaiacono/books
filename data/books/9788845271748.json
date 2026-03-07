@@ -6,6 +6,8 @@
   "cover": "covers/9788845271748.webp",
   "publisher": "Bompiani",
   "pages": 288,
-  "subjects": [],
-  "addedAt": "1989-07-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1989-07-01"
 }

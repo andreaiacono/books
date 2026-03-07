@@ -6,6 +6,8 @@
   "cover": "covers/9788833926476.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 152,
-  "subjects": [],
-  "addedAt": "2016-05-15",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2016-05-15"
 }

@@ -1,11 +1,13 @@
 {
   "isbn": "9788862201087",
   "title": "Dalla tragedia alla farsa. Ideologia della crisi e superamento del capitalismo",
-  "author": "",
+  "author": "Slavoj Žižek",
   "year": 2010,
   "cover": "covers/9788862201087.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 205,
-  "subjects": [],
-  "addedAt": "2010-12-25",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2010-12-25"
 }

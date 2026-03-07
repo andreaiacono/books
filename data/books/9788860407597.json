@@ -6,6 +6,8 @@
   "cover": "covers/9788860407597.webp",
   "publisher": "EDT",
   "pages": 383,
-  "subjects": [],
-  "addedAt": "2012-06-01",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2012-06-01"
 }

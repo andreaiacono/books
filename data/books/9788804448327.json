@@ -6,6 +6,8 @@
   "cover": "covers/9788804448327.webp",
   "publisher": "Mondadori",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "1992-06-08",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1992-06-08"
 }

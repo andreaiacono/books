@@ -3,6 +3,9 @@
   "title": "Della vita",
   "author": "Lev Tolstoj, I. Sibaldi",
   "cover": "covers/9788804347316.webp",
-  "subjects": [],
+  "subjects": [
+    "Literary Collections"
+  ],
   "addedAt": "1992-08-05",
+  "pages": 254
 }

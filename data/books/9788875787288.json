@@ -6,6 +6,8 @@
   "cover": "covers/9788875787288.webp",
   "publisher": "Codice",
   "pages": 416,
-  "subjects": [],
-  "addedAt": "2021-03-02",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2021-03-02"
 }

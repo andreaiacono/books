@@ -5,6 +5,8 @@
   "year": 2014,
   "cover": "covers/9788807901577.webp",
   "publisher": "Feltrinelli",
-  "subjects": [],
-  "addedAt": "2023-07-25",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2023-07-25"
 }

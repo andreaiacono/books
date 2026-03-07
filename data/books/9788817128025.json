@@ -6,6 +6,8 @@
   "cover": "covers/9788817128025.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 428,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2008-05-25"
 }

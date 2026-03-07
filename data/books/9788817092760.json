@@ -6,6 +6,8 @@
   "cover": "covers/9788817092760.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 181,
-  "subjects": [],
-  "addedAt": "2024-07-15",
+  "subjects": [
+    "Technology & Engineering"
+  ],
+  "addedAt": "2024-07-15"
 }

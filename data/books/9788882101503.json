@@ -7,6 +7,8 @@
   "publisher": "Castelvecchi",
   "pages": 221,
   "description": "MEME Genetica e virologia di idee, credenze e mode",
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2003-05-18"
 }

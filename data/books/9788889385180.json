@@ -6,6 +6,8 @@
   "cover": "covers/9788889385180.webp",
   "publisher": "Terre di Mezzo",
   "pages": 108,
-  "subjects": [],
-  "addedAt": "2005-03-15",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2005-03-15"
 }

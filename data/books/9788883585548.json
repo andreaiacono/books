@@ -7,6 +7,8 @@
   "publisher": "Armando Editore",
   "pages": 136,
   "description": "L'opera descrive il caso clinico di Solomon Šereševskij, un uomo dotato di una memoria apparentemente illimitata, che Lurija seguì per oltre trent'anni. Grazie a una rara forma di sinestesia (una condizione per cui i sensi si intrecciano: ad esempio, vedere i suoni o percepire il gusto delle parole), Solomon era in grado di memorizzare lunghe liste di numeri, formule matematiche complesse e poesie in lingue straniere dopo un solo ascolto, riuscendo a ricordarle perfettamente anche a distanza di decenni.\nTuttavia, il libro non celebra solo un \"superpotere\", ma analizza il lato oscuro di questa capacità. Lurija mostra come l'eccesso di dettagli impedisse a Solomon di pensare in modo astratto o di comprendere il senso profondo di ciò che leggeva, poiché ogni singola parola scatenava una tempesta di immagini e sensazioni distraenti. Il racconto diventa così una riflessione affascinante sulla necessità di dimenticare: senza la capacità di filtrare e cancellare i dati superflui, la mente umana fatica a dare un ordine logico alla realtà e a vivere il presente.",
-  "subjects": [],
-  "addedAt": "2001-06-09",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2001-06-09"
 }

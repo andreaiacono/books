@@ -6,6 +6,8 @@
   "cover": "covers/9788854113411.webp",
   "publisher": "Newton Compton",
   "pages": 261,
-  "subjects": [],
-  "addedAt": "2015-07-15",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2015-07-15"
 }

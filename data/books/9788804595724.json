@@ -6,6 +6,8 @@
   "cover": "covers/9788804595724.webp",
   "publisher": "Mondadori",
   "pages": 519,
-  "subjects": [],
-  "addedAt": "2011-05-05",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2011-05-05"
 }

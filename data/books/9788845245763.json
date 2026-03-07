@@ -6,6 +6,8 @@
   "cover": "covers/9788845245763.webp",
   "publisher": "Bompiani",
   "pages": 72,
-  "subjects": [],
-  "addedAt": "1994-07-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-07-01"
 }

@@ -5,6 +5,17 @@
   "year": 2022,
   "cover": "covers/9791255100065.webp",
   "description": "The short life of hacker Aaron Swartz, who died by suicide on 11 January 2013, has many incredible aspects. A small computer genius who grew up in a Chicago suburb, he met, as a teenager, scholars of the calibre of Tim Berners-Lee and Lawrence Lessig and worked with them to build the computer architectures, and licences, of the future. In a radical change of life, he will then decide to devote himself to political and technological activism; in the meantime, his talented colleagues are taking advantage of the Silicon Valley wave to get rich. Instead, he will devote his energies, and talent, to fight for open access, secure communications, anonymity, and freeing content and culture from the confines, and paywalls, of big databases. At some point, however, the US government will target him and, slowly, the powerful American judicial machine will crush him. His teaching, his theories, his passion are still today, ten years after his death, an example for many users, hackers and citizens of the information society.",
-  "subjects": [],
+  "subjects": [
+    "Biography",
+    "Swartz",
+    "Aaron (1986-2013)",
+    "Political Organizer",
+    "Internet Hacktivist",
+    "Open access",
+    "Copyright licences",
+    "Open Library"
+  ],
   "addedAt": "2024-05-26",
+  "pages": 287,
+  "publisher": "Milano University Press"
 }

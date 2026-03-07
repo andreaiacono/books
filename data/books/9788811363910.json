@@ -6,6 +6,8 @@
   "cover": "covers/9788811363910.webp",
   "publisher": "Garzanti Libri",
   "pages": 228,
-  "subjects": [],
-  "addedAt": "2004-10-16",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2004-10-16"
 }

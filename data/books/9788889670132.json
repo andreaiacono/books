@@ -6,6 +6,8 @@
   "cover": "covers/9788889670132.webp",
   "publisher": "Herder",
   "pages": 340,
-  "subjects": [],
-  "addedAt": "2008-03-22",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2008-03-22"
 }

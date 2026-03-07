@@ -5,6 +5,8 @@
   "year": 1992,
   "cover": "covers/9788808119407.webp",
   "pages": 376,
-  "subjects": [],
-  "addedAt": "1994-08-17",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "1994-08-17"
 }

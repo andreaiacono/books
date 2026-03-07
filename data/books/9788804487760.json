@@ -5,6 +5,9 @@
   "year": 2000,
   "cover": "covers/9788804487760.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1989-07-01",
+  "pages": 493
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788845930096.webp",
   "publisher": "Adelphi",
   "pages": 233,
-  "subjects": [],
-  "addedAt": "2015-12-05",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2015-12-05"
 }

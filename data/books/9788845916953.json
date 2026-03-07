@@ -5,6 +5,8 @@
   "year": 2002,
   "cover": "covers/9788845916953.webp",
   "pages": 282,
-  "subjects": [],
-  "addedAt": "2022-02-01",
+  "subjects": [
+    "Literary Criticism"
+  ],
+  "addedAt": "2022-02-01"
 }

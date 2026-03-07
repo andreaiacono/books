@@ -6,6 +6,8 @@
   "cover": "covers/9788876441769.webp",
   "publisher": "Libri Scheiwiller",
   "pages": 134,
-  "subjects": [],
-  "addedAt": "1993-05-03",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-05-03"
 }

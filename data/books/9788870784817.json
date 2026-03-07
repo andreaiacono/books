@@ -6,6 +6,8 @@
   "cover": "covers/9788870784817.webp",
   "publisher": "Cortina Raffaello",
   "pages": 217,
-  "subjects": [],
-  "addedAt": "1998-05-24",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1998-05-24"
 }

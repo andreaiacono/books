@@ -6,6 +6,8 @@
   "cover": "covers/9788833923864.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 291,
-  "subjects": [],
-  "addedAt": "2013-05-19",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2013-05-19"
 }

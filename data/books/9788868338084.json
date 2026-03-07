@@ -6,6 +6,8 @@
   "cover": "covers/9788868338084.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 317,
-  "subjects": [],
-  "addedAt": "2022-09-28",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2022-09-28"
 }

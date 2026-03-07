@@ -7,6 +7,8 @@
   "publisher": "Calzetti Mariucci",
   "pages": 846,
   "description": "Edizione italiana della principale e più aggiornata opera dedicata alla fisiologia dello sport e dell'esercizio fisico. Willmore e Costill, scienziati americani, dimostrano anche grandi qualità di divulgatori esponendo in questo trattato un'aggiornata teoria sulla fisiologia dello sport e dell'esercizio fisico. 7 grandi sezioni in 21 capitoli per spaziare dal controllo muscolare del movimento ai concetti base dell'attività fisica per la salute attraverso lo studio dei meccanismi energetici, funzioni cardio-respiratorie, performance ed ottimizzazione della prestazione sportiva. Termini chiave, quesiti di verifica, bibliografie e letture consigliate completano questo manuale e lo rendono utile per la specializzazione universitaria.",
-  "subjects": [],
-  "addedAt": "2005-12-25",
+  "subjects": [
+    "Sports & Recreation"
+  ],
+  "addedAt": "2005-12-25"
 }

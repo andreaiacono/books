@@ -6,6 +6,8 @@
   "cover": "covers/9788868337476.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 316,
-  "subjects": [],
-  "addedAt": "2018-03-25",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2018-03-25"
 }

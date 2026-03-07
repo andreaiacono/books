@@ -5,6 +5,8 @@
   "year": 2007,
   "cover": "covers/9788879064033.webp",
   "publisher": "Gribaudo",
-  "subjects": [],
-  "addedAt": "2002-05-19",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "2002-05-19"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788806173043.webp",
   "publisher": "Einaudi",
   "pages": 264,
-  "subjects": [],
-  "addedAt": "2008-10-22",
+  "subjects": [
+    "Children's stories"
+  ],
+  "addedAt": "2008-10-22"
 }

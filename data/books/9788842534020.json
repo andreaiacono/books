@@ -6,6 +6,8 @@
   "cover": "covers/9788842534020.webp",
   "publisher": "Ugo Mursia Editore",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "2002-03-20",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2002-03-20"
 }

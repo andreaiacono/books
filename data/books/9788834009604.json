@@ -6,6 +6,8 @@
   "cover": "covers/9788834009604.webp",
   "publisher": "Astrolabio Ubaldini",
   "pages": 164,
-  "subjects": [],
-  "addedAt": "1993-01-01",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-01-01"
 }

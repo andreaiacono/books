@@ -6,6 +6,8 @@
   "publisher": "Alianza Editorial, S. A.",
   "pages": 82,
   "description": "La memoria de Shakespeare reúne los cuatro últimos relatos del autor.",
-  "subjects": [],
-  "addedAt": "2003-07-29",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2003-07-29"
 }

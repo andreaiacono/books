@@ -6,6 +6,8 @@
   "cover": "covers/9788831750448.webp",
   "publisher": "Marsilio",
   "pages": 288,
-  "subjects": [],
-  "addedAt": "1998-05-24",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "1998-05-24"
 }

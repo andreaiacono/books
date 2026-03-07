@@ -6,6 +6,8 @@
   "cover": "covers/9788883532887.webp",
   "publisher": "Meltemi",
   "pages": 133,
-  "subjects": [],
-  "addedAt": "2004-03-31",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2004-03-31"
 }

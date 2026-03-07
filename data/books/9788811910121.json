@@ -5,6 +5,8 @@
   "year": 1995,
   "cover": "covers/9788811910121.webp",
   "pages": 150,
-  "subjects": [],
-  "addedAt": "1993-07-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-07-21"
 }

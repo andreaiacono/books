@@ -6,6 +6,8 @@
   "cover": "covers/9788804393184.webp",
   "publisher": "Mondadori",
   "pages": 372,
-  "subjects": [],
-  "addedAt": "1998-11-11",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1998-11-11"
 }

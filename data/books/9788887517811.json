@@ -6,6 +6,8 @@
   "cover": "covers/9788887517811.webp",
   "publisher": "Fandango Libri",
   "pages": 341,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2005-05-08"
 }

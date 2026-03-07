@@ -6,6 +6,8 @@
   "cover": "covers/9788804559016.webp",
   "publisher": "Mondadori",
   "pages": 386,
-  "subjects": [],
-  "addedAt": "2007-01-27",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2007-01-27"
 }

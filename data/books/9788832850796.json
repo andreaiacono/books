@@ -5,6 +5,9 @@
   "year": 2019,
   "cover": "covers/9788832850796.webp",
   "publisher": "Cortina Raffaello",
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "2019-05-25",
+  "pages": 256
 }

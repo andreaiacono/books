@@ -6,6 +6,8 @@
   "cover": "covers/9788845924828.webp",
   "publisher": "Adelphi",
   "pages": 398,
-  "subjects": [],
-  "addedAt": "2010-05-25",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2010-05-25"
 }

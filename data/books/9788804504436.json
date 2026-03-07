@@ -6,6 +6,8 @@
   "cover": "covers/9788804504436.webp",
   "publisher": "Mondadori",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "2004-03-28",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2004-03-28"
 }

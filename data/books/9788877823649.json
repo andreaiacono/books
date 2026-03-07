@@ -6,6 +6,8 @@
   "cover": "covers/9788877823649.webp",
   "publisher": "Salani",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "1993-01-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-01-01"
 }

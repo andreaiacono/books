@@ -6,6 +6,8 @@
   "cover": "covers/9788842825821.webp",
   "publisher": "Il Saggiatore",
   "pages": 197,
-  "subjects": [],
-  "addedAt": "2022-05-21",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2022-05-21"
 }

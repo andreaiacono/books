@@ -6,6 +6,8 @@
   "cover": "covers/9788817005531.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 572,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-05-15"
 }

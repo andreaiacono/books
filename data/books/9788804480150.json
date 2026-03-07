@@ -1,8 +1,11 @@
 {
   "isbn": "9788804480150",
   "title": "Il canto del derviscio. Parabole della sapienza sufi",
-  "author": "",
+  "author": "Leonardo Vittorio Arena",
   "cover": "covers/9788804480150.webp",
-  "subjects": [],
+  "subjects": [
+    "Religion"
+  ],
   "addedAt": "1993-08-03",
+  "pages": 160
 }

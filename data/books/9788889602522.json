@@ -6,6 +6,8 @@
   "cover": "covers/9788889602522.webp",
   "publisher": "Infinito edizioni",
   "pages": 144,
-  "subjects": [],
-  "addedAt": "2021-05-25",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2021-05-25"
 }

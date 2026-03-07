@@ -6,6 +6,8 @@
   "cover": "covers/9788806219833.webp",
   "publisher": "Einaudi",
   "pages": 154,
-  "subjects": [],
-  "addedAt": "2020-07-06",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2020-07-06"
 }

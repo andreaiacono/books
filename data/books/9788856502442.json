@@ -7,6 +7,8 @@
   "publisher": "Il Saggiatore",
   "pages": 221,
   "description": "Nel 1851, sotto lo sguardo dell'imperatore Napoleone III, un fisico pressoché sconosciuto si appresta a compiere una spettacolare dimostrazione all'interno del Panthéon: un lungo filo d'acciaio è fissato al soffitto della cupola e all'estremità una palla di ottone inizia a oscillare. Seguendo la traiettoria del grosso pendolo e osservando come le oscillazioni deviino dalla direzione iniziale, Foucault offre la prima prova che la Terra ruota sul proprio asse. È la vittoria della scienza dopo secoli di ostilità da parte della Chiesa. Il libro è la storia di un brillante scienziato che giunse con i propri mezzi a una straordinaria scoperta, degli ostacoli che incontrò da parte dei colleghi, ma è anche la storia della Francia in uno dei suoi periodi più gloriosi.",
-  "subjects": [],
-  "addedAt": "2023-03-03",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2023-03-03"
 }

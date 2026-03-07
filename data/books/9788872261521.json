@@ -7,6 +7,8 @@
   "publisher": "Stampa Alternativa",
   "pages": 32,
   "description": "Dal celebre scrittore un invito a marinare la noia della scuola, l'ansia del lavoro, l'illusione della gloria; alla scoperta dell'Arte di Vivere.",
-  "subjects": [],
-  "addedAt": "1994-04-14",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "1994-04-14"
 }

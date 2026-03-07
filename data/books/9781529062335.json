@@ -5,6 +5,9 @@
   "year": 2022,
   "cover": "covers/9781529062335.webp",
   "publisher": "Picador USA",
-  "subjects": [],
+  "subjects": [
+    "Biography & Autobiography"
+  ],
   "addedAt": "2024-11-27",
+  "pages": 304
 }

@@ -3,6 +3,9 @@
   "title": "Non in nostro nome",
   "author": "Howard Zinn",
   "cover": "covers/9788842810995.webp",
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "2003-04-10",
+  "pages": 298
 }

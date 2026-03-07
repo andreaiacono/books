@@ -1,11 +1,13 @@
 {
   "isbn": "9788851401740",
   "title": "Atlante dell'Islam. La religione, la storia, la vita quotidiana",
-  "author": "",
+  "author": "Neil Morris",
   "year": 2005,
   "cover": "covers/9788851401740.webp",
   "publisher": "Ancora",
   "pages": 62,
-  "subjects": [],
-  "addedAt": "2008-05-11",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2008-05-11"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788845926143.webp",
   "publisher": "ADELPHI",
   "pages": 424,
-  "subjects": [],
-  "addedAt": "2011-10-01",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2011-10-01"
 }

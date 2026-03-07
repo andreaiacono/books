@@ -3,6 +3,9 @@
   "title": "Buddha",
   "author": "Michael Carrithers, M. Rossi",
   "cover": "covers/9788806164461.webp",
-  "subjects": [],
+  "subjects": [
+    "Religion"
+  ],
   "addedAt": "2004-08-28",
+  "pages": 110
 }

@@ -1,8 +1,13 @@
 {
   "isbn": "9788817660433",
   "title": "Oceano Mare",
-  "author": "",
+  "author": "Alessandro Baricco",
   "cover": "covers/9788817660433.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1996-05-16",
+  "pages": 246,
+  "publisher": "Rizzoli",
+  "description": "De zee oefent een onweerstaanbare invloed uit op een aantal mensen."
 }

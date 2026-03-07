@@ -3,6 +3,9 @@
   "title": "Il paese di cuccagna",
   "author": "Matilde Serao, G. Cattaneo",
   "cover": "covers/9788811582656.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1989-09-01",
+  "pages": 456
 }

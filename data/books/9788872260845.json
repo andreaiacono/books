@@ -6,6 +6,8 @@
   "cover": "covers/9788872260845.webp",
   "publisher": "Stampa Alternativa",
   "pages": 16,
-  "subjects": [],
-  "addedAt": "1993-11-17",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-11-17"
 }

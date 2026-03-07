@@ -5,6 +5,10 @@
   "year": 2013,
   "cover": "covers/9788815246509.webp",
   "pages": 277,
-  "subjects": [],
+  "subjects": [
+    "History"
+  ],
   "addedAt": "2014-05-11",
+  "description": "Includes bibliographical references (pages 239-268) and index.",
+  "publisher": "Il mulino"
 }

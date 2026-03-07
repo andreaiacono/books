@@ -6,6 +6,9 @@
   "cover": "covers/9788842068310.webp",
   "publisher": "Laterza",
   "pages": 219,
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "2004-12-01",
+  "description": "Includes bibliographical references and index."
 }

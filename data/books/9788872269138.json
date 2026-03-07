@@ -3,6 +3,12 @@
   "title": "Malattia tropicale",
   "author": "Alfonso Ciancarelli",
   "cover": "covers/9788872269138.webp",
-  "subjects": [],
+  "subjects": [
+    "Italian Economic assistance",
+    "History"
+  ],
   "addedAt": "2006-05-07",
+  "pages": 178,
+  "description": "Autobiographical account.",
+  "publisher": "Stampa alternativa/Nuovi equilibri"
 }

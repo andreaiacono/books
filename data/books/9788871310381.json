@@ -3,6 +3,9 @@
   "title": "Il libro dell'MS-DOS 5",
   "author": "Van Wolverton",
   "cover": "covers/9788871310381.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1992-04-01",
+  "pages": 589
 }

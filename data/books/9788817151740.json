@@ -5,6 +5,8 @@
   "cover": "covers/9788817151740.webp",
   "publisher": "Rizzoli",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "1992-08-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1992-08-28"
 }

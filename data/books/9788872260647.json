@@ -3,6 +3,10 @@
   "title": "Ecstasy",
   "author": "Ralph Metzner, Sophie Adamson, M. Baraghini",
   "cover": "covers/9788872260647.webp",
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "1994-03-29",
+  "pages": 64,
+  "publisher": "Stampa Alternativa"
 }

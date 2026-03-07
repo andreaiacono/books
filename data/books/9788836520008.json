@@ -1,11 +1,13 @@
 {
   "isbn": "9788836520008",
   "title": "Tokyo",
-  "author": "",
+  "author": "Yann Perreau",
   "year": 2001,
   "cover": "covers/9788836520008.webp",
   "publisher": "Touring",
   "pages": 168,
-  "subjects": [],
-  "addedAt": "2001-05-19",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2001-05-19"
 }

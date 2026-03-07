@@ -5,6 +5,8 @@
   "year": 2019,
   "cover": "covers/9788850254835.webp",
   "pages": 343,
-  "subjects": [],
-  "addedAt": "2021-08-12",
+  "subjects": [
+    "Self-Help"
+  ],
+  "addedAt": "2021-08-12"
 }

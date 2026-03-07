@@ -6,6 +6,8 @@
   "cover": "covers/9788856502435.webp",
   "publisher": "Il Saggiatore",
   "pages": 254,
-  "subjects": [],
-  "addedAt": "2024-08-10",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2024-08-10"
 }

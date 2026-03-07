@@ -6,6 +6,9 @@
   "cover": "covers/9788870040494.webp",
   "publisher": "Le Scienze",
   "pages": 272,
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "1992-02-01",
+  "description": "Bibliography: p. 266-269.\nIncludes index."
 }

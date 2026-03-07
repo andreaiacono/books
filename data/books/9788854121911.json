@@ -6,6 +6,8 @@
   "cover": "covers/9788854121911.webp",
   "publisher": "Newton Compton",
   "pages": 183,
-  "subjects": [],
-  "addedAt": "1993-05-23",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-05-23"
 }

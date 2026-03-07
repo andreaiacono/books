@@ -65,6 +65,21 @@ def fetch_google_thumbnail(isbn, session, api_key=None):
         pass
     return None
 
+def fetch_openlibrary_thumbnail(isbn, session):
+    """Try Open Library covers API — free, no key, no quota."""
+    try:
+        # Try Large, then Medium
+        for size in ("L", "M"):
+            url = f"https://covers.openlibrary.org/b/isbn/{isbn}-{size}.jpg"
+            r = session.get(url, timeout=10)
+            if r.status_code == 200 and len(r.content) > 1000:
+                # Open Library returns a 1x1 gif for missing covers
+                if r.headers.get("Content-Type", "").startswith("image/jpeg"):
+                    return r.content
+    except Exception:
+        pass
+    return None
+
 # ── Conversion ────────────────────────────────────────────────────────────────
 
 def convert_to_webp(data: bytes, quality: int = 82) -> bytes:
@@ -146,6 +161,10 @@ def main():
         try:
             print(f"Fetching cover for {title} ({isbn})")
             data = fetch_google_thumbnail(isbn, session, args.api_key)
+            if not data:
+                data = fetch_openlibrary_thumbnail(isbn, session)
+                if data and hasattr(iterator, "set_postfix"):
+                    iterator.set_postfix(src="OL", isbn=isbn[-4:])
             if data:
                 stats["ok"] += 1
                 if args.convert:
@@ -153,7 +172,6 @@ def main():
                         data = convert_to_webp(data)
                     except Exception as e:
                         pass   # save as JPEG anyway, extension is still .webp
-
                 dest.write_bytes(data)
                 if hasattr(iterator, "set_postfix"):
                     iterator.set_postfix(src="GB", isbn=isbn[-4:])

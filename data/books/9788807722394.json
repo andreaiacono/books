@@ -6,6 +6,8 @@
   "cover": "covers/9788807722394.webp",
   "publisher": "Feltrinelli",
   "pages": 235,
-  "subjects": [],
-  "addedAt": "2001-05-19",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2001-05-19"
 }

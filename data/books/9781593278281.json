@@ -7,6 +7,8 @@
   "publisher": "No Starch Press, Incorporated",
   "pages": 488,
   "description": "The Rust Programming Language is the official, definitive guide to Rust, a hugely popular, community-supported programming language. The reader will learn all about Rust's ownership rules, which lie at the heart of Rust's reliability and crash-resistant compiling. The Rust Programming Language covers everything from basic concepts like variable bindings, control flow, functions, and error handling, to more advanced topics, such as crates, generics, concurrency, and the nitty gritty of Rust's type system.",
-  "subjects": [],
-  "addedAt": "2021-03-01",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2021-03-01"
 }

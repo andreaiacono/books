@@ -7,6 +7,8 @@
   "publisher": "\"O'Reilly Media, Inc.\"",
   "pages": 262,
   "description": "Explains what Web services technologies are and how they work, discussing how to use them and what they do and covering topics including SOAP, WSDL, UDDI, security, interoperability, and integration.",
-  "subjects": [],
-  "addedAt": "2002-03-27",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2002-03-27"
 }

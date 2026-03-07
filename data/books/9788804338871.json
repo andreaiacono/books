@@ -5,6 +5,9 @@
   "year": 1990,
   "cover": "covers/9788804338871.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Cooking"
+  ],
   "addedAt": "1992-01-01",
+  "pages": 138
 }

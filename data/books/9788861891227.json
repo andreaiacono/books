@@ -3,6 +3,10 @@
   "title": "Terremoto",
   "author": "Enrico Macioci",
   "cover": "covers/9788861891227.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2010-04-20",
+  "pages": 110,
+  "publisher": "Terre di Mezzo"
 }

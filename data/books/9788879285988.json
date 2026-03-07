@@ -6,6 +6,8 @@
   "cover": "covers/9788879285988.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 189,
-  "subjects": [],
-  "addedAt": "2003-01-08",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2003-01-08"
 }

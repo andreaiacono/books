@@ -1,8 +1,11 @@
 {
   "isbn": "9788853402011",
   "title": "Lezioni di trigonometria piana",
-  "author": "",
+  "author": "Roberto Ferrauto",
   "cover": "covers/9788853402011.webp",
-  "subjects": [],
+  "subjects": [
+    "Juvenile Nonfiction"
+  ],
   "addedAt": "1987-01-01",
+  "pages": 252
 }

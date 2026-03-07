@@ -6,6 +6,9 @@
   "cover": "covers/9788806230517.webp",
   "publisher": "Einaudi",
   "pages": 175,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2022-11-18",
+  "description": "First autobiographical novel."
 }

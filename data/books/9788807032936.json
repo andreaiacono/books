@@ -6,6 +6,8 @@
   "cover": "covers/9788807032936.webp",
   "publisher": "Feltrinelli",
   "pages": 380,
-  "subjects": [],
-  "addedAt": "2018-06-10",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2018-06-10"
 }

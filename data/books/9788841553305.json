@@ -1,8 +1,11 @@
 {
   "isbn": "9788841553305",
   "title": "Corfù e le Isole Greche dello Ionio",
-  "author": "",
+  "author": "Klaus Bötig",
   "cover": "covers/9788841553305.webp",
-  "subjects": [],
+  "subjects": [
+    "Travel"
+  ],
   "addedAt": "1998-07-15",
+  "pages": 96
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788875780203.webp",
   "publisher": "Codice",
   "pages": 431,
-  "subjects": [],
-  "addedAt": "2006-09-16",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2006-09-16"
 }

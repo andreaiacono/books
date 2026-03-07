@@ -6,6 +6,8 @@
   "cover": "covers/9788844007218.webp",
   "publisher": "Giunti Editore",
   "pages": 464,
-  "subjects": [],
-  "addedAt": "1998-12-25",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1998-12-25"
 }

@@ -1,8 +1,11 @@
 {
   "isbn": "9788870821635",
   "title": "Tempo di pasta",
-  "author": "",
+  "author": "Mariarosa Schiaffino",
   "cover": "covers/9788870821635.webp",
-  "subjects": [],
+  "subjects": [
+    "Cooking"
+  ],
   "addedAt": "2000-12-25",
+  "pages": 96
 }

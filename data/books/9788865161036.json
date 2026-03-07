@@ -6,6 +6,9 @@
   "cover": "covers/9788865161036.webp",
   "publisher": "Altreconomia",
   "pages": 160,
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2014-03-30",
+  "description": "Includes bibliographical references."
 }

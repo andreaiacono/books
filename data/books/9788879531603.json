@@ -1,12 +1,14 @@
 {
   "isbn": "9788879531603",
   "title": "Il Mein Kampf di Adolf Hitler. Le radici della barbarie nazista",
-  "author": "",
+  "author": "G. Galli",
   "year": 2006,
   "cover": "covers/9788879531603.webp",
   "publisher": "Kaos",
   "pages": 550,
   "description": "nazismo",
-  "subjects": [],
-  "addedAt": "2002-11-16",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2002-11-16"
 }

@@ -5,6 +5,9 @@
   "year": 2003,
   "cover": "covers/9788874520046.webp",
   "pages": 171,
-  "subjects": [],
+  "subjects": [
+    "Literary Collections"
+  ],
   "addedAt": "2003-12-12",
+  "publisher": "Nottetempo"
 }

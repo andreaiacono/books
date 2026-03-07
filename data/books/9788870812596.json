@@ -6,6 +6,8 @@
   "cover": "covers/9788870812596.webp",
   "publisher": "Tecniche Nuove",
   "pages": 376,
-  "subjects": [],
-  "addedAt": "1993-03-23",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1993-03-23"
 }

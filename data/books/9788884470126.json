@@ -3,6 +3,9 @@
   "title": "Sarajevo!",
   "author": "Piero Del Giudice",
   "cover": "covers/9788884470126.webp",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2005-03-20",
+  "pages": 264
 }

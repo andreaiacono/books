@@ -5,6 +5,8 @@
   "cover": "covers/9788804211945.webp",
   "publisher": "Mondadori",
   "pages": 184,
-  "subjects": [],
-  "addedAt": "1995-04-01",
+  "subjects": [
+    "Games"
+  ],
+  "addedAt": "1995-04-01"
 }

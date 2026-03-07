@@ -6,6 +6,8 @@
   "cover": "covers/9788807171970.webp",
   "publisher": "Feltrinelli",
   "pages": 186,
-  "subjects": [],
-  "addedAt": "2021-03-10",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2021-03-10"
 }

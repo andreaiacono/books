@@ -6,6 +6,8 @@
   "cover": "covers/9788811505327.webp",
   "publisher": "Garzanti Libri",
   "pages": 869,
-  "subjects": [],
-  "addedAt": "2004-02-20",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2004-02-20"
 }

@@ -6,6 +6,10 @@
   "cover": "covers/9788802072302.webp",
   "publisher": "UTET",
   "pages": 416,
-  "subjects": [],
+  "subjects": [
+    "Science",
+    "Philosophy"
+  ],
   "addedAt": "2006-05-07",
+  "description": "G. Del Re, professor at the University of Naples Federico II.\n\nIncludes bibliographical references."
 }

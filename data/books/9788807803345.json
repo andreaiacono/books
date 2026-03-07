@@ -6,6 +6,8 @@
   "cover": "covers/9788807803345.webp",
   "publisher": "Feltrinelli",
   "pages": 184,
-  "subjects": [],
-  "addedAt": "1995-03-27",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-03-27"
 }

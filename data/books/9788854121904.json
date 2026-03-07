@@ -6,6 +6,8 @@
   "cover": "covers/9788854121904.webp",
   "publisher": "Newton Compton",
   "pages": 420,
-  "subjects": [],
-  "addedAt": "1996-05-25",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1996-05-25"
 }

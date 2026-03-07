@@ -6,6 +6,8 @@
   "cover": "covers/9788807721830.webp",
   "publisher": "Feltrinelli",
   "pages": 314,
-  "subjects": [],
-  "addedAt": "1999-12-11",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-12-11"
 }

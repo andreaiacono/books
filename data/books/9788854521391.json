@@ -3,6 +3,9 @@
   "title": "Nel paese degli algoritmi",
   "author": "Aurelie Jean, Elena Dal Pra",
   "cover": "covers/9788854521391.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "2023-06-24",
+  "pages": 176
 }

@@ -5,6 +5,8 @@
   "cover": "covers/9788817841429.webp",
   "publisher": "Rizzoli",
   "pages": 624,
-  "subjects": [],
-  "addedAt": "1992-09-15",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1992-09-15"
 }

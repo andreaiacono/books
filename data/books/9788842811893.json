@@ -6,6 +6,8 @@
   "cover": "covers/9788842811893.webp",
   "publisher": "Il Saggiatore",
   "pages": 425,
-  "subjects": [],
-  "addedAt": "2003-09-06",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2003-09-06"
 }

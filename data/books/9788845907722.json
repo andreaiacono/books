@@ -6,6 +6,8 @@
   "cover": "covers/9788845907722.webp",
   "publisher": "Adelphi",
   "pages": 780,
-  "subjects": [],
-  "addedAt": "2003-01-28",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2003-01-28"
 }

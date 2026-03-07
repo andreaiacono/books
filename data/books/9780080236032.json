@@ -6,6 +6,9 @@
   "cover": "covers/9780080236032.webp",
   "publisher": "Elsevier Science & Technology",
   "pages": 225,
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "2019-02-23",
+  "description": "Includes index."
 }

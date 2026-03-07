@@ -1,8 +1,11 @@
 {
   "isbn": "9788832851151",
   "title": "Ridere. Antropologia dell'homo ridens",
-  "author": "",
+  "author": "David Le Breton",
   "cover": "covers/9788832851151.webp",
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "2019-11-25",
+  "pages": 252
 }

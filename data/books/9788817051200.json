@@ -6,6 +6,8 @@
   "cover": "covers/9788817051200.webp",
   "publisher": "Bur",
   "pages": 324,
-  "subjects": [],
-  "addedAt": "2012-05-13",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2012-05-13"
 }

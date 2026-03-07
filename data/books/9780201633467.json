@@ -5,6 +5,9 @@
   "cover": "covers/9780201633467.webp",
   "publisher": "Addison Wesley",
   "pages": 576,
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2000-12-27",
+  "description": "Praised for their highly effective visual approach, the TCP/IP Illustrated books feature clear diagrams and a readable writing style."
 }

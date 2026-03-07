@@ -6,6 +6,8 @@
   "cover": "covers/9788807015984.webp",
   "publisher": "Feltrinelli",
   "pages": 188,
-  "subjects": [],
-  "addedAt": "2008-12-27",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2008-12-27"
 }

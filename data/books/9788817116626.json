@@ -6,6 +6,8 @@
   "cover": "covers/9788817116626.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 170,
-  "subjects": [],
-  "addedAt": "2003-11-19",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2003-11-19"
 }

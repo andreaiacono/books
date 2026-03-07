@@ -6,6 +6,9 @@
   "cover": "covers/9788806155728.webp",
   "publisher": "Einaudi",
   "description": "Romanzo",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2000-07-29",
+  "pages": 630
 }

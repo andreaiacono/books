@@ -6,6 +6,8 @@
   "cover": "covers/9788842822837.webp",
   "publisher": "Il Saggiatore",
   "pages": 428,
-  "subjects": [],
-  "addedAt": "2016-10-27",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2016-10-27"
 }

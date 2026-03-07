@@ -7,6 +7,8 @@
   "publisher": "Einaudi",
   "pages": 189,
   "description": "Romanzo",
-  "subjects": [],
-  "addedAt": "2000-03-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2000-03-15"
 }

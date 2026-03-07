@@ -6,6 +6,8 @@
   "cover": "covers/9788875783167.webp",
   "publisher": "Codice",
   "pages": 286,
-  "subjects": [],
-  "addedAt": "2012-11-30",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2012-11-30"
 }

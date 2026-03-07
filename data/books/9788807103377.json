@@ -6,6 +6,8 @@
   "cover": "covers/9788807103377.webp",
   "publisher": "Feltrinelli Editore",
   "pages": 250,
-  "subjects": [],
-  "addedAt": "2002-11-16",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2002-11-16"
 }

@@ -5,6 +5,10 @@
   "year": 2009,
   "cover": "covers/9788807811425.webp",
   "publisher": "Feltrinelli",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2002-04-27",
+  "pages": 164,
+  "description": "Source title: La promessa: Un requiem per il romanzo giallo"
 }

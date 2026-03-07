@@ -6,6 +6,8 @@
   "cover": "covers/9788845253935.webp",
   "publisher": "Bompiani",
   "pages": 165,
-  "subjects": [],
-  "addedAt": "2005-09-24",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2005-09-24"
 }

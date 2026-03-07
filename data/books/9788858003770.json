@@ -6,6 +6,8 @@
   "cover": "covers/9788858003770.webp",
   "publisher": "Gribaudo",
   "pages": 144,
-  "subjects": [],
-  "addedAt": "2016-05-15",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "2016-05-15"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788893253390.webp",
   "publisher": "Fazi",
   "pages": 564,
-  "subjects": [],
-  "addedAt": "2004-02-11",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2004-02-11"
 }

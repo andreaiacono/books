@@ -6,6 +6,8 @@
   "cover": "covers/9788817295307.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 448,
-  "subjects": [],
-  "addedAt": "1992-06-13",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "1992-06-13"
 }

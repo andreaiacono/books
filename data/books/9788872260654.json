@@ -5,6 +5,8 @@
   "cover": "covers/9788872260654.webp",
   "publisher": "Stampa Alternativa",
   "pages": 64,
-  "subjects": [],
-  "addedAt": "1993-11-17",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1993-11-17"
 }

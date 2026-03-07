@@ -6,6 +6,9 @@
   "cover": "covers/9788807710100.webp",
   "publisher": "Feltrinelli",
   "pages": 135,
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2003-09-06",
+  "description": "Includes bibliographical references."
 }

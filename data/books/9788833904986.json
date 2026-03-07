@@ -6,6 +6,8 @@
   "cover": "covers/9788833904986.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 115,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-05-15"
 }

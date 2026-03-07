@@ -6,6 +6,8 @@
   "cover": "covers/9788871066257.webp",
   "publisher": "Sonda",
   "pages": 400,
-  "subjects": [],
-  "addedAt": "2003-12-25",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "2003-12-25"
 }

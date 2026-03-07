@@ -5,6 +5,10 @@
   "year": 2006,
   "cover": "covers/9788806178871.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1999-03-05",
+  "pages": 338,
+  "description": "Originaltitel: Histo ria do cerco de Lisboa."
 }

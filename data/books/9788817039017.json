@@ -6,6 +6,8 @@
   "cover": "covers/9788817039017.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 395,
-  "subjects": [],
-  "addedAt": "2021-07-02",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2021-07-02"
 }

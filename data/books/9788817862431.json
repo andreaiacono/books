@@ -6,6 +6,8 @@
   "cover": "covers/9788817862431.webp",
   "publisher": "Rizzoli",
   "pages": 196,
-  "subjects": [],
-  "addedAt": "1999-07-02",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-07-02"
 }

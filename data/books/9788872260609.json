@@ -6,6 +6,8 @@
   "cover": "covers/9788872260609.webp",
   "publisher": "Stampa Alternativa",
   "pages": 32,
-  "subjects": [],
-  "addedAt": "1993-12-07",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1993-12-07"
 }

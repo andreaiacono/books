@@ -6,6 +6,8 @@
   "cover": "covers/9788862506793.webp",
   "publisher": "Guerini e Associati",
   "pages": 293,
-  "subjects": [],
-  "addedAt": "2018-06-10",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2018-06-10"
 }

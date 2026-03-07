@@ -6,6 +6,8 @@
   "cover": "covers/9788854512238.webp",
   "publisher": "Neri Pozza",
   "pages": 254,
-  "subjects": [],
-  "addedAt": "2016-05-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2016-05-15"
 }

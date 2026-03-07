@@ -1,10 +1,12 @@
 {
   "isbn": "9788878190269",
   "title": "Lieh-tzu",
-  "author": "",
+  "author": "Fausto Tomassini",
   "cover": "covers/9788878190269.webp",
   "publisher": "TEA",
   "pages": 162,
-  "subjects": [],
-  "addedAt": "1993-07-04",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-07-04"
 }

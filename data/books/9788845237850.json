@@ -1,8 +1,11 @@
 {
   "isbn": "9788845237850",
   "title": "UFO - Top Secret",
-  "author": "",
+  "author": "Roberto Pinotti",
   "cover": "covers/9788845237850.webp",
-  "subjects": [],
+  "subjects": [
+    "Body, Mind & Spirit"
+  ],
   "addedAt": "1995-07-24",
+  "pages": 320
 }

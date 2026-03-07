@@ -6,6 +6,8 @@
   "cover": "covers/9788884833952.webp",
   "publisher": "Mimesis",
   "pages": 81,
-  "subjects": [],
-  "addedAt": "2005-12-25",
+  "subjects": [
+    "Performing Arts"
+  ],
+  "addedAt": "2005-12-25"
 }

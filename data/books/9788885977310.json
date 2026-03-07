@@ -5,6 +5,8 @@
   "cover": "covers/9788885977310.webp",
   "publisher": "Polistampa",
   "pages": 256,
-  "subjects": [],
-  "addedAt": "1997-05-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1997-05-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788820300920.webp",
   "publisher": "HOEPLI EDITORE",
   "pages": 848,
-  "subjects": [],
-  "addedAt": "1994-11-30",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "1994-11-30"
 }

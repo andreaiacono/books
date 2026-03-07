@@ -3,6 +3,9 @@
   "title": "Sulla filosofia da università",
   "author": "Arthur Schopenhauer, A. Verrecchia",
   "cover": "covers/9788878193437.webp",
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "1992-12-25",
+  "pages": 116
 }

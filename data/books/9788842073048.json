@@ -6,6 +6,8 @@
   "cover": "covers/9788842073048.webp",
   "publisher": "Laterza",
   "pages": 193,
-  "subjects": [],
-  "addedAt": "2023-11-22",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2023-11-22"
 }

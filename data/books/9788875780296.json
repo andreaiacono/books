@@ -5,6 +5,8 @@
   "year": 2005,
   "cover": "covers/9788875780296.webp",
   "pages": 161,
-  "subjects": [],
-  "addedAt": "2006-05-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2006-05-25"
 }

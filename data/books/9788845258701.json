@@ -6,6 +6,8 @@
   "cover": "covers/9788845258701.webp",
   "publisher": "Bompiani",
   "pages": 182,
-  "subjects": [],
-  "addedAt": "2008-05-11",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2008-05-11"
 }

@@ -7,6 +7,8 @@
   "publisher": "Il Mulino",
   "pages": 344,
   "description": "Sociologia",
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2004-05-08"
 }

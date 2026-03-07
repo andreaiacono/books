@@ -6,6 +6,8 @@
   "cover": "covers/9788831760232.webp",
   "publisher": "Marsilio",
   "pages": 120,
-  "subjects": [],
-  "addedAt": "1996-05-16",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1996-05-16"
 }

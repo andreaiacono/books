@@ -5,6 +5,8 @@
   "cover": "covers/9788836527311.webp",
   "publisher": "Touring",
   "pages": 376,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2005-05-08"
 }

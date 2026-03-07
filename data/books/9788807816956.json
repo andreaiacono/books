@@ -6,6 +6,8 @@
   "cover": "covers/9788807816956.webp",
   "publisher": "Feltrinelli Editore",
   "pages": 395,
-  "subjects": [],
-  "addedAt": "2003-10-10",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-10-10"
 }

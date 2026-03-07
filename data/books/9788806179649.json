@@ -6,6 +6,8 @@
   "cover": "covers/9788806179649.webp",
   "publisher": "Einaudi",
   "pages": 168,
-  "subjects": [],
-  "addedAt": "2007-01-27",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2007-01-27"
 }

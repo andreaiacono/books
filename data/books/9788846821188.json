@@ -3,6 +3,10 @@
   "title": "Leyendas de Guatemala",
   "author": "Miguel A. Asturias",
   "cover": "covers/9788846821188.webp",
-  "subjects": [],
+  "subjects": [
+    "Guatemalan drama"
+  ],
   "addedAt": "2004-05-08",
+  "pages": 110,
+  "description": "Legends and plays from Guatemala."
 }

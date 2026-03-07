@@ -5,6 +5,8 @@
   "year": 2005,
   "cover": "covers/9788806173425.webp",
   "pages": 210,
-  "subjects": [],
-  "addedAt": "2004-01-13",
+  "subjects": [
+    "Art"
+  ],
+  "addedAt": "2004-01-13"
 }

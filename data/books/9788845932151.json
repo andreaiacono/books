@@ -6,6 +6,8 @@
   "cover": "covers/9788845932151.webp",
   "publisher": "Adelphi",
   "pages": 222,
-  "subjects": [],
-  "addedAt": "2023-03-03",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2023-03-03"
 }

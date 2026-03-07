@@ -7,6 +7,8 @@
   "publisher": "McGraw-Hill Education",
   "pages": 520,
   "description": "Gli algoritmi sono scritti in un immaginario linguaggio di programmazione di tipo ALGOL.",
-  "subjects": [],
-  "addedAt": "1991-12-25",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1991-12-25"
 }

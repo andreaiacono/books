@@ -3,6 +3,10 @@
   "title": "Chitarra moderna. Gli esercizi per imparare a suonare e 100 testi di cantautori con gli accordi",
   "author": "Raffaele Bella",
   "cover": "covers/9788872260302.webp",
-  "subjects": [],
+  "subjects": [
+    "Music"
+  ],
   "addedAt": "1998-04-03",
+  "pages": 112,
+  "publisher": "Stampa Alternativa"
 }

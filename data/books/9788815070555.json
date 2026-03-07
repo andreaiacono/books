@@ -6,6 +6,8 @@
   "cover": "covers/9788815070555.webp",
   "publisher": "Il Mulino",
   "pages": 296,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1999-05-15"
 }

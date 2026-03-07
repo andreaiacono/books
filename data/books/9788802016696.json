@@ -5,6 +5,8 @@
   "cover": "covers/9788802016696.webp",
   "publisher": "UTET",
   "pages": 750,
-  "subjects": [],
-  "addedAt": "1992-01-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1992-01-01"
 }

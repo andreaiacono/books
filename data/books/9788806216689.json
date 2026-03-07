@@ -6,6 +6,8 @@
   "cover": "covers/9788806216689.webp",
   "publisher": "Einaudi",
   "pages": 832,
-  "subjects": [],
-  "addedAt": "2018-07-15",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2018-07-15"
 }

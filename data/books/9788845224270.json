@@ -5,6 +5,8 @@
   "cover": "covers/9788845224270.webp",
   "publisher": "Bompiani",
   "pages": 260,
-  "subjects": [],
-  "addedAt": "2000-05-14",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2000-05-14"
 }

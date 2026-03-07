@@ -6,6 +6,8 @@
   "cover": "covers/9788802073651.webp",
   "publisher": "UTET",
   "pages": 473,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2005-05-08"
 }

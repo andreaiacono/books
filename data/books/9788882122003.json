@@ -5,6 +5,9 @@
   "year": 1999,
   "cover": "covers/9788882122003.webp",
   "pages": 176,
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "1999-05-15",
+  "publisher": "Interlinea"
 }

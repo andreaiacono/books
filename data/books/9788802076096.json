@@ -7,6 +7,8 @@
   "publisher": "UTET",
   "pages": 603,
   "description": "Il modo di concepire l'ereditarietà e l'evoluzione sta attraversando una fase di rivoluzionario cambiamento. Le nuove scoperte della biologia molecolare mettono in discussione, infatti, la versione \"genocentrica\" della teoria darwiniana, secondo cui l'adattamento ha luogo esclusivamente tramite la selezione naturale di variazioni casuali del DNA. In questo testo, Eva Jablonka e Marion Lamb sostengono, invece che l'ereditarietà non ha a che vedere soltanto con i geni e tracciano quattro \"dimensioni\" dell'evoluzione, quattro sistemi ereditari che in essa giocano una parte: quello genetico, quello epigenetico (trasmissione cellulare dei tratti esente da mutazioni del DNA), quello comportamentale e quello simbolico (trasmissione tramite il linguaggio o altre analoghe forme di comunicazione). Ciascuno di essi, secondo le autrici, è in grado di fornire variazioni su cui può agire la selezione naturale.",
-  "subjects": [],
-  "addedAt": "2007-05-13",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2007-05-13"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788876412882.webp",
   "publisher": "E/O",
   "pages": 80,
-  "subjects": [],
-  "addedAt": "1997-09-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1997-09-22"
 }

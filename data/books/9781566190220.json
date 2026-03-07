@@ -5,6 +5,8 @@
   "year": 2001,
   "cover": "covers/9781566190220.webp",
   "publisher": "Dorset Press",
-  "subjects": [],
-  "addedAt": "2000-08-04",
+  "subjects": [
+    "Combat survival"
+  ],
+  "addedAt": "2000-08-04"
 }

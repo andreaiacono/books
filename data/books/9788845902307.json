@@ -6,6 +6,8 @@
   "cover": "covers/9788845902307.webp",
   "publisher": "Adelphi",
   "pages": 306,
-  "subjects": [],
-  "addedAt": "1995-12-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-12-25"
 }

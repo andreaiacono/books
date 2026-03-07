@@ -6,6 +6,8 @@
   "cover": "covers/9788806172831.webp",
   "publisher": "Einaudi",
   "pages": 373,
-  "subjects": [],
-  "addedAt": "2008-12-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2008-12-25"
 }

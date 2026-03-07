@@ -6,6 +6,9 @@
   "cover": "covers/9788804492498.webp",
   "publisher": "Mondadori",
   "description": "Ristampa 2006",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1996-05-20",
+  "pages": 576
 }

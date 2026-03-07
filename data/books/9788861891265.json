@@ -6,6 +6,8 @@
   "cover": "covers/9788861891265.webp",
   "publisher": "Terre di Mezzo",
   "pages": 201,
-  "subjects": [],
-  "addedAt": "2008-11-19",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2008-11-19"
 }

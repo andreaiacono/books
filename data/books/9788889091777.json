@@ -1,8 +1,11 @@
 {
   "isbn": "9788889091777",
   "title": "I farmaci che ammalano",
-  "author": "",
+  "author": "Ray Moynihan, Alan Cassels",
   "cover": "covers/9788889091777.webp",
-  "subjects": [],
+  "subjects": [
+    "Medical"
+  ],
   "addedAt": "2006-05-07",
+  "pages": 304
 }

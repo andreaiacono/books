@@ -6,6 +6,8 @@
   "cover": "covers/9788811673781.webp",
   "publisher": "Garzanti Libri",
   "pages": 313,
-  "subjects": [],
-  "addedAt": "2017-10-22",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2017-10-22"
 }

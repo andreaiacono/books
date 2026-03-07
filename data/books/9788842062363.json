@@ -3,6 +3,11 @@
   "title": "Hackers. I ribelli digitali",
   "author": "Paolo Mastrolilli",
   "cover": "covers/9788842062363.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "2001-05-19",
+  "pages": 230,
+  "description": "Includes bibliographical references and name index.\n\ncommitted to retain 20181001 in perpetuity ReCAP Shared Collection",
+  "publisher": "Laterza"
 }

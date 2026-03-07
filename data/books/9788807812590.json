@@ -6,6 +6,8 @@
   "cover": "covers/9788807812590.webp",
   "publisher": "Feltrinelli",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1993-12-25",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "1993-12-25"
 }

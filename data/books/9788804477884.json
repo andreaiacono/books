@@ -6,6 +6,9 @@
   "cover": "covers/9788804477884.webp",
   "publisher": "Mondadori",
   "description": "Il giocatore Copertina flessibile - 1 gen 2000",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2001-04-30",
+  "pages": 203
 }

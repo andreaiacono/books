@@ -6,6 +6,8 @@
   "cover": "covers/9788806142773.webp",
   "publisher": "Einaudi",
   "pages": 296,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2003-05-18"
 }

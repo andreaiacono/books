@@ -3,6 +3,9 @@
   "title": "Introduzione all'ecologia delle popolazioni",
   "author": "Marino Gatto",
   "cover": "covers/9788825172560.webp",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "1999-05-26",
+  "pages": 336
 }

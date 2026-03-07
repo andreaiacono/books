@@ -6,6 +6,8 @@
   "cover": "covers/9788865591789.webp",
   "publisher": "BEAT",
   "pages": 333,
-  "subjects": [],
-  "addedAt": "2018-12-25",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2018-12-25"
 }

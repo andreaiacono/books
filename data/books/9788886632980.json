@@ -6,6 +6,8 @@
   "cover": "covers/9788886632980.webp",
   "publisher": "Terre di Mezzo",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "2002-07-20",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2002-07-20"
 }

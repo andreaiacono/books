@@ -6,6 +6,8 @@
   "cover": "covers/9788870569551.webp",
   "publisher": "Jackson Libri",
   "pages": 324,
-  "subjects": [],
-  "addedAt": "1990-04-01",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1990-04-01"
 }

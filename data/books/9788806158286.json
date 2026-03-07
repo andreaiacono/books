@@ -6,6 +6,8 @@
   "cover": "covers/9788806158286.webp",
   "publisher": "Einaudi",
   "pages": 238,
-  "subjects": [],
-  "addedAt": "1999-05-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-05-25"
 }

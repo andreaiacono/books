@@ -6,6 +6,8 @@
   "cover": "covers/9788811505174.webp",
   "publisher": "Garzanti Libri",
   "pages": 745,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2005-05-08"
 }

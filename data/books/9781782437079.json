@@ -7,6 +7,8 @@
   "publisher": "Michael O'Mara Books, Limited",
   "pages": 192,
   "description": "History is a rich, varied and fascinating subject, so it's rare to find the whole lot in one book ... until now. The History of the World in Bite-Sized Chunks pulls it all together, from the world's earliest civilizations in 3500 BC to the founding of the United Nations in 1945, passing by the likes of Charlemagne, the Ottoman Empire and the Crimean War, to name a few.Here's your chance to introduce yourself to the full spectrum of world history, and discover just how the modern world came to be.",
-  "subjects": [],
-  "addedAt": "2020-01-27",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2020-01-27"
 }

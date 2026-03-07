@@ -6,6 +6,8 @@
   "cover": "covers/9788882899110.webp",
   "publisher": "Newton Compton",
   "pages": 140,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2005-05-08"
 }

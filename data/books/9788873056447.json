@@ -6,6 +6,8 @@
   "cover": "covers/9788873056447.webp",
   "publisher": "Neri Pozza",
   "pages": 574,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Body, Mind & Spirit"
+  ],
+  "addedAt": "2004-05-08"
 }

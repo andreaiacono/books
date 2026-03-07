@@ -6,6 +6,8 @@
   "cover": "covers/9788845902871.webp",
   "publisher": "Adelphi",
   "pages": 276,
-  "subjects": [],
-  "addedAt": "2021-08-12",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2021-08-12"
 }

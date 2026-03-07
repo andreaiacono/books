@@ -7,6 +7,8 @@
   "publisher": "Simple Subjects, LLC",
   "pages": 114,
   "description": "Find all of the following explained in Plain-English with no technical jargon: The Accounting Equation and why it's so significant How to read and prepare financial statements How to calculate and interpret several different financial ratios The concepts and assumptions behind Generally Accepted Accounting Principles (GAAP) Preparing journal entries with debits and credits Cash method vs. accrual method Inventory and Cost of Goods Sold How to calculate depreciation and amortization expenses Leggi di più",
-  "subjects": [],
-  "addedAt": "2026-01-23",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2026-01-23"
 }

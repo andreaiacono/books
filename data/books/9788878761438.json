@@ -5,6 +5,8 @@
   "cover": "covers/9788878761438.webp",
   "publisher": "Ediarco",
   "pages": 88,
-  "subjects": [],
-  "addedAt": "2003-03-15",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2003-03-15"
 }

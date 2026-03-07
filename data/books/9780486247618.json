@@ -7,6 +7,8 @@
   "publisher": "Dover Publications, Incorporated",
   "pages": 96,
   "description": "\"A fascinating, challenging book.\" -- A. L. A. Booklist. Experiment with cryptography -- the science of secret writing. Cipher and decipher codes: transposition and polyalphabetical ciphers, famous codes, typewriter and telephone codes, codes that use playing cards, knots, and swizzle sticks...even invisible writing and sending messages through outer space. Hours of intrigue and challenge. 45 diagrams.",
-  "subjects": [],
-  "addedAt": "2010-09-07",
+  "subjects": [
+    "Juvenile Nonfiction"
+  ],
+  "addedAt": "2010-09-07"
 }

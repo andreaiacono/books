@@ -7,6 +7,8 @@
   "publisher": "ECW Press",
   "pages": 280,
   "description": "In this collection of delightful, instructive, witty, and thoroughly accessible essays, Dr. Schwarcz presents stories of science and its illegitimate imitators. This authoritative book, well grounded in science, turns the table on the pseudo-science of snake oil nostrums, palliatives, and nutritional nonsense.",
-  "subjects": [],
-  "addedAt": "2020-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2020-05-25"
 }

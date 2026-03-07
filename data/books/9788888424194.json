@@ -6,6 +6,8 @@
   "cover": "covers/9788888424194.webp",
   "publisher": "Terre di Mezzo",
   "pages": 176,
-  "subjects": [],
-  "addedAt": "2004-03-14",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2004-03-14"
 }

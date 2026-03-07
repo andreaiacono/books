@@ -6,6 +6,8 @@
   "cover": "covers/9788811910176.webp",
   "publisher": "Vallardi A.",
   "pages": 120,
-  "subjects": [],
-  "addedAt": "1995-12-09",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-12-09"
 }

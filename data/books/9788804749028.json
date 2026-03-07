@@ -4,6 +4,8 @@
   "author": "Richard Dawkins",
   "year": 2022,
   "cover": "covers/9788804749028.webp",
-  "subjects": [],
-  "addedAt": "2022-12-19",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2022-12-19"
 }

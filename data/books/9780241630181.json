@@ -5,6 +5,9 @@
   "cover": "covers/9780241630181.webp",
   "publisher": "Penguin",
   "description": "A ground-breaking book that reveals why our human biases effect the way we receive and interpret information\n\nOur lives are minefields of misinformation. Statistics, stories and studies lie to us on a daily basis. Not only this but, as Professor Alex Edmans reveals, our brains lie to us too. He argues that we need to acknowledge and understand the role that our own human biases play in interpreting and digesting the information that we consume. It's only when we do, that we can actively resist being manipulated, and make informed choices that improve our lives.",
-  "subjects": [],
+  "subjects": [
+    "Psychology"
+  ],
   "addedAt": "2025-07-30",
+  "pages": 304
 }

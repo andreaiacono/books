@@ -6,6 +6,8 @@
   "cover": "covers/9788875780067.webp",
   "publisher": "Codice",
   "pages": 146,
-  "subjects": [],
-  "addedAt": "2006-05-25",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "2006-05-25"
 }

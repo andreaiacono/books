@@ -5,6 +5,8 @@
   "year": 1989,
   "cover": "covers/9788808150981.webp",
   "pages": 240,
-  "subjects": [],
-  "addedAt": "1998-01-20",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1998-01-20"
 }

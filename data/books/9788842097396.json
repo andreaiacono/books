@@ -6,6 +6,8 @@
   "cover": "covers/9788842097396.webp",
   "publisher": "Laterza",
   "pages": 115,
-  "subjects": [],
-  "addedAt": "2018-03-03",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2018-03-03"
 }

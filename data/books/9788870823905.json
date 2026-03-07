@@ -6,6 +6,8 @@
   "cover": "covers/9788870823905.webp",
   "publisher": "Idea Libri",
   "pages": 982,
-  "subjects": [],
-  "addedAt": "2009-09-02",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2009-09-02"
 }

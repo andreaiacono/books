@@ -5,6 +5,10 @@
   "year": 2002,
   "cover": "covers/9780971732100.webp",
   "publisher": "Martin Hagan",
-  "subjects": [],
+  "subjects": [
+    "Neural networks (Computer science)"
+  ],
   "addedAt": "1998-05-06",
+  "pages": 736,
+  "description": "This book provides a clear and detailed survey of basic neural network architectures and learning rules. In it, the authors emphasize mathematical analysis of networks, methods for training networks, and application of networks to practical engineering problems in pattern recognition, signal processing, and control systems."
 }

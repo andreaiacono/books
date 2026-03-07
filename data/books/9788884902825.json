@@ -6,6 +6,8 @@
   "cover": "covers/9788884902825.webp",
   "publisher": "Dalai Editore",
   "pages": 132,
-  "subjects": [],
-  "addedAt": "2003-02-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2003-02-25"
 }

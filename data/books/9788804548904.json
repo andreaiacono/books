@@ -6,6 +6,8 @@
   "cover": "covers/9788804548904.webp",
   "publisher": "Mondadori",
   "pages": 431,
-  "subjects": [],
-  "addedAt": "2005-12-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2005-12-25"
 }

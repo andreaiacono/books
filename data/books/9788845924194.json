@@ -6,6 +6,8 @@
   "cover": "covers/9788845924194.webp",
   "publisher": "Adelphi",
   "pages": 483,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2008-05-25"
 }

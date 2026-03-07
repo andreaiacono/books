@@ -7,6 +7,8 @@
   "publisher": "Einaudi",
   "pages": 242,
   "description": "classico",
-  "subjects": [],
-  "addedAt": "2003-10-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2003-10-21"
 }

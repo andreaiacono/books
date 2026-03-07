@@ -6,6 +6,8 @@
   "cover": "covers/9788887291803.webp",
   "publisher": "Zelig",
   "pages": 214,
-  "subjects": [],
-  "addedAt": "2006-07-01",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2006-07-01"
 }

@@ -7,6 +7,9 @@
   "publisher": "Profile Books Limited",
   "pages": 352,
   "description": "When Henry Nicholls was twenty-one, he was diagnosed with narcolepsy: a medical disorder causing him to fall asleep with no warning. For the healthy but overworked majority, this might sound like an enviable condition, but for Henry, the inability to stay awake is profoundly disabling, especially as it is accompanied by mysterious collapses called cataplexy, poor night-time sleep, hallucinations and sleep paralysis.A writer and biologist, Nicholls explores the science of disordered sleep, discovering that around half of us will experience some kind of sleep dysfunction in our lives. From a CBT course to tackle insomnia to a colony of narcoleptic Dobermans, his journey takes him through the half-lit world of sleep to genuine revelations about his own life and health.Told with humour and intelligence, Sleepyhead uses personal reflections, interviews with those with sleep disorders and the people who study them, anecdotes from medical history and insights from art and literature to change the way we understand our sleeping hours.",
-  "subjects": [],
-  "addedAt": "2019-12-25",
+  "subjects": [
+    "Sleep disorders",
+    "Narcolepsy"
+  ],
+  "addedAt": "2019-12-25"
 }

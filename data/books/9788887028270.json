@@ -6,6 +6,8 @@
   "cover": "covers/9788887028270.webp",
   "publisher": "Internazionale",
   "pages": 240,
-  "subjects": [],
-  "addedAt": "2004-02-11",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2004-02-11"
 }

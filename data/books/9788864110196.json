@@ -6,6 +6,8 @@
   "cover": "covers/9788864110196.webp",
   "publisher": "Fazi",
   "pages": 677,
-  "subjects": [],
-  "addedAt": "2007-05-13",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2007-05-13"
 }

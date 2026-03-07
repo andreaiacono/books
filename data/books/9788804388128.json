@@ -5,6 +5,9 @@
   "year": 1996,
   "cover": "covers/9788804388128.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "History"
+  ],
   "addedAt": "2005-05-08",
+  "pages": 398
 }

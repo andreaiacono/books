@@ -6,6 +6,8 @@
   "cover": "covers/9788806190811.webp",
   "publisher": "Einaudi",
   "pages": 298,
-  "subjects": [],
-  "addedAt": "2014-12-13",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2014-12-13"
 }

@@ -1,8 +1,11 @@
 {
   "isbn": "9788808039040",
   "title": "L' analisi al calcolatore. Il personal computer nel laboratorio di matematica",
-  "author": "",
+  "author": "Italo Capuzzo Dolcetta",
   "cover": "covers/9788808039040.webp",
-  "subjects": [],
+  "subjects": [
+    "Mathematics"
+  ],
   "addedAt": "1993-02-01",
+  "pages": 168
 }

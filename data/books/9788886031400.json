@@ -6,6 +6,8 @@
   "cover": "covers/9788886031400.webp",
   "publisher": "Esperia",
   "pages": 254,
-  "subjects": [],
-  "addedAt": "2002-03-10",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2002-03-10"
 }

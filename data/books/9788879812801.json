@@ -6,6 +6,8 @@
   "cover": "covers/9788879812801.webp",
   "publisher": "Datanews",
   "pages": 108,
-  "subjects": [],
-  "addedAt": "2012-03-09",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2012-03-09"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788807032615.webp",
   "publisher": "Feltrinelli",
   "pages": 387,
-  "subjects": [],
-  "addedAt": "2020-12-10",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2020-12-10"
 }

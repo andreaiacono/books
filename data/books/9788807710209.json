@@ -6,6 +6,8 @@
   "cover": "covers/9788807710209.webp",
   "publisher": "Feltrinelli",
   "pages": 100,
-  "subjects": [],
-  "addedAt": "2004-11-30",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2004-11-30"
 }

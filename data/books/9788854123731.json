@@ -1,11 +1,13 @@
 {
   "isbn": "9788854123731",
   "title": "Il libro che la tua chiesa non ti farebbe mai leggere",
-  "author": "",
+  "author": "Tim C. Leedom, Maria Murdy",
   "year": 2011,
   "cover": "covers/9788854123731.webp",
   "publisher": "Newton Compton",
   "pages": 575,
-  "subjects": [],
-  "addedAt": "2012-05-13",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2012-05-13"
 }

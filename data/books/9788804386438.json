@@ -6,6 +6,8 @@
   "cover": "covers/9788804386438.webp",
   "publisher": "Mondadori",
   "pages": 512,
-  "subjects": [],
-  "addedAt": "2003-05-25",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2003-05-25"
 }

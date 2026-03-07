@@ -5,6 +5,8 @@
   "cover": "covers/9788830411227.webp",
   "publisher": "Longanesi",
   "pages": 276,
-  "subjects": [],
-  "addedAt": "2010-11-03",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2010-11-03"
 }

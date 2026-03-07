@@ -6,6 +6,8 @@
   "cover": "covers/9788875783716.webp",
   "publisher": "Codice",
   "pages": 385,
-  "subjects": [],
-  "addedAt": "2013-10-19",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2013-10-19"
 }

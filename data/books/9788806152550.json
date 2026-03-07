@@ -5,6 +5,9 @@
   "year": 2000,
   "cover": "covers/9788806152550.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2001-03-03",
+  "pages": 335
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788830415218.webp",
   "publisher": "Longanesi",
   "pages": 400,
-  "subjects": [],
-  "addedAt": "2004-01-17",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2004-01-17"
 }

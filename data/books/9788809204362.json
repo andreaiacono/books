@@ -6,6 +6,8 @@
   "cover": "covers/9788809204362.webp",
   "publisher": "Giunti Editore",
   "pages": 96,
-  "subjects": [],
-  "addedAt": "2005-12-23",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2005-12-23"
 }

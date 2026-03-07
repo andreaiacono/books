@@ -6,6 +6,8 @@
   "cover": "covers/9788807171444.webp",
   "publisher": "Feltrinelli",
   "pages": 412,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2008-05-25"
 }

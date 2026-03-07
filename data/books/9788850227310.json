@@ -7,6 +7,8 @@
   "publisher": "TEA",
   "pages": 197,
   "description": "\"Elogio dell'ozio\" è uno dei quindici saggi che compongono questa raccolta, in cui Russell tratta le più disparate tematiche politiche e sociali. I pericoli derivanti dall'eccesso di zelo e l'importanza della contemplazione; architettura e questioni sociali; critica del comunismo, critica del fascismo e argomenti in favore del socialismo; cinismo dei giovani e conformismo della società moderna; l'educazione, la salute mentale, l'anima. Temi diversi ma collegati da una tesi generale: \"Il mondo soffre per colpa dell'intolleranza, del bigottismo e per l'errata convinzione che ogni azione energica sia lodevole anche se male indirizzata; mentre la nostra società moderna, così complessa, ha bisogno di riflettere, di mettere in discussione i dogmi\".",
-  "subjects": [],
-  "addedAt": "1992-07-23",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1992-07-23"
 }

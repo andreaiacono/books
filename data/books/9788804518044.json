@@ -5,6 +5,8 @@
   "cover": "covers/9788804518044.webp",
   "publisher": "Mondadori",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "2003-07-03",
+  "subjects": [
+    "Photography"
+  ],
+  "addedAt": "2003-07-03"
 }

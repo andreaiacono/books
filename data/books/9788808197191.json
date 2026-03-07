@@ -6,6 +6,8 @@
   "cover": "covers/9788808197191.webp",
   "publisher": "Zanichelli",
   "pages": 288,
-  "subjects": [],
-  "addedAt": "2009-05-17",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2009-05-17"
 }

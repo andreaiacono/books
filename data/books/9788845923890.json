@@ -6,6 +6,8 @@
   "cover": "covers/9788845923890.webp",
   "publisher": "Adelphi",
   "pages": 252,
-  "subjects": [],
-  "addedAt": "2021-08-01",
+  "subjects": [
+    "Health & Fitness"
+  ],
+  "addedAt": "2021-08-01"
 }

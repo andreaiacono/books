@@ -7,6 +7,8 @@
   "publisher": "Mondadori",
   "pages": 208,
   "description": "De profundis",
-  "subjects": [],
-  "addedAt": "1992-04-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1992-04-21"
 }

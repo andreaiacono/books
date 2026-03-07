@@ -6,6 +6,8 @@
   "cover": "covers/9788888738208.webp",
   "publisher": "DeriveApprodi",
   "pages": 174,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1999-05-15"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788808099778.webp",
   "publisher": "Zanichelli",
   "pages": 1440,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2004-05-08"
 }

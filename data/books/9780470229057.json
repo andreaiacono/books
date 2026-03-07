@@ -7,6 +7,8 @@
   "publisher": "John Wiley & Sons",
   "pages": 372,
   "description": "Provides an expansion of Turing's original paper, a brief look at his life, and information on the Turing machine and computability topics.",
-  "subjects": [],
-  "addedAt": "2017-01-03",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2017-01-03"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788862202138.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 220,
-  "subjects": [],
-  "addedAt": "2011-06-11",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2011-06-11"
 }

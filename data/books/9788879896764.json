@@ -6,6 +6,8 @@
   "cover": "covers/9788879896764.webp",
   "publisher": "Donzelli",
   "pages": 348,
-  "subjects": [],
-  "addedAt": "2004-09-18",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2004-09-18"
 }

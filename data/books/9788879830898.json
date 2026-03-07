@@ -7,6 +7,8 @@
   "publisher": "Newton Compton",
   "pages": 100,
   "description": "Copertina un po' sciupata. La fotografia raffigura realmente il libro in catalogo.",
-  "subjects": [],
-  "addedAt": "1993-04-20",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-04-20"
 }

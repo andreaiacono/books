@@ -6,6 +6,8 @@
   "cover": "covers/9788845281242.webp",
   "publisher": "Bompiani",
   "pages": 347,
-  "subjects": [],
-  "addedAt": "2023-07-26",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2023-07-26"
 }

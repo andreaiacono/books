@@ -6,6 +6,8 @@
   "cover": "covers/9788889674147.webp",
   "publisher": "Fusi Orari",
   "pages": 324,
-  "subjects": [],
-  "addedAt": "2007-12-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2007-12-25"
 }

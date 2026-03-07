@@ -4,6 +4,9 @@
   "author": "Philip K. Dick",
   "cover": "covers/9788804431565.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1997-09-16",
+  "pages": 189
 }

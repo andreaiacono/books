@@ -6,6 +6,8 @@
   "cover": "covers/9788871081700.webp",
   "publisher": "Feltrinelli",
   "pages": 126,
-  "subjects": [],
-  "addedAt": "2004-07-17",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2004-07-17"
 }

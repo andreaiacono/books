@@ -6,6 +6,8 @@
   "cover": "covers/9788809776265.webp",
   "publisher": "GIUNTI EDITORE",
   "pages": 240,
-  "subjects": [],
-  "addedAt": "2004-07-24",
+  "subjects": [
+    "Health & Fitness"
+  ],
+  "addedAt": "2004-07-24"
 }

@@ -3,6 +3,9 @@
   "title": "Il grande libro della chitarra",
   "author": "Francesco Roda",
   "cover": "covers/9788882260071.webp",
-  "subjects": [],
+  "subjects": [
+    "Music"
+  ],
   "addedAt": "1998-05-05",
+  "pages": 512
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788846100214.webp",
   "publisher": "Instar Libri",
   "pages": 352,
-  "subjects": [],
-  "addedAt": "2013-02-18",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2013-02-18"
 }

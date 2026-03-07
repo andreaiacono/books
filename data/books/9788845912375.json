@@ -5,6 +5,8 @@
   "year": 1996,
   "cover": "covers/9788845912375.webp",
   "pages": 256,
-  "subjects": [],
-  "addedAt": "2021-08-12",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-08-12"
 }

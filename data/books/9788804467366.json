@@ -6,6 +6,8 @@
   "cover": "covers/9788804467366.webp",
   "publisher": "Mondadori",
   "pages": 480,
-  "subjects": [],
-  "addedAt": "2000-05-14",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2000-05-14"
 }

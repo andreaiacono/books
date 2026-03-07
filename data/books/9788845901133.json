@@ -6,6 +6,8 @@
   "cover": "covers/9788845901133.webp",
   "publisher": "Adelphi",
   "pages": 419,
-  "subjects": [],
-  "addedAt": "1992-08-05",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1992-08-05"
 }

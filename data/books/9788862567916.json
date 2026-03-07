@@ -6,6 +6,8 @@
   "cover": "covers/9788862567916.webp",
   "publisher": "Salani",
   "pages": 270,
-  "subjects": [],
-  "addedAt": "2020-12-10",
+  "subjects": [
+    "Games & Activities"
+  ],
+  "addedAt": "2020-12-10"
 }

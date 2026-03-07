@@ -6,6 +6,8 @@
   "cover": "covers/9788833914466.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 279,
-  "subjects": [],
-  "addedAt": "2006-12-25",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2006-12-25"
 }

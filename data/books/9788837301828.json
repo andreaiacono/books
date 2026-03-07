@@ -6,6 +6,8 @@
   "cover": "covers/9788837301828.webp",
   "publisher": "Novecento",
   "pages": 166,
-  "subjects": [],
-  "addedAt": "1995-05-18",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1995-05-18"
 }

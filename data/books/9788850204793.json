@@ -5,6 +5,8 @@
   "year": 2003,
   "cover": "covers/9788850204793.webp",
   "pages": 459,
-  "subjects": [],
-  "addedAt": "2004-04-30",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2004-04-30"
 }

@@ -5,6 +5,10 @@
   "year": 2001,
   "cover": "covers/9788756269544.webp",
   "publisher": "Carlsen",
-  "subjects": [],
+  "subjects": [
+    "Children's stories, Danish"
+  ],
   "addedAt": "2003-08-14",
+  "pages": 92,
+  "description": "Presents various fairy tales from the famous children's author."
 }

@@ -5,6 +5,8 @@
   "cover": "covers/9788808037183.webp",
   "publisher": "Zanichelli",
   "pages": 360,
-  "subjects": [],
-  "addedAt": "1998-01-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1998-01-28"
 }

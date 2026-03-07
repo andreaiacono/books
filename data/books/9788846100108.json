@@ -6,6 +6,8 @@
   "cover": "covers/9788846100108.webp",
   "publisher": "Instar Libri",
   "pages": 524,
-  "subjects": [],
-  "addedAt": "1998-05-24",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1998-05-24"
 }

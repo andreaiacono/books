@@ -6,6 +6,8 @@
   "cover": "covers/9788811362319.webp",
   "publisher": "Garzanti Libri",
   "pages": 327,
-  "subjects": [],
-  "addedAt": "1989-01-01",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "1989-01-01"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788875780821.webp",
   "publisher": "Codice",
   "pages": 158,
-  "subjects": [],
-  "addedAt": "2008-02-02",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2008-02-02"
 }

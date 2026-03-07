@@ -6,6 +6,8 @@
   "cover": "covers/9788811682028.webp",
   "publisher": "Garzanti Libri",
   "pages": 107,
-  "subjects": [],
-  "addedAt": "1995-07-21",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-07-21"
 }

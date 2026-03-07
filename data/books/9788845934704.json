@@ -6,6 +6,8 @@
   "cover": "covers/9788845934704.webp",
   "publisher": "Adelphi",
   "pages": 121,
-  "subjects": [],
-  "addedAt": "2022-11-18",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2022-11-18"
 }

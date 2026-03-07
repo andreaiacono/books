@@ -6,6 +6,8 @@
   "cover": "covers/9788870215441.webp",
   "publisher": "Franco Muzzio Editore",
   "pages": 396,
-  "subjects": [],
-  "addedAt": "2003-01-28",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2003-01-28"
 }

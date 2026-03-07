@@ -6,6 +6,8 @@
   "cover": "covers/9788804558422.webp",
   "publisher": "Mondadori",
   "pages": 209,
-  "subjects": [],
-  "addedAt": "2020-01-05",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2020-01-05"
 }

@@ -3,6 +3,11 @@
   "title": "Turbulence (English Edition)",
   "author": "David Szalay",
   "cover": "covers/9781982122744.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2020-05-25",
+  "pages": 160,
+  "description": "\"A stunning, virtuosic novel about twelve people, mostly strangers, and the surprising ripple effect each one has on the life of the next as they cross paths while in transit around the world.' --amazon.com.",
+  "publisher": "Simon and Schuster"
 }

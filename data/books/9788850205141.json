@@ -6,6 +6,8 @@
   "cover": "covers/9788850205141.webp",
   "publisher": "TEA",
   "pages": 816,
-  "subjects": [],
-  "addedAt": "1994-02-08",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1994-02-08"
 }

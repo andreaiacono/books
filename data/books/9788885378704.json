@@ -6,6 +6,8 @@
   "cover": "covers/9788885378704.webp",
   "publisher": "Massari",
   "pages": 176,
-  "subjects": [],
-  "addedAt": "1995-12-23",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1995-12-23"
 }

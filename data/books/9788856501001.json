@@ -7,6 +7,8 @@
   "publisher": "Il Saggiatore",
   "pages": 223,
   "description": "Brossura",
-  "subjects": [],
-  "addedAt": "2020-08-24",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2020-08-24"
 }

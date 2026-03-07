@@ -3,6 +3,9 @@
   "title": "Divertirsi con il calcolatore",
   "author": "V. Sala",
   "cover": "covers/9788870040548.webp",
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1992-01-01",
+  "pages": 160
 }

@@ -1,8 +1,18 @@
 {
   "isbn": "9783760782973",
   "title": "das magische auge",
-  "author": "",
+  "author": "Tom Baccei",
   "cover": "covers/9783760782973.webp",
-  "subjects": [],
+  "subjects": [
+    "Visuelle Wahrnehmung",
+    "Räumliches Sehen",
+    "Optisches Phänomen",
+    "Dreidimensionales Bild",
+    "Vexierbild",
+    "Computergraphik",
+    "Bildband"
+  ],
   "addedAt": "1994-05-10",
+  "pages": 32,
+  "publisher": "Ars Edition"
 }

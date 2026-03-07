@@ -6,6 +6,8 @@
   "cover": "covers/9788804455585.webp",
   "publisher": "Mondadori",
   "pages": 416,
-  "subjects": [],
-  "addedAt": "1995-07-30",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-07-30"
 }

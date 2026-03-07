@@ -5,6 +5,9 @@
   "year": 2000,
   "cover": "covers/9788804484752.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2001-03-03",
+  "pages": 272
 }

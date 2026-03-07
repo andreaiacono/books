@@ -6,6 +6,8 @@
   "cover": "covers/9788832851700.webp",
   "publisher": "Cortina Raffaello",
   "pages": 480,
-  "subjects": [],
-  "addedAt": "2020-12-25",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2020-12-25"
 }

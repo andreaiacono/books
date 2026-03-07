@@ -6,6 +6,8 @@
   "cover": "covers/9788807034183.webp",
   "publisher": "Feltrinelli",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "2023-11-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2023-11-22"
 }

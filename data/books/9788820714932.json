@@ -6,6 +6,8 @@
   "cover": "covers/9788820714932.webp",
   "publisher": "Liguori Editore Srl",
   "pages": 712,
-  "subjects": [],
-  "addedAt": "1996-10-01",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1996-10-01"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788885861893.webp",
   "publisher": "Elèuthera",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1998-10-03",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1998-10-03"
 }

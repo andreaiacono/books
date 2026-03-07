@@ -6,6 +6,8 @@
   "cover": "covers/9788845248016.webp",
   "publisher": "Bompiani",
   "pages": 318,
-  "subjects": [],
-  "addedAt": "2002-03-20",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2002-03-20"
 }

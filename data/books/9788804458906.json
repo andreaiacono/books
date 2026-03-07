@@ -1,10 +1,13 @@
 {
   "isbn": "9788804458906",
   "title": "Gli Squilibri del 2000",
-  "author": "",
+  "author": "Luigi Preti",
   "year": 1998,
   "cover": "covers/9788804458906.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Overpopulation"
+  ],
   "addedAt": "1998-12-25",
+  "pages": 97
 }

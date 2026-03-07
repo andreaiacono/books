@@ -3,6 +3,9 @@
   "title": "L' orecchio di Van Gogh",
   "author": "Moacyr Scliar, G. Boni, B. Bruno",
   "cover": "covers/9788888700243.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2000-05-14",
+  "pages": 128
 }

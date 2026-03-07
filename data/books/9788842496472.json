@@ -1,11 +1,13 @@
 {
   "isbn": "9788842496472",
   "title": "Pitagora si diverte. 77 giochi matematici. Vol. 1",
-  "author": "",
+  "author": "Gilles Cohen",
   "year": 2006,
   "cover": "covers/9788842496472.webp",
   "publisher": "Mondadori Bruno",
   "pages": 148,
-  "subjects": [],
-  "addedAt": "2008-03-22",
+  "subjects": [
+    "Games & Activities"
+  ],
+  "addedAt": "2008-03-22"
 }

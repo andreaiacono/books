@@ -6,6 +6,8 @@
   "cover": "covers/9788866390190.webp",
   "publisher": "EDT srl",
   "pages": 909,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2008-05-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788806169350.webp",
   "publisher": "Einaudi",
   "pages": 792,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2005-05-08"
 }

@@ -5,6 +5,9 @@
   "year": 2010,
   "cover": "covers/9788860881137.webp",
   "pages": 363,
-  "subjects": [],
+  "subjects": [
+    "Nature"
+  ],
   "addedAt": "2012-05-13",
+  "publisher": "Guanda"
 }

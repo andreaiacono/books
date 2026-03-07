@@ -6,6 +6,8 @@
   "cover": "covers/9788845215674.webp",
   "publisher": "Bompiani",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1995-08-21",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "1995-08-21"
 }

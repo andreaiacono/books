@@ -6,6 +6,8 @@
   "cover": "covers/9788806219840.webp",
   "publisher": "Einaudi",
   "pages": 507,
-  "subjects": [],
-  "addedAt": "2019-07-28",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2019-07-28"
 }

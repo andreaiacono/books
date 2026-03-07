@@ -1,8 +1,13 @@
 {
   "isbn": "9788804504375",
   "title": "Io sono, tu sei. L'identità e la differenza negli uomini e in natura",
-  "author": "",
+  "author": "Edoardo Boncinelli",
   "cover": "covers/9788804504375.webp",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "2002-04-16",
+  "pages": 183,
+  "publisher": "Mondadori",
+  "description": "Includes bibliographical references (p. [173]-176) and index."
 }

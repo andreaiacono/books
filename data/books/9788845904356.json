@@ -6,6 +6,8 @@
   "cover": "covers/9788845904356.webp",
   "publisher": "Adelphi",
   "pages": 120,
-  "subjects": [],
-  "addedAt": "1992-08-05",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1992-08-05"
 }

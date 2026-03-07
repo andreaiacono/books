@@ -6,6 +6,8 @@
   "cover": "covers/9788854119925.webp",
   "publisher": "Newton Compton",
   "pages": 286,
-  "subjects": [],
-  "addedAt": "2008-04-01",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2008-04-01"
 }

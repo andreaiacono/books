@@ -3,6 +3,9 @@
   "title": "Fisica 2: elettricità e magnetismo",
   "author": "Fernando Palombo",
   "cover": "covers/9788870058949.webp",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "1997-10-01",
+  "pages": 512
 }

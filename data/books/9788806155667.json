@@ -5,6 +5,9 @@
   "year": 2000,
   "cover": "covers/9788806155667.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Mathematics"
+  ],
   "addedAt": "2008-03-22",
+  "pages": 207
 }

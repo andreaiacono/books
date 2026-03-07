@@ -6,6 +6,8 @@
   "cover": "covers/9788858023686.webp",
   "publisher": "Gribaudo",
   "pages": 255,
-  "subjects": [],
-  "addedAt": "2021-09-24",
+  "subjects": [
+    "Health & Fitness"
+  ],
+  "addedAt": "2021-09-24"
 }

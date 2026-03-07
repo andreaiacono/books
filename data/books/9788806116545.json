@@ -6,6 +6,8 @@
   "cover": "covers/9788806116545.webp",
   "publisher": "Einaudi",
   "pages": 113,
-  "subjects": [],
-  "addedAt": "2004-08-28",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2004-08-28"
 }

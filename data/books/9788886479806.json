@@ -6,6 +6,8 @@
   "cover": "covers/9788886479806.webp",
   "publisher": "Meltemi Editore srl",
   "pages": 120,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "1999-05-15"
 }

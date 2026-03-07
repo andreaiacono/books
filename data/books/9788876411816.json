@@ -5,6 +5,8 @@
   "cover": "covers/9788876411816.webp",
   "publisher": "E/O",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "1993-12-17",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-12-17"
 }

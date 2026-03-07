@@ -5,6 +5,9 @@
   "year": 2010,
   "cover": "covers/9788865160268.webp",
   "publisher": "Altreconomia",
-  "subjects": [],
+  "subjects": [
+    "Social Science"
+  ],
   "addedAt": "2010-12-25",
+  "pages": 191
 }

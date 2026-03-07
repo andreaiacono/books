@@ -6,6 +6,8 @@
   "cover": "covers/9788804303343.webp",
   "publisher": "Mondadori",
   "pages": 196,
-  "subjects": [],
-  "addedAt": "1992-08-03",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "1992-08-03"
 }

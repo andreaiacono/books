@@ -6,6 +6,8 @@
   "cover": "covers/9788885861534.webp",
   "publisher": "Elèuthera",
   "pages": 104,
-  "subjects": [],
-  "addedAt": "2007-12-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2007-12-25"
 }

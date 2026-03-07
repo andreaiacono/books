@@ -7,6 +7,9 @@
   "publisher": "Mondadori",
   "pages": 143,
   "description": "Book by Calvino Italo",
-  "subjects": [],
-  "addedAt": "1993-08-23",
+  "subjects": [
+    "Italian language",
+    "Readers"
+  ],
+  "addedAt": "1993-08-23"
 }

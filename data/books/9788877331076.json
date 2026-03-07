@@ -6,6 +6,8 @@
   "cover": "covers/9788877331076.webp",
   "publisher": "Lyra Libri",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "1998-05-24",
+  "subjects": [
+    "Health & Fitness"
+  ],
+  "addedAt": "1998-05-24"
 }

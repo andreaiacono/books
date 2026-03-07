@@ -6,6 +6,8 @@
   "cover": "covers/9788865590980.webp",
   "publisher": "BEAT",
   "pages": 351,
-  "subjects": [],
-  "addedAt": "2021-12-19",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-12-19"
 }

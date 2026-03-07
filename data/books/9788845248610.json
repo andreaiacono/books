@@ -5,6 +5,10 @@
   "year": 2001,
   "cover": "covers/9788845248610.webp",
   "pages": 141,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2005-08-13",
+  "description": "Translated from the English. Original text in Greek.\n\nOriginally published: Milano : Mondolibri, 2000.",
+  "publisher": "Tascabili Bompiani"
 }

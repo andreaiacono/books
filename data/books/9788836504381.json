@@ -6,6 +6,8 @@
   "cover": "covers/9788836504381.webp",
   "publisher": "Touring",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "2005-09-20",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2005-09-20"
 }

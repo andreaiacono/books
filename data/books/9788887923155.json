@@ -1,11 +1,14 @@
 {
   "isbn": "9788887923155",
   "title": "Da Seattle a Genova",
-  "author": "",
+  "author": "Claudio Marradi, Enrico Ratto",
   "year": 2001,
   "cover": "covers/9788887923155.webp",
   "publisher": "Frilli",
   "pages": 60,
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2002-05-19",
+  "description": "Includes bibliographical references."
 }

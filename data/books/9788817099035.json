@@ -6,6 +6,8 @@
   "cover": "covers/9788817099035.webp",
   "publisher": "Rizzoli",
   "pages": 171,
-  "subjects": [],
-  "addedAt": "2021-01-28",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2021-01-28"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788833921266.webp",
   "publisher": "Bollati Boringhieri",
   "pages": 243,
-  "subjects": [],
-  "addedAt": "2011-05-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2011-05-25"
 }

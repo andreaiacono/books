@@ -6,6 +6,9 @@
   "cover": "covers/9781800750746.webp",
   "publisher": "Swift Press",
   "description": "A bold, provocative exploration of the tension between our evolutionary history and our modern woes - and what we can do about it.",
-  "subjects": [],
+  "subjects": [
+    "Sociology"
+  ],
   "addedAt": "2021-12-25",
+  "pages": 352
 }

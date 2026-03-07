@@ -6,6 +6,8 @@
   "cover": "covers/9788860441294.webp",
   "publisher": "Fandango Libri",
   "pages": 498,
-  "subjects": [],
-  "addedAt": "2011-05-25",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2011-05-25"
 }

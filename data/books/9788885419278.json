@@ -1,8 +1,11 @@
 {
   "isbn": "9788885419278",
   "title": "L' uomo del libro",
-  "author": "",
+  "author": "Driss Chraïbi",
   "cover": "covers/9788885419278.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1996-12-25",
+  "pages": 120
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788845246166.webp",
   "publisher": "Bompiani",
   "pages": 832,
-  "subjects": [],
-  "addedAt": "2003-12-25",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2003-12-25"
 }

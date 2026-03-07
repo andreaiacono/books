@@ -5,6 +5,9 @@
   "year": 1991,
   "cover": "covers/9788833954875.webp",
   "pages": 372,
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1992-01-01",
+  "publisher": "Bollati Boringhieri"
 }

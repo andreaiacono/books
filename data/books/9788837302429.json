@@ -3,6 +3,9 @@
   "title": "Il piacere della letteratura",
   "author": "Jorge L. Borges, G. Guadalupi",
   "cover": "covers/9788837302429.webp",
-  "subjects": [],
+  "subjects": [
+    "Literature"
+  ],
   "addedAt": "1997-05-25",
+  "pages": 93
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788807900327.webp",
   "publisher": "Feltrinelli",
   "pages": 169,
-  "subjects": [],
-  "addedAt": "2025-04-26",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2025-04-26"
 }

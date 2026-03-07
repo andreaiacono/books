@@ -6,6 +6,8 @@
   "publisher": "Mondadori",
   "pages": 175,
   "description": "Letteratura",
-  "subjects": [],
-  "addedAt": "1993-10-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-10-22"
 }

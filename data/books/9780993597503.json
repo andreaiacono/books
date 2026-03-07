@@ -6,6 +6,9 @@
   "cover": "covers/9780993597503.webp",
   "pages": 256,
   "description": "Examines the events and aftermath of the 1986 nuclear reactor explosion in Chernobyl and its long term effects.",
-  "subjects": [],
+  "subjects": [
+    "Chernobyl Nuclear Accident, Chornobylʹ, Ukraine, 1986"
+  ],
   "addedAt": "2019-10-11",
+  "publisher": "Adrew Leatherbarrow"
 }

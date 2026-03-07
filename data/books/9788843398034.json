@@ -1,8 +1,11 @@
 {
   "isbn": "9788843398034",
   "title": "Spagnolo - Grammatica",
-  "author": "",
+  "author": "Adriana Santomauro",
   "cover": "covers/9788843398034.webp",
-  "subjects": [],
+  "subjects": [
+    "Juvenile Nonfiction"
+  ],
   "addedAt": "1996-06-27",
+  "pages": 175
 }

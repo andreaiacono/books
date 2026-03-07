@@ -7,6 +7,8 @@
   "publisher": "Mondadori",
   "pages": 885,
   "description": "La Repubblica di Platone",
-  "subjects": [],
-  "addedAt": "2004-02-07",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2004-02-07"
 }

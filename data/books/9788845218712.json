@@ -6,6 +6,8 @@
   "cover": "covers/9788845218712.webp",
   "publisher": "Bompiani",
   "pages": 240,
-  "subjects": [],
-  "addedAt": "1992-05-15",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "1992-05-15"
 }

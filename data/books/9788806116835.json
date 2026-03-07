@@ -4,6 +4,9 @@
   "author": "Sebastiano Vassalli",
   "cover": "covers/9788806116835.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2001-05-12",
+  "pages": 328
 }

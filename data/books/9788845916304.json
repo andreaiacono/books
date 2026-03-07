@@ -6,6 +6,8 @@
   "cover": "covers/9788845916304.webp",
   "publisher": "Adelphi",
   "pages": 302,
-  "subjects": [],
-  "addedAt": "2002-11-16",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2002-11-16"
 }

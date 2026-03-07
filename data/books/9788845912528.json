@@ -6,6 +6,8 @@
   "cover": "covers/9788845912528.webp",
   "publisher": "Adelphi",
   "pages": 586,
-  "subjects": [],
-  "addedAt": "1996-11-30",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1996-11-30"
 }

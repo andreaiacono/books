@@ -6,6 +6,8 @@
   "cover": "covers/9788807491771.webp",
   "publisher": "Feltrinelli",
   "pages": 669,
-  "subjects": [],
-  "addedAt": "2016-12-10",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2016-12-10"
 }

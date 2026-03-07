@@ -1,11 +1,14 @@
 {
   "isbn": "9788883353192",
   "title": "Medici di guerra. inviati di pace. Un altro Afganistan",
-  "author": "",
+  "author": "Emergency",
   "year": 2002,
   "cover": "covers/9788883353192.webp",
   "publisher": "Guerini e Associati",
   "pages": 154,
-  "subjects": [],
+  "subjects": [
+    "History"
+  ],
   "addedAt": "2002-05-22",
+  "description": "At head of title: Emergency."
 }

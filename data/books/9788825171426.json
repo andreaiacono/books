@@ -6,6 +6,8 @@
   "cover": "covers/9788825171426.webp",
   "publisher": "CittàStudi",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1991-11-01",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1991-11-01"
 }

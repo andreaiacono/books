@@ -1,8 +1,13 @@
 {
   "isbn": "9788493834548",
   "title": "Delhi",
-  "author": "",
+  "author": "Stefano Faravelli",
   "cover": "covers/9788493834548.webp",
-  "subjects": [],
+  "subjects": [
+    "Education"
+  ],
   "addedAt": "2011-12-25",
+  "pages": 64,
+  "publisher": "CONFLUENCIAS",
+  "description": "Source title: Delhi (Spanish Edition)"
 }

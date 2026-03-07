@@ -6,6 +6,8 @@
   "cover": "covers/9788843803934.webp",
   "publisher": "Tropea",
   "pages": 512,
-  "subjects": [],
-  "addedAt": "2003-02-26",
+  "subjects": [
+    "Reference"
+  ],
+  "addedAt": "2003-02-26"
 }

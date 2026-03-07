@@ -5,6 +5,9 @@
   "year": 2004,
   "cover": "covers/9788804525196.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1988-01-01",
+  "pages": 353
 }

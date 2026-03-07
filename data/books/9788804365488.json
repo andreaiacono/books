@@ -5,6 +5,10 @@
   "year": 1992,
   "cover": "covers/9788804365488.webp",
   "pages": 549,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1990-01-01",
+  "description": "Il romanzo è ambientato in Sicilia, nell&'epoca della costituzione dei Fasci, delle rivolte sociali e delle lotte contadine. Sullo sfondo di queste vicende si consuma il fallimento degli ideali del Risorgimento e i vari personaggi sperimentano l&'impossibilità di stabilire un rapporto educativo con i figli.",
+  "publisher": "A. Mondadori"
 }

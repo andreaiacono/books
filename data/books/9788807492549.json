@@ -6,6 +6,8 @@
   "cover": "covers/9788807492549.webp",
   "publisher": "Feltrinelli",
   "pages": 219,
-  "subjects": [],
-  "addedAt": "2025-08-11",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2025-08-11"
 }

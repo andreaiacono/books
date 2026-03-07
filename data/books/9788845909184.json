@@ -7,6 +7,8 @@
   "publisher": "Adelphi",
   "pages": 404,
   "description": "In 8°, br. edit., pp. 403,(5), coll. \"Biblioteca scientifica. 16\";",
-  "subjects": [],
-  "addedAt": "1996-05-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1996-05-25"
 }

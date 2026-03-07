@@ -6,6 +6,8 @@
   "cover": "covers/9788817144445.webp",
   "publisher": "Rizzoli",
   "pages": 368,
-  "subjects": [],
-  "addedAt": "2021-11-25",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2021-11-25"
 }

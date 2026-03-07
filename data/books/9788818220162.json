@@ -7,6 +7,8 @@
   "publisher": "Rusconi Libri",
   "pages": 358,
   "description": "molto consigliato",
-  "subjects": [],
-  "addedAt": "1993-09-01",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1993-09-01"
 }

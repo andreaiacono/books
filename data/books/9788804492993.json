@@ -5,6 +5,8 @@
   "year": 2001,
   "cover": "covers/9788804492993.webp",
   "pages": 401,
-  "subjects": [],
-  "addedAt": "2006-01-08",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2006-01-08"
 }

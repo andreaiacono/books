@@ -6,6 +6,8 @@
   "cover": "covers/9788804498506.webp",
   "publisher": "Mondadori",
   "pages": 217,
-  "subjects": [],
-  "addedAt": "2004-03-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2004-03-28"
 }

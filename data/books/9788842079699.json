@@ -6,6 +6,8 @@
   "cover": "covers/9788842079699.webp",
   "publisher": "Laterza",
   "pages": 203,
-  "subjects": [],
-  "addedAt": "2013-05-19",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2013-05-19"
 }

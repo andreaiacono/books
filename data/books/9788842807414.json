@@ -6,6 +6,8 @@
   "cover": "covers/9788842807414.webp",
   "publisher": "Il Saggiatore",
   "pages": 318,
-  "subjects": [],
-  "addedAt": "2021-09-13",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2021-09-13"
 }

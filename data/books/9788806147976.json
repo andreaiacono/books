@@ -6,6 +6,8 @@
   "cover": "covers/9788806147976.webp",
   "publisher": "Einaudi",
   "pages": 140,
-  "subjects": [],
-  "addedAt": "2004-08-29",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2004-08-29"
 }

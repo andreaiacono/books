@@ -6,6 +6,8 @@
   "cover": "covers/9788873033509.webp",
   "publisher": "Apogeo",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1998-06-03",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1998-06-03"
 }

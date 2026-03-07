@@ -6,6 +6,8 @@
   "cover": "covers/9788879891479.webp",
   "publisher": "Donzelli",
   "pages": 64,
-  "subjects": [],
-  "addedAt": "1997-02-03",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1997-02-03"
 }

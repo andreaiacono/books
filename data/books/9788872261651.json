@@ -6,6 +6,8 @@
   "cover": "covers/9788872261651.webp",
   "publisher": "Stampa Alternativa",
   "pages": 32,
-  "subjects": [],
-  "addedAt": "1994-04-05",
+  "subjects": [
+    "Humor"
+  ],
+  "addedAt": "1994-04-05"
 }

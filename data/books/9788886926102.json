@@ -6,6 +6,8 @@
   "cover": "covers/9788886926102.webp",
   "publisher": "ShaKe",
   "pages": 256,
-  "subjects": [],
-  "addedAt": "1993-12-15",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1993-12-15"
 }

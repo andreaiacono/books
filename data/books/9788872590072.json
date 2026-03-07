@@ -5,6 +5,8 @@
   "cover": "covers/9788872590072.webp",
   "publisher": "CittàStudi",
   "pages": 102,
-  "subjects": [],
-  "addedAt": "1991-11-01",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1991-11-01"
 }

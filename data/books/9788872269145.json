@@ -6,6 +6,8 @@
   "cover": "covers/9788872269145.webp",
   "publisher": "Stampa Alternativa",
   "pages": 122,
-  "subjects": [],
-  "addedAt": "1994-04-21",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "1994-04-21"
 }

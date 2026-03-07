@@ -5,6 +5,8 @@
   "cover": "covers/9788877469816.webp",
   "publisher": "Guanda",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1997-09-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1997-09-22"
 }

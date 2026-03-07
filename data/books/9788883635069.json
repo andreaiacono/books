@@ -6,6 +6,8 @@
   "cover": "covers/9788883635069.webp",
   "publisher": "Il Sole 24 Ore",
   "pages": 382,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2004-05-08"
 }

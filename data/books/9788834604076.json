@@ -4,6 +4,8 @@
   "author": "Bernard-Henri Lévy",
   "year": 2020,
   "cover": "covers/9788834604076.webp",
-  "subjects": [],
-  "addedAt": "2020-09-05",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2020-09-05"
 }

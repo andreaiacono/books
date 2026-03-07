@@ -6,6 +6,8 @@
   "cover": "covers/9788842084761.webp",
   "publisher": "Laterza",
   "pages": 492,
-  "subjects": [],
-  "addedAt": "2025-07-22",
+  "subjects": [
+    "Art"
+  ],
+  "addedAt": "2025-07-22"
 }

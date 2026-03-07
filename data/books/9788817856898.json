@@ -3,6 +3,9 @@
   "title": "L' Invenzione della memoria",
   "author": "Israel Rosenfield",
   "cover": "covers/9788817856898.webp",
-  "subjects": [],
+  "subjects": [
+    "Psychology"
+  ],
   "addedAt": "1995-12-09",
+  "pages": 256
 }

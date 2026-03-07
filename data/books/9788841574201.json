@@ -6,6 +6,8 @@
   "cover": "covers/9788841574201.webp",
   "publisher": "De Agostini",
   "pages": 304,
-  "subjects": [],
-  "addedAt": "2004-02-26",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2004-02-26"
 }

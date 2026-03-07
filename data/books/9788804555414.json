@@ -4,6 +4,8 @@
   "author": "Jack Kerouac",
   "cover": "covers/9788804555414.webp",
   "pages": 272,
-  "subjects": [],
-  "addedAt": "1993-01-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-01-01"
 }

@@ -5,6 +5,9 @@
   "year": 2013,
   "cover": "covers/9788807881558.webp",
   "publisher": "Feltrinelli",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2018-04-08",
+  "pages": 290
 }

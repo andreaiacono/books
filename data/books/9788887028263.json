@@ -3,6 +3,9 @@
   "title": "Il mondo in cifre 2003",
   "author": "The Economist",
   "cover": "covers/9788887028263.webp",
-  "subjects": [],
+  "subjects": [
+    "Reference"
+  ],
   "addedAt": "2003-01-19",
+  "pages": 236
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788807818417.webp",
   "publisher": "Feltrinelli",
   "pages": 324,
-  "subjects": [],
-  "addedAt": "2003-10-10",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2003-10-10"
 }

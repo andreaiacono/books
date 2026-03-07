@@ -5,6 +5,9 @@
   "year": 1999,
   "cover": "covers/9788804468691.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2003-11-19",
+  "pages": 508
 }

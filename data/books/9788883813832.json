@@ -6,6 +6,8 @@
   "cover": "covers/9788883813832.webp",
   "publisher": "Nistri-Lischi",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "1993-10-17",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1993-10-17"
 }

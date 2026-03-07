@@ -6,6 +6,8 @@
   "cover": "covers/9788838929106.webp",
   "publisher": "Sellerio Editore Palermo",
   "pages": 328,
-  "subjects": [],
-  "addedAt": "2021-08-26",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-08-26"
 }

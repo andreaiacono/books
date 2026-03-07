@@ -1,8 +1,11 @@
 {
   "isbn": "9788820917449",
   "title": "La Sacra Bibbia",
-  "author": "",
+  "author": "CONFERENZA EPISCOPALE ITALIANA",
   "cover": "covers/9788820917449.webp",
-  "subjects": [],
+  "subjects": [
+    "Bibles"
+  ],
   "addedAt": "2004-01-13",
+  "pages": 1280
 }

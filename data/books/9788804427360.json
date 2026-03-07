@@ -5,6 +5,9 @@
   "year": 1997,
   "cover": "covers/9788804427360.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "2007-05-13",
+  "pages": 345
 }

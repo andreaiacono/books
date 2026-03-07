@@ -6,6 +6,8 @@
   "cover": "covers/9788817057431.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 398,
-  "subjects": [],
-  "addedAt": "2014-05-11",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2014-05-11"
 }

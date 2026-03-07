@@ -6,6 +6,8 @@
   "cover": "covers/9788809021440.webp",
   "publisher": "Giunti Editore",
   "pages": 240,
-  "subjects": [],
-  "addedAt": "2002-05-19",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2002-05-19"
 }

@@ -7,6 +7,8 @@
   "publisher": "Garzanti Libri",
   "pages": 259,
   "description": "Truman Capote è uno dei maggiori scrittori americani del Novecento e al tempo stesso un insuperabile maestro del reportage. Nella sua opera il confine tra la letteratura e il giornalismo, è spesso sfumato, indefinibile: \"Musica per camaleonti\", pubblicato per la prima volta nel 1980, riesce a essere insieme grande letteratura e grande giornalismo. Raccontando pezzi di vita quotidiana e pettegolezzi, sregolatezze e bizzarrie, passando con naturalezza dallo snervante chiacchiericcio del jet-set e ai riti della provincia più dimenticata e profonda, Truman Capote riesce a mettere a nudo tutta l'innocenza e la violenza dell'anima americana.",
-  "subjects": [],
-  "addedAt": "2024-11-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2024-11-22"
 }

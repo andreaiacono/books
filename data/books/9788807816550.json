@@ -6,6 +6,8 @@
   "cover": "covers/9788807816550.webp",
   "publisher": "Feltrinelli",
   "pages": 488,
-  "subjects": [],
-  "addedAt": "2001-04-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2001-04-28"
 }

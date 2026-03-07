@@ -5,6 +5,8 @@
   "year": 2014,
   "cover": "covers/9788842820246.webp",
   "publisher": "Il Saggiatore",
-  "subjects": [],
-  "addedAt": "2024-08-31",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2024-08-31"
 }

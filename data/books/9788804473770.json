@@ -5,6 +5,9 @@
   "year": 2000,
   "cover": "covers/9788804473770.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "2005-05-08",
+  "pages": 279
 }

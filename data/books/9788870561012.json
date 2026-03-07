@@ -3,6 +3,9 @@
   "title": "Programmazione del 6502",
   "author": "Rodnay Zaks, R. Pancaldi, Zannoli",
   "cover": "covers/9788870561012.webp",
-  "subjects": [],
+  "subjects": [
+    "Technology & Engineering"
+  ],
   "addedAt": "1983-01-01",
+  "pages": 384
 }

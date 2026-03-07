@@ -1,8 +1,11 @@
 {
   "isbn": "9788841563748",
   "title": "Acquerello",
-  "author": "",
+  "author": "Angela Gair",
   "cover": "covers/9788841563748.webp",
-  "subjects": [],
+  "subjects": [
+    "Crafts & Hobbies"
+  ],
   "addedAt": "2003-05-18",
+  "pages": 96
 }

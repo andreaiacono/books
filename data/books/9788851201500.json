@@ -5,6 +5,8 @@
   "cover": "covers/9788851201500.webp",
   "publisher": "Ericart",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "2002-05-19",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "2002-05-19"
 }

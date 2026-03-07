@@ -6,6 +6,8 @@
   "cover": "covers/9788860400130.webp",
   "publisher": "EDT",
   "pages": 80,
-  "subjects": [],
-  "addedAt": "2009-06-05",
+  "subjects": [
+    "Art"
+  ],
+  "addedAt": "2009-06-05"
 }

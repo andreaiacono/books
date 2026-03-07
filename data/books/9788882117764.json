@@ -5,6 +5,8 @@
   "cover": "covers/9788882117764.webp",
   "publisher": "Vallardi A.",
   "pages": 247,
-  "subjects": [],
-  "addedAt": "2006-12-13",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2006-12-13"
 }

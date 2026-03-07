@@ -6,6 +6,8 @@
   "cover": "covers/9788844034016.webp",
   "publisher": "Demetra",
   "pages": 428,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "2003-05-18"
 }

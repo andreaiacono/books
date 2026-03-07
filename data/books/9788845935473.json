@@ -6,6 +6,8 @@
   "cover": "covers/9788845935473.webp",
   "publisher": "Adelphi",
   "pages": 100,
-  "subjects": [],
-  "addedAt": "2022-12-19",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2022-12-19"
 }

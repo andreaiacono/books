@@ -6,6 +6,8 @@
   "cover": "covers/9788871687353.webp",
   "publisher": "Marcos y Marcos",
   "pages": 120,
-  "subjects": [],
-  "addedAt": "2020-06-13",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2020-06-13"
 }

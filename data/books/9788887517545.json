@@ -3,6 +3,9 @@
   "title": "Agende nascoste",
   "author": "John Pilger",
   "cover": "covers/9788887517545.webp",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2003-11-30",
+  "pages": 623
 }

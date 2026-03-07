@@ -5,6 +5,8 @@
   "year": 2017,
   "cover": "covers/9788806236113.webp",
   "publisher": "Einaudi",
-  "subjects": [],
-  "addedAt": "2023-04-21",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2023-04-21"
 }

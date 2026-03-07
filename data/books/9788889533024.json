@@ -6,6 +6,8 @@
   "cover": "covers/9788889533024.webp",
   "publisher": "Melampo",
   "pages": 190,
-  "subjects": [],
-  "addedAt": "2005-12-25",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2005-12-25"
 }

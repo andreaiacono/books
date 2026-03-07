@@ -6,6 +6,8 @@
   "cover": "covers/9788871007892.webp",
   "publisher": "La Spiga-Meravigli",
   "pages": 80,
-  "subjects": [],
-  "addedAt": "1997-05-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1997-05-25"
 }

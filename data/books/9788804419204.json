@@ -4,6 +4,9 @@
   "author": "William Styron",
   "cover": "covers/9788804419204.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Biography & Autobiography"
+  ],
   "addedAt": "1996-08-23",
+  "pages": 94
 }

@@ -1,9 +1,13 @@
 {
   "isbn": "9788711127650",
   "title": "A Short History of the Vikings",
-  "author": "",
+  "author": "Karsten Gabrielsen",
   "year": 2000,
   "cover": "covers/9788711127650.webp",
-  "subjects": [],
+  "subjects": [
+    "Vikings"
+  ],
   "addedAt": "2003-08-11",
+  "pages": 72,
+  "publisher": "Aschehoug"
 }

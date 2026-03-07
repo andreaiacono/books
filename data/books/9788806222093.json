@@ -5,6 +5,8 @@
   "year": 2014,
   "cover": "covers/9788806222093.webp",
   "publisher": "Einaudi",
-  "subjects": [],
-  "addedAt": "2024-08-19",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2024-08-19"
 }

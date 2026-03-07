@@ -6,6 +6,8 @@
   "cover": "covers/9788817020435.webp",
   "publisher": "Rizzoli",
   "pages": 214,
-  "subjects": [],
-  "addedAt": "2022-11-22",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2022-11-22"
 }

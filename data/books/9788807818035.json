@@ -6,6 +6,8 @@
   "cover": "covers/9788807818035.webp",
   "publisher": "Feltrinelli",
   "pages": 158,
-  "subjects": [],
-  "addedAt": "2003-04-10",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2003-04-10"
 }

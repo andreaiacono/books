@@ -6,6 +6,9 @@
   "cover": "covers/9788879894876.webp",
   "publisher": "Donzelli Editore",
   "pages": 194,
-  "subjects": [],
+  "subjects": [
+    "Business & Economics"
+  ],
   "addedAt": "2003-05-18",
+  "description": "Includes bibliographical references and index."
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788883510618.webp",
   "publisher": "Edizioni Punto Rosso",
   "pages": 110,
-  "subjects": [],
-  "addedAt": "2007-03-28",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2007-03-28"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788807103995.webp",
   "publisher": "Feltrinelli Editore",
   "pages": 257,
-  "subjects": [],
-  "addedAt": "2006-05-25",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "2006-05-25"
 }

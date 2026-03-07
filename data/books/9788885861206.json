@@ -1,8 +1,11 @@
 {
   "isbn": "9788885861206",
   "title": "Illusioni necessarie. Mass media e democrazia",
-  "author": "",
+  "author": "Noam Chomsky",
   "cover": "covers/9788885861206.webp",
-  "subjects": [],
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
   "addedAt": "1995-05-18",
+  "pages": 232
 }

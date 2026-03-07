@@ -6,6 +6,8 @@
   "cover": "covers/9788870910766.webp",
   "publisher": "Iperborea",
   "pages": 136,
-  "subjects": [],
-  "addedAt": "1999-03-05",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1999-03-05"
 }

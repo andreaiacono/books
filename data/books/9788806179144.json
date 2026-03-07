@@ -1,11 +1,13 @@
 {
   "isbn": "9788806179144",
   "title": "I vangeli apocrifi",
-  "author": "",
+  "author": "Geno Pampaloni",
   "year": 2005,
   "cover": "covers/9788806179144.webp",
   "publisher": "Einaudi",
   "pages": 646,
-  "subjects": [],
-  "addedAt": "2001-08-30",
+  "subjects": [
+    "Bibles"
+  ],
+  "addedAt": "2001-08-30"
 }

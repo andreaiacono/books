@@ -6,6 +6,8 @@
   "cover": "covers/9788872170090.webp",
   "publisher": "Pan Libri",
   "pages": 256,
-  "subjects": [],
-  "addedAt": "1992-01-01",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "1992-01-01"
 }

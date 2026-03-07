@@ -6,6 +6,8 @@
   "cover": "covers/9788831779029.webp",
   "publisher": "Marsilio",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1995-04-11",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1995-04-11"
 }

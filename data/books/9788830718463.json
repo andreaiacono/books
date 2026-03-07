@@ -5,6 +5,10 @@
   "year": 2012,
   "cover": "covers/9788830718463.webp",
   "publisher": "EMI",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2010-03-14",
+  "pages": 300,
+  "description": "Includes bibliographical references."
 }

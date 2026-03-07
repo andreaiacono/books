@@ -5,6 +5,9 @@
   "cover": "covers/9788804390275.webp",
   "pages": 112,
   "description": "\"Mi sono applicato soprattutto a guardare i tarocchi con attenzione, con l'occhio di chi non sa cosa siano, e a trarne suggestioni e associazioni, a interpretarli secondo un'iconologia immaginaria. Quando le carte affiancate a caso mi davano una storia in cui riconoscevo un senso, mi mettevo a scriverla.\" (Dalla 'nota' di Calvino all'edizione del 1973). Una storia di un gruppo di viaggiatori che il destino ha radunato in un castello e non riescono a comunicare che con un mazzo di tarocchi.",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1997-09-22",
+  "publisher": "A. Mondadori"
 }

@@ -5,6 +5,8 @@
   "cover": "covers/9788817131063.webp",
   "publisher": "Rizzoli",
   "pages": 320,
-  "subjects": [],
-  "addedAt": "1998-08-31",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1998-08-31"
 }

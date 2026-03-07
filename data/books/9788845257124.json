@@ -6,6 +6,8 @@
   "cover": "covers/9788845257124.webp",
   "publisher": "Bompiani",
   "pages": 297,
-  "subjects": [],
-  "addedAt": "2006-04-23",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2006-04-23"
 }

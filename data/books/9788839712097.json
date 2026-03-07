@@ -6,6 +6,9 @@
   "cover": "covers/9788839712097.webp",
   "publisher": "Rai Libri",
   "pages": 174,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Muslims",
+    "Ethnic relations"
+  ],
+  "addedAt": "2003-05-18"
 }

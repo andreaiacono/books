@@ -3,6 +3,9 @@
   "title": "Il libro dell'economia partecipativa",
   "author": "Michael Albert, A. Olivieri",
   "cover": "covers/9788842811329.webp",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2003-12-25",
+  "pages": 384
 }

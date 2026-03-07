@@ -1,11 +1,13 @@
 {
   "isbn": "9788806222635",
   "title": "Le meraviglie del possibile. Antologia della fantascienza",
-  "author": "",
+  "author": "C. Fruttero, S. Solmi",
   "year": 2014,
   "cover": "covers/9788806222635.webp",
   "publisher": "Einaudi",
   "pages": 559,
-  "subjects": [],
-  "addedAt": "2024-08-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2024-08-01"
 }

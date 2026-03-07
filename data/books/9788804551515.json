@@ -6,6 +6,8 @@
   "cover": "covers/9788804551515.webp",
   "publisher": "Mondadori",
   "pages": 158,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2005-05-08"
 }

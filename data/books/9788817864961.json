@@ -6,6 +6,8 @@
   "cover": "covers/9788817864961.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 264,
-  "subjects": [],
-  "addedAt": "2003-02-26",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2003-02-26"
 }

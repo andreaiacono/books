@@ -5,6 +5,8 @@
   "year": 2019,
   "cover": "covers/9788875788353.webp",
   "pages": 241,
-  "subjects": [],
-  "addedAt": "2021-08-05",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2021-08-05"
 }

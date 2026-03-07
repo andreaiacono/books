@@ -6,6 +6,8 @@
   "cover": "covers/9788860360878.webp",
   "publisher": "Donzelli",
   "pages": 286,
-  "subjects": [],
-  "addedAt": "2012-03-09",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2012-03-09"
 }

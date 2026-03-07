@@ -6,6 +6,8 @@
   "cover": "covers/9788809033634.webp",
   "publisher": "Giunti Editore",
   "pages": 345,
-  "subjects": [],
-  "addedAt": "2024-08-31",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2024-08-31"
 }

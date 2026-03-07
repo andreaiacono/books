@@ -6,6 +6,8 @@
   "cover": "covers/9788870212006.webp",
   "publisher": "Franco Muzzio Editore",
   "pages": 426,
-  "subjects": [],
-  "addedAt": "1992-05-01",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1992-05-01"
 }

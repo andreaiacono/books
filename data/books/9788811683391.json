@@ -6,6 +6,8 @@
   "cover": "covers/9788811683391.webp",
   "publisher": "Garzanti Libri",
   "pages": 292,
-  "subjects": [],
-  "addedAt": "1990-07-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1990-07-01"
 }

@@ -6,6 +6,9 @@
   "cover": "covers/9788845906657.webp",
   "publisher": "Adelphi",
   "pages": 674,
-  "subjects": [],
+  "subjects": [
+    "Computers"
+  ],
   "addedAt": "1994-05-25",
+  "description": "Nell'opera si trovano riassunte le tesi principali su cui si fonda la teoria di Minsky, da lui elaborata nella sua lunga attività di ricercatore nel campo dell'intelligenza artificiale."
 }

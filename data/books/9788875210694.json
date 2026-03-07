@@ -6,6 +6,8 @@
   "cover": "covers/9788875210694.webp",
   "publisher": "Minimum Fax",
   "pages": 309,
-  "subjects": [],
-  "addedAt": "2008-05-25",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2008-05-25"
 }

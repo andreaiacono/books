@@ -3,6 +3,9 @@
   "title": "Il processo",
   "author": "Franz Kafka",
   "cover": "covers/9788871005164.webp",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2001-05-19",
+  "pages": 144
 }

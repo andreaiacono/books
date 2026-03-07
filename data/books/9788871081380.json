@@ -7,6 +7,8 @@
   "publisher": "Feltrinelli",
   "pages": 300,
   "description": "Sette mesi in sella ad una Vespa dall'Italia al Vietnam. Un viaggio che nasce da un sogno fatto a Singapore e poi si sviluppa, chilometro su chilometro, attraverso l'Asia, passando per Istambul e Teheran, il deserto del Beluchistan e Calcutta, Rangoon e Hanoi. Un intero continente e centinaia di incontri che hanno cancellato la parola solitudine da un viaggio intrapreso in solitaria.",
-  "subjects": [],
-  "addedAt": "2003-05-25",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2003-05-25"
 }

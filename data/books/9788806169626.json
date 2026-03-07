@@ -7,6 +7,8 @@
   "publisher": "Einaudi",
   "pages": 627,
   "description": "Dal regno immutabile di Newton, dove lo spazio e il tempo sono assoluti, alla concezione fluida dello spazio-tempo di Einstein, alle tesi della meccanica quantistica, il fisico americano mostra come il mondo sia molto diverso da quello che l'esperienza comune potrebbe far pensare. Concentrandosi sull'enigma del tempo, Greene stabilisce che nessuna regola fisica conferma l'idea che esso scorra in una particolare direzione. Attraverso l'analisi della teoria del big bang, dimostra quanto le recenti teorie delle superstringhe e la M-teoria possano conciliare ogni cosa, dalla più piccola particella al più grande buco nero. Una visione che culmina in un \"multiverso\" dove spazio e tempo possono dissolversi in entità più sottili e fondamentali.",
-  "subjects": [],
-  "addedAt": "2004-12-25",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2004-12-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788876702471.webp",
   "publisher": "EGA-Edizioni Gruppo Abele",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "1996-05-16",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1996-05-16"
 }

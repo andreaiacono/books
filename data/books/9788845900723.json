@@ -5,6 +5,8 @@
   "year": 1993,
   "cover": "covers/9788845900723.webp",
   "pages": 373,
-  "subjects": [],
-  "addedAt": "1995-12-25",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1995-12-25"
 }

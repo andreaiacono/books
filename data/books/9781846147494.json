@@ -1,8 +1,13 @@
 {
   "isbn": "9781846147494",
   "title": "The Future of War: A History",
-  "author": "",
+  "author": "Lawrence Freedman",
   "cover": "covers/9781846147494.webp",
-  "subjects": [],
+  "subjects": [
+    "Krieg"
+  ],
   "addedAt": "2018-12-23",
+  "pages": 400,
+  "publisher": "Penguin Books, Limited",
+  "description": "In 1912 Sir Arthur Conan Doyle wrote a short story about a war fought from underwater submersibles that included the sinking of passenger ships. It was dismissed by the British admirals of the day, not on the basis of technical feasibility, but because sinking civilian ships was not something that any civilised nation would do. The reality of war often contradicts expectations, less because of some fantastic technical or engineering dimension, but more because of some human, political, or moral threshold that we had never imagined would be crossed. As Lawrence Freedman shows, ideas about the causes of war and strategies for its conduct have rich and varied histories which shape predictions about the future. Freedman shows how looking at how the future of war was conceived about in the past (and why this was more often than not wrong) can put into perspective current thinking about future conflicts.The Future of War - whichtakes us from preparations for the world wars, through the nuclear age and the civil wars which became the focus for debate after the end of the Cold War, to present preoccupations with hybrid and cyber warfare - is filled with fascinating insights from one of the most brilliant military and strategic historians of his generation."
 }

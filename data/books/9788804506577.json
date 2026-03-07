@@ -4,6 +4,8 @@
   "author": "Iginio Ugo Tarchetti, Carlo Emilio Gadda",
   "cover": "covers/9788804506577.webp",
   "pages": 191,
-  "subjects": [],
-  "addedAt": "1989-01-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1989-01-01"
 }

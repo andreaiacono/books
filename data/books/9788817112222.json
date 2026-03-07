@@ -6,6 +6,8 @@
   "cover": "covers/9788817112222.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 566,
-  "subjects": [],
-  "addedAt": "2003-10-10",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2003-10-10"
 }

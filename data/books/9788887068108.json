@@ -5,6 +5,8 @@
   "year": 1998,
   "cover": "covers/9788887068108.webp",
   "pages": 320,
-  "subjects": [],
-  "addedAt": "2003-09-06",
+  "subjects": [
+    "Photography"
+  ],
+  "addedAt": "2003-09-06"
 }

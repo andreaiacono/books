@@ -5,6 +5,9 @@
   "year": 1987,
   "cover": "covers/9788808028402.webp",
   "publisher": "Zanichelli",
-  "subjects": [],
+  "subjects": [
+    "Juvenile Nonfiction"
+  ],
   "addedAt": "1992-02-18",
+  "pages": 622
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788843801787.webp",
   "publisher": "Tropea",
   "pages": 508,
-  "subjects": [],
-  "addedAt": "2002-04-13",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2002-04-13"
 }

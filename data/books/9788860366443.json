@@ -6,6 +6,8 @@
   "cover": "covers/9788860366443.webp",
   "publisher": "Donzelli",
   "pages": 257,
-  "subjects": [],
-  "addedAt": "1991-01-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1991-01-01"
 }

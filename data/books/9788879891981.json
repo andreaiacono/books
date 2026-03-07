@@ -1,8 +1,12 @@
 {
   "isbn": "9788879891981",
   "title": "Questioni di Vita o di Morte",
-  "author": "",
+  "author": "Rosi Braidotti",
   "cover": "covers/9788879891981.webp",
-  "subjects": [],
+  "subjects": [
+    "Medical"
+  ],
   "addedAt": "1995-12-05",
+  "pages": 63,
+  "publisher": "Donzelli"
 }

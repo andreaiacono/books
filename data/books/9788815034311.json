@@ -6,6 +6,8 @@
   "cover": "covers/9788815034311.webp",
   "publisher": "Il Mulino",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "1994-05-05",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "1994-05-05"
 }

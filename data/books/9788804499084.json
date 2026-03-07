@@ -6,6 +6,8 @@
   "cover": "covers/9788804499084.webp",
   "publisher": "Mondadori",
   "pages": 694,
-  "subjects": [],
-  "addedAt": "2002-05-19",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2002-05-19"
 }

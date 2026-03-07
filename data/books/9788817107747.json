@@ -6,6 +6,8 @@
   "cover": "covers/9788817107747.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 145,
-  "subjects": [],
-  "addedAt": "1987-07-01",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1987-07-01"
 }

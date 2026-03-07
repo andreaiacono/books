@@ -6,6 +6,8 @@
   "cover": "covers/9788806064037.webp",
   "publisher": "Einaudi",
   "pages": 130,
-  "subjects": [],
-  "addedAt": "2014-02-09",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "2014-02-09"
 }

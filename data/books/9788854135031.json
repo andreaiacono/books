@@ -5,6 +5,8 @@
   "year": 2012,
   "cover": "covers/9788854135031.webp",
   "pages": 87,
-  "subjects": [],
-  "addedAt": "1993-03-24",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-03-24"
 }

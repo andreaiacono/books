@@ -6,6 +6,8 @@
   "cover": "covers/9788804473534.webp",
   "publisher": "Mondadori",
   "pages": 552,
-  "subjects": [],
-  "addedAt": "2003-02-26",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2003-02-26"
 }

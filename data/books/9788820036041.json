@@ -6,6 +6,8 @@
   "cover": "covers/9788820036041.webp",
   "publisher": "Sperling & Kupfer",
   "pages": 278,
-  "subjects": [],
-  "addedAt": "2008-08-30",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2008-08-30"
 }

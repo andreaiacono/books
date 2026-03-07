@@ -6,6 +6,8 @@
   "cover": "covers/9788845904936.webp",
   "publisher": "Adelphi",
   "pages": 264,
-  "subjects": [],
-  "addedAt": "1999-05-15",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "1999-05-15"
 }

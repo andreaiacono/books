@@ -7,6 +7,8 @@
   "publisher": "Apogeo",
   "pages": 240,
   "description": "I progressi della scienza e della tecnologia negli ultimi decenni sono stati sorprendenti e pervasivi: da un lato, oggi abbiamo macchine che sequenziano il DNA, prevedono il cambiamento climatico e possono intrattenere una conversazione come farebbe una persona in carne e ossa; dall’altro, il tempo che intercorre fra una scoperta scientifica e la sua applicazione tecnologica sembra accorciarsi sempre di più. Viviamo in un mondo in cui pare che l’ignoranza sia ormai destinata a sparire, almeno l’ignoranza artificiale: le macchine sembrano poterci aiutare a risolvere ogni problema e comprendere qualsiasi cosa. Ma è proprio così? Siamo sicuri che non ci siano cose che anche le macchine ignoreranno per sempre? E che relazione intercorre tra questa ignoranza artificiale e la ben nota e proverbiale ignoranza umana? Questo libro ripercorre le vicende scientifiche che hanno portato ai prodigi artificiali e digitali che ci circondano, prova a dare senso a termini come “casualità”, “informazione”, “complessità” e ci porta a scoprire quello che le macchine non possono e non potranno mai sapere. Leggi di più",
-  "subjects": [],
-  "addedAt": "2025-11-25",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2025-11-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788850204250.webp",
   "publisher": "TEA",
   "pages": 304,
-  "subjects": [],
-  "addedAt": "2003-10-10",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-10-10"
 }

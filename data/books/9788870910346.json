@@ -1,11 +1,13 @@
 {
   "isbn": "9788870910346",
   "title": "Kallocaina",
-  "author": "",
+  "author": "Karin Boye",
   "year": 1993,
   "cover": "covers/9788870910346.webp",
   "publisher": "Iperborea",
   "pages": 228,
-  "subjects": [],
-  "addedAt": "1993-08-13",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1993-08-13"
 }

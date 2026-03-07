@@ -7,6 +7,8 @@
   "publisher": "W. W. Norton & Company, Incorporated",
   "pages": 496,
   "description": "\"A supremely enjoyable, intoxicating work.\" --Nature How did we come to have minds? For centuries, poets, philosophers, psychologists, and physicists have wondered how the human mind developed its unrivaled abilities. Disciples of Darwin have explained how natural selection produced plants, but what about the human mind? In From Bacteria to Bach and Back, Daniel C. Dennett builds on recent discoveries from biology and computer science to show, step by step, how a comprehending mind could in fact have arisen from a mindless process of natural selection. A crucial shift occurred when humans developed the ability to share memes, or ways of doing things not based in genetic instinct. Competition among memes produced thinking tools powerful enough that our minds don't just perceive and react, they create and comprehend. An agenda-setting book for a new generation of philosophers and scientists, From Bacteria to Bach and Back will delight and entertain all those curious about how the mind works.",
-  "subjects": [],
-  "addedAt": "2018-04-06",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2018-04-06"
 }

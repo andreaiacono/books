@@ -6,6 +6,8 @@
   "cover": "covers/9788831763134.webp",
   "publisher": "Marsilio",
   "pages": 127,
-  "subjects": [],
-  "addedAt": "1995-07-30",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "1995-07-30"
 }

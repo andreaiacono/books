@@ -6,6 +6,8 @@
   "cover": "covers/9788807820052.webp",
   "publisher": "Feltrinelli",
   "pages": 116,
-  "subjects": [],
-  "addedAt": "2021-08-26",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2021-08-26"
 }

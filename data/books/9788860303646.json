@@ -6,6 +6,8 @@
   "cover": "covers/9788860303646.webp",
   "publisher": "Cortina Raffaello",
   "pages": 397,
-  "subjects": [],
-  "addedAt": "2005-03-08",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "2005-03-08"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788854010291.webp",
   "publisher": "White Star",
   "pages": 768,
-  "subjects": [],
-  "addedAt": "2007-12-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2007-12-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788889385982.webp",
   "publisher": "Terre di Mezzo",
   "pages": 159,
-  "subjects": [],
-  "addedAt": "2005-05-25",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2005-05-25"
 }

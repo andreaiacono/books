@@ -6,6 +6,8 @@
   "cover": "covers/9788806141158.webp",
   "publisher": "Einaudi",
   "pages": 213,
-  "subjects": [],
-  "addedAt": "2006-05-07",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2006-05-07"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788806312947.webp",
   "publisher": "Einaudi",
   "pages": 115,
-  "subjects": [],
-  "addedAt": "2002-03-09",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2002-03-09"
 }

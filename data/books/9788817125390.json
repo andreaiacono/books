@@ -6,6 +6,8 @@
   "cover": "covers/9788817125390.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 414,
-  "subjects": [],
-  "addedAt": "2004-05-08",
+  "subjects": [
+    "Language Arts & Disciplines"
+  ],
+  "addedAt": "2004-05-08"
 }

@@ -4,6 +4,9 @@
   "author": "Douglas Adams",
   "cover": "covers/9788804517580.webp",
   "pages": 237,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2005-09-24",
+  "publisher": "Mondadori"
 }

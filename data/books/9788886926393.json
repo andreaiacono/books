@@ -6,6 +6,8 @@
   "cover": "covers/9788886926393.webp",
   "publisher": "ShaKe",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1991-12-25",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "1991-12-25"
 }

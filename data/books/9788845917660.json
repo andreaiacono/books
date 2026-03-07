@@ -5,6 +5,8 @@
   "year": 2003,
   "cover": "covers/9788845917660.webp",
   "pages": 327,
-  "subjects": [],
-  "addedAt": "2022-03-31",
+  "subjects": [
+    "Literary Criticism"
+  ],
+  "addedAt": "2022-03-31"
 }

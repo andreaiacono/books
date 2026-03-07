@@ -7,6 +7,8 @@
   "publisher": "Addison Wesley Professional",
   "pages": 65535,
   "description": "This new version of the best-selling book, Algorithms, Second Edition, provides a comprehensive collection of algorithms implemented in C. A variety of algorithms are described in each of the following areas: sorting, searching, string-processing, geometric, graph, and mathematical algorithms. These algorithms are expressed in terms of concise implementations in C, so that readers can both appreciate their fundamental properties and test them on real applications. The treatment of analysis of algorithms is carefully developed. When appropriate, analytic results are discussed to illustratewhy certain algorithms are preferred, and in some cases, the relationship of the practical algorithms being discussed to purely theoretical results is also described. It features hundreds of detailed, innovative figures clearly demonstrate how important algorithms work. Throughout the book, properties sections encapsulate specific information on the performance characteristics of algorithms. Six chapters present fundamental concepts, including a brief introduction to data structures. Algorithms in C provides readers with the tools to confidently implement, run, and debug useful algorithms. Th",
-  "subjects": [],
-  "addedAt": "1992-12-15",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1992-12-15"
 }

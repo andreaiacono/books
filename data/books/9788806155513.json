@@ -5,6 +5,10 @@
   "year": 2000,
   "cover": "covers/9788806155513.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Humor"
+  ],
   "addedAt": "2000-12-25",
+  "pages": 234,
+  "description": "Based on the television program Turisti per caso."
 }

@@ -5,6 +5,9 @@
   "year": 1988,
   "cover": "covers/9788804315452.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Games & Activities"
+  ],
   "addedAt": "1993-04-19",
+  "pages": 244
 }

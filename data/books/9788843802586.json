@@ -6,6 +6,8 @@
   "cover": "covers/9788843802586.webp",
   "publisher": "Tropea",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "2000-10-18",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2000-10-18"
 }

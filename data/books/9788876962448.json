@@ -6,6 +6,8 @@
   "cover": "covers/9788876962448.webp",
   "publisher": "Vallardi Industrie Grafiche",
   "pages": 160,
-  "subjects": [],
-  "addedAt": "1998-12-25",
+  "subjects": [
+    "Health & Fitness"
+  ],
+  "addedAt": "1998-12-25"
 }

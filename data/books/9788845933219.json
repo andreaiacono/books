@@ -6,6 +6,8 @@
   "cover": "covers/9788845933219.webp",
   "publisher": "Adelphi",
   "pages": 543,
-  "subjects": [],
-  "addedAt": "2024-01-29",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2024-01-29"
 }

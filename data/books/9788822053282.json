@@ -6,6 +6,8 @@
   "cover": "covers/9788822053282.webp",
   "publisher": "Dedalo",
   "pages": 432,
-  "subjects": [],
-  "addedAt": "2002-07-21",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2002-07-21"
 }

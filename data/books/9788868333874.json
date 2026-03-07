@@ -6,6 +6,8 @@
   "cover": "covers/9788868333874.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 230,
-  "subjects": [],
-  "addedAt": "2017-10-15",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2017-10-15"
 }

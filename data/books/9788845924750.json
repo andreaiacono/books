@@ -6,6 +6,8 @@
   "cover": "covers/9788845924750.webp",
   "publisher": "Adelphi",
   "pages": 624,
-  "subjects": [],
-  "addedAt": "2010-04-18",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2010-04-18"
 }

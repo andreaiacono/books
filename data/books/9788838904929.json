@@ -6,6 +6,8 @@
   "cover": "covers/9788838904929.webp",
   "publisher": "Sellerio Editore Palermo",
   "pages": 104,
-  "subjects": [],
-  "addedAt": "2003-09-02",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2003-09-02"
 }

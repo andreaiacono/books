@@ -6,6 +6,8 @@
   "cover": "covers/9788817127905.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 93,
-  "subjects": [],
-  "addedAt": "2003-03-10",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2003-03-10"
 }

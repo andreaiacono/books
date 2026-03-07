@@ -6,6 +6,8 @@
   "cover": "covers/9788806246310.webp",
   "publisher": "Einaudi",
   "pages": 115,
-  "subjects": [],
-  "addedAt": "2021-09-24",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2021-09-24"
 }

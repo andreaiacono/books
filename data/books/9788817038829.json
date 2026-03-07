@@ -6,6 +6,8 @@
   "cover": "covers/9788817038829.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 444,
-  "subjects": [],
-  "addedAt": "2016-09-04",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2016-09-04"
 }

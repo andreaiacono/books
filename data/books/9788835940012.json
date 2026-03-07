@@ -6,6 +6,9 @@
   "cover": "covers/9788835940012.webp",
   "publisher": "Editori Riuniti",
   "description": "Prima Edizione",
-  "subjects": [],
+  "subjects": [
+    "Yugoslav War, 1991-1995"
+  ],
   "addedAt": "1999-05-15",
+  "pages": 214
 }

@@ -7,6 +7,8 @@
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 485,
   "description": "Prima Edizione",
-  "subjects": [],
-  "addedAt": "2005-05-25",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2005-05-25"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788817075947.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 458,
-  "subjects": [],
-  "addedAt": "2023-02-16",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2023-02-16"
 }

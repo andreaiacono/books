@@ -6,6 +6,8 @@
   "cover": "covers/9788841509685.webp",
   "publisher": "De Agostini",
   "pages": 192,
-  "subjects": [],
-  "addedAt": "1994-12-25",
+  "subjects": [
+    "Transportation"
+  ],
+  "addedAt": "1994-12-25"
 }

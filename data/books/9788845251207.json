@@ -7,6 +7,8 @@
   "publisher": "Bompiani",
   "pages": 412,
   "description": "Brillante satira del mondo universitario",
-  "subjects": [],
-  "addedAt": "1994-04-18",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-04-18"
 }

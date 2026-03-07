@@ -6,6 +6,8 @@
   "cover": "covers/9788817052344.webp",
   "publisher": "BUR Biblioteca Univ. Rizzoli",
   "pages": 187,
-  "subjects": [],
-  "addedAt": "2011-05-25",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "2011-05-25"
 }

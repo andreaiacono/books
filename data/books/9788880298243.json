@@ -6,6 +6,8 @@
   "cover": "covers/9788880298243.webp",
   "publisher": "Casa Editrice Bonechi",
   "pages": 48,
-  "subjects": [],
-  "addedAt": "2007-08-17",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2007-08-17"
 }

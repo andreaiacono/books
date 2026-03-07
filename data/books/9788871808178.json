@@ -3,6 +3,9 @@
   "title": "Taizé. Un senso alla vita",
   "author": "Olivier Clément, B. Borsa",
   "cover": "covers/9788871808178.webp",
-  "subjects": [],
+  "subjects": [
+    "Religion"
+  ],
   "addedAt": "2005-12-31",
+  "pages": 86
 }

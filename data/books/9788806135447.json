@@ -5,6 +5,8 @@
   "cover": "covers/9788806135447.webp",
   "publisher": "Einaudi",
   "pages": 267,
-  "subjects": [],
-  "addedAt": "2004-12-04",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2004-12-04"
 }

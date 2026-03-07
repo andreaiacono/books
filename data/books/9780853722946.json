@@ -3,6 +3,10 @@
   "title": "Waterloo - Guida del Campo di Battaglia",
   "author": "David Howarth",
   "cover": "covers/9780853722946.webp",
-  "subjects": [],
+  "subjects": [
+    "Napoleonic Wars, 1800-1815"
+  ],
   "addedAt": "2003-08-29",
+  "pages": 46,
+  "publisher": "Pitkin Guides"
 }

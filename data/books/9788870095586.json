@@ -6,6 +6,8 @@
   "cover": "covers/9788870095586.webp",
   "publisher": "Bonechi",
   "pages": 64,
-  "subjects": [],
-  "addedAt": "2009-12-16",
+  "subjects": [
+    "Travel"
+  ],
+  "addedAt": "2009-12-16"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788815059987.webp",
   "publisher": "Il Mulino",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1997-05-25",
+  "subjects": [
+    "Cooking"
+  ],
+  "addedAt": "1997-05-25"
 }

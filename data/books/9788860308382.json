@@ -6,6 +6,8 @@
   "cover": "covers/9788860308382.webp",
   "pages": 151,
   "description": "Vi è mai capitato, a scuola o durante una riunione, di guardare con occhi sognanti fuori dalla finestra? Se gli altri se ne fossero accorti, avreste comunque potuto replicare che non c’era nulla di strano nel vostro comportamento, poiché la scienza insegna che la nostra mente divaga per circa metà del tempo.\nÈ un problema? Michael Corballis sostiene di no. Gli studi più recenti indicano che il vagare con la mente rappresenta una fonte da cui traggono alimento sia la nostra facoltà immaginativa e creativa sia la nostra capacità di condividere pensieri ed emozioni con gli altri.\nViaggiamo con la mente nel tempo e nello spazio, vaghiamo senza meta nei sogni ed elaboriamo piani, tutto questo grazie alla nostra capacità di divagare, una capacità che ci rende unici, sia come specie sia come individui.",
-  "subjects": [],
-  "addedAt": "2021-09-13",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2021-09-13"
 }

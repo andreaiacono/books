@@ -6,6 +6,8 @@
   "cover": "covers/9788871980508.webp",
   "publisher": "SugarCo",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1994-09-17",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1994-09-17"
 }

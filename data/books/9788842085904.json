@@ -6,6 +6,9 @@
   "cover": "covers/9788842085904.webp",
   "publisher": "Laterza",
   "pages": 270,
-  "subjects": [],
+  "subjects": [
+    "Mathematics"
+  ],
   "addedAt": "2021-01-20",
+  "description": "Contains bibliography, bibliographical references, notes and name index.\r\n\r\nF. Berto teaches at the University of Venice.\r\n\r\nKurt Gödel (1906-1978)."
 }

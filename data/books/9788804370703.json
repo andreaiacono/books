@@ -5,6 +5,8 @@
   "cover": "covers/9788804370703.webp",
   "publisher": "Mondadori",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "1993-07-13",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "1993-07-13"
 }

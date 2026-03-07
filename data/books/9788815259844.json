@@ -6,6 +6,8 @@
   "cover": "covers/9788815259844.webp",
   "publisher": "Il Mulino",
   "pages": 141,
-  "subjects": [],
-  "addedAt": "2016-12-13",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2016-12-13"
 }

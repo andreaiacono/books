@@ -6,6 +6,8 @@
   "cover": "covers/9788806191887.webp",
   "publisher": "Einaudi",
   "pages": 64,
-  "subjects": [],
-  "addedAt": "2008-03-06",
+  "subjects": [
+    "Psychology"
+  ],
+  "addedAt": "2008-03-06"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788806594091.webp",
   "publisher": "Einaudi",
   "pages": 269,
-  "subjects": [],
-  "addedAt": "1996-05-16",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "1996-05-16"
 }

@@ -6,6 +6,8 @@
   "cover": "covers/9788882466442.webp",
   "publisher": "Guanda",
   "pages": 360,
-  "subjects": [],
-  "addedAt": "2003-04-11",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2003-04-11"
 }

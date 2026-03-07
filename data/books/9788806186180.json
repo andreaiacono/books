@@ -6,6 +6,9 @@
   "cover": "covers/9788806186180.webp",
   "publisher": "Einaudi",
   "pages": 468,
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2016-04-10",
+  "description": "In the middle of winter, a poet and journalist travels to the remote city of Kars, on the border of Turkey, after many years of political exile in Western Europe."
 }

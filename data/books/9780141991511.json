@@ -6,6 +6,9 @@
   "cover": "covers/9780141991511.webp",
   "publisher": "Penguin Books",
   "pages": 480,
-  "subjects": [],
+  "subjects": [
+    "Mathematics"
+  ],
   "addedAt": "2023-03-02",
+  "description": "\"Shape reveals the geometry underneath some of the most important scientific, political, and philosophical problems we face. Geometry asks: Where are things? Which things are near each other? How can you get from one thing to another thing? Those are important questions. Geometry doesn't just measure the world--it explains it. Shape shows us how\"--"
 }

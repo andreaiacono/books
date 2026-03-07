@@ -6,6 +6,9 @@
   "cover": "covers/9788807103452.webp",
   "publisher": "Feltrinelli Editore",
   "pages": 198,
-  "subjects": [],
+  "subjects": [
+    "Philosophy"
+  ],
   "addedAt": "2004-12-25",
+  "description": "Includes bibliographical references and index."
 }

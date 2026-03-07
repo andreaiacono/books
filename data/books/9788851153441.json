@@ -6,6 +6,8 @@
   "cover": "covers/9788851153441.webp",
   "publisher": "De Agostini",
   "pages": 237,
-  "subjects": [],
-  "addedAt": "2018-05-21",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "2018-05-21"
 }

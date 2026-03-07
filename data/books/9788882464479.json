@@ -6,6 +6,8 @@
   "cover": "covers/9788882464479.webp",
   "publisher": "Guanda",
   "pages": 198,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2003-05-18"
 }

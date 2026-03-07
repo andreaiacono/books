@@ -6,6 +6,8 @@
   "cover": "covers/9788874967490.webp",
   "publisher": "Kowalski",
   "pages": 208,
-  "subjects": [],
-  "addedAt": "2008-10-19",
+  "subjects": [
+    "Family & Relationships"
+  ],
+  "addedAt": "2008-10-19"
 }

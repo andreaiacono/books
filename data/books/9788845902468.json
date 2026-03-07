@@ -6,6 +6,8 @@
   "cover": "covers/9788845902468.webp",
   "publisher": "Adelphi",
   "pages": 170,
-  "subjects": [],
-  "addedAt": "1995-08-29",
+  "subjects": [
+    "Literary Collections"
+  ],
+  "addedAt": "1995-08-29"
 }

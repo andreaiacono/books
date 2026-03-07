@@ -4,6 +4,9 @@
   "author": "Federico Di Trocchio",
   "cover": "covers/9788804442448.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "1999-05-25",
+  "pages": 290
 }

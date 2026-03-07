@@ -6,6 +6,8 @@
   "cover": "covers/9788845906879.webp",
   "publisher": "Adelphi",
   "pages": 274,
-  "subjects": [],
-  "addedAt": "1992-06-16",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1992-06-16"
 }

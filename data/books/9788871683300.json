@@ -5,6 +5,9 @@
   "year": 2001,
   "cover": "covers/9788871683300.webp",
   "publisher": "Marcos y Marcos",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "2004-05-08",
+  "pages": 60
 }

@@ -7,6 +7,24 @@
   "publisher": "John Murray",
   "pages": 320,
   "description": "THE SUNDAY TIMES BESTSELLER From the creator of the wildly popular xkcd.com, hilarious and informative answers to important questions you probably never thought to ask. Millions visit xkcd.com each week to read Randall Munroe's iconic webcomic. Fans ask him a lot of strange questions: How fast can you hit a speed bump, driving, and live? When (if ever) did the sun go down on the British Empire? When will Facebook contain more profiles of dead people than living? How many humans would a T Rex rampaging through New York need to eat a day? In pursuit of answers, Munroe runs computer simulations, pores over stacks of declassified military research memos, solves differential equations and consults nuclear reactor operators. His responses are masterpieces of clarity and hilarity, complemented by comics. They often predict the complete annihilation of humankind, or at least a really big explosion.",
-  "subjects": [],
-  "addedAt": "2018-04-06",
+  "subjects": [
+    "Mathematics",
+    "Statistics",
+    "Miscellanea",
+    "Science",
+    "Questions and answers",
+    "Physics",
+    "Long Now Manual for Civilization",
+    "SCIENCE / Physics",
+    "Science, miscellanea",
+    "New York Times bestseller",
+    "Home economics",
+    "back-of-the-envelope calculations",
+    "human endurance",
+    "extreme circumstances",
+    "space travel",
+    "Science/Mathematics",
+    "Scienze"
+  ],
+  "addedAt": "2018-04-06"
 }

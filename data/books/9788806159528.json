@@ -6,6 +6,9 @@
   "cover": "covers/9788806159528.webp",
   "publisher": "Einaudi",
   "pages": 226,
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "2001-10-06",
+  "description": "Includes bibliographical references and index."
 }

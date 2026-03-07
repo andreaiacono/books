@@ -6,6 +6,8 @@
   "cover": "covers/9788876924989.webp",
   "publisher": "Edizioni Studio Tesi",
   "pages": 168,
-  "subjects": [],
-  "addedAt": "1995-05-20",
+  "subjects": [
+    "Social Science"
+  ],
+  "addedAt": "1995-05-20"
 }

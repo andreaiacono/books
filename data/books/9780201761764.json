@@ -7,6 +7,8 @@
   "publisher": "Addison Wesley Professional",
   "pages": 528,
   "description": "The Presidentâe(tm)s life is in danger! Jimmy Sniffles, with the help of a new invention, shrinks down to miniature size to sniff out the source of the problem.",
-  "subjects": [],
-  "addedAt": "2002-12-16",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2002-12-16"
 }

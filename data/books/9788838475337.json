@@ -6,6 +6,8 @@
   "cover": "covers/9788838475337.webp",
   "publisher": "Piemme",
   "pages": 237,
-  "subjects": [],
-  "addedAt": "2005-05-08",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2005-05-08"
 }

@@ -6,6 +6,9 @@
   "cover": "covers/9788817003704.webp",
   "publisher": "Rizzoli",
   "pages": 170,
-  "subjects": [],
-  "addedAt": "2004-11-21",
+  "subjects": [
+    "Politica estera",
+    "2001-2003"
+  ],
+  "addedAt": "2004-11-21"
 }

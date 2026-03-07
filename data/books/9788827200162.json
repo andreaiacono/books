@@ -6,6 +6,8 @@
   "cover": "covers/9788827200162.webp",
   "publisher": "Edizioni Mediterranee",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "1989-09-01",
+  "subjects": [
+    "Sports & Recreation"
+  ],
+  "addedAt": "1989-09-01"
 }

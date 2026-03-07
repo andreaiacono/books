@@ -6,6 +6,8 @@
   "cover": "covers/9788872733042.webp",
   "publisher": "Xenia",
   "pages": 128,
-  "subjects": [],
-  "addedAt": "2003-05-18",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2003-05-18"
 }

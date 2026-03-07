@@ -6,6 +6,8 @@
   "cover": "covers/9788861905160.webp",
   "publisher": "Chiarelettere",
   "pages": 363,
-  "subjects": [],
-  "addedAt": "2018-07-01",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2018-07-01"
 }

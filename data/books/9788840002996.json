@@ -6,6 +6,8 @@
   "cover": "covers/9788840002996.webp",
   "publisher": "Unicopli",
   "pages": 294,
-  "subjects": [],
-  "addedAt": "1996-05-01",
+  "subjects": [
+    "Mathematics"
+  ],
+  "addedAt": "1996-05-01"
 }

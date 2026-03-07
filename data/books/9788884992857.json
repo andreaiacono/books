@@ -5,6 +5,8 @@
   "year": 2012,
   "cover": "covers/9788884992857.webp",
   "pages": 204,
-  "subjects": [],
-  "addedAt": "2012-05-25",
+  "subjects": [
+    "Nature"
+  ],
+  "addedAt": "2012-05-25"
 }

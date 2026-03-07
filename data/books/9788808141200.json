@@ -6,6 +6,8 @@
   "cover": "covers/9788808141200.webp",
   "publisher": "Zanichelli",
   "pages": 224,
-  "subjects": [],
-  "addedAt": "1993-11-30",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "1993-11-30"
 }

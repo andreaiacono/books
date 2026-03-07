@@ -5,6 +5,10 @@
   "year": 1999,
   "cover": "covers/9788804460046.webp",
   "publisher": "Mondadori",
-  "subjects": [],
+  "subjects": [
+    "Science"
+  ],
   "addedAt": "2006-01-28",
+  "pages": 205,
+  "description": "La scienza a volte considera se stessa un'attività impersonale, un 'pensiero puro', indipendente dalle proprie origini umane e storiche. Spesso si pensa che sia davvero così. Ma la scienza è un'impresa interamente umana, una crescita umana, organica e in continua evoluzione, con improvvise accelerazioni e bruschi arresti, soggetta a strane deviazioni. Sgorga dal suo stesso passato, ma non se ne distacca mai completamente, non più di quanto noi stessi ci distacchiamo dalla nostra infanzia. Ciascuna delle cinque storie presentate in questo libro descrive un momento trascurato e dimenticato nello sviluppo della scoperta scientifica."
 }

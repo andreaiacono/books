@@ -6,6 +6,8 @@
   "cover": "covers/9788875784560.webp",
   "publisher": "Codice",
   "pages": 290,
-  "subjects": [],
-  "addedAt": "2014-11-30",
+  "subjects": [
+    "Biography & Autobiography"
+  ],
+  "addedAt": "2014-11-30"
 }

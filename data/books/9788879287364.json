@@ -6,6 +6,8 @@
   "cover": "covers/9788879287364.webp",
   "publisher": "Ponte alle Grazie",
   "pages": 143,
-  "subjects": [],
-  "addedAt": "2005-12-25",
+  "subjects": [
+    "Religion"
+  ],
+  "addedAt": "2005-12-25"
 }

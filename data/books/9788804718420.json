@@ -6,6 +6,8 @@
   "cover": "covers/9788804718420.webp",
   "publisher": "Mondadori",
   "pages": 636,
-  "subjects": [],
-  "addedAt": "2024-01-19",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2024-01-19"
 }

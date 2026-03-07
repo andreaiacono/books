@@ -6,6 +6,8 @@
   "cover": "covers/9788804672098.webp",
   "publisher": "Mondadori",
   "pages": 212,
-  "subjects": [],
-  "addedAt": "2025-08-24",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2025-08-24"
 }

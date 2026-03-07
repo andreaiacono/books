@@ -5,6 +5,9 @@
   "year": 1996,
   "cover": "covers/9788806148683.webp",
   "publisher": "Einaudi",
-  "subjects": [],
+  "subjects": [
+    "Fiction"
+  ],
   "addedAt": "1998-05-24",
+  "pages": 213
 }

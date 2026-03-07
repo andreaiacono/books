@@ -7,6 +7,8 @@
   "publisher": "Einaudi",
   "pages": 179,
   "description": "Brossura con alette",
-  "subjects": [],
-  "addedAt": "2009-02-28",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2009-02-28"
 }

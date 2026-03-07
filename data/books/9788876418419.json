@@ -6,6 +6,8 @@
   "cover": "covers/9788876418419.webp",
   "publisher": "E/O",
   "pages": 163,
-  "subjects": [],
-  "addedAt": "2009-05-17",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2009-05-17"
 }

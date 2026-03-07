@@ -5,6 +5,8 @@
   "cover": "covers/9788844500337.webp",
   "publisher": "Electa Gallimard",
   "pages": 184,
-  "subjects": [],
-  "addedAt": "1993-12-03",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "1993-12-03"
 }

@@ -3,6 +3,9 @@
   "title": "Avvocati per niente",
   "author": "Giorgi Carlo",
   "cover": "covers/9788861891685.webp",
-  "subjects": [],
+  "subjects": [
+    "Law"
+  ],
   "addedAt": "2012-01-26",
+  "pages": 192
 }

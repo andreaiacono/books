@@ -6,6 +6,8 @@
   "cover": "covers/9788834710371.webp",
   "publisher": "Fanucci",
   "pages": 332,
-  "subjects": [],
-  "addedAt": "2004-10-30",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2004-10-30"
 }

@@ -3,6 +3,9 @@
   "title": "La mia Birmania",
   "author": "Aung San Suu Kyi, Alan Clements, A. Petrelli",
   "cover": "covers/9788850222728.webp",
-  "subjects": [],
+  "subjects": [
+    "Political Science"
+  ],
   "addedAt": "2011-04-27",
+  "pages": 372
 }

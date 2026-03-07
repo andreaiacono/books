@@ -7,6 +7,8 @@
   "publisher": "Mondadori",
   "pages": 380,
   "description": "Romanzo",
-  "subjects": [],
-  "addedAt": "2002-08-19",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2002-08-19"
 }

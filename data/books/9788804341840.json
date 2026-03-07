@@ -5,6 +5,8 @@
   "cover": "covers/9788804341840.webp",
   "publisher": "Mondadori",
   "pages": 222,
-  "subjects": [],
-  "addedAt": "1993-11-26",
+  "subjects": [
+    "Drama"
+  ],
+  "addedAt": "1993-11-26"
 }

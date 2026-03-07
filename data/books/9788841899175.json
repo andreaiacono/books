@@ -6,6 +6,8 @@
   "cover": "covers/9788841899175.webp",
   "publisher": "De Agostini",
   "pages": 656,
-  "subjects": [],
-  "addedAt": "2014-05-11",
+  "subjects": [
+    "Business & Economics"
+  ],
+  "addedAt": "2014-05-11"
 }

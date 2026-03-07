@@ -6,6 +6,8 @@
   "cover": "covers/9788806240745.webp",
   "publisher": "Einaudi",
   "pages": 145,
-  "subjects": [],
-  "addedAt": "2025-07-08",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2025-07-08"
 }

@@ -7,6 +7,8 @@
   "publisher": "Pragmatic Bookshelf",
   "pages": 286,
   "description": "Unlock the secrets to creating random mazes! Whether you're a game developer, an algorithm connoisseur, or simply in search of a new puzzle, you're about to level up. Learn algorithms to randomly generate mazes in a variety of shapes, sizes, and dimensions. Bend them into Moebius strips, fold them into cubes, and wrap them around spheres. Stretch them into other dimensions, squeeze them into arbitrary outlines, and tile them in a dizzying variety of ways. From twelve little algorithms, you'll discover a vast reservoir of ideas and inspiration. From video games to movies, mazes are ubiquitous. Explore a dozen algorithms for generating these puzzles randomly, from Binary Tree to Eller's, each copiously illustrated and accompanied by working implementations in Ruby. You'll learn their pros and cons, and how to choose the right one for the job. You'll start by learning six maze algorithms and transition from making mazes on paper to writing programs that generate and draw them. You'll be introduced to Dijkstra's algorithm and see how it can help solve, analyze, and visualize mazes. Part 2 shows you how to constrain your mazes to different shapes and outlines, such as text, circles, hex and triangle grids, and more. You'll learn techniques for culling dead-ends, and for making your passages weave over and under each other. Part 3 looks at six more algorithms, taking it all to the next level. You'll learn how to build your mazes in multiple dimensions, and even on curved surfaces. Through it all, you'll discover yourself brimming with ideas, the best medicine for programmer's block, burn-out, and the grayest of days. By the time you're done, you'll be energized and full of maze-related possibilities! What You Need: The example code requires version 2 of the Ruby programming language. Some examples depend on the ChunkyPNG library to generate PNG images, and one chapter uses POV-Ray version 3.7 to render 3D graphics.",
-  "subjects": [],
-  "addedAt": "2022-07-21",
+  "subjects": [
+    "Computers"
+  ],
+  "addedAt": "2022-07-21"
 }

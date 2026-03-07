@@ -7,6 +7,8 @@
   "publisher": "E/O",
   "pages": 112,
   "description": "Romanzo",
-  "subjects": [],
-  "addedAt": "2024-08-19",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2024-08-19"
 }

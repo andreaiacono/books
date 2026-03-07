@@ -6,6 +6,8 @@
   "cover": "covers/9788845929298.webp",
   "publisher": "Adelphi",
   "pages": 608,
-  "subjects": [],
-  "addedAt": "2016-05-25",
+  "subjects": [
+    "Medical"
+  ],
+  "addedAt": "2016-05-25"
 }

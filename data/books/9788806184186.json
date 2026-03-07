@@ -1,11 +1,13 @@
 {
   "isbn": "9788806184186",
   "title": "I re del sole. Il racconto dell'astronomia moderna",
-  "author": "",
+  "author": "Stuart Clark",
   "year": 2009,
   "cover": "covers/9788806184186.webp",
   "publisher": "Einaudi",
   "pages": 267,
-  "subjects": [],
-  "addedAt": "2016-10-27",
+  "subjects": [
+    "Science"
+  ],
+  "addedAt": "2016-10-27"
 }

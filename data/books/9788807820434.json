@@ -6,6 +6,8 @@
   "cover": "covers/9788807820434.webp",
   "publisher": "Feltrinelli",
   "pages": 112,
-  "subjects": [],
-  "addedAt": "2004-12-04",
+  "subjects": [
+    "Philosophy"
+  ],
+  "addedAt": "2004-12-04"
 }

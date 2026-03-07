@@ -6,6 +6,8 @@
   "cover": "covers/9788850217526.webp",
   "publisher": "TEA",
   "pages": 258,
-  "subjects": [],
-  "addedAt": "2008-12-25",
+  "subjects": [
+    "Political Science"
+  ],
+  "addedAt": "2008-12-25"
 }

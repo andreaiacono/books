@@ -5,6 +5,8 @@
   "year": 2003,
   "cover": "covers/9788890097812.webp",
   "pages": 144,
-  "subjects": [],
-  "addedAt": "2006-02-07",
+  "subjects": [
+    "History"
+  ],
+  "addedAt": "2006-02-07"
 }

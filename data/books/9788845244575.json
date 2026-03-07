@@ -6,6 +6,8 @@
   "cover": "covers/9788845244575.webp",
   "publisher": "Bompiani",
   "pages": 316,
-  "subjects": [],
-  "addedAt": "2023-08-31",
+  "subjects": [
+    "Fiction"
+  ],
+  "addedAt": "2023-08-31"
 }
