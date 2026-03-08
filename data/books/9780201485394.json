@@ -6,7 +6,7 @@
   "cover": "covers/9780201485394.webp",
   "publisher": "Addison Wesley Professional",
   "pages": 352,
-  "description": "Design patterns have become a staple of object-oriented design and programming by providing elegant, easy-to-reuse, and maintainable solutions to commonly encountered programming challenges. However, many busy Java programmers have yet to learn about design patterns and incorporate this powerful technology into their work. Java Design Patterns is exactly the tutorial resource you need. Gentle and clearly written, it helps you understand the nature and purpose of design patterns. It also serves as a practical guide to using design patterns to create sophisticated, robust Java programs. This book presents the 23 patterns cataloged in the flagship book Design Patterns by Gamma, Helm, Johnson, and Vlissides. In Java Design Patterns, each of these patterns is illustrated by at least one complete visual Java program. This practical approach makes design pattern concepts more concrete and easier to grasp, brings Java programmers up to speed quickly, and enables you to take practical advantage of the power of design patterns. Key features include: *Introductory overviews of design patterns, the Java Foundation Classes (JFC), and the Unified Modeling Language (UML) *Screen shots of each of",
+  "description": "Includes bibliographical references (p. 317-318) and index.\nSystem requirements for accompanying computer disc: JDK1.2; Windows 95/98/NT; JVISION.",
   "subjects": [
     "Computers"
   ],

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fetch_descriptions.py — Back-fill missing book metadata from Google Books / Open Library.
+fetch_book_info.py — Back-fill missing book metadata from Google Books / Open Library.
 
 For each data/books/{isbn}.json, fills in any missing fields from:
   - description
@@ -19,13 +19,14 @@ Detects Google Books quota exhaustion (HTTP 429) and stops calling that API for
 the rest of the session, falling back to Open Library only.
 
 Usage:
-  python3 fetch_descriptions.py [--books-dir ../data/books] [--skip-existing] [--dry-run]
+  python3 fetch_book_info.py [--books-dir ../data/books] [--skip-existing] [--dry-run]
 
 Options:
   --books-dir DIR      Path to data/books/ directory (default: ../data/books relative to this script)
   --progress-file FILE Path to progress JSON file (default: fetch_progress.json next to this script)
   --reset-progress     Ignore the existing progress file and start fresh
   --skip-existing      Skip books where ALL target fields are already populated
+  --force              Overwrite fields even if they are already present
   --dry-run            Show what would happen without writing anything
   --delay SECS         Seconds to wait between API calls (default: 2)
   --fields FIELDS      Comma-separated list of fields to fill (default: all)
@@ -99,8 +100,11 @@ def is_missing(book: dict, field: str) -> bool:
     return False
 
 
-def fields_needed(book: dict, target_fields: set) -> set:
-    """Return the subset of target_fields that are missing from book."""
+def fields_needed(book: dict, target_fields: set, force: bool = False) -> set:
+    """Return the subset of target_fields that are missing from book.
+    If force is True, return all target_fields regardless of current values."""
+    if force:
+        return set(target_fields)
     return {f for f in target_fields if is_missing(book, f)}
 
 
@@ -246,6 +250,8 @@ def main():
                         help="Ignore existing progress file and start fresh")
     parser.add_argument("--skip-existing", action="store_true",
                         help="Skip books where ALL target fields are already populated")
+    parser.add_argument("--force", action="store_true",
+                        help="Overwrite fields even if they are already present")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show what would happen without writing files")
     parser.add_argument("--delay", type=float, default=2,
@@ -254,6 +260,11 @@ def main():
                         help=f"Comma-separated fields to fill (default: all). "
                              f"Choices: {', '.join(sorted(ALL_FIELDS))}")
     args = parser.parse_args()
+
+    # --force and --skip-existing are mutually exclusive
+    if args.force and args.skip_existing:
+        print("Error: --force and --skip-existing are mutually exclusive.", file=sys.stderr)
+        sys.exit(1)
 
     # Parse target fields
     requested = {f.strip().lower() for f in args.fields.split(",")}
@@ -264,17 +275,22 @@ def main():
         sys.exit(1)
     target_fields = requested
     print(f"Target fields: {', '.join(sorted(target_fields))}")
+    if args.force:
+        print("  [force] existing field values will be overwritten")
 
     books_dir = args.books_dir
     if not books_dir.is_dir():
         print(f"Error: directory not found: {books_dir}", file=sys.stderr)
         sys.exit(1)
 
-    # Load progress
+    # Load progress (force skips the progress file to re-process everything)
     progress_file = args.progress_file
-    if args.reset_progress:
+    if args.reset_progress or args.force:
         completed_isbns: set = set()
-        print("Progress file reset — processing all books.")
+        if args.force:
+            print("Progress file ignored — force mode re-processes all books.")
+        else:
+            print("Progress file reset — processing all books.")
     else:
         completed_isbns = load_progress(progress_file)
         if completed_isbns:
@@ -291,7 +307,7 @@ def main():
         isbn = book.get("isbn", path.stem)
         if isbn in completed_isbns:
             continue
-        missing = fields_needed(book, target_fields)
+        missing = fields_needed(book, target_fields, force=args.force)
         if missing or not args.skip_existing:
             to_process.append((path, book, missing))
 
@@ -315,6 +331,7 @@ def main():
 
     # Track per-field fill counts
     fill_counts = {f: 0 for f in target_fields}
+    overwrite_counts = {f: 0 for f in target_fields}
     not_found_count = 0
     google_quota_hit = False
 
@@ -373,10 +390,14 @@ def main():
         filled_names = ", ".join(sorted(filled.keys()))
         if not HAS_TQDM:
             src = " [OL only]" if google_quota_hit else ""
-            print(f"  FILLED{src:<9}{label}  ({filled_names})")
+            mode = " [force]" if args.force else ""
+            print(f"  FILLED{src}{mode:<9}{label}  ({filled_names})")
 
         for field in filled:
-            fill_counts[field] += 1
+            if args.force and not is_missing(book, field):
+                overwrite_counts[field] += 1
+            else:
+                fill_counts[field] += 1
 
         if not args.dry_run:
             book.update(filled)
@@ -388,7 +409,10 @@ def main():
     print()
     print("── Done ────────────────────────────────────────")
     for field in sorted(fill_counts):
-        print(f"  {field:<14} filled: {fill_counts[field]}")
+        line = f"  {field:<14} filled: {fill_counts[field]}"
+        if args.force and overwrite_counts[field]:
+            line += f"  (overwritten: {overwrite_counts[field]})"
+        print(line)
     print(f"  {'not found':<14}        {not_found_count}")
     if google_quota_hit:
         print("  ⚠  Google Books quota was exhausted during this run.")

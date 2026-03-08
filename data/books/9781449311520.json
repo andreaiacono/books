@@ -6,7 +6,7 @@
   "cover": "covers/9781449311520.webp",
   "publisher": "O'Reilly Media, Incorporated",
   "pages": 688,
-  "description": "Ready to unlock the power of your data? With this comprehensive guide, you'll learn how to build and maintain reliable, scalable, distributed systems with Apache Hadoop. This book is ideal for programmers looking to analyze datasets of any size, and for administrators who want to set up and run Hadoop clusters. You'll find illuminating case studies that demonstrate how Hadoop is used to solve specific problems. This third edition covers recent changes to Hadoop, including material on the new MapReduce API, as well as MapReduce 2 and its more flexible execution model (YARN). Store large datasets with the Hadoop Distributed File System (HDFS) Run distributed computations with MapReduce Use Hadoop's data and I/O building blocks for compression, data integrity, serialization (including Avro), and persistence Discover common pitfalls and advanced features for writing real-world MapReduce programs Design, build, and administer a dedicated Hadoop cluster--or run Hadoop in the cloud Load data from relational databases into HDFS, using Sqoop Perform large-scale data processing with the Pig query language Analyze datasets with Hive, Hadoop's data warehousing system Take advantage of HBase for structured and semi-structured data, and ZooKeeper for building distributed systems",
+  "description": "With the latest edition of this comprehensive resource, readers will learn how to use Apache Hadoop to build and maintain reliable, scalable, distributed systems. Ideal for programmers and administrators wanting to set up and analyze datasets of any size.",
   "subjects": [
     "Computers"
   ],

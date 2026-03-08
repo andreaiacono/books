@@ -6,7 +6,7 @@
   "cover": "covers/9780130810816.webp",
   "publisher": "Prentice Hall PTR",
   "pages": 592,
-  "description": "Well-implemented interprocess communications (IPC) are key to the performance of virtually every non-trivial UNIX program. This book provides coverage of various forms of IPC, including message passing, synchronization, shared memory, and Remote Procedure Calls (RPC). It offers a basic introduction to IPC and the problems it is intended to solve.",
+  "description": "V.1 Networking APIs: sockets and XTI V.2 Interprocess communications.",
   "subjects": [
     "Computers"
   ],

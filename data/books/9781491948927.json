@@ -6,7 +6,7 @@
   "cover": "covers/9781491948927.webp",
   "publisher": "O'Reilly Media, Incorporated",
   "pages": 390,
-  "description": "Creating robust software requires the use of efficient algorithms, but programmers seldom think about them until a problem occurs. This updated edition of Algorithms in a Nutshell describes a large number of existing algorithms for solving a variety of problems, and helps you select and implement the right algorithm for your needs--with just enough math to let you understand and analyze algorithm performance. With its focus on application, rather than theory, this book provides efficient code solutions in several programming languages that you can easily adapt to a specific project. Each major algorithm is presented in the style of a design pattern that includes information to help you understand why and when the algorithm is appropriate. With this book, you will: Solve a particular coding problem or improve on the performance of an existing solution Quickly locate algorithms that relate to the problems you want to solve, and determine why a particular algorithm is the right one to use Get algorithmic solutions in C, C++, Java, and Python with implementation tips Learn the expected performance of an algorithm, and the conditions it needs to perform at its best Discover the impact that similar design decisions have on different algorithms Learn advanced data structures to improve the efficiency of algorithms",
+  "description": "This updated edition of 'Algorithms in a Nutshell' describes a large number of existing algorithms for solving a variety of problems, and helps you select and implement the right algorithm for your needs.",
   "subjects": [
     "Computer algorithms"
   ],

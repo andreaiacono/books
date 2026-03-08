@@ -6,7 +6,7 @@
   "cover": "covers/9780131411555.webp",
   "publisher": "Addison Wesley Professional",
   "pages": 1024,
-  "description": "This revised guide to Unix networking APIs updates coverage of programming standards and debugging techniques, and covers operating systems including Red Hat 9, Solaris 9, HP-UX, Free BSD 4.8/5.0, AIX 5.x and Mac OS X.",
+  "description": "To build today's highly distributed, networked applications and services, you need deep mastery of sockets and other key networking APIs. One book delivers comprehensive, start-to-finish guidance for building robust, high-performance networked systems in any environment: UNIX Network Programming, Volume 1, Third Edition.",
   "subjects": [
     "Computers"
   ],

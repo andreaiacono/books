@@ -6,7 +6,7 @@
   "cover": "covers/9780132350884.webp",
   "publisher": "Pearson Education",
   "pages": 431,
-  "description": "An extremely pragmatic method for writing better code from the start, and ultimately producing more robust applications.",
+  "description": "This title shows the process of cleaning code. Rather than just illustrating the end result, or just the starting and ending state, the author shows how several dozen seemingly small code changes can positively impact the performance and maintainability of an application code base.",
   "subjects": [
     "Computers"
   ],
