@@ -18397,7 +18397,7 @@
     "author": "Guido Catalano",
     "year": 2017,
     "cover": "covers/9788858687277.webp",
-    "added": "2026-02-28"
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788842828419",
@@ -18405,7 +18405,7 @@
     "author": "Ines Testoni",
     "year": 2021,
     "cover": "covers/9788842828419.webp",
-    "added": "2026-02-28"
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788866320326",
@@ -18413,41 +18413,46 @@
     "author": "Elena Ferrante",
     "year": 2011,
     "cover": "covers/9788866320326.webp",
-    "added": "2026-02-28"
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788867991921",
     "title": "Il dizionario delle cose impossibili",
     "author": "Didier Van Cauwelaert",
     "year": 2015,
-    "cover": "covers/9788867991921.webp"
+    "cover": "covers/9788867991921.webp",
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788876417535",
     "title": "La figlia oscura",
     "author": "Elena Ferrante",
     "year": 2006,
-    "cover": "covers/9788876417535.webp"
+    "cover": "covers/9788876417535.webp",
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788804790150",
     "title": "Il costruttore. Le cinque lezioni di De Gasperi ai politici di oggi",
     "author": "Antonio Polito",
     "year": 2024,
-    "cover": "covers/9788804790150.webp"
+    "cover": "covers/9788804790150.webp",
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788867763153",
     "title": "Il sancane: bestiario storico di personaggi e gesti solo apparentemente inverosimili",
     "author": "Simone Amicucci",
     "year": 2015,
-    "cover": "covers/9788867763153.webp"
+    "cover": "covers/9788867763153.webp",
+    "added": "2026-03-07"
   },
   {
     "isbn": "9788806259815",
     "title": "L'universo. Una nuova biografia",
     "author": "Paul Murdin",
     "year": 2023,
-    "cover": "covers/9788806259815.webp"
+    "cover": "covers/9788806259815.webp",
+    "added": "2026-03-07"
   }
 ]
