@@ -151,7 +151,7 @@ export async function saveNewBook(book, detailObj, coverBase64, coverMime) {
 export async function appendReadingLogEntry({ date, title, comment, creators, isbn, marked }) {
   function csvField(v) {
     const s = String(v ?? '');
-    return /[,"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    return `"${s.replace(/"/g, '""')}"`;
   }
   const row = [date, title, comment, creators, isbn, String(marked)].map(csvField).join(',');
 
