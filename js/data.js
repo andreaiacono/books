@@ -192,6 +192,7 @@ function normalizeOpenLibrary(isbn, d) {
     author: authors,
     year:   d.publish_date ? parseInt(d.publish_date.slice(-4)) : null,
     cover:  `covers/${isbn}.webp`,
+    added:  new Date().toISOString().slice(0, 10),
     // Detail fields
     publisher:   (d.publishers ?? []).map(p => p.name).join(', '),
     pages:       d.number_of_pages ?? null,
@@ -211,6 +212,7 @@ function normalizeGoogleBooks(isbn, item) {
     author: (v.authors ?? []).join(', '),
     year:   v.publishedDate ? parseInt(v.publishedDate.slice(0, 4)) : null,
     cover:  `covers/${isbn}.webp`,
+    added:  new Date().toISOString().slice(0, 10),
     publisher:   v.publisher ?? '',
     pages:       v.pageCount ?? null,
     language:    v.language ?? '',
