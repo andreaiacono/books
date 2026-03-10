@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Group book JSON files by field values.
+Group books by field values from a single books.json file.
 
 - List fields (e.g. subjects):  grouped by item count  (0, 1, 2, …)
 - Scalar fields (e.g. description): grouped by present/non-empty (1) vs missing/empty (0)
@@ -10,20 +10,20 @@ When --show is used:
 - Books are only listed for groups where at least one --fields value is missing/empty
 
 Usage:
-    python group_books_by_subjects.py <directory> [--fields FIELD ...] [--show FIELD ...]
+    python books_stats.py [--books PATH] [--fields FIELD ...] [--show FIELD ...]
 
 Examples:
     # Default: group by 'subjects' count
-    python group_books_by_subjects.py ./books
+    python books_stats.py
 
     # Group by presence of a scalar field
-    python group_books_by_subjects.py ./books --fields description
+    python books_stats.py --fields description
 
     # Mix list and scalar fields (composite key)
-    python group_books_by_subjects.py ./books --fields subjects description
+    python books_stats.py --fields subjects description
 
     # Show extra fields for books with missing values only
-    python group_books_by_subjects.py ./books --fields description cover --show title author
+    python books_stats.py --fields description cover --show title author
 """
 
 import argparse
@@ -35,14 +35,15 @@ from pathlib import Path
 DEFAULT_FIELDS = ["subjects"]
 
 
-def load_book(filepath: Path) -> dict | None:
-    """Load and parse a single book JSON file. Returns None on error."""
+def load_books(filepath: Path) -> list[dict]:
+    """Load books.json and return entries with real ISBNs."""
     try:
         with open(filepath, "r", encoding="utf-8") as f:
-            return json.load(f)
+            books = json.load(f)
     except (json.JSONDecodeError, OSError) as e:
-        print(f"  [warning] Skipping {filepath.name}: {e}", file=sys.stderr)
-        return None
+        print(f"Error: cannot read {filepath}: {e}", file=sys.stderr)
+        sys.exit(1)
+    return [b for b in books if not b.get("isbn", "").startswith("noisbn_")]
 
 
 def field_score(value) -> int:
@@ -80,20 +81,17 @@ def make_group_key(book: dict, fields: list[str]) -> tuple[int, ...]:
     return tuple(field_score(book.get(field)) for field in fields)
 
 
-def group_books(directory: Path, fields: list[str]) -> dict[tuple, list[dict]]:
-    """Walk a directory and group books by the composite key of the given fields."""
-    json_files = sorted(directory.glob("*.json"))
+def group_books(books_path: Path, fields: list[str]) -> dict[tuple, list[dict]]:
+    """Load books.json and group books by the composite key of the given fields."""
+    all_books = load_books(books_path)
 
-    if not json_files:
-        print(f"No .json files found in '{directory}'.", file=sys.stderr)
+    if not all_books:
+        print(f"No books found in '{books_path}'.", file=sys.stderr)
         sys.exit(1)
 
     groups: dict[tuple, list[dict]] = defaultdict(list)
 
-    for filepath in json_files:
-        book = load_book(filepath)
-        if book is None:
-            continue
+    for book in all_books:
         key = make_group_key(book, fields)
         groups[key].append(book)
 
@@ -159,7 +157,7 @@ def print_report(
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Group book JSON files by field values. "
+            "Group books from books.json by field values. "
             "List fields are grouped by item count; "
             "scalar fields by presence (1) or absence (0). "
             "With --show, ISBN is always included and books are only "
@@ -169,9 +167,10 @@ def main() -> None:
         epilog=__doc__,
     )
     parser.add_argument(
-        "directory",
+        "--books",
         type=Path,
-        help="Path to the directory containing book .json files",
+        default=Path("data/books.json"),
+        help="Path to books.json (default: data/books.json)",
     )
     parser.add_argument(
         "--fields",
@@ -198,11 +197,11 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    if not args.directory.is_dir():
-        print(f"Error: '{args.directory}' is not a valid directory.", file=sys.stderr)
+    if not args.books.is_file():
+        print(f"Error: '{args.books}' not found.", file=sys.stderr)
         sys.exit(1)
 
-    groups = group_books(args.directory, args.fields)
+    groups = group_books(args.books, args.fields)
     print_report(groups, args.fields, args.show)
 
 

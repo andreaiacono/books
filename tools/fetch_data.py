@@ -117,8 +117,69 @@ def save_progress(path, progress):
 
 # ─── API clients ─────────────────────────────────────────────────────────────
 
+import re as _re
+import html as _html
+
+
 class GoogleQuotaExceeded(Exception):
     pass
+
+
+_BROWSER_UA = (
+    "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0"
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
+
+
+def fetch_google_books_web(isbn, session):
+    """Scrape metadata from the Google Books website (no API key needed)."""
+    url = f"https://books.google.com/books?vid={isbn}"
+    try:
+        r = session.get(url, timeout=10, headers={"User-Agent": _BROWSER_UA})
+        if r.status_code != 200:
+            return {}
+        page = r.text
+    except Exception:
+        return {}
+
+    meta = {}
+
+    # Description from <meta name="description"> or <div id=synopsistext>
+    m = _re.search(r'<meta\s+name="description"\s+content="([^"]+)"', page)
+    if m:
+        desc = _html.unescape(m.group(1)).strip()
+        if len(desc) > 40:
+            meta["description"] = desc
+
+    # Bibliographic info table
+    rows = _re.findall(
+        r'<td class="metadata_label">.*?<span[^>]*>([^<]+)</span>.*?'
+        r'<td class="metadata_value">.*?<span[^>]*>(.*?)</span>',
+        page, _re.DOTALL,
+    )
+    for label, value in rows:
+        label = _html.unescape(label).strip().lower()
+        value = _re.sub(r"<[^>]+>", "", _html.unescape(value)).strip()
+        if not value:
+            continue
+        if label in ("editore", "publisher", "éditeur", "verlag", "editorial"):
+            # strip trailing year like "Publisher, 2007"
+            pub = _re.sub(r",\s*\d{4}$", "", value).strip()
+            if pub:
+                meta["publisher"] = pub
+        if label in ("lunghezza", "length", "longueur", "länge", "longitud",
+                      "pages", "pagine"):
+            m2 = _re.search(r"(\d+)", value)
+            if m2:
+                meta["pages"] = int(m2.group(1))
+        if label in ("autore", "author", "auteur", "autor"):
+            meta.setdefault("author", value)
+        if label in ("categorie", "categories", "catégories", "kategorien"):
+            subjects = [s.strip() for s in value.split(",") if s.strip()]
+            if subjects:
+                meta["subjects"] = subjects
+
+    return meta
 
 
 def fetch_google_books(isbn, session, api_key=None):
@@ -130,13 +191,13 @@ def fetch_google_books(isbn, session, api_key=None):
         try:
             r = session.get(url, timeout=10)
             if r.status_code == 429:
-                if api_key:
-                    raise GoogleQuotaExceeded("HTTP 429 — API key quota exhausted.")
                 if attempt < 4:
                     wait = (2 ** attempt) + random.uniform(0, 1)
                     print(f"\n  Rate-limited, retrying in {wait:.1f}s …", flush=True)
                     time.sleep(wait)
                     continue
+                if api_key:
+                    raise GoogleQuotaExceeded("HTTP 429 — API key quota exhausted.")
                 return {}, None
             if r.status_code == 403:
                 raise GoogleQuotaExceeded("HTTP 403 — check API key/permissions.")
@@ -155,7 +216,36 @@ def fetch_google_books(isbn, session, api_key=None):
         if not items:
             return {}, None
 
-        info = items[0].get("volumeInfo", {})
+        item = items[0]
+        info = item.get("volumeInfo", {})
+
+        # The search endpoint often omits fields like description, publisher,
+        # pageCount; the individual volume endpoint (selfLink) usually has them.
+        missing_detail = (
+            not info.get("description")
+            or not info.get("publisher")
+            or not info.get("pageCount")
+        )
+        if missing_detail and (self_link := item.get("selfLink")):
+            vol_url = self_link
+            if api_key:
+                vol_url += f"?key={api_key}"
+            for vol_attempt in range(3):
+                try:
+                    r2 = session.get(vol_url, timeout=10)
+                    if r2.status_code == 429:
+                        wait = (2 ** vol_attempt) + random.uniform(0, 1)
+                        time.sleep(wait)
+                        continue
+                    if r2.status_code == 200:
+                        vol_info = r2.json().get("volumeInfo", {})
+                        for key in ("description", "publisher", "pageCount"):
+                            if not info.get(key) and vol_info.get(key):
+                                info[key] = vol_info[key]
+                    break
+                except Exception:
+                    break
+
         meta = {}
         if desc := info.get("description", "").strip():
             meta["description"] = desc
@@ -436,48 +526,74 @@ def run_fetch(args):
                     progress["meta"].add(isbn)
                 need_meta = False
 
-        # Fetch from Google Books (shared for meta + cover thumbnail)
-        google_meta, google_thumb = {}, None
-        if (need_meta or need_cover) and not google_quota_hit:
-            try:
-                google_meta, google_thumb = fetch_google_books(isbn, session, args.api_key)
-                time.sleep(args.delay)
-            except GoogleQuotaExceeded as e:
-                google_quota_hit = True
-                print(f"\n  GOOGLE QUOTA EXHAUSTED: {e}")
-                print("  Switching to Open Library only.\n")
+        # Fetch metadata: 1) Google Books web  2) Open Library  3) Google Books API
+        google_thumb = None
 
         # Fill metadata
         if need_meta:
-            still_missing = needed - set(google_meta.keys())
+            log(f"  ── {label}  need: {', '.join(sorted(needed))}")
+
+            # 1) Google Books website (scrape)
+            web_meta = fetch_google_books_web(isbn, session)
+            time.sleep(args.delay)
+            if web_meta:
+                log(f"     GB-web  → {', '.join(sorted(web_meta.keys()))}")
+            else:
+                log(f"     GB-web  → (nothing)")
+            still_missing = needed - set(web_meta.keys())
+
+            # 2) Open Library
             ol_meta = {}
             if still_missing:
                 ol_meta = fetch_open_library_meta(isbn, session)
                 time.sleep(args.delay)
+                if ol_meta:
+                    log(f"     OL      → {', '.join(sorted(ol_meta.keys()))}")
+                else:
+                    log(f"     OL      → (nothing)")
+                still_missing -= set(ol_meta.keys())
+
+            # 3) Google Books API (last resort, also gets cover thumbnail)
+            api_meta = {}
+            if (still_missing or need_cover) and not google_quota_hit:
+                try:
+                    api_meta, google_thumb = fetch_google_books(isbn, session, args.api_key)
+                    time.sleep(args.delay)
+                    if api_meta:
+                        log(f"     GB-API  → {', '.join(sorted(api_meta.keys()))}")
+                    else:
+                        log(f"     GB-API  → (nothing)")
+                except GoogleQuotaExceeded as e:
+                    google_quota_hit = True
+                    print(f"\n  GOOGLE QUOTA EXHAUSTED: {e}")
+                    print("  Continuing with web scraping + Open Library.\n")
 
             filled = {}
             for f in needed:
-                if f in google_meta:
-                    filled[f] = google_meta[f]
+                if f in web_meta:
+                    filled[f] = ("GB-web", web_meta[f])
                 elif f in ol_meta:
-                    filled[f] = ol_meta[f]
+                    filled[f] = ("OL", ol_meta[f])
+                elif f in api_meta:
+                    filled[f] = ("GB-API", api_meta[f])
 
             if filled:
-                log(f"  META  {label}  ({', '.join(sorted(filled))})")
-                for f in filled:
+                parts = [f"{f}[{src}]" for f, (src, _) in sorted(filled.items())]
+                log(f"     FILLED  → {', '.join(parts)}")
+                for f, (src, val) in filled.items():
                     if args.force and not is_missing(book, f):
                         overwrite_counts[f] += 1
                     else:
                         fill_counts[f] += 1
                 if not args.dry_run:
-                    book.update(filled)
+                    book.update({f: val for f, (src, val) in filled.items()})
                     books_dirty = True
                     dirty_count += 1
                     if dirty_count % SAVE_EVERY == 0:
                         save_books(books_path, all_books)
             else:
                 meta_not_found += 1
-                log(f"  META NOT FOUND  {label}  (wanted: {', '.join(sorted(needed))})")
+                log(f"     NOT FOUND (wanted: {', '.join(sorted(needed))})")
 
             if not args.dry_run:
                 progress["meta"].add(isbn)
@@ -485,6 +601,14 @@ def run_fetch(args):
 
         # Fetch cover
         if need_cover:
+            # If we didn't go through the meta path, get google_thumb for covers
+            if not need_meta and not google_quota_hit:
+                try:
+                    _, google_thumb = fetch_google_books(isbn, session, args.api_key)
+                    time.sleep(args.delay)
+                except GoogleQuotaExceeded as e:
+                    google_quota_hit = True
+
             dest = args.covers_dir / f"{isbn}.webp"
             if dest.exists() and not args.force:
                 if not args.dry_run:
