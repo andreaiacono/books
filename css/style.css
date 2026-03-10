@@ -580,7 +580,7 @@ html[data-theme="light"] .nav {
 
 .month-header {
   font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--text-muted); padding: 0.25rem 0;
+  padding: 0.25rem 0;
   border-bottom: 1px solid var(--border); margin-bottom: 0.25rem;
 }
 
