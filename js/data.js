@@ -10,8 +10,8 @@ const DATA = {
 
 export async function loadGrid() {
   if (DATA.grid) return DATA.grid;
-  const res = await fetch('data/grid.json');
-  if (!res.ok) throw new Error('Could not load grid.json');
+  const res = await fetch('data/grid_complete.json');
+  if (!res.ok) throw new Error('Could not load grid_complete.json');
   DATA.grid = await res.json();
   return DATA.grid;
 }
