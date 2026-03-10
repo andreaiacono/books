@@ -15,7 +15,7 @@
   <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
-    <li><a href="search.html">Search</a></li>
+    <li><a href="index.html">Search</a></li>
     <li><a href="reading-log.html">Reading Log</a></li>
     <li><a href="add.html">Add Book</a></li>
     <li><a href="settings.html">Settings</a></li>
@@ -37,7 +37,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { loadGrid, loadReadingLog, loadBookDetail, appendReadingLogEntry, isConfigured } from './js/data.js';
+  import { loadGrid, loadReadingLog, appendReadingLogEntry, isConfigured } from './js/data.js';
   import { escHtml, formatDate, toast } from './js/ui.js';
 
   async function init() {
@@ -45,17 +45,16 @@
     const isbn = params.get('isbn');
     if (!isbn) { render404(); return; }
 
-    const [grid, readMap, detail] = await Promise.all([
+    const [grid, readMap] = await Promise.all([
       loadGrid(),
       loadReadingLog(),
-      loadBookDetail(isbn),
     ]);
 
     const gridEntry = grid.find(b => b.isbn === isbn);
     if (!gridEntry) { render404(); return; }
 
     const reading = readMap.get(isbn) ?? null;
-    const book = { ...gridEntry, ...(detail ?? {}), reading };
+    const book = { ...gridEntry, reading };
 
     document.title = `${book.title} — Biblio`;
     renderBook(book);

@@ -3,7 +3,7 @@
 libib_migrate.py — Convert a Libib CSV export to Biblio format.
 
 Produces:
-  - data/grid.json          (one entry per book: isbn, title, author, year, cover)
+  - data/books.json          (one entry per book: isbn, title, author, year, cover)
   - data/books/<isbn>.json  (full metadata per book)
   - covers/                 (empty dir, populated later by cover fetch)
   - migration_report.txt    (summary + rows that need attention)
@@ -236,8 +236,8 @@ def main():
         with open(detail_path, "w", encoding="utf-8") as f:
             json.dump(detail_entry, f, ensure_ascii=False, indent=2)
 
-    # Write grid.json
-    grid_path = out_dir / "data" / "grid.json"
+    # Write books.json
+    grid_path = out_dir / "data" / "books.json"
     with open(grid_path, "w", encoding="utf-8") as f:
         json.dump(grid, f, ensure_ascii=False, indent=2)
 
@@ -265,9 +265,9 @@ def main():
         "── Next steps ──",
         "1. Copy data/ and covers/ into your Biblio repo.",
         "2. For books with slug keys (no ISBN), find ISBNs manually and rename",
-        "   both the JSON file and the entry in grid.json.",
+        "   both the JSON file and the entry in books.json.",
         "3. Run a cover fetch pass — e.g. fetch covers from Open Library for",
-        "   each ISBN in grid.json and save as covers/<isbn>.webp.",
+        "   each ISBN in books.json and save as covers/<isbn>.webp.",
         "4. git add . && git commit -m 'import from libib' && git push",
         ]
 
@@ -284,7 +284,7 @@ def main():
     print(f"  Warnings:   {len(warnings)}")
     print()
     print(f"  Output:  {out_dir.resolve()}/")
-    print(f"    data/grid.json          ({len(grid)} entries)")
+    print(f"    data/books.json          ({len(grid)} entries)")
     print(f"    data/books/<isbn>.json  ({len(grid)} files)")
     print(f"    covers/                 (empty — populate with cover fetch)")
     print(f"    migration_report.txt")

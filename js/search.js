@@ -5,27 +5,23 @@ let _bookMap = null;   // isbn -> enriched book (for result hydration)
 
 // ─── Index builder ───────────────────────────────────────────────────────────
 
-export async function buildSearchIndex(enrichedBooks) {
-  _bookMap = new Map(enrichedBooks.map(b => [b.isbn, b]));
+export function buildSearchIndex(books) {
+  _bookMap = new Map(books.map(b => [b.isbn, b]));
 
   _index = lunr(function () {
+    this.use(lunr.multiLanguage('en', 'it'));
     this.ref('isbn');
 
-    // Field weights: title matters most, then author, then subjects/description
     this.field('title',       { boost: 10 });
     this.field('author',      { boost: 5  });
-    this.field('subjects',    { boost: 3  });
-    this.field('year',        { boost: 1  });
-    this.field('publisher',   { boost: 1  });
+    this.field('publisher',   { boost: 2  });
     this.field('description', { boost: 1  });
 
-    enrichedBooks.forEach(book => {
+    books.forEach(book => {
       this.add({
         isbn:        book.isbn,
         title:       book.title ?? '',
         author:      book.author ?? '',
-        subjects:    Array.isArray(book.subjects) ? book.subjects.join(' ') : '',
-        year:        book.year ? String(book.year) : '',
         publisher:   book.publisher ?? '',
         description: book.description ?? '',
       });
@@ -51,25 +47,15 @@ export function search(query) {
     }
   }
 
-  // Plain query: apply fuzzy (edit distance 2) + trailing wildcard per term
+  // Plain query: stemmed match + trailing wildcard per term
   try {
     const terms = q.split(/\s+/);
     return hydrateResults(_index.query(function () {
       terms.forEach(term => {
-        this.term(term, { editDistance: 1 });
-        this.term(term, { wildcard: lunr.Query.wildcard.TRAILING });
+        this.term(term, { usePipeline: true });  // applies stemmer
+        this.term(term, { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
       });
     }));
-  } catch {
-    return [];
-  }
-}
-
-// Field-scoped search: search(query, 'title') or search(query, 'author')
-export function searchField(query, field) {
-  if (!_index || !query?.trim()) return [];
-  try {
-    return hydrateResults(_index.search(`${field}:${query.trim()}`));
   } catch {
     return [];
   }
@@ -84,4 +70,3 @@ function hydrateResults(results) {
 export function isIndexReady() {
   return _index !== null;
 }
-

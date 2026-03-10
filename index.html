@@ -17,7 +17,6 @@
   <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html" class="active">Library</a></li>
-    <li><a href="search.html">Search</a></li>
     <li><a href="reading-log.html">Reading Log</a></li>
     <li><a href="add.html">Add Book</a></li>
     <li><a href="settings.html">Settings</a></li>
@@ -34,20 +33,34 @@
     <p id="subtitle">Loading…</p>
   </header>
 
+  <div class="search-wrap" style="margin-bottom:1.25rem">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="search" id="search-input" class="search-input"
+           placeholder="Building index…" autocomplete="off" disabled>
+  </div>
+
+  <p id="search-count" class="search-count" style="display:none"></p>
   <div id="book-grid"></div>
 </main>
 
 <!-- Dependencies -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.stemmer.support.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.multi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.it.min.js"></script>
 
 <script type="module">
   import { loadGrid } from './js/data.js';
-  import { renderBookCard, showLoader, hideLoader, toast } from './js/ui.js';
+  import { renderBookCard, showLoader, hideLoader, toast, escHtml } from './js/ui.js';
+  import { buildSearchIndex, search, isIndexReady } from './js/search.js';
 
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
 
   let allBooks = [];
+  let searchTimeout = null;
 
   async function init() {
     showLoader('Loading your library…');
@@ -57,6 +70,14 @@
       document.getElementById('subtitle').textContent = `${allBooks.length} books`;
 
       renderGrid(allBooks);
+
+      // Build search index after first paint
+      setTimeout(() => {
+        buildSearchIndex(allBooks);
+        const input = document.getElementById('search-input');
+        input.disabled = false;
+        input.placeholder = 'Title, author, publisher, description…';
+      }, 0);
 
     } catch (err) {
       console.error(err);
@@ -84,7 +105,7 @@
     const currentYear = new Date().getFullYear().toString();
 
     // Group by year → month
-    const byYear = new Map(); // 'YYYY'|'unknown' → Map<'YYYY-MM'|'unknown', {label, books[]}>
+    const byYear = new Map();
     for (const book of books) {
       const [y, m] = book.added ? book.added.split('-') : [];
       if (y && m) {
@@ -161,6 +182,48 @@
     }
     container.appendChild(fragment);
   }
+
+  function renderFlat(books) {
+    const container = document.getElementById('book-grid');
+    container.innerHTML = '';
+
+    if (!books.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state__icon">🔍</div>
+          <h2>No results</h2>
+          <p>Try different keywords or check for typos.</p>
+        </div>`;
+      return;
+    }
+
+    const grid = document.createElement('div');
+    grid.className = 'book-grid';
+    for (const book of books) grid.appendChild(renderBookCard(book));
+    container.appendChild(grid);
+  }
+
+  function doSearch(query) {
+    const countEl = document.getElementById('search-count');
+
+    if (!query.trim()) {
+      countEl.style.display = 'none';
+      renderGrid(allBooks);
+      return;
+    }
+
+    const results = search(query);
+
+    countEl.style.display = '';
+    countEl.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} for "${escHtml(query)}"`;
+
+    renderFlat(results);
+  }
+
+  document.getElementById('search-input').addEventListener('input', e => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => doSearch(e.target.value), 200);
+  });
 
   init();
 </script>

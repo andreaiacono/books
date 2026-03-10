@@ -1,17 +1,16 @@
 // js/data.js — Data layer: loads, caches, and joins all data sources
 
 const DATA = {
-  grid: null,        // [{isbn, title, author, year, cover}]
+  grid: null,        // [{isbn, title, author, year, cover, description, subjects, …}]
   readMap: null,     // Map<isbn, readingLogEntry>
-  detailCache: {},   // isbn -> detail object (lazy loaded)
 };
 
 // ─── Loaders ────────────────────────────────────────────────────────────────
 
 export async function loadGrid() {
   if (DATA.grid) return DATA.grid;
-  const res = await fetch('data/grid_complete.json');
-  if (!res.ok) throw new Error('Could not load grid_complete.json');
+  const res = await fetch('data/books.json');
+  if (!res.ok) throw new Error('Could not load books.json');
   DATA.grid = await res.json();
   return DATA.grid;
 }
@@ -33,16 +32,6 @@ export async function loadReadingLog() {
     }
   }
   return DATA.readMap;
-}
-
-export async function loadBookDetail(isbn) {
-  if (DATA.detailCache[isbn]) return DATA.detailCache[isbn];
-  try {
-    const res = await fetch(`data/books/${isbn}.json`);
-    if (!res.ok) return null;
-    DATA.detailCache[isbn] = await res.json();
-    return DATA.detailCache[isbn];
-  } catch { return null; }
 }
 
 // ─── Enriched catalog ───────────────────────────────────────────────────────
@@ -101,47 +90,57 @@ async function ghPut(path, content /* base64 */, sha, message) {
 
 // ─── Book persistence ───────────────────────────────────────────────────────
 
-export async function saveNewBook(book, detailObj, coverBase64, coverMime) {
-  // book:       {isbn, title, author, year, cover}
-  // detailObj:  full metadata object
+async function ghGetGridJson() {
+  // books.json may exceed 1 MB — GitHub Contents API returns empty content for
+  // large files.  Fetch metadata (for SHA), then content via download_url.
+  const { token, repo } = getConfig();
+  const meta = await fetch(`${GITHUB_API}/repos/${repo}/contents/data/books.json`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },
+  });
+  if (!meta.ok) throw new Error(`GitHub GET failed: ${meta.status} data/books.json`);
+  const info = await meta.json();
+
+  let text;
+  if (info.content) {
+    text = decodeURIComponent(escape(atob(info.content.replace(/\n/g, ''))));
+  } else {
+    const raw = await fetch(info.download_url);
+    if (!raw.ok) throw new Error(`Download failed: ${raw.status}`);
+    text = await raw.text();
+  }
+  return { sha: info.sha, grid: JSON.parse(text) };
+}
+
+export async function saveNewBook(entry, coverBase64, coverMime) {
+  // entry:       full merged book object (grid + detail fields)
   // coverBase64: raw base64 string (or null to skip)
-  // coverMime:  e.g. 'image/webp'
+  // coverMime:   e.g. 'image/webp'
 
   const steps = [];
 
   // 1. Upload cover if provided
   if (coverBase64) {
-    const coverPath = `covers/${book.isbn}.webp`;
+    const coverPath = `covers/${entry.isbn}.webp`;
     let coverSha;
     try { const f = await ghGet(coverPath); coverSha = f.sha; } catch { /* new file */ }
-    await ghPut(coverPath, coverBase64, coverSha, `cover: ${book.isbn}`);
+    await ghPut(coverPath, coverBase64, coverSha, `cover: ${entry.isbn}`);
     steps.push('cover');
   }
 
-  // 2. Write detail JSON
-  const detailPath = `data/books/${book.isbn}.json`;
-  let detailSha;
-  try { const f = await ghGet(detailPath); detailSha = f.sha; } catch { /* new */ }
-  const detailContent = btoa(unescape(encodeURIComponent(JSON.stringify(detailObj, null, 2))));
-  await ghPut(detailPath, detailContent, detailSha, `detail: ${book.title}`);
-  steps.push('detail');
-
-  // 3. Update grid.json
-  const gridFile = await ghGet('data/grid.json');
-  const currentGrid = JSON.parse(decodeURIComponent(escape(atob(gridFile.content.replace(/\n/g, '')))));
-  const alreadyExists = currentGrid.findIndex(b => b.isbn === book.isbn);
-  if (alreadyExists >= 0) currentGrid[alreadyExists] = book;
-  else currentGrid.push(book);
-  const gridContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentGrid, null, 2))));
-  await ghPut('data/grid.json', gridContent, gridFile.sha, `add: ${book.title}`);
+  // 2. Update books.json
+  const { sha, grid: currentGrid } = await ghGetGridJson();
+  const idx = currentGrid.findIndex(b => b.isbn === entry.isbn);
+  if (idx >= 0) currentGrid[idx] = entry;
+  else currentGrid.push(entry);
+  const gridContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentGrid))));
+  await ghPut('data/books.json', gridContent, sha, `add: ${entry.title}`);
   steps.push('grid');
 
   // Update local cache
   if (DATA.grid) {
-    const idx = DATA.grid.findIndex(b => b.isbn === book.isbn);
-    if (idx >= 0) DATA.grid[idx] = book; else DATA.grid.push(book);
+    const i = DATA.grid.findIndex(b => b.isbn === entry.isbn);
+    if (i >= 0) DATA.grid[i] = entry; else DATA.grid.push(entry);
   }
-  DATA.detailCache[book.isbn] = detailObj;
 
   return steps;
 }

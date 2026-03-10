@@ -1,10 +1,9 @@
 // sw.js — Biblio Service Worker
 
-const CACHE_NAME = 'biblio-v1';
+const CACHE_NAME = 'biblio-v2';
 const CACHE_SHELL = [
   '/',
   '/index.html',
-  '/search.html',
   '/reading-log.html',
   '/add.html',
   '/book.html',
@@ -17,13 +16,15 @@ const CACHE_SHELL = [
   '/assets/icon.svg',
   'https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js',
+  'https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.stemmer.support.min.js',
+  'https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.multi.min.js',
+  'https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.it.min.js',
 ];
 
 // Data files: cache on first fetch, serve stale while revalidating
 const DATA_PATTERNS = [
-  /\/data\/grid\.json/,
+  /\/data\/books\.json/,
   /\/data\/reading-log\.csv/,
-  /\/data\/books\//,
 ];
 
 // Covers: cache-first (images don't change once written)

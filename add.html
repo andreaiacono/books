@@ -15,7 +15,7 @@
   <a href="index.html" class="nav__brand">Biblio</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
-    <li><a href="search.html">Search</a></li>
+    <li><a href="index.html">Search</a></li>
     <li><a href="reading-log.html">Reading Log</a></li>
     <li><a href="add.html" class="active">Add Book</a></li>
     <li><a href="settings.html">Settings</a></li>
@@ -200,26 +200,22 @@
 
     if (!isbn || !title) { toast('Title and ISBN are required', 'warning'); return; }
 
-    const gridEntry = {
-      isbn,
-      title,
-      author,
-      year:  parseInt(document.getElementById('f-year').value) || null,
-      cover: `covers/${isbn}.webp`,
-    };
-
     const subjects = document.getElementById('f-subjects').value
       .split(',').map(s => s.trim()).filter(Boolean);
 
-    const detailEntry = {
-      ...gridEntry,
+    const entry = {
+      isbn,
+      title,
+      author,
+      year:        parseInt(document.getElementById('f-year').value) || null,
+      cover:       `covers/${isbn}.webp`,
+      added:       new Date().toISOString().slice(0, 10),
       publisher:   document.getElementById('f-publisher').value.trim(),
       pages:       parseInt(document.getElementById('f-pages').value) || null,
       language:    document.getElementById('f-language').value.trim(),
       description: document.getElementById('f-description').value.trim(),
       subjects,
       source:      currentMeta?.source ?? 'manual',
-      addedAt:     new Date().toISOString(),
     };
 
     // Show progress
@@ -228,7 +224,7 @@
     const bar = document.getElementById('progress-bar');
     const status = document.getElementById('save-status');
 
-    const steps = ['cover', 'detail', 'grid'];
+    const steps = ['cover', 'grid'];
     let done = 0;
     const updateProgress = (msg) => {
       done++;
@@ -237,8 +233,8 @@
     };
 
     try {
-      status.textContent = 'Uploading cover…';
-      await saveNewBook(gridEntry, detailEntry, coverBase64, 'image/webp');
+      status.textContent = 'Saving…';
+      await saveNewBook(entry, coverBase64, 'image/webp');
       updateProgress('Saved! Redirecting…');
       toast(`"${title}" added to your library`, 'success');
       setTimeout(() => window.location.href = 'index.html', 1200);
