@@ -146,10 +146,15 @@ def print_report(
         label = format_key_label(key, fields, all_books)
         print(f"  [{label}]  —  {len(books)} book(s)")
 
-        # Only list individual books (with ISBN) when at least one scalar field is missing
+        # List individual books when:
+        # - --show is used and at least one scalar field is missing, OR
+        # - the group has fewer than 5 books (show ISBNs only)
         if show_fields and key_has_missing(key, fields, all_books):
             for book in books:
                 print(format_book_line(book, show_fields))
+        elif len(books) < 5:
+            for book in books:
+                print(f"    - {book.get('isbn', 'N/A')} - {book.get('title', 'N/A')}")
 
         print()
 

@@ -301,6 +301,11 @@ input:focus, select:focus, textarea:focus {
   border-radius: 999px;
 }
 
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+  cursor: pointer;
+}
+
 .search-icon {
   position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
   color: var(--text-muted); pointer-events: none; width: 18px; height: 18px;
