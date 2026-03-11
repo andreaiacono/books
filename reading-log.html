@@ -31,13 +31,54 @@
     <p id="log-subtitle">Loading…</p>
   </header>
 
+  <div style="margin-bottom:1.25rem">
+    <button id="add-entry-toggle" class="btn btn--primary" style="font-size:13px;padding:0.4rem 1rem">+ Add entry</button>
+  </div>
+
+  <div id="add-entry-form" style="display:none;margin-bottom:2rem;padding:1.25rem;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-lg)">
+    <h3 style="font-family:var(--font-display);font-weight:400;font-size:1.1rem;margin-bottom:1rem">New reading entry</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="le-title">Title *</label>
+        <input type="text" id="le-title" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="le-author">Author(s)</label>
+        <input type="text" id="le-author">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="le-date">Date finished</label>
+        <input type="date" id="le-date">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="le-isbn">ISBN (optional)</label>
+        <input type="text" id="le-isbn" placeholder="e.g. 9780141033570" style="font-family:var(--font-mono);letter-spacing:0.05em">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="le-comment">Comment</label>
+      <textarea id="le-comment" rows="2" style="resize:vertical" placeholder="Your thoughts…"></textarea>
+    </div>
+    <label style="display:flex;align-items:center;gap:0.5rem;font-size:14px;color:var(--text-muted);margin-bottom:1rem;cursor:pointer">
+      <input type="checkbox" id="le-marked"> Mark as favourite
+    </label>
+    <div style="display:flex;gap:0.75rem;align-items:center">
+      <button id="le-submit" class="btn btn--primary">Save entry</button>
+      <button id="le-cancel" class="btn btn--ghost">Cancel</button>
+      <span id="le-status" style="font-size:13px;display:none"></span>
+    </div>
+  </div>
+
   <div id="log-container"></div>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { escHtml } from './js/ui.js';
+  import { appendReadingLogEntry, isConfigured } from './js/data.js';
+  import { escHtml, toast } from './js/ui.js';
 
   const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
                      'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
@@ -134,6 +175,69 @@
     return new Date(+y, +m - 1, +d).getTime();
   }
 
+  // ── Add entry form ──────────────────────────────────────────────────────
+  function setupAddForm() {
+    const toggleBtn = document.getElementById('add-entry-toggle');
+    const form = document.getElementById('add-entry-form');
+    const dateInput = document.getElementById('le-date');
+
+    // Default date to today
+    dateInput.value = new Date().toISOString().slice(0, 10);
+
+    toggleBtn.addEventListener('click', () => {
+      if (!isConfigured()) {
+        toast('Configure GitHub settings first', 'warning');
+        return;
+      }
+      form.style.display = '';
+      toggleBtn.style.display = 'none';
+    });
+
+    document.getElementById('le-cancel').addEventListener('click', () => {
+      form.style.display = 'none';
+      toggleBtn.style.display = '';
+    });
+
+    document.getElementById('le-submit').addEventListener('click', async () => {
+      const title = document.getElementById('le-title').value.trim();
+      if (!title) { toast('Title is required', 'warning'); return; }
+
+      const rawDate = dateInput.value; // YYYY-MM-DD
+      const date = rawDate
+        ? `${rawDate.slice(8,10)}/${rawDate.slice(5,7)}/${rawDate.slice(0,4)}`
+        : `${String(new Date().getDate()).padStart(2,'0')}/${String(new Date().getMonth()+1).padStart(2,'0')}/${new Date().getFullYear()}`;
+
+      const submitBtn = document.getElementById('le-submit');
+      const status = document.getElementById('le-status');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving…';
+      status.style.display = '';
+      status.style.color = 'var(--text-muted)';
+      status.textContent = 'Saving to GitHub…';
+
+      try {
+        await appendReadingLogEntry({
+          date,
+          title,
+          comment:  document.getElementById('le-comment').value.trim(),
+          creators: document.getElementById('le-author').value.trim(),
+          isbn:     document.getElementById('le-isbn').value.trim().replace(/[^0-9X]/gi, ''),
+          marked:   document.getElementById('le-marked').checked,
+        });
+        status.style.color = 'var(--read-green)';
+        status.textContent = 'Saved!';
+        toast(`Entry for "${title}" saved`, 'success');
+        setTimeout(() => location.reload(), 1200);
+      } catch (err) {
+        status.style.color = 'var(--danger)';
+        status.textContent = `Error: ${err.message}`;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Save entry';
+      }
+    });
+  }
+
+  setupAddForm();
   init();
 </script>
 
