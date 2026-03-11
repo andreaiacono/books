@@ -152,11 +152,59 @@ def print_report(
         if show_fields and key_has_missing(key, fields, all_books):
             for book in books:
                 print(format_book_line(book, show_fields))
-        elif len(books) < 5:
+        elif len(books) < 12:
             for book in books:
                 print(f"    - {book.get('isbn', 'N/A')} - {book.get('title', 'N/A')}")
 
         print()
+
+
+def run_prune(books_path: Path, field: str) -> None:
+    """Interactively prune list fields with more than one entry."""
+    with open(books_path, "r", encoding="utf-8") as f:
+        all_books = json.load(f)
+
+    targets = [
+        b for b in all_books
+        if not b.get("isbn", "").startswith("noisbn_")
+        and isinstance(b.get(field), list)
+        and len(b[field]) > 1
+    ]
+
+    if not targets:
+        print(f"  No books with more than one '{field}' entry.")
+        return
+
+    print(f"\n  Found {len(targets)} book(s) with multiple '{field}' entries.")
+    print("  For each book: enter a replacement value, press Enter to skip, Ctrl-C to stop.\n")
+
+    changed = 0
+    try:
+        for i, book in enumerate(targets, 1):
+            isbn = book.get("isbn", "?")
+            title = book.get("title", "?")
+            values = book[field]
+            print(f"  [{i}/{len(targets)}] {title}  ({isbn})")
+            print(f"    Current {field} ({len(values)}): {', '.join(str(v) for v in values)}")
+            reply = input("    New value (blank=skip): ").strip()
+            if reply:
+                book[field] = [reply]
+                changed += 1
+                print(f"    → set to: [{reply}]")
+            else:
+                print("    → skipped")
+            print()
+    except (KeyboardInterrupt, EOFError):
+        print("\n  Interrupted.")
+
+    if changed:
+        tmp = books_path.with_suffix(".tmp")
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(all_books, f, ensure_ascii=False, separators=(",", ":"))
+        tmp.replace(books_path)
+        print(f"  Saved {changed} change(s) to {books_path}.")
+    else:
+        print("  No changes made.")
 
 
 def main() -> None:
@@ -199,12 +247,26 @@ def main() -> None:
             "e.g. --show title author year"
         ),
     )
+    parser.add_argument(
+        "--prune",
+        metavar="FIELD",
+        default=None,
+        help=(
+            "Interactively prune a list field where cardinality > 1. "
+            "For each book, shows current values and lets you type a single replacement. "
+            "e.g. --prune subjects"
+        ),
+    )
 
     args = parser.parse_args()
 
     if not args.books.is_file():
         print(f"Error: '{args.books}' not found.", file=sys.stderr)
         sys.exit(1)
+
+    if args.prune:
+        run_prune(args.books, args.prune)
+        return
 
     groups = group_books(args.books, args.fields)
     print_report(groups, args.fields, args.show)

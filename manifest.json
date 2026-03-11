@@ -1,6 +1,6 @@
 {
-  "name": "Biblio",
-  "short_name": "Biblio",
+  "name": "MyBooks",
+  "short_name": "MyBooks",
   "description": "Personal library manager",
   "start_url": "/index.html",
   "display": "standalone",

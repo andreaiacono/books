@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-**Biblio** — a fully static personal library manager + reading diary. No backend, no build step, hosted on GitHub Pages. All persistence is done via the GitHub Contents API directly from the browser.
+**MyBooks** — a fully static personal library manager + reading diary. No backend, no build step, hosted on GitHub Pages. All persistence is done via the GitHub Contents API directly from the browser.
 
 ## Development
 

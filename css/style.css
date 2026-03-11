@@ -1,4 +1,4 @@
-/* css/style.css — Biblio: dark editorial aesthetic */
+/* css/style.css — MyBooks: dark editorial aesthetic */
 
 /* ─── Fonts ──────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap');
@@ -133,9 +133,9 @@ input:focus, select:focus, textarea:focus {
 
 /* ─── Page layout ─────────────────────────────────────────────────────────── */
 .page {
-  max-width: 1400px;
+  max-width: 2000px;
   margin: 0 auto;
-  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem);
+  padding: clamp(1rem, 3vw, 2rem) clamp(0.75rem, 3vw, 1.5rem);
 }
 
 .page-header {

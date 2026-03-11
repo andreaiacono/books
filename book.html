@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biblio — Book</title>
+  <title>MyBooks — Book</title>
   <link rel="stylesheet" href="css/style.css">
   <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
@@ -12,7 +12,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio</a>
+  <a href="index.html" class="nav__brand">MyBooks</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
     <li><a href="index.html">Search</a></li>
@@ -56,7 +56,7 @@
     const reading = readMap.get(isbn) ?? null;
     const book = { ...gridEntry, reading };
 
-    document.title = `${book.title} — Biblio`;
+    document.title = `${book.title} — MyBooks`;
     renderBook(book);
   }
 

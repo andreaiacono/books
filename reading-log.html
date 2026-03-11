@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biblio — Reading Log</title>
+  <title>MyBooks — Reading Log</title>
   <link rel="stylesheet" href="css/style.css">
   <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
@@ -12,7 +12,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__brand">Biblio</a>
+  <a href="index.html" class="nav__brand">MyBooks</a>
   <ul class="nav__links">
     <li><a href="index.html">Library</a></li>
     <li><a href="index.html">Search</a></li>
@@ -30,13 +30,6 @@
     <h1>Reading Log</h1>
     <p id="log-subtitle">Loading…</p>
   </header>
-
-  <div id="log-stats" class="stats-bar" style="display:none">
-    <div class="stat"><span class="stat__value" id="ls-total">—</span><span class="stat__label">books read</span></div>
-    <div class="stat"><span class="stat__value" id="ls-years">—</span><span class="stat__label">years tracked</span></div>
-    <div class="stat"><span class="stat__value" id="ls-fav">—</span><span class="stat__label">favourites</span></div>
-    <div class="stat"><span class="stat__value" id="ls-rate">—</span><span class="stat__label">books/month avg</span></div>
-  </div>
 
   <div id="log-container"></div>
 </main>
@@ -67,13 +60,7 @@
     const months  = Math.max(1, Math.round(spanMs / (1000 * 60 * 60 * 24 * 30.4)));
     const rate    = (total / months).toFixed(1);
 
-    document.getElementById('ls-total').textContent = total;
-    document.getElementById('ls-years').textContent = years;
-    document.getElementById('ls-fav').textContent   = favs;
-    document.getElementById('ls-rate').textContent  = rate;
-    document.getElementById('log-stats').style.display = '';
-    document.getElementById('log-subtitle').textContent =
-      `${total} books across ${years} years`;
+    document.getElementById('log-subtitle').textContent = `${total} books · (in green the ones I liked the most)`;
 
     // Group by year → month
     const byYear = new Map();

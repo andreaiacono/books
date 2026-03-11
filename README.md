@@ -1,4 +1,4 @@
-# Biblio
+# MyBooks
 
 A fully static personal library manager + reading diary. No backend. No build step. Hosted on GitHub Pages.
 

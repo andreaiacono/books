@@ -35,7 +35,7 @@ except ImportError:
     tqdm = None
 
 SCRIPT_DIR = Path(__file__).parent
-META_FIELDS = {"description", "author", "publisher", "pages", "subjects"}
+META_FIELDS = {"description", "author", "publisher", "pages", "subjects", "year"}
 CHECK_FIELDS = META_FIELDS | {"cover"}
 SAVE_EVERY = 20  # save books.json every N metadata updates
 
@@ -131,6 +131,59 @@ _BROWSER_UA = (
 )
 
 
+def fetch_ibs(isbn, session):
+    """Fetch metadata from IBS.it via JSON-LD structured data."""
+    url = f"https://www.ibs.it/a/e/{isbn}"
+    try:
+        r = session.get(url, timeout=10, headers={"User-Agent": _BROWSER_UA})
+        if r.status_code != 200:
+            return {}
+        page = r.text
+    except Exception:
+        return {}
+
+    # Extract JSON-LD block
+    m = _re.search(
+        r'<script\s+type="application/ld\+json">(.*?)</script>',
+        page, _re.DOTALL,
+    )
+    if not m:
+        return {}
+
+    try:
+        ld = json.loads(m.group(1))
+    except Exception:
+        return {}
+
+    # ld can be a single object or a list; Book data may be nested in mainEntity
+    if isinstance(ld, list):
+        ld = next((x for x in ld if "Book" in (x.get("@type") or [])), ld[0] if ld else {})
+    if "mainEntity" in ld:
+        ld = ld["mainEntity"]
+
+    meta = {}
+    if desc := (ld.get("description") or "").strip():
+        if len(desc) > 40:
+            meta["description"] = desc
+    if pub := (ld.get("publisher") or "").strip():
+        meta["publisher"] = pub
+    if pages_str := ld.get("numberOfPages"):
+        try:
+            pages = int(pages_str)
+            if pages > 0:
+                meta["pages"] = pages
+        except (ValueError, TypeError):
+            pass
+    if author := (ld.get("author") or "").strip():
+        meta["author"] = author
+    if date_pub := (ld.get("datePublished") or "").strip():
+        m2 = _re.search(r"(\d{4})", date_pub)
+        if m2:
+            meta["year"] = int(m2.group(1))
+
+    return meta
+
+
 def fetch_google_books_web(isbn, session):
     """Scrape metadata from the Google Books website (no API key needed)."""
     url = f"https://books.google.com/books?vid={isbn}"
@@ -174,6 +227,11 @@ def fetch_google_books_web(isbn, session):
                 meta["pages"] = int(m2.group(1))
         if label in ("autore", "author", "auteur", "autor"):
             meta.setdefault("author", value)
+        if label in ("data di pubblicazione", "published", "date de publication",
+                      "veröffentlichungsdatum", "año de edición"):
+            m2 = _re.search(r"(\d{4})", value)
+            if m2:
+                meta["year"] = int(m2.group(1))
         if label in ("categorie", "categories", "catégories", "kategorien"):
             subjects = [s.strip() for s in value.split(",") if s.strip()]
             if subjects:
@@ -255,6 +313,10 @@ def fetch_google_books(isbn, session, api_key=None):
             meta["publisher"] = pub
         if (pages := info.get("pageCount")) and isinstance(pages, int) and pages > 0:
             meta["pages"] = pages
+        if pub_date := info.get("publishedDate", ""):
+            m2 = _re.search(r"(\d{4})", pub_date)
+            if m2:
+                meta["year"] = int(m2.group(1))
         if categories := info.get("categories"):
             subjects, seen = [], set()
             for cat in categories:
@@ -303,6 +365,10 @@ def fetch_open_library_meta(isbn, session):
             meta["publisher"] = name
     if (pages := entry.get("number_of_pages")) and isinstance(pages, int) and pages > 0:
         meta["pages"] = pages
+    if pub_date := entry.get("publish_date", ""):
+        m = _re.search(r"(\d{4})", pub_date)
+        if m:
+            meta["year"] = int(m.group(1))
     if raw_subj := entry.get("subjects"):
         subjects, seen = [], set()
         for s in raw_subj:
@@ -526,23 +592,34 @@ def run_fetch(args):
                     progress["meta"].add(isbn)
                 need_meta = False
 
-        # Fetch metadata: 1) Google Books web  2) Open Library  3) Google Books API
+        # Fetch metadata: 1) IBS.it  2) Google Books web  3) Open Library  4) Google Books API
         google_thumb = None
 
         # Fill metadata
         if need_meta:
             log(f"  ── {label}  need: {', '.join(sorted(needed))}")
 
-            # 1) Google Books website (scrape)
-            web_meta = fetch_google_books_web(isbn, session)
+            # 1) IBS.it (JSON-LD)
+            ibs_meta = fetch_ibs(isbn, session)
             time.sleep(args.delay)
-            if web_meta:
-                log(f"     GB-web  → {', '.join(sorted(web_meta.keys()))}")
+            if ibs_meta:
+                log(f"     IBS     → {', '.join(sorted(ibs_meta.keys()))}")
             else:
-                log(f"     GB-web  → (nothing)")
-            still_missing = needed - set(web_meta.keys())
+                log(f"     IBS     → (nothing)")
+            still_missing = needed - set(ibs_meta.keys())
 
-            # 2) Open Library
+            # 2) Google Books website (scrape)
+            web_meta = {}
+            if still_missing:
+                web_meta = fetch_google_books_web(isbn, session)
+                time.sleep(args.delay)
+                if web_meta:
+                    log(f"     GB-web  → {', '.join(sorted(web_meta.keys()))}")
+                else:
+                    log(f"     GB-web  → (nothing)")
+                still_missing -= set(web_meta.keys())
+
+            # 3) Open Library
             ol_meta = {}
             if still_missing:
                 ol_meta = fetch_open_library_meta(isbn, session)
@@ -553,7 +630,7 @@ def run_fetch(args):
                     log(f"     OL      → (nothing)")
                 still_missing -= set(ol_meta.keys())
 
-            # 3) Google Books API (last resort, also gets cover thumbnail)
+            # 4) Google Books API (last resort, also gets cover thumbnail)
             api_meta = {}
             if (still_missing or need_cover) and not google_quota_hit:
                 try:
@@ -570,7 +647,9 @@ def run_fetch(args):
 
             filled = {}
             for f in needed:
-                if f in web_meta:
+                if f in ibs_meta:
+                    filled[f] = ("IBS", ibs_meta[f])
+                elif f in web_meta:
                     filled[f] = ("GB-web", web_meta[f])
                 elif f in ol_meta:
                     filled[f] = ("OL", ol_meta[f])
