@@ -26,14 +26,13 @@
 </nav>
 
 <main class="page">
-  <header class="page-header">
-    <h1>Reading Log</h1>
-    <p id="log-subtitle">Loading…</p>
-  </header>
-
-  <div style="margin-bottom:1.25rem;display:flex;justify-content:flex-end">
+  <header class="page-header" style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+    <div>
+      <h1>Reading Log</h1>
+      <p id="log-subtitle">Loading…</p>
+    </div>
     <button id="add-entry-toggle" class="btn btn--primary" style="font-size:13px;padding:0.4rem 1rem">+ Add entry</button>
-  </div>
+  </header>
 
   <div id="add-entry-form" style="display:none;margin-bottom:2rem;padding:1.25rem;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-lg)">
     <h3 style="font-family:var(--font-display);font-weight:400;font-size:1.1rem;margin-bottom:1rem">New reading entry</h3>
@@ -101,7 +100,7 @@
     const months  = Math.max(1, Math.round(spanMs / (1000 * 60 * 60 * 24 * 30.4)));
     const rate    = (total / months).toFixed(1);
 
-    document.getElementById('log-subtitle').textContent = `${total} books · (in green the ones I liked the most)`;
+    document.getElementById('log-subtitle').textContent = `(in green the ones I liked the most)`;
 
     // Group by year → month
     const byYear = new Map();
@@ -130,9 +129,9 @@
       const yearHeader = document.createElement('div');
       yearHeader.className = 'year-header';
       yearHeader.innerHTML = `
+        <span class="year-chevron">▾</span>
         <h2>${escHtml(year)}</h2>
-        <span class="year-count">${totalInYear} libri</span>
-        <span class="year-chevron">▾</span>`;
+        <span class="year-count">${totalInYear} libri</span>`;
       yearHeader.addEventListener('click', () => yearSection.classList.toggle('collapsed'));
 
       const yearBody = document.createElement('div');
@@ -141,7 +140,15 @@
       for (const { label, entries } of monthMap.values()) {
         const monthSection = document.createElement('section');
         monthSection.className = 'month-section';
-        monthSection.innerHTML = `<div class="month-header">${escHtml(label)}</div>`;
+
+        const monthHeader = document.createElement('div');
+        monthHeader.className = 'month-header';
+        monthHeader.innerHTML = `<span class="month-chevron">▾</span><span>${escHtml(label)}</span>`;
+        monthHeader.addEventListener('click', () => monthSection.classList.toggle('collapsed'));
+        monthSection.appendChild(monthHeader);
+
+        const entriesDiv = document.createElement('div');
+        entriesDiv.className = 'month-entries';
 
         for (const entry of entries) {
           const isbn    = entry.isbn?.trim();
@@ -157,9 +164,10 @@
           const row = document.createElement('p');
           row.className = 'log-entry';
           row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} <span class="log-comment"> di </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
-          monthSection.appendChild(row);
+          entriesDiv.appendChild(row);
         }
 
+        monthSection.appendChild(entriesDiv);
         yearBody.appendChild(monthSection);
       }
 

@@ -495,7 +495,7 @@ html[data-theme="light"] .nav {
   font-size: 13px; color: var(--text-muted); font-family: var(--font-mono);
 }
 .month-group__chevron {
-  margin-left: auto; color: var(--text-faint); transition: transform 0.2s ease;
+  color: var(--text-faint); transition: transform 0.2s ease;
 }
 .month-group.collapsed .month-group__chevron { transform: rotate(-90deg); }
 .month-group.collapsed .book-grid { display: none; }
@@ -577,17 +577,24 @@ html[data-theme="light"] .nav {
 }
 .year-header h2 { font-size: 1.2rem; font-weight: 600; }
 .year-header .year-count { font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); }
-.year-header .year-chevron { margin-left: auto; color: var(--text-faint); transition: transform 0.2s ease; }
+.year-header .year-chevron { color: var(--text-faint); transition: transform 0.2s ease; }
 .year-section.collapsed .year-chevron { transform: rotate(-90deg); }
 .year-section.collapsed .year-body { display: none; }
 
 .month-section { margin-bottom: 1.25rem; }
 
 .month-header {
+  display: flex; align-items: baseline; gap: 0.5rem;
   font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
   padding: 0.25rem 0;
   border-bottom: 1px solid var(--border); margin-bottom: 0.25rem;
+  cursor: pointer; user-select: none;
 }
+.month-header .month-chevron {
+  color: var(--text-faint); transition: transform 0.2s ease; font-size: 11px;
+}
+.month-section.collapsed .month-chevron { transform: rotate(-90deg); }
+.month-section.collapsed .month-entries { display: none; }
 
 .log-entry { padding: 0.1rem 0; font-size: 14px; line-height: 1.7; }
 
