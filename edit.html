@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBooks — Edit Book</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f0e0d">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">MyBooks</a>
+  <ul class="nav__links">
+    <li><a href="index.html">Library</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle">☀</button>
+    <button class="btn btn--ghost" onclick="history.back()" style="font-size:13px;padding:0.35rem 0.85rem">
+      ← Back
+    </button>
+  </div>
+</nav>
+
+<main class="page" style="max-width:760px" id="main-content">
+  <div class="empty-state">
+    <div class="loader__spinner" style="width:32px;height:32px;margin:0 auto"></div>
+  </div>
+</main>
+
+<script type="module">
+  import { loadGrid, saveNewBook, isConfigured } from './js/data.js';
+  import { toast, escHtml } from './js/ui.js';
+
+  const SUBJECTS = [
+    'Art','Biography','Comics','Crafts','Curiosities','Diary','Drama',
+    'Economics','Education','Essays','Fiction','Food','History','Humor',
+    'Language','Math','Medicine','Music','Nature','Philosophy','Poetry',
+    'Politics','Psychology','Religion','Science','Self-Help','Sport',
+    'Technology','Transport','Travel','True Crime'
+  ];
+
+  let originalBook = null;
+  let coverBase64 = null;
+  let coverChanged = false;
+
+  async function init() {
+    const main = document.getElementById('main-content');
+
+    if (!isConfigured()) {
+      main.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state__icon">⚙️</div>
+          <h2>GitHub not configured</h2>
+          <p>Set your Personal Access Token and repository in <a href="settings.html">Settings</a> to enable editing.</p>
+        </div>`;
+      return;
+    }
+
+    const isbn = new URLSearchParams(location.search).get('isbn');
+    if (!isbn) { render404(); return; }
+
+    const grid = await loadGrid();
+    originalBook = grid.find(b => b.isbn === isbn);
+    if (!originalBook) { render404(); return; }
+
+    document.title = `Edit: ${originalBook.title} — MyBooks`;
+    renderForm(originalBook);
+  }
+
+  function renderForm(book) {
+    const main = document.getElementById('main-content');
+    const subjects = Array.isArray(book.subjects) ? book.subjects : [];
+    const currentSubject = subjects[0] || '';
+
+    main.innerHTML = `
+      <header class="page-header">
+        <h1>Edit Book</h1>
+        <p>${escHtml(book.title)}</p>
+      </header>
+
+      <div style="display:grid;grid-template-columns:140px 1fr;gap:1.5rem;margin-bottom:1.5rem">
+        <div>
+          <img id="cover-preview"
+               src="${escHtml(book.cover ?? 'assets/no-cover.svg')}"
+               alt="Cover"
+               onerror="this.src='assets/no-cover.svg'"
+               style="width:140px;height:210px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)">
+          <label class="btn btn--ghost" style="display:block;text-align:center;font-size:12px;margin-top:0.5rem;cursor:pointer">
+            Change cover
+            <input type="file" id="cover-file" accept="image/*" style="display:none">
+          </label>
+          <p id="cover-status" style="font-size:11px;color:var(--text-faint);margin-top:0.25rem;text-align:center"></p>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label" for="f-title">Title *</label>
+            <input type="text" id="f-title" value="${escAttr(book.title)}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-author">Author(s) *</label>
+            <input type="text" id="f-author" value="${escAttr(book.author)}" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-year">Year</label>
+              <input type="number" id="f-year" min="1000" max="2099" value="${book.year ?? ''}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ISBN</label>
+              <input type="text" value="${escAttr(book.isbn)}" readonly style="opacity:0.6;cursor:default">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-publisher">Publisher</label>
+          <input type="text" id="f-publisher" value="${escAttr(book.publisher)}">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-pages">Pages</label>
+          <input type="number" id="f-pages" min="1" value="${book.pages ?? ''}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-subject">Subject</label>
+        <select id="f-subject">
+          <option value="">— None —</option>
+          ${SUBJECTS.map(s => `<option value="${escAttr(s)}"${s === currentSubject ? ' selected' : ''}>${escHtml(s)}</option>`).join('')}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-description">Description</label>
+        <textarea id="f-description" rows="5" style="resize:vertical">${escHtml(book.description ?? '')}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-language">Language</label>
+        <input type="text" id="f-language" value="${escAttr(book.language)}" placeholder="e.g. en">
+      </div>
+
+      <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
+        <button class="btn btn--primary" id="save-btn">Save Changes</button>
+        <button class="btn btn--ghost" id="cancel-btn">Cancel</button>
+      </div>
+
+      <div id="save-progress" style="display:none;margin-top:1rem">
+        <div style="height:4px;background:var(--bg-raised);border-radius:2px;overflow:hidden">
+          <div id="progress-bar" style="height:100%;width:0%;background:var(--accent);transition:width 0.4s ease"></div>
+        </div>
+        <p id="save-status" style="font-size:13px;color:var(--text-muted);margin-top:0.5rem"></p>
+      </div>
+    `;
+
+    // Cover file picker
+    document.getElementById('cover-file').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const statusEl = document.getElementById('cover-status');
+      statusEl.textContent = 'Processing…';
+
+      try {
+        const dataUrl = await readFileAsDataURL(file);
+        // Convert to WebP via canvas
+        const webpBase64 = await convertToWebP(dataUrl);
+        coverBase64 = webpBase64;
+        coverChanged = true;
+        document.getElementById('cover-preview').src = `data:image/webp;base64,${webpBase64}`;
+        statusEl.textContent = 'New cover ready';
+      } catch (err) {
+        statusEl.textContent = 'Failed to process image';
+        console.error(err);
+      }
+    });
+
+    // Save
+    document.getElementById('save-btn').addEventListener('click', saveChanges);
+
+    // Cancel
+    document.getElementById('cancel-btn').addEventListener('click', () => {
+      window.location.href = `book.html?isbn=${originalBook.isbn}`;
+    });
+  }
+
+  async function saveChanges() {
+    const title = document.getElementById('f-title').value.trim();
+    const author = document.getElementById('f-author').value.trim();
+    if (!title) { toast('Title is required', 'warning'); return; }
+
+    const subject = document.getElementById('f-subject').value;
+
+    const entry = {
+      ...originalBook,
+      title,
+      author,
+      year:        parseInt(document.getElementById('f-year').value) || null,
+      publisher:   document.getElementById('f-publisher').value.trim(),
+      pages:       parseInt(document.getElementById('f-pages').value) || null,
+      subjects:    subject ? [subject] : [],
+      description: document.getElementById('f-description').value.trim(),
+      language:    document.getElementById('f-language').value.trim(),
+    };
+
+    const saveBtn = document.getElementById('save-btn');
+    const bar = document.getElementById('progress-bar');
+    const status = document.getElementById('save-status');
+    document.getElementById('save-progress').style.display = '';
+    saveBtn.disabled = true;
+    status.textContent = 'Saving…';
+    bar.style.width = '30%';
+
+    try {
+      await saveNewBook(entry, coverChanged ? coverBase64 : null, 'image/webp');
+      bar.style.width = '100%';
+      status.textContent = 'Saved! Redirecting…';
+      toast(`"${title}" updated`, 'success');
+      setTimeout(() => window.location.href = `book.html?isbn=${originalBook.isbn}`, 1200);
+    } catch (err) {
+      console.error(err);
+      toast(`Save failed: ${err.message}`, 'error');
+      saveBtn.disabled = false;
+      status.textContent = `Error: ${err.message}`;
+      bar.style.width = '0%';
+    }
+  }
+
+  function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function convertToWebP(dataUrl) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext('2d').drawImage(img, 0, 0);
+        const webpUrl = canvas.toDataURL('image/webp', 0.82);
+        resolve(webpUrl.split(',')[1]); // return base64 only
+      };
+      img.onerror = reject;
+      img.src = dataUrl;
+    });
+  }
+
+  function escAttr(s) {
+    return (s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function render404() {
+    document.getElementById('main-content').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">📖</div>
+        <h2>Book not found</h2>
+        <p>This ISBN isn't in your library. <a href="add.html">Add it?</a></p>
+      </div>`;
+  }
+
+  init();
+</script>
+
+<script src="js/theme.js"></script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/books/sw.js");</script>
+</body>
+</html>

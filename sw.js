@@ -7,6 +7,7 @@ const CACHE_SHELL = [
   '/reading-log.html',
   '/add.html',
   '/book.html',
+  '/edit.html',
   '/settings.html',
   '/css/style.css',
   '/js/data.js',

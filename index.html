@@ -41,7 +41,12 @@
            placeholder="Building index…" autocomplete="off" disabled>
   </div>
 
-  <div id="filter-bar" class="filter-bar" style="display:none"></div>
+  <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
+    <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
+      Subjects ▾
+    </button>
+    <div id="filter-bar" class="filter-bar" style="display:none;margin-top:0.5rem"></div>
+  </div>
   <p id="search-count" class="search-count" style="display:none"></p>
   <div id="book-grid"></div>
 </main>
@@ -104,9 +109,16 @@
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
     if (!sorted.length) return;
 
+    const wrap = document.getElementById('filter-wrap');
     const bar = document.getElementById('filter-bar');
-    bar.style.display = '';
-    bar.innerHTML = '';
+    const toggle = document.getElementById('filter-toggle');
+    wrap.style.display = '';
+
+    toggle.addEventListener('click', () => {
+      const open = bar.style.display !== 'none';
+      bar.style.display = open ? 'none' : '';
+      toggle.textContent = open ? 'Subjects ▾' : 'Subjects ▴';
+    });
 
     for (const [subject, count] of sorted) {
       const btn = document.createElement('button');
