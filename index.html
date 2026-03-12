@@ -39,6 +39,7 @@
     </svg>
     <input type="search" id="search-input" class="search-input"
            placeholder="Building index…" autocomplete="off" disabled>
+    <button id="search-clear" class="search-clear" type="button" aria-label="Clear search">&times;</button>
   </div>
 
   <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
@@ -290,9 +291,27 @@
     applyFilters();
   }
 
-  document.getElementById('search-input').addEventListener('input', e => {
+  const searchInput = document.getElementById('search-input');
+  const searchClear = document.getElementById('search-clear');
+  const searchIcon  = document.querySelector('.search-icon');
+
+  function toggleClearBtn() {
+    const hasText = searchInput.value.length > 0;
+    searchClear.style.display = hasText ? '' : 'none';
+    searchIcon.style.display  = hasText ? 'none' : '';
+  }
+
+  searchInput.addEventListener('input', e => {
+    toggleClearBtn();
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => doSearch(e.target.value), 200);
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    toggleClearBtn();
+    doSearch('');
+    searchInput.focus();
   });
 
   init();
