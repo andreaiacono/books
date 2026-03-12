@@ -3,6 +3,18 @@
 let _index = null;
 let _bookMap = null;   // isbn -> enriched book (for result hydration)
 
+// ─── Diacritics removal ─────────────────────────────────────────────────────
+
+const EXTRA_MAP = { ø: 'o', Ø: 'O', ł: 'l', Ł: 'L', đ: 'd', Đ: 'D', æ: 'ae', Æ: 'AE', ß: 'ss' };
+function stripDiacritics(s) {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[øØłŁđĐæÆß]/g, c => EXTRA_MAP[c]);
+}
+
+const removeDiacritics = function (token) {
+  return token.update(stripDiacritics);
+};
+lunr.Pipeline.registerFunction(removeDiacritics, 'removeDiacritics');
+
 // ─── Index builder ───────────────────────────────────────────────────────────
 
 export function buildSearchIndex(books) {
@@ -11,6 +23,10 @@ export function buildSearchIndex(books) {
   _index = lunr(function () {
     this.use(lunr.multiLanguage('en', 'it'));
     this.ref('isbn');
+
+    // Strip diacritics in both index and search pipelines
+    this.pipeline.add(removeDiacritics);
+    this.searchPipeline.add(removeDiacritics);
 
     this.field('title',       { boost: 10 });
     this.field('author',      { boost: 5  });
@@ -53,7 +69,7 @@ export function search(query) {
     return hydrateResults(_index.query(function () {
       terms.forEach(term => {
         this.term(term, { usePipeline: true });  // applies stemmer
-        this.term(term.toLowerCase(), { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
+        this.term(stripDiacritics(term.toLowerCase()), { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
       });
     }));
   } catch {
