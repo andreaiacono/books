@@ -133,7 +133,8 @@ export async function saveNewBook(entry, coverBase64, coverMime) {
   const isUpdate = idx >= 0;
   if (isUpdate) currentGrid[idx] = entry;
   else currentGrid.push(entry);
-  const gridContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentGrid))));
+  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
   await ghPut('data/books.json', gridContent, sha, `${isUpdate ? 'edit' : 'add'}: ${entry.title}`);
   steps.push('grid');
 
