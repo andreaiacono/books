@@ -91,6 +91,15 @@ async function ghPut(path, content /* base64 */, sha, message) {
 // ─── Book persistence ───────────────────────────────────────────────────────
 
 async function ghGetGridJson() {
+  // If we recently saved and have a cached SHA + grid data, use those.
+  // The API content may be stale for several seconds after a commit, so using
+  // it would silently discard changes from the previous save.
+  const cachedSha = sessionStorage.getItem('books_json_sha');
+  const cachedGrid = sessionStorage.getItem('books_json_grid');
+  if (cachedSha && cachedGrid) {
+    return { sha: cachedSha, grid: JSON.parse(cachedGrid) };
+  }
+
   // books.json may exceed 1 MB — GitHub Contents API returns empty content for
   // large files.  Fetch metadata (for SHA), then content via download_url.
   const { token, repo } = getConfig();
@@ -99,13 +108,6 @@ async function ghGetGridJson() {
   });
   if (!meta.ok) throw new Error(`GitHub GET failed: ${meta.status} data/books.json`);
   const info = await meta.json();
-
-  // GitHub's API may return a stale SHA for a few seconds after a commit.
-  // If we have a newer SHA from a recent PUT, prefer it.
-  const cachedSha = sessionStorage.getItem('books_json_sha');
-  if (cachedSha && cachedSha !== info.sha) {
-    info.sha = cachedSha;
-  }
 
   let text;
   if (info.content) {
@@ -143,21 +145,25 @@ export async function saveNewBook(entry, coverBase64, coverMime) {
     else currentGrid.push(entry);
     const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
     const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
-    return { gridContent, sha, isUpdate };
+    return { gridContent, sha, isUpdate, updatedGrid: currentGrid };
   }
 
-  let { gridContent, sha, isUpdate } = await putGrid();
+  let result = await putGrid();
   let putRes;
   try {
-    putRes = await ghPut('data/books.json', gridContent, sha, `${isUpdate ? 'edit' : 'add'}: ${entry.title}`);
+    putRes = await ghPut('data/books.json', result.gridContent, result.sha, `${result.isUpdate ? 'edit' : 'add'}: ${entry.title}`);
   } catch (e) {
     if (!e.message?.includes('409')) throw e;
-    // SHA conflict — clear cached SHA, re-fetch, and retry once
+    // SHA conflict — clear cache, re-fetch, and retry once
     sessionStorage.removeItem('books_json_sha');
-    ({ gridContent, sha, isUpdate } = await putGrid());
-    putRes = await ghPut('data/books.json', gridContent, sha, `${isUpdate ? 'edit' : 'add'}: ${entry.title}`);
+    sessionStorage.removeItem('books_json_grid');
+    result = await putGrid();
+    putRes = await ghPut('data/books.json', result.gridContent, result.sha, `${result.isUpdate ? 'edit' : 'add'}: ${entry.title}`);
   }
+  // Cache SHA + full grid in sessionStorage so subsequent saves (even after
+  // page navigation) use the latest data instead of stale API content.
   sessionStorage.setItem('books_json_sha', putRes.content?.sha ?? '');
+  sessionStorage.setItem('books_json_grid', JSON.stringify(result.updatedGrid));
   steps.push('grid');
 
   // Update local cache
