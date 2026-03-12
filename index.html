@@ -164,15 +164,15 @@
       if (activeFilters.size) {
         countEl.style.display = '';
         countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
-        renderGrid(filtered);
+        renderGrid(filtered, true);
       } else {
         countEl.style.display = 'none';
-        renderGrid(allBooks);
+        renderGrid(allBooks, false);
       }
     }
   }
 
-  function renderGrid(books) {
+  function renderGrid(books, expandAll = false) {
     const container = document.getElementById('book-grid');
     container.innerHTML = '';
 
@@ -218,7 +218,7 @@
       const totalInYear = [...monthMap.values()].reduce((n, g) => n + g.books.length, 0);
 
       const yearSection = document.createElement('section');
-      yearSection.className = 'year-section' + (yearKey === currentYear ? '' : ' collapsed');
+      yearSection.className = 'year-section' + (expandAll || yearKey === currentYear ? '' : ' collapsed');
 
       const yearHeader = document.createElement('div');
       yearHeader.className = 'year-header';
