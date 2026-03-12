@@ -53,7 +53,7 @@ export function search(query) {
     return hydrateResults(_index.query(function () {
       terms.forEach(term => {
         this.term(term, { usePipeline: true });  // applies stemmer
-        this.term(term, { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
+        this.term(term.toLowerCase(), { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
       });
     }));
   } catch {
