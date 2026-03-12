@@ -47,6 +47,7 @@ export async function getEnrichedCatalog() {
 // ─── GitHub API persistence ─────────────────────────────────────────────────
 
 const GITHUB_API = 'https://api.github.com';
+let _gridShaCache = null; // last known SHA of books.json, avoids stale API reads
 
 function getConfig() {
   return {
@@ -91,6 +92,12 @@ async function ghPut(path, content /* base64 */, sha, message) {
 // ─── Book persistence ───────────────────────────────────────────────────────
 
 async function ghGetGridJson() {
+  // If we have a cached SHA from a recent PUT and local grid data, use those
+  // instead of hitting the API (which may serve stale data for a few seconds).
+  if (_gridShaCache && DATA.grid) {
+    return { sha: _gridShaCache, grid: DATA.grid };
+  }
+
   // books.json may exceed 1 MB — GitHub Contents API returns empty content for
   // large files.  Fetch metadata (for SHA), then content via download_url.
   const { token, repo } = getConfig();
@@ -108,6 +115,7 @@ async function ghGetGridJson() {
     if (!raw.ok) throw new Error(`Download failed: ${raw.status}`);
     text = await raw.text();
   }
+  _gridShaCache = info.sha;
   return { sha: info.sha, grid: JSON.parse(text) };
 }
 
@@ -135,7 +143,8 @@ export async function saveNewBook(entry, coverBase64, coverMime) {
   else currentGrid.push(entry);
   const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
   const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
-  await ghPut('data/books.json', gridContent, sha, `${isUpdate ? 'edit' : 'add'}: ${entry.title}`);
+  const putRes = await ghPut('data/books.json', gridContent, sha, `${isUpdate ? 'edit' : 'add'}: ${entry.title}`);
+  _gridShaCache = putRes.content?.sha ?? null;
   steps.push('grid');
 
   // Update local cache
