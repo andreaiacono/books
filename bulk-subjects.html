@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBooks — Bulk Subject Editor</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
+  <style>
+    .bulk-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .bulk-table th { text-align:left; padding:0.5rem 0.4rem; border-bottom:2px solid var(--border);
+      position:sticky; top:0; background:var(--bg); z-index:2; }
+    .bulk-table td { padding:0.35rem 0.4rem; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .bulk-table tr.changed { background:color-mix(in srgb, var(--accent) 12%, transparent); }
+    .bulk-cover { width:36px; height:54px; object-fit:cover; border-radius:3px; vertical-align:middle; }
+    .bulk-title { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
+    .bulk-author, .bulk-publisher { max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .bulk-subject-current { font-size:12px; color:var(--text-muted); }
+    .bulk-select { font-size:13px; padding:0.2rem 0.3rem; }
+    .bulk-select.changed { outline:2px solid var(--accent); }
+    .bulk-bar { position:sticky; bottom:0; background:var(--bg); border-top:2px solid var(--border);
+      padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; z-index:2; }
+    .bulk-bar__count { font-size:14px; color:var(--text-muted); }
+    .bulk-filter { font-size:13px; padding:0.3rem 0.5rem; margin-left:auto; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">MyBooks</a>
+  <ul class="nav__links">
+    <li><a href="index.html">Library</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle"></button>
+  </div>
+</nav>
+
+<main class="page" style="max-width:1100px">
+  <header class="page-header">
+    <h1>Bulk Subject Editor</h1>
+    <p id="subtitle">Loading...</p>
+  </header>
+  <div id="controls" style="display:none;margin-bottom:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center">
+    <select id="filter-subject" class="bulk-filter">
+      <option value="">All subjects</option>
+      <option value="__none__">No subject</option>
+    </select>
+    <input type="search" id="filter-text" placeholder="Search title/author..." class="bulk-filter" style="min-width:200px">
+    <label style="font-size:13px;color:var(--text-muted);margin-left:auto">
+      <input type="checkbox" id="show-changed-only"> Show changed only
+    </label>
+  </div>
+  <div id="table-wrap" style="overflow-x:auto">
+    <div class="empty-state">
+      <div class="loader__spinner" style="width:32px;height:32px;margin:0 auto"></div>
+    </div>
+  </div>
+</main>
+
+<div class="bulk-bar" id="bottom-bar" style="display:none">
+  <span class="bulk-bar__count" id="change-count">0 changes</span>
+  <button class="btn btn--primary" id="save-btn" disabled>Save All Changes</button>
+</div>
+
+<script type="module">
+  import { loadGrid, saveBulkSubjects, isConfigured } from './js/data.js';
+  import { toast, escHtml } from './js/ui.js';
+
+  const SUBJECTS = [
+    'Art','Biography','Biology','Comics','Crafts','Crime','Curiosities','Diary','Drama',
+    'Economics','Education','Essays','Fiction','Food','History','Humor','Language','Math',
+    'Medicine','Misc','Music','Nature','Neuroscience','Philosophy','Poetry','Politics',
+    'Psychology','Religion','Reportage','Science','Sociology','Self-Help','Sport',
+    'Technology','Travel'
+  ];
+
+  let allBooks = [];
+  const pending = new Map(); // isbn -> new subject string
+
+  async function init() {
+    if (!isConfigured()) {
+      document.getElementById('table-wrap').innerHTML = `
+        <div class="empty-state">
+          <h2>GitHub not configured</h2>
+          <p>Set your PAT and repo in <a href="settings.html">Settings</a>.</p>
+        </div>`;
+      return;
+    }
+
+    allBooks = await loadGrid();
+    allBooks = [...allBooks].sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    document.getElementById('subtitle').textContent = `${allBooks.length} books`;
+
+    // Populate subject filter dropdown
+    const subjectSet = new Set();
+    for (const b of allBooks) {
+      if (Array.isArray(b.subjects)) b.subjects.forEach(s => subjectSet.add(s));
+    }
+    const filterSelect = document.getElementById('filter-subject');
+    for (const s of [...subjectSet].sort()) {
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      filterSelect.appendChild(opt);
+    }
+
+    renderTable(allBooks);
+    document.getElementById('controls').style.display = '';
+    document.getElementById('bottom-bar').style.display = '';
+
+    // Filters
+    filterSelect.addEventListener('change', applyFilters);
+    document.getElementById('filter-text').addEventListener('input', applyFilters);
+    document.getElementById('show-changed-only').addEventListener('change', applyFilters);
+
+    // Save
+    document.getElementById('save-btn').addEventListener('click', saveAll);
+  }
+
+  function getOriginalSubject(book) {
+    return Array.isArray(book.subjects) && book.subjects.length ? book.subjects[0] : '';
+  }
+
+  function applyFilters() {
+    const subjectFilter = document.getElementById('filter-subject').value;
+    const textFilter = document.getElementById('filter-text').value.trim().toLowerCase();
+    const changedOnly = document.getElementById('show-changed-only').checked;
+
+    let filtered = allBooks;
+
+    if (subjectFilter === '__none__') {
+      filtered = filtered.filter(b => !Array.isArray(b.subjects) || !b.subjects.length);
+    } else if (subjectFilter) {
+      filtered = filtered.filter(b => Array.isArray(b.subjects) && b.subjects.includes(subjectFilter));
+    }
+
+    if (textFilter) {
+      filtered = filtered.filter(b =>
+        (b.title || '').toLowerCase().includes(textFilter) ||
+        (b.author || '').toLowerCase().includes(textFilter)
+      );
+    }
+
+    if (changedOnly) {
+      filtered = filtered.filter(b => pending.has(b.isbn));
+    }
+
+    renderTable(filtered);
+  }
+
+  function renderTable(books) {
+    const wrap = document.getElementById('table-wrap');
+
+    if (!books.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted);padding:2rem 0;text-align:center">No books match the current filter.</p>';
+      return;
+    }
+
+    const options = SUBJECTS.map(s => `<option value="${escAttr(s)}">${escHtml(s)}</option>`).join('');
+
+    const rows = books.map(b => {
+      const orig = getOriginalSubject(b);
+      const current = pending.has(b.isbn) ? pending.get(b.isbn) : orig;
+      const changed = pending.has(b.isbn);
+
+      return `<tr data-isbn="${escAttr(b.isbn)}" class="${changed ? 'changed' : ''}">
+        <td><img class="bulk-cover" src="${escHtml(b.cover ?? 'assets/no-cover.svg')}" onerror="this.src='assets/no-cover.svg'" loading="lazy"></td>
+        <td class="bulk-title" title="${escAttr(b.description ?? '')}">${escHtml(b.title)}</td>
+        <td class="bulk-author">${escHtml(b.author ?? '')}</td>
+        <td class="bulk-publisher">${escHtml(b.publisher ?? '')}</td>
+        <td>
+          <span class="bulk-subject-current">${escHtml(orig) || '—'}</span><br>
+          <select class="bulk-select${changed ? ' changed' : ''}" data-isbn="${escAttr(b.isbn)}" data-orig="${escAttr(orig)}">
+            <option value="">— None —</option>
+            ${options}
+          </select>
+        </td>
+      </tr>`;
+    }).join('');
+
+    wrap.innerHTML = `<table class="bulk-table">
+      <thead><tr><th></th><th>Title</th><th>Author</th><th>Publisher</th><th>Subject</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+    // Set selected values and attach listeners
+    for (const sel of wrap.querySelectorAll('.bulk-select')) {
+      const isbn = sel.dataset.isbn;
+      const orig = sel.dataset.orig;
+      sel.value = pending.has(isbn) ? pending.get(isbn) : orig;
+
+      sel.addEventListener('change', () => {
+        const newVal = sel.value;
+        if (newVal === orig) {
+          pending.delete(isbn);
+          sel.classList.remove('changed');
+          sel.closest('tr').classList.remove('changed');
+        } else {
+          pending.set(isbn, newVal);
+          sel.classList.add('changed');
+          sel.closest('tr').classList.add('changed');
+        }
+        updateCount();
+      });
+    }
+  }
+
+  function updateCount() {
+    const n = pending.size;
+    document.getElementById('change-count').textContent = `${n} change${n !== 1 ? 's' : ''}`;
+    document.getElementById('save-btn').disabled = n === 0;
+  }
+
+  async function saveAll() {
+    if (!pending.size) return;
+
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      const changes = new Map();
+      for (const [isbn, subject] of pending) {
+        changes.set(isbn, subject ? [subject] : []);
+      }
+      await saveBulkSubjects(changes);
+      toast(`Updated ${changes.size} book(s)`, 'success');
+
+      // Reflect changes in local allBooks so original values are updated
+      for (const [isbn, subjects] of changes) {
+        const book = allBooks.find(b => b.isbn === isbn);
+        if (book) book.subjects = subjects;
+      }
+      pending.clear();
+      updateCount();
+      applyFilters(); // re-render to clear highlights
+    } catch (err) {
+      console.error(err);
+      toast(`Save failed: ${err.message}`, 'error');
+    } finally {
+      btn.disabled = pending.size === 0;
+      btn.textContent = 'Save All Changes';
+    }
+  }
+
+  function escAttr(s) {
+    return (s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  init();
+</script>
+
+<script src="js/theme.js"></script>
+</body>
+</html>
