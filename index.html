@@ -41,7 +41,22 @@
            placeholder="Building index…" autocomplete="off" disabled>
     <button id="search-clear" class="search-clear" type="button" aria-label="Clear search" style="display:none">&times;</button>
   </div>
-
+  <div class="syntax-hint">
+    <span class="syntax-hint__label">search syntax</span>
+    <div class="syntax-hint__popup" role="tooltip">
+      <p class="syntax-hint__title">Search syntax</p>
+      <table class="syntax-table">
+        <tr><td><code>borges</code></td><td>fuzzy match across all fields</td></tr>
+        <tr><td><code>author:borges</code></td><td>author field only</td></tr>
+        <tr><td><code>title:borges</code></td><td>title field only</td></tr>
+        <tr><td><code>subjects:fiction</code></td><td>subject field only</td></tr>
+        <tr><td><code>"magic realism"</code></td><td>exact phrase</td></tr>
+        <tr><td><code>borges -argentina</code></td><td>exclude a term</td></tr>
+        <tr><td><code>sci*</code></td><td>wildcard prefix</td></tr>
+      </table>
+    </div>
+  </div>
+  <div>&nbsp;</div>
   <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
     <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
       Filter by Subject ▾
