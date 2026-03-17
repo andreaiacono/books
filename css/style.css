@@ -523,7 +523,7 @@ html[data-theme="light"] .nav {
 }
 .scope-label input { display: none; }
 
-.syntax-hint { position: relative; flex-shrink: 0; }
+.syntax-hint { position: relative; display: inline-block; }
 
 .syntax-hint__label {
   font-size: 12px; color: var(--text-faint);
