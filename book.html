@@ -81,7 +81,8 @@
             ${book.publisher  ? metaItem('Publisher', book.publisher) : ''}
             ${book.pages      ? metaItem('Pages', book.pages) : ''}
             ${book.language   ? metaItem('Language', book.language.toUpperCase()) : ''}
-            ${book.isbn       ? metaItem('ISBN', `<span style="font-family:var(--font-mono);font-size:12px">${escHtml(book.isbn)}</span>`) : ''}
+            ${book.isbn && !book.isbn.startsWith('no-isbn-') ? metaItem('ISBN', `<span style="font-family:var(--font-mono);font-size:12px">${escHtml(book.isbn)}</span>`) : ''}
+            ${book.added      ? metaItem('Added', book.added) : ''}
           </div>
 
           ${subjects.length ? `
