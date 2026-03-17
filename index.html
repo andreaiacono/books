@@ -334,10 +334,19 @@
       return;
     }
 
-    const sorted = [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
     const grid = document.createElement('div');
     grid.className = 'book-grid';
-    for (const book of sorted) grid.appendChild(renderBookCard(book));
+    for (const book of books) {
+      const card = renderBookCard(book);
+      if (book.added) {
+        const info = card.querySelector('.book-card__info');
+        const addedEl = document.createElement('p');
+        addedEl.className = 'book-card__added';
+        addedEl.textContent = book.added;
+        info.appendChild(addedEl);
+      }
+      grid.appendChild(card);
+    }
     container.appendChild(grid);
   }
 
