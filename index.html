@@ -334,9 +334,10 @@
       return;
     }
 
+    const sorted = [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
     const grid = document.createElement('div');
     grid.className = 'book-grid';
-    for (const book of books) grid.appendChild(renderBookCard(book));
+    for (const book of sorted) grid.appendChild(renderBookCard(book));
     container.appendChild(grid);
   }
 
