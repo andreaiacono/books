@@ -31,13 +31,16 @@
   </header>
 
   <!-- ISBN lookup -->
-  <div style="display:flex;gap:0.75rem;margin-bottom:1.75rem">
+  <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
     <input type="text" id="isbn-input" placeholder="ISBN-13 (e.g. 9780141033570)"
            style="font-family:var(--font-mono);letter-spacing:0.05em" maxlength="17">
     <button class="btn btn--primary" id="fetch-btn" style="white-space:nowrap">
       Fetch metadata
     </button>
   </div>
+  <p style="margin-bottom:1.75rem;font-size:13px;color:var(--text-muted)">
+    No ISBN? <a href="#" id="manual-entry-link" style="color:var(--accent)">Enter details manually</a>
+  </p>
 
   <!-- Preview + form -->
   <div id="form-area" style="display:none">
@@ -63,7 +66,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="f-isbn-ro">ISBN</label>
-            <input type="text" id="f-isbn-ro" readonly style="opacity:0.6;cursor:default">
+            <input type="text" id="f-isbn-ro" style="font-family:var(--font-mono);letter-spacing:0.05em">
           </div>
         </div>
       </div>
@@ -174,6 +177,25 @@
     if (e.key === 'Enter') document.getElementById('fetch-btn').click();
   });
 
+  // Manual entry (no ISBN)
+  document.getElementById('manual-entry-link').addEventListener('click', e => {
+    e.preventDefault();
+    currentMeta = null; coverBase64 = null;
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-author').value = '';
+    document.getElementById('f-year').value = '';
+    document.getElementById('f-isbn-ro').value = '';
+    document.getElementById('f-publisher').value = '';
+    document.getElementById('f-pages').value = '';
+    document.getElementById('f-subjects').value = '';
+    document.getElementById('f-description').value = '';
+    document.getElementById('f-language').value = '';
+    document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+    document.getElementById('cover-status').textContent = '';
+    document.getElementById('form-area').style.display = '';
+    document.getElementById('f-title').focus();
+  });
+
   function populateForm(meta) {
     document.getElementById('f-title').value        = meta.title ?? '';
     document.getElementById('f-author').value       = meta.author ?? '';
@@ -193,11 +215,16 @@
       toast('Configure GitHub settings first', 'warning'); return;
     }
 
-    const isbn  = document.getElementById('f-isbn-ro').value.trim();
+    let isbn    = document.getElementById('f-isbn-ro').value.trim();
     const title = document.getElementById('f-title').value.trim();
     const author = document.getElementById('f-author').value.trim();
 
-    if (!isbn || !title) { toast('Title and ISBN are required', 'warning'); return; }
+    if (!title) { toast('Title is required', 'warning'); return; }
+
+    // Generate a stable ID when no ISBN is available
+    if (!isbn) {
+      isbn = 'no-isbn-' + Date.now().toString(36);
+    }
 
     const subjects = document.getElementById('f-subjects').value
       .split(',').map(s => s.trim()).filter(Boolean);
