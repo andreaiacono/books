@@ -109,7 +109,7 @@
             </div>` : ''}
 
           <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
-            ${book.isbn
+            ${book.isbn && !book.isbn.startsWith('no-isbn-')
               ? `<a href="https://books.google.it/books?vid=${encodeURIComponent(book.isbn)}"
                     target="_blank" rel="noopener" class="btn btn--ghost" style="font-size:13px">
                    View on Google Books ↗
