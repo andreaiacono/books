@@ -255,6 +255,11 @@ input:focus, select:focus, textarea:focus {
   font-family: var(--font-mono);
   margin-top: auto;
 }
+.book-card__added {
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
 
 /* ─── Filter bar ─────────────────────────────────────────────────────────── */
 .filter-group {
