@@ -59,9 +59,12 @@
   <div>&nbsp;</div>
   <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
     <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
-      Filter by Subject ▾
+      Filters ▾
     </button>
-    <div id="filter-bar" class="filter-bar" style="display:none;margin-top:0.5rem"></div>
+    <div id="filter-panel" style="display:none;margin-top:0.5rem">
+      <div id="filter-bar" class="filter-bar"></div>
+      <div id="lang-filter-bar" class="filter-bar" style="margin-top:0.5rem"></div>
+    </div>
   </div>
   <p id="search-count" class="search-count" style="display:none"></p>
   <div id="book-grid"></div>
@@ -84,6 +87,7 @@
   let allBooks = [];
   let searchTimeout = null;
   let activeFilters = new Set();
+  let activeLangFilters = new Set();
 
   async function init() {
     showLoader('Loading your library…');
@@ -112,35 +116,39 @@
     }
   }
 
+  const LANG_LABELS = { it: 'Italian', en: 'English', es: 'Spanish', fr: 'French' };
+
   function buildFilterBar(books) {
-    const counts = {};
+    const subjectCounts = {};
+    const langCounts = {};
     for (const b of books) {
-      const subjects = b.subjects;
-      if (Array.isArray(subjects)) {
-        for (const s of subjects) {
-          counts[s] = (counts[s] || 0) + 1;
-        }
+      if (Array.isArray(b.subjects)) {
+        for (const s of b.subjects) subjectCounts[s] = (subjectCounts[s] || 0) + 1;
       }
+      if (b.lang) langCounts[b.lang] = (langCounts[b.lang] || 0) + 1;
     }
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    if (!sorted.length) return;
+
+    const sortedSubjects = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1]);
+    const sortedLangs = Object.entries(langCounts).sort((a, b) => b[1] - a[1]);
+    if (!sortedSubjects.length && !sortedLangs.length) return;
 
     const wrap = document.getElementById('filter-wrap');
-    const bar = document.getElementById('filter-bar');
+    const panel = document.getElementById('filter-panel');
     const toggle = document.getElementById('filter-toggle');
     wrap.style.display = '';
 
     toggle.addEventListener('click', () => {
-      const open = bar.style.display !== 'none';
-      bar.style.display = open ? 'none' : '';
-      toggle.textContent = open ? 'Filter by subject ▾' : 'Filter by subject ▴';
+      const open = panel.style.display !== 'none';
+      panel.style.display = open ? 'none' : '';
+      toggle.textContent = open ? 'Filters ▾' : 'Filters ▴';
     });
 
-    for (const [subject, count] of sorted) {
+    // Subject buttons
+    const bar = document.getElementById('filter-bar');
+    for (const [subject, count] of sortedSubjects) {
       const btn = document.createElement('button');
       btn.className = 'filter-btn';
       btn.textContent = `${subject} (${count})`;
-      btn.dataset.subject = subject;
       btn.addEventListener('click', () => {
         if (activeFilters.has(subject)) {
           activeFilters.delete(subject);
@@ -153,13 +161,36 @@
       });
       bar.appendChild(btn);
     }
+
+    // Language buttons
+    const langBar = document.getElementById('lang-filter-bar');
+    for (const [lang, count] of sortedLangs) {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = `${LANG_LABELS[lang] || lang.toUpperCase()} (${count})`;
+      btn.addEventListener('click', () => {
+        if (activeLangFilters.has(lang)) {
+          activeLangFilters.delete(lang);
+          btn.classList.remove('filter-btn--active');
+        } else {
+          activeLangFilters.add(lang);
+          btn.classList.add('filter-btn--active');
+        }
+        applyFilters();
+      });
+      langBar.appendChild(btn);
+    }
+  }
+
+  function matchesFilters(b) {
+    if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
+    if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
+    return true;
   }
 
   function getFilteredBooks() {
-    if (!activeFilters.size) return allBooks;
-    return allBooks.filter(b =>
-      Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s))
-    );
+    if (!activeFilters.size && !activeLangFilters.size) return allBooks;
+    return allBooks.filter(matchesFilters);
   }
 
   function applyFilters() {
@@ -168,15 +199,16 @@
 
     if (query) {
       const searchResults = search(query);
-      const filtered = activeFilters.size
-        ? searchResults.filter(b => Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))
+      const hasFilters = activeFilters.size || activeLangFilters.size;
+      const filtered = hasFilters
+        ? searchResults.filter(matchesFilters)
         : searchResults;
       countEl.style.display = '';
       countEl.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
       renderFlat(filtered);
     } else {
       const filtered = getFilteredBooks();
-      if (activeFilters.size) {
+      if (activeFilters.size || activeLangFilters.size) {
         countEl.style.display = '';
         countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
         renderGrid(filtered, true);

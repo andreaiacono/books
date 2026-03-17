@@ -145,7 +145,7 @@
 
       <div class="form-group">
         <label class="form-label" for="f-language">Language</label>
-        <input type="text" id="f-language" value="${escAttr(book.language)}" placeholder="e.g. en">
+        <input type="text" id="f-language" value="${escAttr(book.lang)}" placeholder="e.g. en">
       </div>
 
       <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
@@ -208,7 +208,7 @@
       pages:       parseInt(document.getElementById('f-pages').value) || null,
       subjects:    subject ? [subject] : [],
       description: document.getElementById('f-description').value.trim(),
-      language:    document.getElementById('f-language').value.trim(),
+      lang:        document.getElementById('f-language').value.trim(),
     };
 
     const saveBtn = document.getElementById('save-btn');

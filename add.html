@@ -206,7 +206,7 @@
     document.getElementById('f-subjects').value     = Array.isArray(meta.subjects)
                                                         ? meta.subjects.join(', ') : '';
     document.getElementById('f-description').value  = meta.description ?? '';
-    document.getElementById('f-language').value     = meta.language ?? '';
+    document.getElementById('f-language').value     = meta.lang ?? '';
   }
 
   // ── Save ────────────────────────────────────────────────────────────────
@@ -238,7 +238,7 @@
       added:       new Date().toISOString().slice(0, 10),
       publisher:   document.getElementById('f-publisher').value.trim(),
       pages:       parseInt(document.getElementById('f-pages').value) || null,
-      language:    document.getElementById('f-language').value.trim(),
+      lang:        document.getElementById('f-language').value.trim(),
       description: document.getElementById('f-description').value.trim(),
       subjects,
       source:      currentMeta?.source ?? 'manual',

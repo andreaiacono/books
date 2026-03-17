@@ -151,7 +151,7 @@ def convert_row(row, row_num):
         "cover":       cover_path(isbn),
         "publisher":   clean(row.get(FIELD_PUBLISHER)),
         "pages":       pages,
-        "language":    None,   # Libib doesn't export language
+        "lang":        None,   # Libib doesn't export language
         "description": clean(row.get(FIELD_DESCRIPTION)),
         "subjects":    parse_subjects(row.get(FIELD_TAGS, "")),
         "notes":       clean(row.get(FIELD_NOTES)),

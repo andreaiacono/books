@@ -260,7 +260,7 @@ function normalizeOpenLibrary(isbn, d) {
     // Detail fields
     publisher:   (d.publishers ?? []).map(p => p.name).join(', '),
     pages:       d.number_of_pages ?? null,
-    language:    (d.languages ?? []).map(l => l.key?.replace('/languages/', '')).join(', '),
+    lang:        (d.languages ?? []).map(l => l.key?.replace('/languages/', '')).join(', '),
     description: d.notes ?? d.excerpts?.[0]?.text ?? '',
     subjects,
     coverUrl:    d.cover?.large ?? d.cover?.medium ?? null,
@@ -279,7 +279,7 @@ function normalizeGoogleBooks(isbn, item) {
     added:  new Date().toISOString().slice(0, 10),
     publisher:   v.publisher ?? '',
     pages:       v.pageCount ?? null,
-    language:    v.language ?? '',
+    lang:        v.language ?? '',
     description: v.description ?? '',
     subjects:    (v.categories ?? []).slice(0, 10),
     coverUrl:    v.imageLinks?.extraLarge
