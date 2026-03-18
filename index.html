@@ -95,7 +95,7 @@
     try {
       allBooks = await loadGrid();
 
-      document.getElementById('subtitle').textContent = `${allBooks.length} books`;
+
 
       buildFilterBar(allBooks);
       renderGrid(allBooks);
@@ -111,7 +111,7 @@
     } catch (err) {
       console.error(err);
       toast('Failed to load library. Check console for details.', 'error');
-      document.getElementById('subtitle').textContent = 'Error loading data';
+
     } finally {
       hideLoader();
     }
