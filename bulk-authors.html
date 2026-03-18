@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBooks — Bulk Author Editor</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
+  <style>
+    .bulk-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .bulk-table th { text-align:left; padding:0.5rem 0.4rem; border-bottom:2px solid var(--border);
+      position:sticky; top:0; background:var(--bg); z-index:2; }
+    .bulk-table td { padding:0.35rem 0.4rem; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .bulk-table tr.changed { background:color-mix(in srgb, var(--accent) 12%, transparent); }
+    .bulk-cover { width:56px; height:84px; object-fit:cover; border-radius:3px; vertical-align:middle; }
+    .bulk-title { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
+    .bulk-author-checks { display:flex; flex-direction:column; gap:0.2rem; }
+    .bulk-author-checks label { font-size:13px; display:flex; align-items:center; gap:0.4rem; white-space:nowrap; }
+    .bulk-author-checks label.unchecked { color:var(--text-muted); text-decoration:line-through; }
+    .bulk-bar { position:sticky; bottom:0; background:var(--bg); border-top:2px solid var(--border);
+      padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; z-index:2; }
+    .bulk-bar__count { font-size:14px; color:var(--text-muted); }
+    .bulk-filter { font-size:13px; padding:0.3rem 0.5rem; margin-left:auto; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">MyBooks</a>
+  <ul class="nav__links">
+    <li><a href="index.html">Library</a></li>
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="add.html">Add Book</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button id="theme-toggle" class="theme-toggle"></button>
+  </div>
+</nav>
+
+<main class="page" style="max-width:1100px">
+  <header class="page-header">
+    <h1>Bulk Author Editor</h1>
+    <p id="subtitle">Loading...</p>
+  </header>
+  <div id="controls" style="display:none;margin-bottom:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center">
+    <select id="filter-count" class="bulk-filter">
+      <option value="">All books</option>
+      <option value="multi">Multiple authors only</option>
+    </select>
+    <input type="search" id="filter-text" placeholder="Search title/author..." class="bulk-filter" style="min-width:200px">
+    <label style="font-size:13px;color:var(--text-muted);margin-left:auto">
+      <input type="checkbox" id="show-changed-only"> Show changed only
+    </label>
+  </div>
+  <div id="table-wrap" style="overflow-x:auto">
+    <div class="empty-state">
+      <div class="loader__spinner" style="width:32px;height:32px;margin:0 auto"></div>
+    </div>
+  </div>
+</main>
+
+<div class="bulk-bar" id="bottom-bar" style="display:none">
+  <span class="bulk-bar__count" id="change-count">0 changes</span>
+  <button class="btn btn--primary" id="save-btn" disabled>Save All Changes</button>
+</div>
+
+<script type="module">
+  import { loadGrid, saveBulkAuthors, isConfigured } from './js/data.js';
+  import { toast, escHtml } from './js/ui.js';
+
+  let allBooks = [];
+  const pending = new Map(); // isbn -> new author string
+
+  async function init() {
+    if (!isConfigured()) {
+      document.getElementById('table-wrap').innerHTML = `
+        <div class="empty-state">
+          <h2>GitHub not configured</h2>
+          <p>Set your PAT and repo in <a href="settings.html">Settings</a>.</p>
+        </div>`;
+      return;
+    }
+
+    allBooks = await loadGrid();
+    allBooks = [...allBooks].sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    document.getElementById('subtitle').textContent = `${allBooks.length} books`;
+    renderTable(allBooks);
+    document.getElementById('controls').style.display = '';
+    document.getElementById('bottom-bar').style.display = '';
+
+    // Filters
+    document.getElementById('filter-count').addEventListener('change', applyFilters);
+    document.getElementById('filter-text').addEventListener('input', applyFilters);
+    document.getElementById('show-changed-only').addEventListener('change', applyFilters);
+
+    // Save
+    document.getElementById('save-btn').addEventListener('click', saveAll);
+  }
+
+  function splitAuthors(authorStr) {
+    if (!authorStr) return [];
+    return authorStr.split(',').map(a => a.trim()).filter(Boolean);
+  }
+
+  function applyFilters() {
+    const countFilter = document.getElementById('filter-count').value;
+    const textFilter = document.getElementById('filter-text').value.trim().toLowerCase();
+    const changedOnly = document.getElementById('show-changed-only').checked;
+
+    let filtered = allBooks;
+
+    if (countFilter === 'multi') {
+      filtered = filtered.filter(b => splitAuthors(b.author).length > 1);
+    }
+
+    if (textFilter) {
+      filtered = filtered.filter(b =>
+        (b.title || '').toLowerCase().includes(textFilter) ||
+        (b.author || '').toLowerCase().includes(textFilter)
+      );
+    }
+
+    if (changedOnly) {
+      filtered = filtered.filter(b => pending.has(b.isbn));
+    }
+
+    renderTable(filtered);
+  }
+
+  function renderTable(books) {
+    const wrap = document.getElementById('table-wrap');
+
+    if (!books.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted);padding:2rem 0;text-align:center">No books match the current filter.</p>';
+      return;
+    }
+
+    const rows = books.map(b => {
+      const origAuthors = splitAuthors(b.author);
+      const changed = pending.has(b.isbn);
+      // Determine which authors are currently checked
+      let checkedAuthors;
+      if (changed) {
+        checkedAuthors = new Set(splitAuthors(pending.get(b.isbn)));
+      } else {
+        // By default: first author checked, rest unchecked
+        checkedAuthors = new Set(origAuthors.length ? [origAuthors[0]] : []);
+      }
+
+      const checkboxes = origAuthors.map((name, i) => {
+        const checked = checkedAuthors.has(name);
+        return `<label class="${checked ? '' : 'unchecked'}">
+          <input type="checkbox" data-isbn="${escAttr(b.isbn)}" data-author="${escAttr(name)}" ${checked ? 'checked' : ''}> ${escHtml(name)}
+        </label>`;
+      }).join('');
+
+      return `<tr data-isbn="${escAttr(b.isbn)}" class="${changed ? 'changed' : ''}">
+        <td><img class="bulk-cover" src="${escHtml(b.cover ?? 'assets/no-cover.svg')}" onerror="this.src='assets/no-cover.svg'" loading="lazy"></td>
+        <td class="bulk-title" title="${escAttr(b.description ?? '')}">${escHtml(b.title)}</td>
+        <td><div class="bulk-author-checks">${checkboxes || '—'}</div></td>
+      </tr>`;
+    }).join('');
+
+    wrap.innerHTML = `<table class="bulk-table">
+      <thead><tr><th></th><th>Title</th><th>Authors</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+    // Attach checkbox listeners
+    for (const cb of wrap.querySelectorAll('input[type="checkbox"]')) {
+      cb.addEventListener('change', onCheckChange);
+    }
+  }
+
+  function onCheckChange(e) {
+    const cb = e.target;
+    const isbn = cb.dataset.isbn;
+    const book = allBooks.find(b => b.isbn === isbn);
+    if (!book) return;
+
+    const origAuthors = splitAuthors(book.author);
+    const tr = cb.closest('tr');
+
+    // Gather currently checked authors from this row, preserving original order
+    const checkboxes = tr.querySelectorAll('input[type="checkbox"]');
+    const selectedAuthors = [];
+    checkboxes.forEach(box => {
+      if (box.checked) selectedAuthors.push(box.dataset.author);
+      // Update label styling
+      box.closest('label').classList.toggle('unchecked', !box.checked);
+    });
+
+    const newAuthor = selectedAuthors.join(', ');
+    const origAuthor = book.author || '';
+
+    if (newAuthor === origAuthor) {
+      pending.delete(isbn);
+      tr.classList.remove('changed');
+    } else {
+      pending.set(isbn, newAuthor);
+      tr.classList.add('changed');
+    }
+    updateCount();
+  }
+
+  function updateCount() {
+    const n = pending.size;
+    document.getElementById('change-count').textContent = `${n} change${n !== 1 ? 's' : ''}`;
+    document.getElementById('save-btn').disabled = n === 0;
+  }
+
+  async function saveAll() {
+    if (!pending.size) return;
+
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      await saveBulkAuthors(pending);
+      toast(`Updated ${pending.size} book(s)`, 'success');
+
+      // Reflect changes locally
+      for (const [isbn, author] of pending) {
+        const book = allBooks.find(b => b.isbn === isbn);
+        if (book) book.author = author;
+      }
+      pending.clear();
+      updateCount();
+      applyFilters();
+    } catch (err) {
+      console.error(err);
+      toast(`Save failed: ${err.message}`, 'error');
+    } finally {
+      btn.disabled = pending.size === 0;
+      btn.textContent = 'Save All Changes';
+    }
+  }
+
+  function escAttr(s) {
+    return (s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  init();
+</script>
+
+<script src="js/theme.js"></script>
+</body>
+</html>

@@ -209,6 +209,40 @@ export async function saveBulkSubjects(changes /* Map<isbn, string[]> */) {
   }
 }
 
+export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
+  const { sha, grid: currentGrid } = await ghGetGridJson();
+  for (const [isbn, author] of changes) {
+    const book = currentGrid.find(b => b.isbn === isbn);
+    if (book) book.author = author;
+  }
+  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
+
+  let putRes;
+  try {
+    putRes = await ghPut('data/books.json', gridContent, sha, `bulk: update ${changes.size} author(s)`);
+  } catch (e) {
+    if (!e.message?.includes('409')) throw e;
+    sessionStorage.removeItem('books_json_sha');
+    sessionStorage.removeItem('books_json_grid');
+    const fresh = await ghGetGridJson();
+    for (const [isbn, author] of changes) {
+      const book = fresh.grid.find(b => b.isbn === isbn);
+      if (book) book.author = author;
+    }
+    const js2 = '[\n' + fresh.grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    putRes = await ghPut('data/books.json', btoa(unescape(encodeURIComponent(js2))), fresh.sha, `bulk: update ${changes.size} author(s)`);
+  }
+  sessionStorage.setItem('books_json_sha', putRes.content?.sha ?? '');
+  sessionStorage.setItem('books_json_grid', JSON.stringify(currentGrid));
+  if (DATA.grid) {
+    for (const [isbn, author] of changes) {
+      const book = DATA.grid.find(b => b.isbn === isbn);
+      if (book) book.author = author;
+    }
+  }
+}
+
 // ─── Reading log persistence ─────────────────────────────────────────────────
 
 export async function appendReadingLogEntry({ date, title, comment, creators, isbn, marked }) {
