@@ -210,7 +210,7 @@
       if (activeFilters.size || activeLangFilters.size) {
         countEl.style.display = '';
         countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
-        renderGrid(filtered, true);
+        renderFlat(filtered);
       } else {
         countEl.style.display = 'none';
         renderGrid(allBooks, false);
