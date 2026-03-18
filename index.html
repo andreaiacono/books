@@ -327,9 +327,11 @@
       return;
     }
 
+    const sorted = [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
+
     const grid = document.createElement('div');
     grid.className = 'book-grid';
-    for (const book of books) {
+    for (const book of sorted) {
       const card = renderBookCard(book);
       if (book.added) {
         const info = card.querySelector('.book-card__info');
