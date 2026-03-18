@@ -11,6 +11,7 @@
   --bg-card-hover:#272523;
   --border:       #2e2c29;
   --border-light: #3d3b37;
+  --border-lighter: #6d6b67;
 
   --text:         #e8e3dc;
   --text-muted:   #8a8278;
@@ -555,7 +556,7 @@ html[data-theme="light"] .nav {
 .syntax-hint__popup {
   display: none; position: absolute;
   top: calc(100% + 10px); left: 0;
-  background: var(--bg-raised); border: 1px solid var(--border-light);
+  background: var(--bg-raised); border: 1px solid var(--border-lighter);
   border-radius: var(--radius-lg); padding: 1rem 1.1rem;
   box-shadow: var(--shadow); min-width: 420px; z-index: 200;
   animation: fadeDown 0.25s ease;
