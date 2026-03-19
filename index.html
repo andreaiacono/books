@@ -162,6 +162,8 @@
     for (const [subject, count] of sortedSubjects) {
       const btn = document.createElement('button');
       btn.className = 'filter-btn';
+      btn.dataset.key = subject;
+      btn.dataset.label = subject;
       btn.textContent = `${subject} (${count})`;
       btn.addEventListener('click', () => {
         if (activeFilters.has(subject)) {
@@ -181,6 +183,8 @@
     for (const [lang, count] of sortedLangs) {
       const btn = document.createElement('button');
       btn.className = 'filter-btn';
+      btn.dataset.key = lang;
+      btn.dataset.label = LANG_LABELS[lang] || lang.toUpperCase();
       btn.textContent = `${LANG_LABELS[lang] || lang.toUpperCase()} (${count})`;
       btn.addEventListener('click', () => {
         if (activeLangFilters.has(lang)) {
@@ -200,6 +204,8 @@
     for (const [year, count] of sortedYears) {
       const btn = document.createElement('button');
       btn.className = 'filter-btn';
+      btn.dataset.key = String(year);
+      btn.dataset.label = String(year);
       btn.textContent = `${year} (${count})`;
       btn.addEventListener('click', () => {
         if (activeYearFilters.has(year)) {
@@ -212,6 +218,68 @@
         applyFilters();
       });
       yearBar.appendChild(btn);
+    }
+  }
+
+  function updateFilterCounts() {
+    // For each filter type, count against books matching the OTHER two filter types
+    const matchesLangYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
+      ? allBooks.filter(b => {
+          if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
+          if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
+          return true;
+        })
+      : allBooks;
+
+    const matchesSubjectYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
+      ? allBooks.filter(b => {
+          if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
+          if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
+          return true;
+        })
+      : allBooks;
+
+    const matchesSubjectLang = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
+      ? allBooks.filter(b => {
+          if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
+          if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
+          return true;
+        })
+      : allBooks;
+
+    // Subject counts (filtered by lang + year)
+    const subjectCounts = {};
+    for (const b of matchesLangYear) {
+      if (Array.isArray(b.subjects)) {
+        for (const s of b.subjects) subjectCounts[s] = (subjectCounts[s] || 0) + 1;
+      }
+    }
+    for (const btn of document.getElementById('filter-bar').querySelectorAll('.filter-btn')) {
+      const c = subjectCounts[btn.dataset.key] || 0;
+      btn.textContent = `${btn.dataset.label} (${c})`;
+      btn.disabled = c === 0 && !activeFilters.has(btn.dataset.key);
+    }
+
+    // Language counts (filtered by subject + year)
+    const langCounts = {};
+    for (const b of matchesSubjectYear) {
+      if (b.lang) langCounts[b.lang] = (langCounts[b.lang] || 0) + 1;
+    }
+    for (const btn of document.getElementById('lang-filter-bar').querySelectorAll('.filter-btn')) {
+      const c = langCounts[btn.dataset.key] || 0;
+      btn.textContent = `${btn.dataset.label} (${c})`;
+      btn.disabled = c === 0 && !activeLangFilters.has(btn.dataset.key);
+    }
+
+    // Year counts (filtered by subject + lang)
+    const yearCounts = {};
+    for (const b of matchesSubjectLang) {
+      if (b.year) yearCounts[String(b.year)] = (yearCounts[String(b.year)] || 0) + 1;
+    }
+    for (const btn of document.getElementById('year-filter-bar').querySelectorAll('.filter-btn')) {
+      const c = yearCounts[btn.dataset.key] || 0;
+      btn.textContent = `${btn.dataset.label} (${c})`;
+      btn.disabled = c === 0 && !activeYearFilters.has(btn.dataset.key);
     }
   }
 
@@ -228,6 +296,7 @@
   }
 
   function applyFilters() {
+    updateFilterCounts();
     const query = document.getElementById('search-input').value.trim();
     const countEl = document.getElementById('search-count');
 
