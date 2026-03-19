@@ -64,6 +64,10 @@
         <span class="filter-group__label">Language</span>
         <div id="lang-filter-bar" class="filter-bar"></div>
       </div>
+      <div class="filter-group">
+        <span class="filter-group__label">Year</span>
+        <div id="year-filter-bar" class="filter-bar"></div>
+      </div>
     </div>
   </div>
   <p id="search-count" class="search-count" style="display:none"></p>
@@ -88,6 +92,7 @@
   let searchTimeout = null;
   let activeFilters = new Set();
   let activeLangFilters = new Set();
+  let activeYearFilters = new Set();
 
   async function init() {
     showLoader('Loading your library…');
@@ -120,16 +125,19 @@
   function buildFilterBar(books) {
     const subjectCounts = {};
     const langCounts = {};
+    const yearCounts = {};
     for (const b of books) {
       if (Array.isArray(b.subjects)) {
         for (const s of b.subjects) subjectCounts[s] = (subjectCounts[s] || 0) + 1;
       }
       if (b.lang) langCounts[b.lang] = (langCounts[b.lang] || 0) + 1;
+      if (b.year) yearCounts[b.year] = (yearCounts[b.year] || 0) + 1;
     }
 
     const sortedSubjects = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1]);
     const sortedLangs = Object.entries(langCounts).sort((a, b) => b[1] - a[1]);
-    if (!sortedSubjects.length && !sortedLangs.length) return;
+    const sortedYears = Object.entries(yearCounts).sort((a, b) => b[0] - a[0]);
+    if (!sortedSubjects.length && !sortedLangs.length && !sortedYears.length) return;
 
     const wrap = document.getElementById('filter-wrap');
     const panel = document.getElementById('filter-panel');
@@ -179,16 +187,36 @@
       });
       langBar.appendChild(btn);
     }
+
+    // Year buttons
+    const yearBar = document.getElementById('year-filter-bar');
+    for (const [year, count] of sortedYears) {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = `${year} (${count})`;
+      btn.addEventListener('click', () => {
+        if (activeYearFilters.has(year)) {
+          activeYearFilters.delete(year);
+          btn.classList.remove('filter-btn--active');
+        } else {
+          activeYearFilters.add(year);
+          btn.classList.add('filter-btn--active');
+        }
+        applyFilters();
+      });
+      yearBar.appendChild(btn);
+    }
   }
 
   function matchesFilters(b) {
     if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
     if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
+    if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
     return true;
   }
 
   function getFilteredBooks() {
-    if (!activeFilters.size && !activeLangFilters.size) return allBooks;
+    if (!activeFilters.size && !activeLangFilters.size && !activeYearFilters.size) return allBooks;
     return allBooks.filter(matchesFilters);
   }
 
@@ -198,7 +226,7 @@
 
     if (query) {
       const searchResults = search(query);
-      const hasFilters = activeFilters.size || activeLangFilters.size;
+      const hasFilters = activeFilters.size || activeLangFilters.size || activeYearFilters.size;
       const filtered = hasFilters
         ? searchResults.filter(matchesFilters)
         : searchResults;
@@ -207,7 +235,7 @@
       renderFlat(filtered);
     } else {
       const filtered = getFilteredBooks();
-      if (activeFilters.size || activeLangFilters.size) {
+      if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) {
         countEl.style.display = '';
         countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
         renderFlat(filtered);
