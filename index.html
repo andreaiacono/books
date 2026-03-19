@@ -56,16 +56,16 @@
       Filters ▾
     </button>
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
-      <div class="filter-group">
-        <span class="filter-group__label">Subjects</span>
+      <div class="filter-group collapsed">
+        <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span></span>
         <div id="filter-bar" class="filter-bar"></div>
       </div>
-      <div class="filter-group">
-        <span class="filter-group__label">Language</span>
+      <div class="filter-group collapsed">
+        <span class="filter-group__label">Language <span class="filter-group__chevron">▾</span></span>
         <div id="lang-filter-bar" class="filter-bar"></div>
       </div>
-      <div class="filter-group">
-        <span class="filter-group__label">Year</span>
+      <div class="filter-group collapsed">
+        <span class="filter-group__label">Year <span class="filter-group__chevron">▾</span></span>
         <div id="year-filter-bar" class="filter-bar"></div>
       </div>
     </div>
@@ -149,6 +149,13 @@
       panel.style.display = open ? 'none' : '';
       toggle.textContent = open ? 'Filters ▾' : 'Filters ▴';
     });
+
+    // Collapsible filter groups
+    for (const group of panel.querySelectorAll('.filter-group')) {
+      group.querySelector('.filter-group__label').addEventListener('click', () => {
+        group.classList.toggle('collapsed');
+      });
+    }
 
     // Subject buttons
     const bar = document.getElementById('filter-bar');
