@@ -257,7 +257,7 @@
     for (const btn of document.getElementById('filter-bar').querySelectorAll('.filter-btn')) {
       const c = subjectCounts[btn.dataset.key] || 0;
       btn.textContent = `${btn.dataset.label} (${c})`;
-      btn.disabled = c === 0 && !activeFilters.has(btn.dataset.key);
+      btn.hidden = c === 0 && !activeFilters.has(btn.dataset.key);
     }
 
     // Language counts (filtered by subject + year)
@@ -268,7 +268,7 @@
     for (const btn of document.getElementById('lang-filter-bar').querySelectorAll('.filter-btn')) {
       const c = langCounts[btn.dataset.key] || 0;
       btn.textContent = `${btn.dataset.label} (${c})`;
-      btn.disabled = c === 0 && !activeLangFilters.has(btn.dataset.key);
+      btn.hidden = c === 0 && !activeLangFilters.has(btn.dataset.key);
     }
 
     // Year counts (filtered by subject + lang)
@@ -279,7 +279,7 @@
     for (const btn of document.getElementById('year-filter-bar').querySelectorAll('.filter-btn')) {
       const c = yearCounts[btn.dataset.key] || 0;
       btn.textContent = `${btn.dataset.label} (${c})`;
-      btn.disabled = c === 0 && !activeYearFilters.has(btn.dataset.key);
+      btn.hidden = c === 0 && !activeYearFilters.has(btn.dataset.key);
     }
   }
 
