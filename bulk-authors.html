@@ -12,7 +12,9 @@
       position:sticky; top:0; background:var(--bg); z-index:2; }
     .bulk-table td { padding:0.35rem 0.4rem; border-bottom:1px solid var(--border); vertical-align:middle; }
     .bulk-table tr.changed { background:color-mix(in srgb, var(--accent) 12%, transparent); }
-    .bulk-cover { width:56px; height:84px; object-fit:cover; border-radius:3px; vertical-align:middle; }
+    .bulk-cover { width:56px; height:84px; object-fit:cover; border-radius:3px; vertical-align:middle; cursor:pointer;
+      transition:transform 0.2s ease; position:relative; z-index:1; }
+    .bulk-cover:hover { transform:scale(3); z-index:100; }
     .bulk-title { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
     .bulk-author-checks { display:flex; flex-direction:column; gap:0.2rem; }
     .bulk-author-checks label { font-size:13px; display:flex; align-items:center; gap:0.4rem; white-space:nowrap; }
@@ -144,8 +146,8 @@
       if (changed) {
         checkedAuthors = new Set(splitAuthors(pending.get(b.isbn)));
       } else {
-        // By default: first author checked, rest unchecked
-        checkedAuthors = new Set(origAuthors.length ? [origAuthors[0]] : []);
+        // By default: all authors checked (matches current data)
+        checkedAuthors = new Set(origAuthors);
       }
 
       const checkboxes = origAuthors.map((name, i) => {
