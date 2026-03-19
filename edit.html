@@ -209,6 +209,7 @@
       description: document.getElementById('f-description').value.trim(),
       lang:        document.getElementById('f-language').value.trim(),
     };
+    delete entry.source;
 
     const saveBtn = document.getElementById('save-btn');
     const bar = document.getElementById('progress-bar');

@@ -303,7 +303,6 @@ function normalizeOpenLibrary(isbn, d) {
     description: d.notes ?? d.excerpts?.[0]?.text ?? '',
     subjects,
     coverUrl:    d.cover?.large ?? d.cover?.medium ?? null,
-    source:      'openlibrary',
   };
 }
 
@@ -325,7 +324,6 @@ function normalizeGoogleBooks(isbn, item) {
                  ?? v.imageLinks?.large
                  ?? v.imageLinks?.thumbnail
                  ?? null,
-    source: 'google',
   };
 }
 

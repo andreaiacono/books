@@ -57,18 +57,21 @@ export function renderBookCard(book) {
   card.className = `book-card${isRead ? ' book-card--read' : ''}${isMarked ? ' book-card--marked' : ''}`;
   card.dataset.isbn = book.isbn;
 
+  const bookUrl = `book.html?isbn=${encodeURIComponent(book.isbn)}`;
   card.innerHTML = `
-    <div class="book-card__cover-wrap">
-      <img class="book-card__cover" src="${coverSrc}" alt="${escHtml(book.title)}" loading="lazy"
-           onerror="this.src='assets/no-cover.svg'">
-      ${isRead    ? '<span class="book-card__badge book-card__badge--read" title="Read">✓</span>' : ''}
-      ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
-    </div>
-    <div class="book-card__info">
-      <h3 class="book-card__title">${escHtml(book.title)}</h3>
-      <p  class="book-card__author">${escHtml(book.author ?? '')}</p>
-      ${book.year ? `<p class="book-card__year">${book.year}</p>` : ''}
-    </div>
+    <a class="book-card__link" href="${bookUrl}">
+      <div class="book-card__cover-wrap">
+        <img class="book-card__cover" src="${coverSrc}" alt="${escHtml(book.title)}" loading="lazy"
+             onerror="this.src='assets/no-cover.svg'">
+        ${isRead    ? '<span class="book-card__badge book-card__badge--read" title="Read">✓</span>' : ''}
+        ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
+      </div>
+      <div class="book-card__info">
+        <h3 class="book-card__title">${escHtml(book.title)}</h3>
+        <p  class="book-card__author">${escHtml(book.author ?? '')}</p>
+        ${book.year ? `<p class="book-card__year">${book.year}</p>` : ''}
+      </div>
+    </a>
   `;
 
   const img = card.querySelector('.book-card__cover');
@@ -80,7 +83,6 @@ export function renderBookCard(book) {
     if (sideSpace > 0) wrap.style.paddingTop = `${sideSpace}px`;
   });
 
-  card.addEventListener('click', () => openBookDetail(book.isbn));
   return card;
 }
 

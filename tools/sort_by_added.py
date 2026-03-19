@@ -9,8 +9,16 @@ BOOKS = Path(__file__).resolve().parent.parent / "data" / "books.json"
 books = json.loads(BOOKS.read_text(encoding="utf-8"))
 books.sort(key=lambda b: b.get("added") or b.get("addedAt") or "0000-00-00")
 
+def ordered(b):
+    """Return book dict with description last."""
+    desc = b.pop("description", None)
+    out = dict(b)
+    if desc is not None:
+        out["description"] = desc
+    return out
+
 BOOKS.write_text(
-    "[\n" + ",\n".join(json.dumps(b, ensure_ascii=False) for b in books) + "\n]\n",
+    "[\n" + ",\n".join(json.dumps(ordered(b), ensure_ascii=False, separators=(",", ":")) for b in books) + "\n]\n",
     encoding="utf-8",
 )
 
