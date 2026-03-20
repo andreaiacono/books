@@ -135,7 +135,7 @@
       if (addedYear) yearCounts[addedYear] = (yearCounts[addedYear] || 0) + 1;
     }
 
-    const sortedSubjects = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1]);
+    const sortedSubjects = Object.entries(subjectCounts).sort((a, b) => a[0].localeCompare(b[0]));
     const sortedLangs = Object.entries(langCounts).sort((a, b) => b[1] - a[1]);
     const sortedYears = Object.entries(yearCounts).sort((a, b) => b[0] - a[0]);
     if (!sortedSubjects.length && !sortedLangs.length && !sortedYears.length) return;
