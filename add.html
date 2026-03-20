@@ -87,8 +87,10 @@
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="f-subjects">Subjects (comma-separated)</label>
-      <input type="text" id="f-subjects">
+      <label class="form-label" for="f-subject">Subject</label>
+      <select id="f-subject">
+        <option value="">— None —</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -125,7 +127,25 @@
 
 <script type="module">
   import { fetchISBNMetadata, fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
-  import { toast } from './js/ui.js';
+  import { toast, escHtml } from './js/ui.js';
+
+  const SUBJECTS = [
+    'Art','Biography','Biology','Crafts','Crime','Curiosities','Diary','Drama',
+    'Economics','Education','Fiction','Food','History','Geography','Humor','Language',
+    'Math','Medicine','Misc','Music','Nature','Neuroscience','Philosophy','Photography',
+    'Physics','Poetry','Politics','Psychology','Religion','Reportage','Science','Sociology',
+    'Sport','Technology','Travel'
+  ];
+
+  // Populate subject dropdown
+  {
+    const sel = document.getElementById('f-subject');
+    for (const s of SUBJECTS) {
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      sel.appendChild(opt);
+    }
+  }
 
   // Check GitHub config
   if (!isConfigured()) {
@@ -190,7 +210,7 @@
     document.getElementById('f-isbn-ro').value = '';
     document.getElementById('f-publisher').value = '';
     document.getElementById('f-pages').value = '';
-    document.getElementById('f-subjects').value = '';
+    document.getElementById('f-subject').value = '';
     document.getElementById('f-description').value = '';
     document.getElementById('f-language').value = '';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
@@ -239,8 +259,14 @@
     document.getElementById('f-isbn-ro').value      = meta.isbn ?? '';
     document.getElementById('f-publisher').value    = meta.publisher ?? '';
     document.getElementById('f-pages').value        = meta.pages ?? '';
-    document.getElementById('f-subjects').value     = Array.isArray(meta.subjects)
-                                                        ? meta.subjects.join(', ') : '';
+    // Match first subject from metadata to the dropdown
+    const metaSubjects = Array.isArray(meta.subjects) ? meta.subjects : [];
+    const sel = document.getElementById('f-subject');
+    sel.value = '';
+    for (const s of metaSubjects) {
+      const match = SUBJECTS.find(opt => opt.toLowerCase() === s.toLowerCase());
+      if (match) { sel.value = match; break; }
+    }
     document.getElementById('f-description').value  = meta.description ?? '';
     document.getElementById('f-language').value     = meta.lang ?? '';
   }
@@ -262,8 +288,8 @@
       isbn = 'no-isbn-' + Date.now().toString(36);
     }
 
-    const subjects = document.getElementById('f-subjects').value
-      .split(',').map(s => s.trim()).filter(Boolean);
+    const subject = document.getElementById('f-subject').value;
+    const subjects = subject ? [subject] : [];
 
     const entry = {
       isbn,

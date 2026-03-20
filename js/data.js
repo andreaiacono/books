@@ -265,65 +265,182 @@ export async function appendReadingLogEntry({ date, title, comment, creators, is
 }
 
 // ─── ISBN metadata fetch ─────────────────────────────────────────────────────
+// Priority: IBS.it → Google Books web → Open Library → Google Books API
+// (mirrors tools/fetch_data.py)
 
-export async function fetchISBNMetadata(isbn) {
-  // Try Open Library first
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+async function fetchIBS(isbn) {
+  // Scrape IBS.it JSON-LD structured data (via CORS proxy)
+  try {
+    const url = `${CORS_PROXY}${encodeURIComponent(`https://www.ibs.it/a/e/${isbn}`)}`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return {};
+    const page = await res.text();
+
+    const m = page.match(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    if (!m) return {};
+
+    let ld = JSON.parse(m[1]);
+    if (Array.isArray(ld)) ld = ld.find(x => (x['@type'] || []).includes('Book')) || ld[0] || {};
+    if (ld.mainEntity) ld = ld.mainEntity;
+
+    const meta = {};
+    const desc = (ld.description || '').trim();
+    if (desc.length > 40) meta.description = desc;
+    if (ld.publisher) meta.publisher = String(ld.publisher).trim();
+    const pages = parseInt(ld.numberOfPages);
+    if (pages > 0) meta.pages = pages;
+    if (ld.author) meta.author = String(ld.author).trim();
+    if (ld.name) meta.title = String(ld.name).trim();
+    const dateM = (ld.datePublished || '').match(/(\d{4})/);
+    if (dateM) meta.year = parseInt(dateM[1]);
+    return meta;
+  } catch { return {}; }
+}
+
+async function fetchGoogleBooksWeb(isbn) {
+  // Scrape Google Books website (via CORS proxy)
+  try {
+    const url = `${CORS_PROXY}${encodeURIComponent(`https://books.google.com/books?vid=${isbn}`)}`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return {};
+    const page = await res.text();
+
+    const meta = {};
+
+    // Description from <meta name="description">
+    const descM = page.match(/<meta\s+name="description"\s+content="([^"]+)"/);
+    if (descM) {
+      const desc = descM[1].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+      if (desc.length > 40) meta.description = desc;
+    }
+
+    // Bibliographic info table rows
+    const rows = [...page.matchAll(/<td class="metadata_label">.*?<span[^>]*>([^<]+)<\/span>[\s\S]*?<td class="metadata_value">.*?<span[^>]*>([\s\S]*?)<\/span>/g)];
+    for (const [, rawLabel, rawValue] of rows) {
+      const label = rawLabel.replace(/&\w+;/g, '').trim().toLowerCase();
+      const value = rawValue.replace(/<[^>]+>/g, '').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+      if (!value) continue;
+      if (['editore','publisher','éditeur','verlag','editorial'].includes(label))
+        meta.publisher = value.replace(/,\s*\d{4}$/, '').trim();
+      if (['lunghezza','length','longueur','länge','longitud','pages','pagine'].includes(label)) {
+        const pm = value.match(/(\d+)/);
+        if (pm) meta.pages = parseInt(pm[1]);
+      }
+      if (['autore','author','auteur','autor'].includes(label) && !meta.author)
+        meta.author = value;
+      if (['data di pubblicazione','published','date de publication','veröffentlichungsdatum','año de edición'].includes(label)) {
+        const ym = value.match(/(\d{4})/);
+        if (ym) meta.year = parseInt(ym[1]);
+      }
+    }
+    return meta;
+  } catch { return {}; }
+}
+
+async function fetchOpenLibrary(isbn) {
   try {
     const res = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`);
     const data = await res.json();
-    const key = `ISBN:${isbn}`;
-    if (data[key]) return normalizeOpenLibrary(isbn, data[key]);
-  } catch { /* fallthrough */ }
+    const d = data[`ISBN:${isbn}`];
+    if (!d) return {};
 
-  // Fallback: Google Books
+    const meta = {};
+    if (d.title) meta.title = d.title;
+    const authors = (d.authors ?? []).map(a => a.name).join(', ');
+    if (authors) meta.author = authors;
+    if (d.publish_date) { const y = parseInt(d.publish_date.slice(-4)); if (y) meta.year = y; }
+    const pub = (d.publishers ?? []).map(p => p.name).join(', ');
+    if (pub) meta.publisher = pub;
+    if (d.number_of_pages) meta.pages = d.number_of_pages;
+    const lang = (d.languages ?? []).map(l => l.key?.replace('/languages/', '')).join(', ');
+    if (lang) meta.lang = lang;
+    const desc = d.notes ?? d.excerpts?.[0]?.text ?? '';
+    if (desc) meta.description = typeof desc === 'object' ? desc.value : desc;
+    const subjects = (d.subjects ?? []).map(s => s.name ?? s).slice(0, 10);
+    if (subjects.length) meta.subjects = subjects;
+    meta.coverUrl = d.cover?.large ?? d.cover?.medium ?? null;
+    return meta;
+  } catch { return {}; }
+}
+
+async function fetchGoogleBooksAPI(isbn) {
   try {
     const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
     const data = await res.json();
-    if (data.totalItems > 0) return normalizeGoogleBooks(isbn, data.items[0]);
-  } catch { /* fallthrough */ }
+    if (!data.totalItems || !data.items?.length) return {};
 
-  return null;
+    const item = data.items[0];
+    let v = item.volumeInfo ?? {};
+
+    // Fetch detailed volume info if missing key fields
+    if ((!v.description || !v.publisher || !v.pageCount) && item.selfLink) {
+      try {
+        const r2 = await fetch(item.selfLink);
+        if (r2.ok) {
+          const vol = (await r2.json()).volumeInfo ?? {};
+          for (const k of ['description', 'publisher', 'pageCount']) {
+            if (!v[k] && vol[k]) v[k] = vol[k];
+          }
+        }
+      } catch { /* ignore */ }
+    }
+
+    const meta = {};
+    if (v.title) meta.title = v.title;
+    if (v.authors?.length) meta.author = v.authors.join(', ');
+    if (v.publishedDate) { const y = parseInt(v.publishedDate.slice(0, 4)); if (y) meta.year = y; }
+    if (v.publisher) meta.publisher = v.publisher;
+    if (v.pageCount > 0) meta.pages = v.pageCount;
+    if (v.language) meta.lang = v.language;
+    if (v.description) meta.description = v.description;
+    if (v.categories?.length) meta.subjects = v.categories.slice(0, 10);
+    meta.coverUrl = v.imageLinks?.extraLarge ?? v.imageLinks?.large ?? v.imageLinks?.thumbnail ?? null;
+    return meta;
+  } catch { return {}; }
 }
 
-function normalizeOpenLibrary(isbn, d) {
-  const authors = (d.authors ?? []).map(a => a.name).join(', ');
-  const subjects = (d.subjects ?? []).map(s => s.name ?? s).slice(0, 10);
-  return {
-    // Grid fields
-    isbn,
-    title:  d.title ?? '',
-    author: authors,
-    year:   d.publish_date ? parseInt(d.publish_date.slice(-4)) : null,
-    cover:  `covers/${isbn}.webp`,
-    added:  new Date().toISOString().slice(0, 10),
-    // Detail fields
-    publisher:   (d.publishers ?? []).map(p => p.name).join(', '),
-    pages:       d.number_of_pages ?? null,
-    lang:        (d.languages ?? []).map(l => l.key?.replace('/languages/', '')).join(', '),
-    description: d.notes ?? d.excerpts?.[0]?.text ?? '',
-    subjects,
-    coverUrl:    d.cover?.large ?? d.cover?.medium ?? null,
-  };
-}
+export async function fetchISBNMetadata(isbn) {
+  // Fetch from all sources in parallel
+  const [ibs, gbWeb, ol, gbApi] = await Promise.all([
+    fetchIBS(isbn),
+    fetchGoogleBooksWeb(isbn),
+    fetchOpenLibrary(isbn),
+    fetchGoogleBooksAPI(isbn),
+  ]);
 
-function normalizeGoogleBooks(isbn, item) {
-  const v = item.volumeInfo ?? {};
+  // Merge in priority order: IBS > Google Books web > Open Library > Google Books API
+  const sources = [ibs, gbWeb, ol, gbApi];
+  const fields = ['title', 'author', 'year', 'publisher', 'pages', 'lang', 'description', 'subjects', 'coverUrl'];
+  const merged = {};
+  for (const field of fields) {
+    for (const src of sources) {
+      const val = src[field];
+      if (val !== undefined && val !== null && val !== '') {
+        if (Array.isArray(val) ? val.length > 0 : true) {
+          merged[field] = val;
+          break;
+        }
+      }
+    }
+  }
+
+  if (!merged.title && !merged.author) return null;
+
   return {
     isbn,
-    title:  v.title ?? '',
-    author: (v.authors ?? []).join(', '),
-    year:   v.publishedDate ? parseInt(v.publishedDate.slice(0, 4)) : null,
-    cover:  `covers/${isbn}.webp`,
-    added:  new Date().toISOString().slice(0, 10),
-    publisher:   v.publisher ?? '',
-    pages:       v.pageCount ?? null,
-    lang:        v.language ?? '',
-    description: v.description ?? '',
-    subjects:    (v.categories ?? []).slice(0, 10),
-    coverUrl:    v.imageLinks?.extraLarge
-                 ?? v.imageLinks?.large
-                 ?? v.imageLinks?.thumbnail
-                 ?? null,
+    title:       merged.title ?? '',
+    author:      merged.author ?? '',
+    year:        merged.year ?? null,
+    cover:       `covers/${isbn}.webp`,
+    added:       new Date().toISOString().slice(0, 10),
+    publisher:   merged.publisher ?? '',
+    pages:       merged.pages ?? null,
+    lang:        merged.lang ?? '',
+    description: merged.description ?? '',
+    subjects:    merged.subjects ?? [],
+    coverUrl:    merged.coverUrl ?? null,
   };
 }
 
