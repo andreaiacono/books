@@ -65,7 +65,7 @@
         <div id="lang-filter-bar" class="filter-bar"></div>
       </div>
       <div class="filter-group collapsed">
-        <span class="filter-group__label">Year <span class="filter-group__chevron">▾</span></span>
+        <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span></span>
         <div id="year-filter-bar" class="filter-bar"></div>
       </div>
     </div>
@@ -131,7 +131,8 @@
         for (const s of b.subjects) subjectCounts[s] = (subjectCounts[s] || 0) + 1;
       }
       if (b.lang) langCounts[b.lang] = (langCounts[b.lang] || 0) + 1;
-      if (b.year) yearCounts[b.year] = (yearCounts[b.year] || 0) + 1;
+      const addedYear = b.added ? b.added.split('-')[0] : null;
+      if (addedYear) yearCounts[addedYear] = (yearCounts[addedYear] || 0) + 1;
     }
 
     const sortedSubjects = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1]);
@@ -221,12 +222,14 @@
     }
   }
 
+  function addedYear(b) { return b.added ? b.added.split('-')[0] : null; }
+
   function updateFilterCounts() {
     // For each filter type, count against books matching the OTHER two filter types
     const matchesLangYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
       ? allBooks.filter(b => {
           if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
-          if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
+          if (activeYearFilters.size && !activeYearFilters.has(addedYear(b))) return false;
           return true;
         })
       : allBooks;
@@ -234,7 +237,7 @@
     const matchesSubjectYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
       ? allBooks.filter(b => {
           if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
-          if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
+          if (activeYearFilters.size && !activeYearFilters.has(addedYear(b))) return false;
           return true;
         })
       : allBooks;
@@ -274,7 +277,8 @@
     // Year counts (filtered by subject + lang)
     const yearCounts = {};
     for (const b of matchesSubjectLang) {
-      if (b.year) yearCounts[String(b.year)] = (yearCounts[String(b.year)] || 0) + 1;
+      const ay = addedYear(b);
+      if (ay) yearCounts[ay] = (yearCounts[ay] || 0) + 1;
     }
     for (const btn of document.getElementById('year-filter-bar').querySelectorAll('.filter-btn')) {
       const c = yearCounts[btn.dataset.key] || 0;
@@ -286,7 +290,7 @@
   function matchesFilters(b) {
     if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
     if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
-    if (activeYearFilters.size && !activeYearFilters.has(String(b.year))) return false;
+    if (activeYearFilters.size && !activeYearFilters.has(addedYear(b))) return false;
     return true;
   }
 
