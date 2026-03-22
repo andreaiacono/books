@@ -8,113 +8,179 @@
   <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
+
   <style>
-    /* ── Search results panel ─────────────────────────────────────────── */
+    /* ── Search results panel ─────────────────────────────────────── */
     #results-panel {
       display: none;
-      flex-direction: column;
-      gap: 0;
       margin-bottom: 1.5rem;
+    }
+    #results-panel h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .result-card {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-raised);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .result-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-hover, var(--bg-raised));
+    }
+    .result-card.selected {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 8%, var(--bg-raised));
+    }
+    .result-thumb {
+      width: 52px;
+      height: 78px;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      border: 1px solid var(--border);
+      background: var(--bg-sunken, var(--bg));
+      flex-shrink: 0;
+    }
+    .result-info {
+      min-width: 0;
+    }
+    .result-title {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-isbn {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-faint);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .result-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      color: var(--accent);
+    }
+    .result-select-btn {
+      font-size: 12px;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .result-card:hover .result-select-btn,
+    .result-card.selected .result-select-btn {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Subject match indicator */
+    .subject-match {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+    .subject-match strong {
+      color: var(--accent);
+    }
+
+    /* search mode tabs */
+    .search-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0.75rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      max-height: 420px;
-      overflow-y: auto;
+      width: fit-content;
     }
-    #results-panel.visible { display: flex; }
-
-    .result-item {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      padding: 0.65rem 0.9rem;
+    .search-tab {
+      padding: 0.35rem 0.9rem;
+      font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.13s;
-      background: var(--bg-card, var(--bg-raised));
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: background 0.15s, color 0.15s;
     }
-    .result-item:last-child { border-bottom: none; }
-    .result-item:hover { background: var(--bg-hover, color-mix(in srgb, var(--accent) 10%, transparent)); }
-    .result-item.selected { background: color-mix(in srgb, var(--accent) 15%, transparent); }
+    .search-tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
 
-    .result-item__thumb {
-      width: 40px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 3px;
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* API key notice */
+    #api-key-row {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.6rem 0.85rem;
       border: 1px solid var(--border);
-      flex-shrink: 0;
+      border-radius: var(--radius);
       background: var(--bg-raised);
-    }
-    .result-item__info { flex: 1; min-width: 0; }
-    .result-item__title {
-      font-size: 13.5px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--text);
-    }
-    .result-item__author {
       font-size: 12px;
       color: var(--text-muted);
-      margin-top: 1px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-    .result-item__isbn {
-      font-size: 11px;
+    #api-key-row input {
+      flex: 1;
       font-family: var(--font-mono);
-      color: var(--text-faint, var(--text-muted));
-      margin-top: 3px;
-    }
-    .result-item__badge {
-      font-size: 10px;
-      padding: 1px 6px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* search hint pill below input */
-    #search-hint {
-      font-size: 11px;
-      color: var(--text-faint, var(--text-muted));
-      margin-top: 0.25rem;
-      margin-bottom: 0.75rem;
-      min-height: 1em;
-      transition: opacity 0.2s;
-    }
-    #search-hint .hint-mode {
-      display: inline-block;
-      padding: 1px 7px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 10.5px;
+      font-size: 12px;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
+      padding: 0.3rem 0.5rem;
     }
-    #search-hint .hint-mode.isbn {
-      background: color-mix(in srgb, var(--accent) 18%, transparent);
-      color: var(--accent);
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-    }
-    #search-hint .hint-mode.title {
-      background: color-mix(in srgb, #7c9 18%, transparent);
-      color: #4a9;
-      border: 1px solid color-mix(in srgb, #4a9 35%, transparent);
-    }
-
-    /* results empty / loading states */
-    .results-state {
-      padding: 1.1rem 1rem;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
+    #api-key-row label { white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -133,31 +199,45 @@
 <main class="page" style="max-width:760px">
   <header class="page-header">
     <h1>Add a Book</h1>
-    <p>Enter an ISBN <em>or</em> a title to search — or fill in the fields manually.</p>
+    <p>Search by title or ISBN to fetch metadata automatically, or fill in the fields manually.</p>
   </header>
 
-  <!-- ── Unified search input ───────────────────────────────────────── -->
-  <div style="display:flex;gap:0.75rem;margin-bottom:0">
+  <!-- Search mode tabs -->
+  <div class="search-tabs">
+    <button class="search-tab active" id="tab-title">By title</button>
+    <button class="search-tab" id="tab-isbn">By ISBN</button>
+  </div>
+
+  <!-- Google Books API key (optional, stored in localStorage) -->
+  <div id="api-key-row">
+    <label for="gbooks-key">Google Books API key <em style="color:var(--text-faint)">(optional)</em></label>
+    <input type="password" id="gbooks-key" placeholder="AIza…" autocomplete="off">
+    <button class="btn btn--ghost" id="save-key-btn" style="font-size:12px;padding:0.3rem 0.7rem">Save</button>
+  </div>
+
+  <!-- Search input row -->
+  <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
     <input type="text" id="search-input"
-           placeholder="ISBN or title…"
-           style="font-family:var(--font-mono);letter-spacing:0.03em"
-           maxlength="200" autocomplete="off" spellcheck="false">
+           placeholder="e.g. The Name of the Rose"
+           style="flex:1"
+           maxlength="200">
     <button class="btn btn--primary" id="search-btn" style="white-space:nowrap">
       Search
     </button>
   </div>
-
-  <!-- auto-detect hint -->
-  <p id="search-hint">&nbsp;</p>
-
-  <!-- ── Results panel ──────────────────────────────────────────────── -->
-  <div id="results-panel" role="listbox" aria-label="Search results"></div>
-
   <p style="margin-bottom:1.75rem;font-size:13px;color:var(--text-muted)">
     No results? <a href="#" id="manual-entry-link" style="color:var(--accent)">Enter details manually</a>
+    &nbsp;·&nbsp;
+    <a href="#" id="toggle-api-key" style="color:var(--text-faint);font-size:12px">API key</a>
   </p>
 
-  <!-- ── Preview + form ────────────────────────────────────────────── -->
+  <!-- Results panel -->
+  <div id="results-panel">
+    <h2 id="results-heading">Results</h2>
+    <div class="result-list" id="result-list"></div>
+  </div>
+
+  <!-- Preview + form -->
   <div id="form-area" style="display:none">
     <div style="display:grid;grid-template-columns:140px 1fr;gap:1.5rem;margin-bottom:1.5rem" id="preview-row">
       <div>
@@ -207,6 +287,7 @@
       <select id="f-subject">
         <option value="">— None —</option>
       </select>
+      <p id="subject-hint" style="font-size:11px;color:var(--text-faint);margin-top:0.3rem;display:none"></p>
     </div>
 
     <div class="form-group">
@@ -242,8 +323,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { fetchISBNMetadata, fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
+  import { fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
+
+  // ── Constants ────────────────────────────────────────────────────────────
 
   const SUBJECTS = [
     'Art','Biography','Biology','Crafts','Crime','Curiosities','Diary','Drama',
@@ -253,7 +336,49 @@
     'Science','Science Fiction','Sociology','Sport','Technology','Travel','War'
   ];
 
-  // Populate subject dropdown
+  // Keyword → subject mapping: raw subject words from APIs → our category
+  const SUBJECT_KEYWORDS = {
+    'Art':             ['art','painting','sculpture','drawing','illustration','design','architecture','museum','gallery'],
+    'Biography':       ['biography','autobio','memoir','life of','personal narrative','diary','personal history'],
+    'Biology':         ['biology','botany','zoology','ecology','genetics','microbiology','evolution','life science','organism'],
+    'Crafts':          ['craft','knitting','sewing','woodwork','pottery','diy','handmade','hobby'],
+    'Crime':           ['crime','detective','mystery','thriller','noir','murder','investigation','police','forensic'],
+    'Curiosities':     ['curiosities','oddities','weird','strange','unusual','trivia','miscellany','wonders'],
+    'Diary':           ['diary','journal','letters','correspondence','personal'],
+    'Drama':           ['drama','play','theatre','theater','playwriting','screenplay','script'],
+    'Economics':       ['economics','economy','finance','business','trade','market','capitalism','monetary','banking','investment'],
+    'Education':       ['education','teaching','pedagogy','learning','school','curriculum','didactic'],
+    'Fiction':         ['fiction','novel','short stories','literary','narrative','story','tales'],
+    'Food':            ['food','cooking','gastronomy','cuisine','recipe','chef','culinary','nutrition'],
+    'History':         ['history','historical','ancient','medieval','modern history','world war','civilization','heritage'],
+    'Geography':       ['geography','cartography','map','region','landscape','territory','place'],
+    'Humor':           ['humor','humour','comedy','satire','parody','wit','funny','comic'],
+    'Language':        ['language','linguistics','grammar','etymology','dictionary','philology','translation','lexicon'],
+    'Math':            ['math','mathematics','algebra','geometry','calculus','statistics','probability','number theory'],
+    'Medicine':        ['medicine','medical','health','disease','anatomy','physiology','clinical','surgery','pharmacy','psychiatry'],
+    'Misc':            ['miscellaneous','general','reference','collection'],
+    'Music':           ['music','musicology','composition','jazz','classical','opera','rock','song','instrument'],
+    'Mythology':       ['mythology','myth','legend','folklore','fairy tale','epic','fable'],
+    'Nature':          ['nature','environment','wildlife','plants','animals','natural world','conservation','outdoor'],
+    'Neuroscience':    ['neuroscience','neurology','brain','cognition','neural','consciousness','cognitive science'],
+    'Philosophy':      ['philosophy','ethics','metaphysics','epistemology','logic','phenomenology','aesthetics','moral'],
+    'Photography':     ['photography','photo','photographic','camera'],
+    'Physics':         ['physics','quantum','mechanics','thermodynamics','relativity','electromagnetism','optics','astrophysics'],
+    'Poetry':          ['poetry','poem','verse','lyric','haiku','sonnet'],
+    'Politics':        ['politics','political','government','democracy','law','diplomacy','international relations','policy','justice'],
+    'Psychology':      ['psychology','psychoanalysis','behavior','mental','personality','developmental','social psychology'],
+    'Religion':        ['religion','theology','spirituality','bible','quran','buddhism','christianity','islam','faith','sacred'],
+    'Reportage':       ['journalism','reportage','report','news','investigative','documentary','nonfiction narrative'],
+    'Science':         ['science','scientific','chemistry','biology','physics','astronomy','geology','earth science'],
+    'Science Fiction': ['science fiction','sci-fi','sci fi','speculative','dystopia','utopia','cyberpunk','space opera','futuristic'],
+    'Sociology':       ['sociology','society','culture','anthropology','social','community','ethnography'],
+    'Sport':           ['sport','sports','athletics','football','basketball','tennis','running','cycling','swimming','fitness'],
+    'Technology':      ['technology','engineering','computer','software','hardware','programming','internet','artificial intelligence','robotics'],
+    'Travel':          ['travel','voyage','journey','exploration','adventure','travelogue','guide','tourism'],
+    'War':             ['war','military','battle','conflict','army','navy','air force','soldier','combat','weaponry'],
+  };
+
+  // ── Populate subject dropdown ────────────────────────────────────────────
   {
     const sel = document.getElementById('f-subject');
     for (const s of SUBJECTS) {
@@ -263,247 +388,108 @@
     }
   }
 
-  // Check GitHub config
+  // ── GitHub config check ──────────────────────────────────────────────────
   if (!isConfigured()) {
     document.getElementById('not-configured').style.display = 'flex';
-    document.getElementById('form-area').style.display = 'none';
   }
 
-  let currentMeta = null;
-  let coverBase64  = null;
+  // ── API key management ───────────────────────────────────────────────────
+  const GB_KEY_STORE = 'mybooks_gbooks_apikey';
+  let gBooksApiKey = localStorage.getItem(GB_KEY_STORE) || '';
+  if (gBooksApiKey) document.getElementById('gbooks-key').value = gBooksApiKey;
 
-  // ── Helpers ─────────────────────────────────────────────────────────────
+  document.getElementById('toggle-api-key').addEventListener('click', e => {
+    e.preventDefault();
+    const row = document.getElementById('api-key-row');
+    row.style.display = row.style.display === 'none' ? 'flex' : 'none';
+  });
 
-  const ISBN_RE = /^[\d\-]{9,17}[X]?$/i;
+  document.getElementById('save-key-btn').addEventListener('click', () => {
+    gBooksApiKey = document.getElementById('gbooks-key').value.trim();
+    localStorage.setItem(GB_KEY_STORE, gBooksApiKey);
+    document.getElementById('api-key-row').style.display = 'none';
+    toast('API key saved', 'success');
+  });
 
-  function looksLikeISBN(v) {
-    return ISBN_RE.test(v.replace(/\s/g, ''));
-  }
+  // ── Mode (title / isbn) ──────────────────────────────────────────────────
+  let searchMode = 'title'; // 'title' | 'isbn'
 
-  // CORS proxy via allorigins.win (free, no API key needed).
-  // /get wraps response as { contents: "<string>", status: { http_code } }
-  // /raw streams the raw bytes — used for images (img src).
-  async function fetchViaProxy(url) {
-    const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(url));
-    if (!r.ok) throw new Error(`Proxy HTTP ${r.status}`);
-    const wrapper = await r.json();
-    const text = wrapper.contents ?? '';
-    if (!text.trimStart().startsWith('{') && !text.trimStart().startsWith('[')) {
-      console.warn('[proxy] Non-JSON response:', text.slice(0, 400));
-      throw new Error('Proxy returned non-JSON — see console for details');
-    }
-    return JSON.parse(text);
-  }
+  document.getElementById('tab-title').addEventListener('click', () => setMode('title'));
+  document.getElementById('tab-isbn').addEventListener('click',  () => setMode('isbn'));
 
-  // For img src attributes only (binary passthrough, no JSON parsing)
-  function proxied(url) {
-    return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-  }
-
-  // ── Auto-detect hint ─────────────────────────────────────────────────────
-  const searchInput = document.getElementById('search-input');
-  const searchHint  = document.getElementById('search-hint');
-
-  searchInput.addEventListener('input', () => {
-    const v = searchInput.value.trim();
-    if (!v) { searchHint.innerHTML = '&nbsp;'; return; }
-    if (looksLikeISBN(v)) {
-      searchHint.innerHTML = '<span class="hint-mode isbn">ISBN</span> — will look up metadata directly';
+  function setMode(mode) {
+    searchMode = mode;
+    document.getElementById('tab-title').classList.toggle('active', mode === 'title');
+    document.getElementById('tab-isbn').classList.toggle('active',  mode === 'isbn');
+    const inp = document.getElementById('search-input');
+    if (mode === 'isbn') {
+      inp.placeholder = 'ISBN-13 (e.g. 9780141033570)';
+      inp.style.fontFamily = 'var(--font-mono)';
+      inp.style.letterSpacing = '0.05em';
+      inp.maxLength = 17;
     } else {
-      searchHint.innerHTML = '<span class="hint-mode title">Title</span> — will search IBS catalogue';
+      inp.placeholder = 'e.g. The Name of the Rose';
+      inp.style.fontFamily = '';
+      inp.style.letterSpacing = '';
+      inp.maxLength = 200;
+    }
+    // Auto-detect ISBN if user just pasted something
+  }
+
+  // Auto-detect ISBN when user types
+  document.getElementById('search-input').addEventListener('input', e => {
+    const v = e.target.value.replace(/[^0-9X]/gi, '');
+    if ((v.length === 13 || v.length === 10) && /^[0-9]{9,12}[0-9X]$/i.test(v)) {
+      setMode('isbn');
     }
   });
 
-  // ── IBS title search ─────────────────────────────────────────────────────
+  // ── State ─────────────────────────────────────────────────────────────────
+  let currentMeta  = null;
+  let coverBase64  = null;
+  let searchResults = [];   // Array of normalised book objects
 
-  /**
-   * Search IBS via Algolia endpoint, return normalised hit array.
-   * IBS Algolia hit fields observed: title, authors (array or string),
-   * isbn13, image (cover URL), editor (publisher), anno_pubblicazione (year),
-   * numero_pagine (pages), descrizione (description).
-   * We log the raw first hit so you can verify field names on first run.
-   */
-  async function searchIBS(query) {
-    const ibsUrl = `https://www.ibs.it/algolia-search?ts=as&query=${encodeURIComponent(query)}&qs=true`;
-    const data = await fetchViaProxy(ibsUrl);
-
-    // Log raw response shape for debugging (first hit only)
-    const hits = data?.results?.[0]?.hits ?? data?.hits ?? [];
-    if (hits.length) console.debug('[IBS] First hit raw:', hits[0]);
-
-    return hits.map(normaliseIBSHit);
-  }
-
-  function normaliseIBSHit(hit) {
-    // Author: may be array or string
-    let author = '';
-    if (Array.isArray(hit.authors)) author = hit.authors.join(', ');
-    else if (typeof hit.authors === 'string') author = hit.authors;
-    else if (typeof hit.autore === 'string') author = hit.autore;
-
-    // Cover: try common field names
-    const coverUrl = hit.image ?? hit.immagine ?? hit.cover_image ?? hit.thumbnail ?? null;
-
-    // ISBN: prefer isbn13
-    const isbn = (hit.isbn13 ?? hit.isbn ?? hit.ean ?? '').toString().replace(/\D/g, '');
-
-    // Year
-    const year = parseInt(hit.anno_pubblicazione ?? hit.year ?? hit.publication_year ?? '') || null;
-
-    return {
-      title:       hit.title ?? hit.titolo ?? '',
-      author,
-      isbn,
-      year,
-      publisher:   hit.editor ?? hit.editore ?? hit.publisher ?? '',
-      pages:       parseInt(hit.numero_pagine ?? hit.pages ?? '') || null,
-      description: hit.descrizione ?? hit.description ?? '',
-      lang:        hit.lingua ?? hit.language ?? 'it',
-      subjects:    hit.categoria ? [hit.categoria] : [],
-      coverUrl,
-    };
-  }
-
-  // ── Render results panel ──────────────────────────────────────────────────
-
-  const resultsPanel = document.getElementById('results-panel');
-
-  function showResultsState(html) {
-    resultsPanel.innerHTML = `<div class="results-state">${html}</div>`;
-    resultsPanel.classList.add('visible');
-  }
-
-  function renderResults(hits) {
-    if (!hits.length) {
-      showResultsState('No results found. Try a different query or <a href="#" id="manual-entry-link2" style="color:var(--accent)">enter manually</a>.');
-      resultsPanel.querySelector('#manual-entry-link2')?.addEventListener('click', openManual);
-      return;
-    }
-
-    resultsPanel.innerHTML = '';
-    resultsPanel.classList.add('visible');
-
-    for (const hit of hits) {
-      const item = document.createElement('div');
-      item.className = 'result-item';
-      item.setAttribute('role', 'option');
-      item.setAttribute('tabindex', '0');
-
-      const thumb = hit.coverUrl
-              ? `<img class="result-item__thumb" src="${escHtml(proxied(hit.coverUrl))}" alt="" loading="lazy" onerror="this.src='assets/no-cover.svg'">`
-              : `<img class="result-item__thumb" src="assets/no-cover.svg" alt="">`;
-
-      const isbnText = hit.isbn ? `<div class="result-item__isbn">${escHtml(hit.isbn)}</div>` : '';
-      const yearText = hit.year ? ` <span style="color:var(--text-faint,var(--text-muted));font-weight:400">(${hit.year})</span>` : '';
-
-      item.innerHTML = `
-        ${thumb}
-        <div class="result-item__info">
-          <div class="result-item__title">${escHtml(hit.title)}</div>
-          <div class="result-item__author">${escHtml(hit.author)}${yearText}</div>
-          ${isbnText}
-        </div>
-      `;
-
-      item.addEventListener('click', () => selectHit(hit, item));
-      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') selectHit(hit, item); });
-
-      resultsPanel.appendChild(item);
-    }
-  }
-
-  async function selectHit(hit, itemEl) {
-    // Mark selected
-    resultsPanel.querySelectorAll('.result-item').forEach(el => el.classList.remove('selected'));
-    itemEl.classList.add('selected');
-
-    currentMeta  = hit;
-    coverBase64  = null;
-    populateForm(hit);
-    document.getElementById('form-area').style.display = '';
-
-    // Fetch cover if available
-    if (hit.coverUrl) {
-      document.getElementById('cover-status').textContent = 'Downloading cover…';
-      document.getElementById('cover-preview').src = 'assets/no-cover.svg';
-      try {
-        coverBase64 = await fetchCoverAsBase64(hit.coverUrl);
-        document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
-        document.getElementById('cover-status').textContent = 'Cover ready';
-      } catch {
-        document.getElementById('cover-status').textContent = 'Cover unavailable';
-      }
-    } else {
-      document.getElementById('cover-preview').src = 'assets/no-cover.svg';
-      document.getElementById('cover-status').textContent = '';
-    }
-
-    // Scroll form into view smoothly
-    document.getElementById('form-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // ── Main search handler ───────────────────────────────────────────────────
+  // ── Search ────────────────────────────────────────────────────────────────
+  document.getElementById('search-btn').addEventListener('click', doSearch);
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
 
   async function doSearch() {
-    const raw = searchInput.value.trim();
-    if (!raw) { toast('Enter an ISBN or title to search', 'warning'); return; }
+    const raw = document.getElementById('search-input').value.trim();
+    if (!raw) { toast('Enter a title or ISBN to search', 'warning'); return; }
 
     const btn = document.getElementById('search-btn');
     btn.disabled = true;
-    btn.textContent = 'Searching…';
+    btn.innerHTML = '<span class="spinner"></span>Searching…';
+
+    hideResults();
     document.getElementById('form-area').style.display = 'none';
 
     try {
-      if (looksLikeISBN(raw)) {
-        // ── ISBN mode: direct metadata lookup ──────────────────────────
-        resultsPanel.classList.remove('visible');
-        showResultsState('Looking up ISBN…');
+      const isbnClean = raw.replace(/[^0-9X]/gi, '');
+      const looksLikeIsbn = (isbnClean.length === 10 || isbnClean.length === 13);
 
-        const cleanIsbn = raw.replace(/[^0-9X]/gi, '');
-        const meta = await fetchISBNMetadata(cleanIsbn);
-
-        if (!meta) {
-          showResultsState('No metadata found for this ISBN. You can <a href="#" id="manual-entry-link3" style="color:var(--accent)">enter manually</a>.');
-          resultsPanel.querySelector('#manual-entry-link3')?.addEventListener('click', openManual);
-          return;
-        }
-
-        // Synthesise a hit-like object and auto-select it
-        const hit = { ...meta, coverUrl: meta.coverUrl ?? null };
-        resultsPanel.classList.remove('visible');
-        currentMeta = hit;
-        coverBase64 = null;
-        populateForm(hit);
-        document.getElementById('form-area').style.display = '';
-
-        if (meta.coverUrl) {
-          document.getElementById('cover-status').textContent = 'Downloading cover…';
-          try {
-            coverBase64 = await fetchCoverAsBase64(meta.coverUrl);
-            document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
-            document.getElementById('cover-status').textContent = 'Cover ready';
-          } catch {
-            document.getElementById('cover-status').textContent = 'Cover unavailable';
-            toast('Could not fetch cover image', 'warning');
-          }
-        }
-
-        toast(`Found: "${meta.title}"`, 'success');
-
+      let results = [];
+      if (looksLikeIsbn || searchMode === 'isbn') {
+        // ISBN path: fetch a single definitive result, merge Google + OL
+        const merged = await fetchByIsbn(isbnClean);
+        if (merged) results = [merged];
       } else {
-        // ── Title mode: IBS catalogue search ───────────────────────────
-        showResultsState('Searching…');
-
-        const hits = await searchIBS(raw);
-        renderResults(hits);
-
-        if (hits.length) {
-          toast(`${hits.length} result${hits.length > 1 ? 's' : ''} found`, 'success');
-        }
+        // Title path: search both APIs, deduplicate by ISBN
+        results = await searchByTitle(raw);
       }
+
+      if (!results.length) {
+        toast('No results found — try different keywords or enter details manually', 'warning');
+        return;
+      }
+
+      searchResults = results;
+      renderResults(results);
+
     } catch (err) {
       console.error(err);
-      showResultsState(`Search failed: ${escHtml(err.message)}`);
       toast('Search failed — check your connection', 'error');
     } finally {
       btn.disabled = false;
@@ -511,29 +497,341 @@
     }
   }
 
-  document.getElementById('search-btn').addEventListener('click', doSearch);
-  searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  // ── Google Books helpers ──────────────────────────────────────────────────
+
+  function gbUrl(params) {
+    const base = 'https://www.googleapis.com/books/v1/volumes';
+    const qs = new URLSearchParams(params);
+    if (gBooksApiKey) qs.set('key', gBooksApiKey);
+    return `${base}?${qs}`;
+  }
+
+  async function fetchGoogleBooks(query, maxResults = 10) {
+    const url = gbUrl({ q: query, maxResults, langRestrict: '' });
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Google Books error ${res.status}`);
+    const data = await res.json();
+    return (data.items || []).map(normaliseGoogleItem);
+  }
+
+  function normaliseGoogleItem(item) {
+    const v = item.volumeInfo || {};
+    const isbn13 = (v.industryIdentifiers || []).find(i => i.type === 'ISBN_13')?.identifier;
+    const isbn10 = (v.industryIdentifiers || []).find(i => i.type === 'ISBN_10')?.identifier;
+    const isbn = isbn13 || isbn10 || '';
+    const coverUrl = (v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || '')
+            .replace('http://', 'https://').replace('&edge=curl', '').replace('zoom=1', 'zoom=2');
+    return {
+      source:      'Google Books',
+      gbId:        item.id,
+      isbn,
+      title:       v.title || '',
+      subtitle:    v.subtitle || '',
+      author:      (v.authors || []).join(', '),
+      year:        parseYear(v.publishedDate),
+      publisher:   v.publisher || '',
+      pages:       v.pageCount || null,
+      lang:        v.language || '',
+      description: stripHtml(v.description || ''),
+      subjects:    v.categories || [],
+      coverUrl,
+    };
+  }
+
+  // ── Open Library helpers ──────────────────────────────────────────────────
+
+  async function fetchOpenLibraryByIsbn(isbn) {
+    const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const book = data[`ISBN:${isbn}`];
+    if (!book) return null;
+    return normaliseOLBook(book, isbn);
+  }
+
+  async function searchOpenLibraryByTitle(title) {
+    const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=10&fields=key,title,author_name,first_publish_year,publisher,isbn,number_of_pages_median,language,subject,cover_i,ia`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.docs || []).map(normaliseOLDoc);
+  }
+
+  function normaliseOLBook(book, isbn) {
+    return {
+      source:      'Open Library',
+      isbn,
+      title:       book.title || '',
+      subtitle:    '',
+      author:      (book.authors || []).map(a => a.name).join(', '),
+      year:        book.publish_date ? parseInt(book.publish_date) || null : null,
+      publisher:   (book.publishers || []).map(p => p.name).join(', '),
+      pages:       book.number_of_pages || null,
+      lang:        (book.languages || []).map(l => l.key.replace('/languages/','')).join(', '),
+      description: typeof book.notes === 'string' ? book.notes : '',
+      subjects:    (book.subjects || []).map(s => s.name || s),
+      coverUrl:    book.cover?.large || book.cover?.medium || book.cover?.small || '',
+    };
+  }
+
+  function normaliseOLDoc(doc) {
+    const isbn = (doc.isbn || [])[0] || '';
+    const coverId = doc.cover_i;
+    const coverUrl = coverId ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` : '';
+    return {
+      source:      'Open Library',
+      isbn,
+      title:       doc.title || '',
+      subtitle:    '',
+      author:      (doc.author_name || []).join(', '),
+      year:        doc.first_publish_year || null,
+      publisher:   (doc.publisher || [])[0] || '',
+      pages:       doc.number_of_pages_median || null,
+      lang:        (doc.language || [])[0] || '',
+      description: '',
+      subjects:    doc.subject || [],
+      coverUrl,
+    };
+  }
+
+  // ── Combined fetch by ISBN (merges Google + OL) ───────────────────────────
+
+  async function fetchByIsbn(isbn) {
+    const [gbResults, olBook] = await Promise.allSettled([
+      fetchGoogleBooks(`isbn:${isbn}`, 1).then(r => r[0] || null),
+      fetchOpenLibraryByIsbn(isbn),
+    ]);
+
+    const gb = gbResults.status === 'fulfilled' ? gbResults.value : null;
+    const ol = olBook.status === 'fulfilled' ? olBook.value : null;
+
+    if (!gb && !ol) return null;
+
+    // Merge: prefer Google Books for most fields, OL fills gaps
+    const base = gb || ol;
+    const fill = gb ? ol : null;
+
+    return {
+      ...base,
+      isbn:        isbn || base.isbn,
+      pages:       base.pages || fill?.pages || null,
+      publisher:   base.publisher || fill?.publisher || '',
+      lang:        base.lang || fill?.lang || '',
+      description: base.description || fill?.description || '',
+      subjects:    mergeSubjects(base.subjects, fill?.subjects),
+      coverUrl:    base.coverUrl || fill?.coverUrl || '',
+      source:      gb && ol ? 'Google Books + Open Library' : base.source,
+    };
+  }
+
+  // ── Title search (Google Books + OL, deduped) ─────────────────────────────
+
+  async function searchByTitle(title) {
+    const [gbRes, olRes] = await Promise.allSettled([
+      fetchGoogleBooks(title, 10),
+      searchOpenLibraryByTitle(title),
+    ]);
+
+    const gbBooks = gbRes.status === 'fulfilled' ? gbRes.value : [];
+    const olBooks = olRes.status === 'fulfilled' ? olRes.value : [];
+
+    // Index GB results by ISBN
+    const byIsbn = new Map();
+    for (const b of gbBooks) {
+      if (b.isbn) byIsbn.set(b.isbn, b);
+      else byIsbn.set('gb_' + b.gbId, b);
+    }
+
+    // Merge OL into GB where ISBN matches, otherwise append
+    for (const ol of olBooks) {
+      if (ol.isbn && byIsbn.has(ol.isbn)) {
+        const gb = byIsbn.get(ol.isbn);
+        byIsbn.set(ol.isbn, {
+          ...gb,
+          pages:       gb.pages       || ol.pages,
+          publisher:   gb.publisher   || ol.publisher,
+          lang:        gb.lang        || ol.lang,
+          description: gb.description || ol.description,
+          subjects:    mergeSubjects(gb.subjects, ol.subjects),
+          coverUrl:    gb.coverUrl    || ol.coverUrl,
+          source:      'Google Books + Open Library',
+        });
+      } else {
+        const key = ol.isbn || 'ol_' + Math.random();
+        byIsbn.set(key, ol);
+      }
+    }
+
+    return [...byIsbn.values()].slice(0, 12);
+  }
+
+  // ── Subject matching ──────────────────────────────────────────────────────
+
+  function matchSubject(rawSubjects) {
+    if (!rawSubjects || !rawSubjects.length) return { matched: '', candidates: [] };
+
+    // Flatten all subjects to lowercase words
+    const text = rawSubjects.join(' ').toLowerCase();
+    const scores = {};
+
+    for (const [subj, keywords] of Object.entries(SUBJECT_KEYWORDS)) {
+      let score = 0;
+      for (const kw of keywords) {
+        if (text.includes(kw)) score += kw.length; // longer keyword = higher confidence
+      }
+      if (score > 0) scores[subj] = score;
+    }
+
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    if (!sorted.length) return { matched: '', candidates: [] };
+
+    return {
+      matched:    sorted[0][0],
+      candidates: sorted.slice(0, 3).map(s => s[0]),
+    };
+  }
+
+  // ── Render results ────────────────────────────────────────────────────────
+
+  function renderResults(books) {
+    const panel  = document.getElementById('results-panel');
+    const list   = document.getElementById('result-list');
+    const heading = document.getElementById('results-heading');
+
+    heading.textContent = `${books.length} result${books.length !== 1 ? 's' : ''} found`;
+    list.innerHTML = '';
+
+    for (let i = 0; i < books.length; i++) {
+      const b = books[i];
+      const { matched, candidates } = matchSubject(b.subjects);
+
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      card.dataset.index = i;
+
+      const thumb = b.coverUrl
+              ? `<img class="result-thumb" src="${escHtml(b.coverUrl)}" alt="" loading="lazy" onerror="this.src='assets/no-cover.svg'">`
+              : `<img class="result-thumb" src="assets/no-cover.svg" alt="">`;
+
+      const subjectHtml = matched
+              ? `<div class="subject-match">Subject: <strong>${escHtml(matched)}</strong>${
+                      candidates.length > 1
+                              ? ` <span style="color:var(--text-faint)">or ${candidates.slice(1).map(escHtml).join(', ')}</span>`
+                              : ''
+              }</div>`
+              : '';
+
+      card.innerHTML = `
+        ${thumb}
+        <div class="result-info">
+          <div class="result-title">${escHtml(b.title)}${b.subtitle ? ` <span style="font-weight:400;color:var(--text-muted)">— ${escHtml(b.subtitle)}</span>` : ''}</div>
+          <div class="result-meta">${escHtml(b.author || '—')}${b.year ? ` · ${b.year}` : ''}${b.publisher ? ` · ${escHtml(b.publisher)}` : ''}</div>
+          ${b.isbn ? `<div class="result-isbn">${escHtml(b.isbn)}</div>` : ''}
+          ${subjectHtml}
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem">
+          <span class="result-badge">${escHtml(b.source)}</span>
+          <button class="result-select-btn">Select</button>
+        </div>
+      `;
+
+      card.addEventListener('click', () => selectResult(i));
+      list.appendChild(card);
+    }
+
+    panel.style.display = '';
+  }
+
+  function hideResults() {
+    document.getElementById('results-panel').style.display = 'none';
+    document.getElementById('result-list').innerHTML = '';
+    searchResults = [];
+  }
+
+  // ── Select a result ────────────────────────────────────────────────────────
+
+  async function selectResult(idx) {
+    // Visual feedback
+    document.querySelectorAll('.result-card').forEach((c, i) => {
+      c.classList.toggle('selected', i === idx);
+    });
+
+    const book = searchResults[idx];
+    currentMeta  = book;
+    coverBase64  = null;
+
+    // Determine best subject match
+    const { matched } = matchSubject(book.subjects);
+
+    populateForm({ ...book, matchedSubject: matched });
+    document.getElementById('form-area').style.display = '';
+    document.getElementById('form-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Fetch cover
+    if (book.coverUrl) {
+      document.getElementById('cover-status').textContent = 'Downloading cover…';
+      try {
+        coverBase64 = await fetchCoverAsBase64(book.coverUrl);
+        document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
+        document.getElementById('cover-status').textContent = 'Cover ready';
+      } catch {
+        document.getElementById('cover-status').textContent = 'Cover unavailable';
+        document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+      }
+    } else {
+      document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+      document.getElementById('cover-status').textContent = '';
+    }
+  }
+
+  function populateForm(meta) {
+    document.getElementById('f-title').value     = meta.title ?? '';
+    document.getElementById('f-author').value    = meta.author ?? '';
+    document.getElementById('f-year').value      = meta.year ?? '';
+    document.getElementById('f-isbn-ro').value   = meta.isbn ?? '';
+    document.getElementById('f-publisher').value = meta.publisher ?? '';
+    document.getElementById('f-pages').value     = meta.pages ?? '';
+    document.getElementById('f-description').value = meta.description ?? '';
+    document.getElementById('f-language').value  = meta.lang ?? '';
+
+    // Subject
+    const sel   = document.getElementById('f-subject');
+    const hint  = document.getElementById('subject-hint');
+    sel.value   = '';
+    hint.style.display = 'none';
+
+    if (meta.matchedSubject) {
+      sel.value = meta.matchedSubject;
+    }
+
+    // Show raw API subjects as hint
+    if (meta.subjects && meta.subjects.length) {
+      const raw = meta.subjects.slice(0, 6).join(', ');
+      hint.textContent = `API tags: ${raw}`;
+      hint.style.display = '';
+    }
+  }
 
   // ── Manual entry ──────────────────────────────────────────────────────────
-
-  function openManual(e) {
-    if (e) e.preventDefault();
+  document.getElementById('manual-entry-link').addEventListener('click', e => {
+    e.preventDefault();
     currentMeta = null; coverBase64 = null;
-    resultsPanel.classList.remove('visible');
-    ['f-title','f-author','f-year','f-isbn-ro','f-publisher','f-pages','f-description','f-language'].forEach(id => {
+    hideResults();
+    ['f-title','f-author','f-isbn-ro','f-publisher','f-description','f-language'].forEach(id => {
       document.getElementById(id).value = '';
     });
+    document.getElementById('f-year').value  = '';
+    document.getElementById('f-pages').value = '';
     document.getElementById('f-subject').value = '';
+    document.getElementById('subject-hint').style.display = 'none';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     document.getElementById('cover-status').textContent = '';
     document.getElementById('form-area').style.display = '';
     document.getElementById('f-title').focus();
-  }
-
-  document.getElementById('manual-entry-link').addEventListener('click', openManual);
+  });
 
   // ── Cover upload ──────────────────────────────────────────────────────────
-
   document.getElementById('cover-upload').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -556,8 +854,7 @@
         const canvas = document.createElement('canvas');
         canvas.width = img.width; canvas.height = img.height;
         canvas.getContext('2d').drawImage(img, 0, 0);
-        const dataUrl = canvas.toDataURL('image/webp', 0.85);
-        resolve(dataUrl.split(',')[1]);
+        resolve(canvas.toDataURL('image/webp', 0.85).split(',')[1]);
         URL.revokeObjectURL(img.src);
       };
       img.onerror = () => { URL.revokeObjectURL(img.src); reject(new Error('Invalid image')); };
@@ -565,29 +862,7 @@
     });
   }
 
-  // ── Populate form ─────────────────────────────────────────────────────────
-
-  function populateForm(meta) {
-    document.getElementById('f-title').value       = meta.title       ?? '';
-    document.getElementById('f-author').value      = meta.author      ?? '';
-    document.getElementById('f-year').value        = meta.year        ?? '';
-    document.getElementById('f-isbn-ro').value     = meta.isbn        ?? '';
-    document.getElementById('f-publisher').value   = meta.publisher   ?? '';
-    document.getElementById('f-pages').value       = meta.pages       ?? '';
-    document.getElementById('f-description').value = meta.description ?? '';
-    document.getElementById('f-language').value    = meta.lang        ?? '';
-
-    const metaSubjects = Array.isArray(meta.subjects) ? meta.subjects : [];
-    const sel = document.getElementById('f-subject');
-    sel.value = '';
-    for (const s of metaSubjects) {
-      const match = SUBJECTS.find(opt => opt.toLowerCase() === s.toLowerCase());
-      if (match) { sel.value = match; break; }
-    }
-  }
-
-  // ── Save ──────────────────────────────────────────────────────────────────
-
+  // ── Save ─────────────────────────────────────────────────────────────────
   document.getElementById('save-btn').addEventListener('click', async () => {
     if (!isConfigured()) { toast('Configure GitHub settings first', 'warning'); return; }
 
@@ -595,8 +870,10 @@
     const title  = document.getElementById('f-title').value.trim();
     const author = document.getElementById('f-author').value.trim();
 
-    if (!title) { toast('Title is required', 'warning'); return; }
-    if (!isbn)  { isbn = 'no-isbn-' + Date.now().toString(36); }
+    if (!title)  { toast('Title is required', 'warning');  return; }
+    if (!author) { toast('Author is required', 'warning'); return; }
+
+    if (!isbn) isbn = 'no-isbn-' + Date.now().toString(36);
 
     const subject  = document.getElementById('f-subject').value;
     const subjects = subject ? [subject] : [];
@@ -605,7 +882,7 @@
       isbn,
       title,
       author,
-      year:        parseInt(document.getElementById('f-year').value)  || null,
+      year:        parseInt(document.getElementById('f-year').value) || null,
       cover:       `covers/${isbn}.webp`,
       added:       new Date().toISOString().slice(0, 10),
       publisher:   document.getElementById('f-publisher').value.trim(),
@@ -617,21 +894,15 @@
 
     document.getElementById('save-progress').style.display = '';
     document.getElementById('save-btn').disabled = true;
-
     const bar    = document.getElementById('progress-bar');
     const status = document.getElementById('save-status');
-    const steps  = ['cover', 'grid'];
-    let done = 0;
-    const updateProgress = (msg) => {
-      done++;
-      bar.style.width = `${Math.round(done / steps.length * 100)}%`;
-      status.textContent = msg;
-    };
 
     try {
       status.textContent = 'Saving…';
+      bar.style.width = '40%';
       await saveNewBook(entry, coverBase64, 'image/webp');
-      updateProgress('Saved! Redirecting…');
+      bar.style.width = '100%';
+      status.textContent = 'Saved! Redirecting…';
       toast(`"${title}" added to your library`, 'success');
       setTimeout(() => window.location.href = 'index.html', 1200);
     } catch (err) {
@@ -639,17 +910,37 @@
       toast(`Save failed: ${err.message}`, 'error');
       document.getElementById('save-btn').disabled = false;
       status.textContent = `Error: ${err.message}`;
+      bar.style.width = '0%';
     }
   });
 
   document.getElementById('reset-btn').addEventListener('click', () => {
+    hideResults();
     document.getElementById('form-area').style.display = 'none';
-    resultsPanel.classList.remove('visible');
-    searchInput.value   = '';
-    searchHint.innerHTML = '&nbsp;';
+    document.getElementById('search-input').value = '';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     currentMeta = null; coverBase64 = null;
   });
+
+  // ── Utilities ─────────────────────────────────────────────────────────────
+
+  function parseYear(str) {
+    if (!str) return null;
+    const m = str.match(/\d{4}/);
+    return m ? parseInt(m[0]) : null;
+  }
+
+  function stripHtml(html) {
+    if (!html) return '';
+    return html.replace(/<[^>]+>/g, '').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').trim();
+  }
+
+  function mergeSubjects(a, b) {
+    const all = [...(a || []), ...(b || [])];
+    return [...new Set(all.map(s => String(s).toLowerCase()))].map(s =>
+            all.find(x => String(x).toLowerCase() === s) || s
+    );
+  }
 </script>
 
 <script src="js/theme.js"></script>
