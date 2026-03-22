@@ -8,6 +8,114 @@
   <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f0e0d">
+  <style>
+    /* ── Search results panel ─────────────────────────────────────────── */
+    #results-panel {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+    #results-panel.visible { display: flex; }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.13s;
+      background: var(--bg-card, var(--bg-raised));
+    }
+    .result-item:last-child { border-bottom: none; }
+    .result-item:hover { background: var(--bg-hover, color-mix(in srgb, var(--accent) 10%, transparent)); }
+    .result-item.selected { background: color-mix(in srgb, var(--accent) 15%, transparent); }
+
+    .result-item__thumb {
+      width: 40px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg-raised);
+    }
+    .result-item__info { flex: 1; min-width: 0; }
+    .result-item__title {
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+    .result-item__author {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-item__isbn {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-faint, var(--text-muted));
+      margin-top: 3px;
+    }
+    .result-item__badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* search hint pill below input */
+    #search-hint {
+      font-size: 11px;
+      color: var(--text-faint, var(--text-muted));
+      margin-top: 0.25rem;
+      margin-bottom: 0.75rem;
+      min-height: 1em;
+      transition: opacity 0.2s;
+    }
+    #search-hint .hint-mode {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    #search-hint .hint-mode.isbn {
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      color: var(--accent);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+    #search-hint .hint-mode.title {
+      background: color-mix(in srgb, #7c9 18%, transparent);
+      color: #4a9;
+      border: 1px solid color-mix(in srgb, #4a9 35%, transparent);
+    }
+
+    /* results empty / loading states */
+    .results-state {
+      padding: 1.1rem 1rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
 </head>
 <body>
 
@@ -25,22 +133,31 @@
 <main class="page" style="max-width:760px">
   <header class="page-header">
     <h1>Add a Book</h1>
-    <p>Enter an ISBN to fetch metadata automatically, or fill in the fields manually.</p>
+    <p>Enter an ISBN <em>or</em> a title to search — or fill in the fields manually.</p>
   </header>
 
-  <!-- ISBN lookup -->
-  <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
-    <input type="text" id="isbn-input" placeholder="ISBN-13 (e.g. 9780141033570)"
-           style="font-family:var(--font-mono);letter-spacing:0.05em" maxlength="17">
-    <button class="btn btn--primary" id="fetch-btn" style="white-space:nowrap">
-      Fetch metadata
+  <!-- ── Unified search input ───────────────────────────────────────── -->
+  <div style="display:flex;gap:0.75rem;margin-bottom:0">
+    <input type="text" id="search-input"
+           placeholder="ISBN or title…"
+           style="font-family:var(--font-mono);letter-spacing:0.03em"
+           maxlength="200" autocomplete="off" spellcheck="false">
+    <button class="btn btn--primary" id="search-btn" style="white-space:nowrap">
+      Search
     </button>
   </div>
+
+  <!-- auto-detect hint -->
+  <p id="search-hint">&nbsp;</p>
+
+  <!-- ── Results panel ──────────────────────────────────────────────── -->
+  <div id="results-panel" role="listbox" aria-label="Search results"></div>
+
   <p style="margin-bottom:1.75rem;font-size:13px;color:var(--text-muted)">
-    No ISBN? <a href="#" id="manual-entry-link" style="color:var(--accent)">Enter details manually</a>
+    No results? <a href="#" id="manual-entry-link" style="color:var(--accent)">Enter details manually</a>
   </p>
 
-  <!-- Preview + form -->
+  <!-- ── Preview + form ────────────────────────────────────────────── -->
   <div id="form-area" style="display:none">
     <div style="display:grid;grid-template-columns:140px 1fr;gap:1.5rem;margin-bottom:1.5rem" id="preview-row">
       <div>
@@ -129,10 +246,10 @@
   import { toast, escHtml } from './js/ui.js';
 
   const SUBJECTS = [
-    'Art','Biography','Biology','Crafts','Crime', 'Curiosities','Diary','Drama',
+    'Art','Biography','Biology','Crafts','Crime','Curiosities','Diary','Drama',
     'Economics','Education','Fiction','Food','History','Geography','Humor','Language',
-    'Math','Medicine','Misc', 'Music','Mythology','Nature','Neuroscience','Philosophy',
-    'Photography','Physics','Poetry', 'Politics','Psychology','Religion', 'Reportage',
+    'Math','Medicine','Misc','Music','Mythology','Nature','Neuroscience','Philosophy',
+    'Photography','Physics','Poetry','Politics','Psychology','Religion','Reportage',
     'Science','Science Fiction','Sociology','Sport','Technology','Travel','War'
   ];
 
@@ -153,72 +270,257 @@
   }
 
   let currentMeta = null;
-  let coverBase64 = null;
+  let coverBase64  = null;
 
-  // ── ISBN fetch ──────────────────────────────────────────────────────────
-  document.getElementById('fetch-btn').addEventListener('click', async () => {
-    const raw = document.getElementById('isbn-input').value.trim().replace(/[^0-9X]/gi, '');
-    if (raw.length < 10) { toast('Please enter a valid ISBN', 'warning'); return; }
+  // ── Helpers ─────────────────────────────────────────────────────────────
 
-    const btn = document.getElementById('fetch-btn');
-    btn.disabled = true; btn.textContent = 'Fetching…';
+  const ISBN_RE = /^[\d\-]{9,17}[X]?$/i;
 
-    try {
-      const meta = await fetchISBNMetadata(raw);
-      if (!meta) { toast('No metadata found for this ISBN', 'error'); return; }
+  function looksLikeISBN(v) {
+    return ISBN_RE.test(v.replace(/\s/g, ''));
+  }
 
-      currentMeta = meta;
-      populateForm(meta);
-      document.getElementById('form-area').style.display = '';
+  // CORS proxy wrapper
+  function proxied(url) {
+    return 'https://corsproxy.io/?' + encodeURIComponent(url);
+  }
 
-      // Fetch cover
-      if (meta.coverUrl) {
-        document.getElementById('cover-status').textContent = 'Downloading cover…';
-        try {
-          coverBase64 = await fetchCoverAsBase64(meta.coverUrl);
-          document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
-          document.getElementById('cover-status').textContent = 'Cover ready';
-        } catch {
-          document.getElementById('cover-status').textContent = 'Cover unavailable';
-          toast('Could not fetch cover image', 'warning');
-        }
-      }
+  // ── Auto-detect hint ─────────────────────────────────────────────────────
+  const searchInput = document.getElementById('search-input');
+  const searchHint  = document.getElementById('search-hint');
 
-      toast(`Found: "${meta.title}"`, 'success');
-
-    } catch (err) {
-      console.error(err);
-      toast('Fetch failed — check your connection', 'error');
-    } finally {
-      btn.disabled = false; btn.textContent = 'Fetch metadata';
+  searchInput.addEventListener('input', () => {
+    const v = searchInput.value.trim();
+    if (!v) { searchHint.innerHTML = '&nbsp;'; return; }
+    if (looksLikeISBN(v)) {
+      searchHint.innerHTML = '<span class="hint-mode isbn">ISBN</span> — will look up metadata directly';
+    } else {
+      searchHint.innerHTML = '<span class="hint-mode title">Title</span> — will search IBS catalogue';
     }
   });
 
-  // Allow Enter key on ISBN input
-  document.getElementById('isbn-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('fetch-btn').click();
-  });
+  // ── IBS title search ─────────────────────────────────────────────────────
 
-  // Manual entry (no ISBN)
-  document.getElementById('manual-entry-link').addEventListener('click', e => {
-    e.preventDefault();
+  /**
+   * Search IBS via Algolia endpoint, return normalised hit array.
+   * IBS Algolia hit fields observed: title, authors (array or string),
+   * isbn13, image (cover URL), editor (publisher), anno_pubblicazione (year),
+   * numero_pagine (pages), descrizione (description).
+   * We log the raw first hit so you can verify field names on first run.
+   */
+  async function searchIBS(query) {
+    const ibsUrl = `https://www.ibs.it/algolia-search?ts=as&query=${encodeURIComponent(query)}&qs=true`;
+    const resp = await fetch(proxied(ibsUrl));
+    if (!resp.ok) throw new Error(`IBS search failed: ${resp.status}`);
+    const data = await resp.json();
+
+    // Log raw response shape for debugging (first hit only)
+    const hits = data?.results?.[0]?.hits ?? data?.hits ?? [];
+    if (hits.length) console.debug('[IBS] First hit raw:', hits[0]);
+
+    return hits.map(normaliseIBSHit);
+  }
+
+  function normaliseIBSHit(hit) {
+    // Author: may be array or string
+    let author = '';
+    if (Array.isArray(hit.authors)) author = hit.authors.join(', ');
+    else if (typeof hit.authors === 'string') author = hit.authors;
+    else if (typeof hit.autore === 'string') author = hit.autore;
+
+    // Cover: try common field names
+    const coverUrl = hit.image ?? hit.immagine ?? hit.cover_image ?? hit.thumbnail ?? null;
+
+    // ISBN: prefer isbn13
+    const isbn = (hit.isbn13 ?? hit.isbn ?? hit.ean ?? '').toString().replace(/\D/g, '');
+
+    // Year
+    const year = parseInt(hit.anno_pubblicazione ?? hit.year ?? hit.publication_year ?? '') || null;
+
+    return {
+      title:       hit.title ?? hit.titolo ?? '',
+      author,
+      isbn,
+      year,
+      publisher:   hit.editor ?? hit.editore ?? hit.publisher ?? '',
+      pages:       parseInt(hit.numero_pagine ?? hit.pages ?? '') || null,
+      description: hit.descrizione ?? hit.description ?? '',
+      lang:        hit.lingua ?? hit.language ?? 'it',
+      subjects:    hit.categoria ? [hit.categoria] : [],
+      coverUrl,
+    };
+  }
+
+  // ── Render results panel ──────────────────────────────────────────────────
+
+  const resultsPanel = document.getElementById('results-panel');
+
+  function showResultsState(html) {
+    resultsPanel.innerHTML = `<div class="results-state">${html}</div>`;
+    resultsPanel.classList.add('visible');
+  }
+
+  function renderResults(hits) {
+    if (!hits.length) {
+      showResultsState('No results found. Try a different query or <a href="#" id="manual-entry-link2" style="color:var(--accent)">enter manually</a>.');
+      resultsPanel.querySelector('#manual-entry-link2')?.addEventListener('click', openManual);
+      return;
+    }
+
+    resultsPanel.innerHTML = '';
+    resultsPanel.classList.add('visible');
+
+    for (const hit of hits) {
+      const item = document.createElement('div');
+      item.className = 'result-item';
+      item.setAttribute('role', 'option');
+      item.setAttribute('tabindex', '0');
+
+      const thumb = hit.coverUrl
+              ? `<img class="result-item__thumb" src="${escHtml(proxied(hit.coverUrl))}" alt="" loading="lazy" onerror="this.src='assets/no-cover.svg'">`
+              : `<img class="result-item__thumb" src="assets/no-cover.svg" alt="">`;
+
+      const isbnText = hit.isbn ? `<div class="result-item__isbn">${escHtml(hit.isbn)}</div>` : '';
+      const yearText = hit.year ? ` <span style="color:var(--text-faint,var(--text-muted));font-weight:400">(${hit.year})</span>` : '';
+
+      item.innerHTML = `
+        ${thumb}
+        <div class="result-item__info">
+          <div class="result-item__title">${escHtml(hit.title)}</div>
+          <div class="result-item__author">${escHtml(hit.author)}${yearText}</div>
+          ${isbnText}
+        </div>
+      `;
+
+      item.addEventListener('click', () => selectHit(hit, item));
+      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') selectHit(hit, item); });
+
+      resultsPanel.appendChild(item);
+    }
+  }
+
+  async function selectHit(hit, itemEl) {
+    // Mark selected
+    resultsPanel.querySelectorAll('.result-item').forEach(el => el.classList.remove('selected'));
+    itemEl.classList.add('selected');
+
+    currentMeta  = hit;
+    coverBase64  = null;
+    populateForm(hit);
+    document.getElementById('form-area').style.display = '';
+
+    // Fetch cover if available
+    if (hit.coverUrl) {
+      document.getElementById('cover-status').textContent = 'Downloading cover…';
+      document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+      try {
+        coverBase64 = await fetchCoverAsBase64(hit.coverUrl);
+        document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
+        document.getElementById('cover-status').textContent = 'Cover ready';
+      } catch {
+        document.getElementById('cover-status').textContent = 'Cover unavailable';
+      }
+    } else {
+      document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+      document.getElementById('cover-status').textContent = '';
+    }
+
+    // Scroll form into view smoothly
+    document.getElementById('form-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Main search handler ───────────────────────────────────────────────────
+
+  async function doSearch() {
+    const raw = searchInput.value.trim();
+    if (!raw) { toast('Enter an ISBN or title to search', 'warning'); return; }
+
+    const btn = document.getElementById('search-btn');
+    btn.disabled = true;
+    btn.textContent = 'Searching…';
+    document.getElementById('form-area').style.display = 'none';
+
+    try {
+      if (looksLikeISBN(raw)) {
+        // ── ISBN mode: direct metadata lookup ──────────────────────────
+        resultsPanel.classList.remove('visible');
+        showResultsState('Looking up ISBN…');
+
+        const cleanIsbn = raw.replace(/[^0-9X]/gi, '');
+        const meta = await fetchISBNMetadata(cleanIsbn);
+
+        if (!meta) {
+          showResultsState('No metadata found for this ISBN. You can <a href="#" id="manual-entry-link3" style="color:var(--accent)">enter manually</a>.');
+          resultsPanel.querySelector('#manual-entry-link3')?.addEventListener('click', openManual);
+          return;
+        }
+
+        // Synthesise a hit-like object and auto-select it
+        const hit = { ...meta, coverUrl: meta.coverUrl ?? null };
+        resultsPanel.classList.remove('visible');
+        currentMeta = hit;
+        coverBase64 = null;
+        populateForm(hit);
+        document.getElementById('form-area').style.display = '';
+
+        if (meta.coverUrl) {
+          document.getElementById('cover-status').textContent = 'Downloading cover…';
+          try {
+            coverBase64 = await fetchCoverAsBase64(meta.coverUrl);
+            document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
+            document.getElementById('cover-status').textContent = 'Cover ready';
+          } catch {
+            document.getElementById('cover-status').textContent = 'Cover unavailable';
+            toast('Could not fetch cover image', 'warning');
+          }
+        }
+
+        toast(`Found: "${meta.title}"`, 'success');
+
+      } else {
+        // ── Title mode: IBS catalogue search ───────────────────────────
+        showResultsState('Searching…');
+
+        const hits = await searchIBS(raw);
+        renderResults(hits);
+
+        if (hits.length) {
+          toast(`${hits.length} result${hits.length > 1 ? 's' : ''} found`, 'success');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      showResultsState(`Search failed: ${escHtml(err.message)}`);
+      toast('Search failed — check your connection', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Search';
+    }
+  }
+
+  document.getElementById('search-btn').addEventListener('click', doSearch);
+  searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+  // ── Manual entry ──────────────────────────────────────────────────────────
+
+  function openManual(e) {
+    if (e) e.preventDefault();
     currentMeta = null; coverBase64 = null;
-    document.getElementById('f-title').value = '';
-    document.getElementById('f-author').value = '';
-    document.getElementById('f-year').value = '';
-    document.getElementById('f-isbn-ro').value = '';
-    document.getElementById('f-publisher').value = '';
-    document.getElementById('f-pages').value = '';
+    resultsPanel.classList.remove('visible');
+    ['f-title','f-author','f-year','f-isbn-ro','f-publisher','f-pages','f-description','f-language'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
     document.getElementById('f-subject').value = '';
-    document.getElementById('f-description').value = '';
-    document.getElementById('f-language').value = '';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     document.getElementById('cover-status').textContent = '';
     document.getElementById('form-area').style.display = '';
     document.getElementById('f-title').focus();
-  });
+  }
 
-  // Cover upload
+  document.getElementById('manual-entry-link').addEventListener('click', openManual);
+
+  // ── Cover upload ──────────────────────────────────────────────────────────
+
   document.getElementById('cover-upload').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -239,8 +541,7 @@
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.width; canvas.height = img.height;
         canvas.getContext('2d').drawImage(img, 0, 0);
         const dataUrl = canvas.toDataURL('image/webp', 0.85);
         resolve(dataUrl.split(',')[1]);
@@ -251,14 +552,18 @@
     });
   }
 
+  // ── Populate form ─────────────────────────────────────────────────────────
+
   function populateForm(meta) {
-    document.getElementById('f-title').value        = meta.title ?? '';
-    document.getElementById('f-author').value       = meta.author ?? '';
-    document.getElementById('f-year').value         = meta.year ?? '';
-    document.getElementById('f-isbn-ro').value      = meta.isbn ?? '';
-    document.getElementById('f-publisher').value    = meta.publisher ?? '';
-    document.getElementById('f-pages').value        = meta.pages ?? '';
-    // Match first subject from metadata to the dropdown
+    document.getElementById('f-title').value       = meta.title       ?? '';
+    document.getElementById('f-author').value      = meta.author      ?? '';
+    document.getElementById('f-year').value        = meta.year        ?? '';
+    document.getElementById('f-isbn-ro').value     = meta.isbn        ?? '';
+    document.getElementById('f-publisher').value   = meta.publisher   ?? '';
+    document.getElementById('f-pages').value       = meta.pages       ?? '';
+    document.getElementById('f-description').value = meta.description ?? '';
+    document.getElementById('f-language').value    = meta.lang        ?? '';
+
     const metaSubjects = Array.isArray(meta.subjects) ? meta.subjects : [];
     const sel = document.getElementById('f-subject');
     sel.value = '';
@@ -266,35 +571,28 @@
       const match = SUBJECTS.find(opt => opt.toLowerCase() === s.toLowerCase());
       if (match) { sel.value = match; break; }
     }
-    document.getElementById('f-description').value  = meta.description ?? '';
-    document.getElementById('f-language').value     = meta.lang ?? '';
   }
 
-  // ── Save ────────────────────────────────────────────────────────────────
-  document.getElementById('save-btn').addEventListener('click', async () => {
-    if (!isConfigured()) {
-      toast('Configure GitHub settings first', 'warning'); return;
-    }
+  // ── Save ──────────────────────────────────────────────────────────────────
 
-    let isbn    = document.getElementById('f-isbn-ro').value.trim();
-    const title = document.getElementById('f-title').value.trim();
+  document.getElementById('save-btn').addEventListener('click', async () => {
+    if (!isConfigured()) { toast('Configure GitHub settings first', 'warning'); return; }
+
+    let isbn     = document.getElementById('f-isbn-ro').value.trim();
+    const title  = document.getElementById('f-title').value.trim();
     const author = document.getElementById('f-author').value.trim();
 
     if (!title) { toast('Title is required', 'warning'); return; }
+    if (!isbn)  { isbn = 'no-isbn-' + Date.now().toString(36); }
 
-    // Generate a stable ID when no ISBN is available
-    if (!isbn) {
-      isbn = 'no-isbn-' + Date.now().toString(36);
-    }
-
-    const subject = document.getElementById('f-subject').value;
+    const subject  = document.getElementById('f-subject').value;
     const subjects = subject ? [subject] : [];
 
     const entry = {
       isbn,
       title,
       author,
-      year:        parseInt(document.getElementById('f-year').value) || null,
+      year:        parseInt(document.getElementById('f-year').value)  || null,
       cover:       `covers/${isbn}.webp`,
       added:       new Date().toISOString().slice(0, 10),
       publisher:   document.getElementById('f-publisher').value.trim(),
@@ -304,13 +602,12 @@
       subjects,
     };
 
-    // Show progress
     document.getElementById('save-progress').style.display = '';
     document.getElementById('save-btn').disabled = true;
-    const bar = document.getElementById('progress-bar');
-    const status = document.getElementById('save-status');
 
-    const steps = ['cover', 'grid'];
+    const bar    = document.getElementById('progress-bar');
+    const status = document.getElementById('save-status');
+    const steps  = ['cover', 'grid'];
     let done = 0;
     const updateProgress = (msg) => {
       done++;
@@ -334,7 +631,9 @@
 
   document.getElementById('reset-btn').addEventListener('click', () => {
     document.getElementById('form-area').style.display = 'none';
-    document.getElementById('isbn-input').value = '';
+    resultsPanel.classList.remove('visible');
+    searchInput.value   = '';
+    searchHint.innerHTML = '&nbsp;';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     currentMeta = null; coverBase64 = null;
   });
