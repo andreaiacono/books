@@ -280,9 +280,24 @@
     return ISBN_RE.test(v.replace(/\s/g, ''));
   }
 
-  // CORS proxy wrapper
+  // CORS proxy via allorigins.win (free, no API key needed).
+  // /get wraps response as { contents: "<string>", status: { http_code } }
+  // /raw streams the raw bytes — used for images (img src).
+  async function fetchViaProxy(url) {
+    const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(url));
+    if (!r.ok) throw new Error(`Proxy HTTP ${r.status}`);
+    const wrapper = await r.json();
+    const text = wrapper.contents ?? '';
+    if (!text.trimStart().startsWith('{') && !text.trimStart().startsWith('[')) {
+      console.warn('[proxy] Non-JSON response:', text.slice(0, 400));
+      throw new Error('Proxy returned non-JSON — see console for details');
+    }
+    return JSON.parse(text);
+  }
+
+  // For img src attributes only (binary passthrough, no JSON parsing)
   function proxied(url) {
-    return 'https://corsproxy.io/?' + encodeURIComponent(url);
+    return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
   }
 
   // ── Auto-detect hint ─────────────────────────────────────────────────────
@@ -310,9 +325,7 @@
    */
   async function searchIBS(query) {
     const ibsUrl = `https://www.ibs.it/algolia-search?ts=as&query=${encodeURIComponent(query)}&qs=true`;
-    const resp = await fetch(proxied(ibsUrl));
-    if (!resp.ok) throw new Error(`IBS search failed: ${resp.status}`);
-    const data = await resp.json();
+    const data = await fetchViaProxy(ibsUrl);
 
     // Log raw response shape for debugging (first hit only)
     const hits = data?.results?.[0]?.hits ?? data?.hits ?? [];
