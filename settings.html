@@ -29,7 +29,6 @@
     <p>Configure GitHub integration to enable adding books from the browser.</p>
   </header>
 
-  <!-- Status banner -->
   <div id="config-status" style="
     padding: 0.75rem 1rem; border-radius: var(--radius); margin-bottom: 1.5rem;
     border: 1px solid var(--border); font-size: 14px; display: flex;
@@ -58,24 +57,71 @@
         <input type="password" id="gh-token" placeholder="ghp_…" autocomplete="off">
         <button class="btn btn--ghost" id="toggle-token" style="white-space:nowrap;flex-shrink:0">Show</button>
       </div>
+
       <p class="form-hint">
-        Create at <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">
-        github.com/settings/tokens</a> — scope: <code>public_repo</code> (or <code>repo</code> for private repos).
-        Stored only in your browser's localStorage, never in the repo.
+        Create at
+        <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">
+          github.com/settings/tokens
+        </a>
+        — scope: <code>public_repo</code>
+        (or <code>repo</code> for private repos).
+        Stored only in your browser's localStorage.
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="google-api-key">
+        Google Books API key
+      </label>
+
+      <div style="display:flex;gap:0.5rem">
+        <input
+                type="password"
+                id="google-api-key"
+                placeholder="AIza…"
+                autocomplete="off"
+        >
+
+        <button
+                class="btn btn--ghost"
+                id="toggle-google-key"
+                style="white-space:nowrap;flex-shrink:0"
+        >
+          Show
+        </button>
+      </div>
+
+      <p class="form-hint">
+        Optional. Improves Google Books search reliability and prevents
+        rate limits. Stored only in your browser localStorage.
       </p>
     </div>
 
     <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
-      <button class="btn btn--primary" id="save-config">Save</button>
-      <button class="btn btn--ghost" id="test-config">Test connection</button>
-      <button class="btn btn--danger" id="clear-config" style="margin-left:auto">Clear</button>
+      <button class="btn btn--primary" id="save-config">
+        Save
+      </button>
+
+      <button class="btn btn--ghost" id="test-config">
+        Test connection
+      </button>
+
+      <button
+              class="btn btn--danger"
+              id="clear-config"
+              style="margin-left:auto"
+      >
+        Clear
+      </button>
     </div>
+
   </section>
 
   <section>
     <h2 style="font-family:var(--font-display);font-weight:400;font-size:1.2rem;margin-bottom:1rem">
       About
     </h2>
+
     <div style="font-size:14px;color:var(--text-muted);line-height:1.8">
       <p><strong style="color:var(--text)">MyBooks</strong> is a fully static personal library manager.
       All data lives in your GitHub repository as JSON and CSV files.</p>
@@ -84,91 +130,263 @@
         Data files:
         <code>data/books.json</code> · <code>data/books/*.json</code> · <code>data/reading-log.csv</code>
       </p>
+
     </div>
+
   </section>
+
 </main>
 
 <script>
+
   const fields = {
     repo:   document.getElementById('gh-repo'),
     branch: document.getElementById('gh-branch'),
     token:  document.getElementById('gh-token'),
+    google: document.getElementById('google-api-key')
   };
 
-  function loadConfig() {
-    fields.repo.value   = localStorage.getItem('gh_repo')   ?? '';
-    fields.branch.value = localStorage.getItem('gh_branch') ?? '';
-    fields.token.value  = localStorage.getItem('gh_token')  ?? '';
+  function loadConfig(){
+
+    fields.repo.value =
+            localStorage.getItem('gh_repo') ?? '';
+
+    fields.branch.value =
+            localStorage.getItem('gh_branch') ?? '';
+
+    fields.token.value =
+            localStorage.getItem('gh_token') ?? '';
+
+    fields.google.value =
+            localStorage.getItem('google_books_key') ?? '';
+
     updateStatus();
+
   }
 
-  function updateStatus() {
-    const el = document.getElementById('config-status');
-    const configured = localStorage.getItem('gh_token') && localStorage.getItem('gh_repo');
-    el.style.background = configured ? '#1f3d2e' : '#3d1f1f';
-    el.style.borderColor = configured ? '#2e6644' : '#7a3333';
-    el.style.color = configured ? '#6fcf97' : '#e07070';
-    el.innerHTML = configured
-      ? `✓ Configured — <strong>${localStorage.getItem('gh_repo')}</strong> @ ${localStorage.getItem('gh_branch') ?? 'main'}`
-      : `✗ Not configured — add books won't be saved until you set up GitHub integration`;
+  function updateStatus(){
+
+    const el =
+            document.getElementById('config-status');
+
+    const configured =
+            localStorage.getItem('gh_token') &&
+            localStorage.getItem('gh_repo');
+
+    el.style.background =
+            configured ? '#1f3d2e' : '#3d1f1f';
+
+    el.style.borderColor =
+            configured ? '#2e6644' : '#7a3333';
+
+    el.style.color =
+            configured ? '#6fcf97' : '#e07070';
+
+    el.innerHTML =
+            configured
+                    ? `✓ Configured — <strong>${
+                            localStorage.getItem('gh_repo')
+                    }</strong> @ ${
+                            localStorage.getItem('gh_branch')
+                            ?? 'main'
+                    }`
+                    : `✗ Not configured — add books won't be saved until you set up GitHub integration`;
+
   }
 
-  document.getElementById('save-config').addEventListener('click', () => {
-    localStorage.setItem('gh_repo',   fields.repo.value.trim());
-    const branch = fields.branch.value.trim();
-    if (branch) localStorage.setItem('gh_branch', branch);
-    else localStorage.removeItem('gh_branch');
-    localStorage.setItem('gh_token',  fields.token.value.trim());
-    updateStatus();
-    // Simple toast equivalent
-    const btn = document.getElementById('save-config');
-    btn.textContent = 'Saved ✓'; btn.disabled = true;
-    setTimeout(() => { btn.textContent = 'Save'; btn.disabled = false; }, 1800);
-  });
+  document.getElementById('save-config')
+          .addEventListener('click',()=>{
 
-  document.getElementById('clear-config').addEventListener('click', () => {
-    if (!confirm('Clear all GitHub configuration from this browser?')) return;
-    ['gh_repo','gh_branch','gh_token'].forEach(k => localStorage.removeItem(k));
-    fields.repo.value = ''; fields.branch.value = 'main'; fields.token.value = '';
-    updateStatus();
-  });
+            localStorage.setItem(
+                    'gh_repo',
+                    fields.repo.value.trim()
+            );
 
-  document.getElementById('toggle-token').addEventListener('click', () => {
-    const input = fields.token;
-    const btn = document.getElementById('toggle-token');
-    if (input.type === 'password') { input.type = 'text'; btn.textContent = 'Hide'; }
-    else { input.type = 'password'; btn.textContent = 'Show'; }
-  });
+            const branch =
+                    fields.branch.value.trim();
 
-  document.getElementById('test-config').addEventListener('click', async () => {
-    const token = fields.token.value.trim() || localStorage.getItem('gh_token');
-    const repo  = fields.repo.value.trim()  || localStorage.getItem('gh_repo');
-    if (!token || !repo) { alert('Fill in repo and token first'); return; }
+            if(branch)
+              localStorage.setItem('gh_branch',branch);
+            else
+              localStorage.removeItem('gh_branch');
 
-    const btn = document.getElementById('test-config');
-    btn.disabled = true; btn.textContent = 'Testing…';
+            localStorage.setItem(
+                    'gh_token',
+                    fields.token.value.trim()
+            );
 
-    try {
-      const res = await fetch(`https://api.github.com/repos/${repo}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (res.ok) {
-        alert(`✓ Connected to ${data.full_name} (${data.private ? 'private' : 'public'})`);
-      } else {
-        alert(`✗ Error ${res.status}: ${data.message}`);
-      }
-    } catch (err) {
-      alert(`✗ Network error: ${err.message}`);
-    } finally {
-      btn.disabled = false; btn.textContent = 'Test connection';
-    }
-  });
+            localStorage.setItem(
+                    'google_books_key',
+                    fields.google.value.trim()
+            );
+
+            updateStatus();
+
+            const btn =
+                    document.getElementById('save-config');
+
+            btn.textContent='Saved ✓';
+            btn.disabled=true;
+
+            setTimeout(()=>{
+              btn.textContent='Save';
+              btn.disabled=false;
+            },1800);
+
+          });
+
+  document.getElementById('clear-config')
+          .addEventListener('click',()=>{
+
+            if(!confirm(
+                    'Clear all configuration from this browser?'
+            )) return;
+
+            [
+              'gh_repo',
+              'gh_branch',
+              'gh_token',
+              'google_books_key'
+            ].forEach(k=>
+                    localStorage.removeItem(k)
+            );
+
+            fields.repo.value='';
+            fields.branch.value='';
+            fields.token.value='';
+            fields.google.value='';
+
+            updateStatus();
+
+          });
+
+  document.getElementById('toggle-token')
+          .addEventListener('click',()=>{
+
+            const input=fields.token;
+
+            const btn=
+                    document.getElementById('toggle-token');
+
+            if(input.type==='password'){
+              input.type='text';
+              btn.textContent='Hide';
+            }
+            else{
+              input.type='password';
+              btn.textContent='Show';
+            }
+
+          });
+
+  document.getElementById('toggle-google-key')
+          .addEventListener('click',()=>{
+
+            const input=fields.google;
+
+            const btn=
+                    document.getElementById('toggle-google-key');
+
+            if(input.type==='password'){
+              input.type='text';
+              btn.textContent='Hide';
+            }
+            else{
+              input.type='password';
+              btn.textContent='Show';
+            }
+
+          });
+
+  document.getElementById('test-config')
+          .addEventListener('click',async()=>{
+
+            const token =
+                    fields.token.value.trim() ||
+                    localStorage.getItem('gh_token');
+
+            const repo =
+                    fields.repo.value.trim() ||
+                    localStorage.getItem('gh_repo');
+
+            if(!token||!repo){
+              alert('Fill in repo and token first');
+              return;
+            }
+
+            const btn =
+                    document.getElementById('test-config');
+
+            btn.disabled=true;
+            btn.textContent='Testing…';
+
+            try{
+
+              const res =
+                      await fetch(
+                              `https://api.github.com/repos/${repo}`,
+                              {
+                                headers:{
+                                  Authorization:`Bearer ${token}`
+                                }
+                              }
+                      );
+
+              const data =
+                      await res.json();
+
+              if(res.ok){
+
+                alert(
+                        `✓ Connected to ${
+                                data.full_name
+                        } (${
+                                data.private?'private':'public'
+                        })`
+                );
+
+              }
+              else{
+
+                alert(
+                        `✗ Error ${
+                                res.status
+                        }: ${
+                                data.message
+                        }`
+                );
+
+              }
+
+            }
+            catch(err){
+
+              alert(
+                      `✗ Network error: ${
+                              err.message
+                      }`
+              );
+
+            }
+            finally{
+
+              btn.disabled=false;
+              btn.textContent='Test connection';
+
+            }
+
+          });
 
   loadConfig();
+
 </script>
 
 <script src="js/theme.js"></script>
-<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/books/sw.js");</script>
+
+<script>
+  if("serviceWorker" in navigator)
+    navigator.serviceWorker.register("/books/sw.js");
+</script>
+
 </body>
 </html>
