@@ -295,58 +295,9 @@
 <script type="module">
   import { fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
-
-  // ── Constants ────────────────────────────────────────────────────────────
-
-  const SUBJECTS = [
-    'Art','Biography','Biology','Crafts','Crime','Curiosities','Diary','Drama',
-    'Economics','Education','Fiction','Food','History','Geography','Humor','Language',
-    'Math','Medicine','Misc','Music','Mythology','Nature','Neuroscience','Philosophy',
-    'Photography','Physics','Poetry','Politics','Psychology','Religion','Reportage',
-    'Science','Science Fiction','Sociology','Sport','Technology','Travel','War'
-  ];
-
-  // Keyword → subject mapping: raw subject words from APIs → our category
-  const SUBJECT_KEYWORDS = {
-    'Art':             ['art','painting','sculpture','drawing','illustration','design','architecture','museum','gallery'],
-    'Biography':       ['biography','autobio','memoir','life of','personal narrative','diary','personal history'],
-    'Biology':         ['biology','botany','zoology','ecology','genetics','microbiology','evolution','life science','organism'],
-    'Crafts':          ['craft','knitting','sewing','woodwork','pottery','diy','handmade','hobby'],
-    'Crime':           ['crime','detective','mystery','thriller','noir','murder','investigation','police','forensic'],
-    'Curiosities':     ['curiosities','oddities','weird','strange','unusual','trivia','miscellany','wonders'],
-    'Diary':           ['diary','journal','letters','correspondence','personal'],
-    'Drama':           ['drama','play','theatre','theater','playwriting','screenplay','script'],
-    'Economics':       ['economics','economy','finance','business','trade','market','capitalism','monetary','banking','investment'],
-    'Education':       ['education','teaching','pedagogy','learning','school','curriculum','didactic'],
-    'Fiction':         ['fiction','novel','short stories','literary','narrative','story','tales'],
-    'Food':            ['food','cooking','gastronomy','cuisine','recipe','chef','culinary','nutrition'],
-    'History':         ['history','historical','ancient','medieval','modern history','world war','civilization','heritage'],
-    'Geography':       ['geography','cartography','map','region','landscape','territory','place'],
-    'Humor':           ['humor','humour','comedy','satire','parody','wit','funny','comic'],
-    'Language':        ['language','linguistics','grammar','etymology','dictionary','philology','translation','lexicon'],
-    'Math':            ['math','mathematics','algebra','geometry','calculus','statistics','probability','number theory'],
-    'Medicine':        ['medicine','medical','health','disease','anatomy','physiology','clinical','surgery','pharmacy','psychiatry'],
-    'Misc':            ['miscellaneous','general','reference','collection'],
-    'Music':           ['music','musicology','composition','jazz','classical','opera','rock','song','instrument'],
-    'Mythology':       ['mythology','myth','legend','folklore','fairy tale','epic','fable'],
-    'Nature':          ['nature','environment','wildlife','plants','animals','natural world','conservation','outdoor'],
-    'Neuroscience':    ['neuroscience','neurology','brain','cognition','neural','consciousness','cognitive science'],
-    'Philosophy':      ['philosophy','ethics','metaphysics','epistemology','logic','phenomenology','aesthetics','moral'],
-    'Photography':     ['photography','photo','photographic','camera'],
-    'Physics':         ['physics','quantum','mechanics','thermodynamics','relativity','electromagnetism','optics','astrophysics'],
-    'Poetry':          ['poetry','poem','verse','lyric','haiku','sonnet'],
-    'Politics':        ['politics','political','government','democracy','law','diplomacy','international relations','policy','justice'],
-    'Psychology':      ['psychology','psychoanalysis','behavior','mental','personality','developmental','social psychology'],
-    'Religion':        ['religion','theology','spirituality','bible','quran','buddhism','christianity','islam','faith','sacred'],
-    'Reportage':       ['journalism','reportage','report','news','investigative','documentary','nonfiction narrative'],
-    'Science':         ['science','scientific','chemistry','biology','physics','astronomy','geology','earth science'],
-    'Science Fiction': ['science fiction','sci-fi','sci fi','speculative','dystopia','utopia','cyberpunk','space opera','futuristic'],
-    'Sociology':       ['sociology','society','culture','anthropology','social','community','ethnography'],
-    'Sport':           ['sport','sports','athletics','football','basketball','tennis','running','cycling','swimming','fitness'],
-    'Technology':      ['technology','engineering','computer','software','hardware','programming','internet','artificial intelligence','robotics'],
-    'Travel':          ['travel','voyage','journey','exploration','adventure','travelogue','guide','tourism'],
-    'War':             ['war','military','battle','conflict','army','navy','air force','soldier','combat','weaponry'],
-  };
+  import { SUBJECTS } from './js/constants.js';
+  import { fetchByIsbn, searchByTitle, matchSubject } from './js/book-apis.js';
+  import { fileToWebPBase64 } from './js/image-utils.js';
 
   // ── Populate subject dropdown ────────────────────────────────────────────
   {
@@ -364,12 +315,10 @@
   }
 
   // ── API key management ───────────────────────────────────────────────────
-  // Key lives under 'google_books_key' and is read fresh on every API call
   const GB_KEY_STORE = 'google_books_key';
-  const getApiKey = () => localStorage.getItem(GB_KEY_STORE) || '';
 
   {
-    const saved = getApiKey();
+    const saved = localStorage.getItem(GB_KEY_STORE) || '';
     if (saved) {
       document.getElementById('gbooks-key').value = saved;
     } else {
@@ -442,219 +391,6 @@
       btn.disabled = false;
       btn.textContent = 'Search';
     }
-  }
-
-  // ── Google Books helpers ──────────────────────────────────────────────────
-
-  function gbUrl(params) {
-    const base = 'https://www.googleapis.com/books/v1/volumes';
-    const qs = new URLSearchParams();
-    for (const [k, v] of Object.entries(params)) {
-      if (v !== null && v !== undefined && v !== '') qs.set(k, String(v));
-    }
-    const key = getApiKey();
-    if (key) qs.set('key', key);
-    return `${base}?${qs}`;
-  }
-
-  async function fetchGoogleBooks(query, maxResults = 10) {
-    const key = getApiKey();
-    if (!key) {
-      console.warn('No Google Books API key set — skipping Google Books');
-      return [];
-    }
-    const url = gbUrl({ q: query, maxResults });
-    const res = await fetch(url);
-    if (!res.ok) {
-      console.warn(`Google Books returned ${res.status} — falling back to Open Library only`);
-      return [];
-    }
-    const data = await res.json();
-    return (data.items || []).map(normaliseGoogleItem);
-  }
-
-  function normaliseGoogleItem(item) {
-    const v = item.volumeInfo || {};
-    const isbn13 = (v.industryIdentifiers || []).find(i => i.type === 'ISBN_13')?.identifier;
-    const isbn10 = (v.industryIdentifiers || []).find(i => i.type === 'ISBN_10')?.identifier;
-    const isbn = isbn13 || isbn10 || '';
-    const coverUrl = (v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || '')
-            .replace('http://', 'https://').replace('&edge=curl', '').replace('zoom=1', 'zoom=2');
-    return {
-      source:      'Google Books',
-      gbId:        item.id,
-      isbn,
-      title:       v.title || '',
-      subtitle:    v.subtitle || '',
-      author:      (v.authors || []).join(', '),
-      year:        parseYear(v.publishedDate),
-      publisher:   v.publisher || '',
-      pages:       v.pageCount || null,
-      lang:        v.language || '',
-      description: stripHtml(v.description || ''),
-      subjects:    v.categories || [],
-      coverUrl,
-    };
-  }
-
-  // ── Open Library helpers ──────────────────────────────────────────────────
-
-  async function fetchOpenLibraryByIsbn(isbn) {
-    const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`;
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const data = await res.json();
-    const book = data[`ISBN:${isbn}`];
-    if (!book) return null;
-    return normaliseOLBook(book, isbn);
-  }
-
-  async function searchOpenLibraryByTitle(title) {
-    const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=10&fields=key,title,author_name,first_publish_year,publisher,isbn,number_of_pages_median,language,subject,cover_i,ia`;
-    const res = await fetch(url);
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.docs || []).map(normaliseOLDoc);
-  }
-
-  function normaliseOLBook(book, isbn) {
-    return {
-      source:      'Open Library',
-      isbn,
-      title:       book.title || '',
-      subtitle:    '',
-      author:      (book.authors || []).map(a => a.name).join(', '),
-      year:        book.publish_date ? parseInt(book.publish_date) || null : null,
-      publisher:   (book.publishers || []).map(p => p.name).join(', '),
-      pages:       book.number_of_pages || null,
-      lang:        (book.languages || []).map(l => l.key.replace('/languages/','')).join(', '),
-      description: typeof book.notes === 'string' ? book.notes : '',
-      subjects:    (book.subjects || []).map(s => s.name || s),
-      coverUrl:    book.cover?.large || book.cover?.medium || book.cover?.small || '',
-    };
-  }
-
-  function normaliseOLDoc(doc) {
-    const isbn = (doc.isbn || [])[0] || '';
-    const coverId = doc.cover_i;
-    const coverUrl = coverId ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` : '';
-    return {
-      source:      'Open Library',
-      isbn,
-      title:       doc.title || '',
-      subtitle:    '',
-      author:      (doc.author_name || []).join(', '),
-      year:        doc.first_publish_year || null,
-      publisher:   (doc.publisher || [])[0] || '',
-      pages:       doc.number_of_pages_median || null,
-      lang:        (doc.language || [])[0] || '',
-      description: '',
-      subjects:    doc.subject || [],
-      coverUrl,
-    };
-  }
-
-  // ── Combined fetch by ISBN (merges Google + OL) ───────────────────────────
-
-  async function fetchByIsbn(isbn) {
-    // Always fetch both sources in parallel; OL fills any gaps GB leaves
-    const [gbResult, olResult] = await Promise.allSettled([
-      fetchGoogleBooks(`isbn:${isbn}`, 1).then(r => r[0] || null),
-      fetchOpenLibraryByIsbn(isbn),
-    ]);
-
-    const gb = gbResult.status === 'fulfilled' ? gbResult.value : null;
-    const ol = olResult.status === 'fulfilled' ? olResult.value : null;
-
-    if (!gb && !ol) return null;
-
-    const base = gb || ol;   // prefer GB as primary
-    const fill = gb ? ol : null; // OL always fills gaps, even when GB succeeded
-
-    return {
-      ...base,
-      isbn:        isbn || base.isbn,
-      // Fill every field from OL if GB returned empty/null
-      pages:       base.pages       || fill?.pages       || null,
-      publisher:   base.publisher   || fill?.publisher   || '',
-      lang:        base.lang        || fill?.lang        || '',
-      description: base.description || fill?.description || '',
-      subjects:    mergeSubjects(base.subjects, fill?.subjects),
-      coverUrl:    base.coverUrl    || fill?.coverUrl    || '',
-      source:      gb && ol ? 'Google Books + Open Library'
-              : gb       ? 'Google Books'
-                      :             'Open Library',
-    };
-  }
-
-  // ── Title search (Google Books + OL, deduped) ─────────────────────────────
-
-  async function searchByTitle(title) {
-    const [gbRes, olRes] = await Promise.allSettled([
-      fetchGoogleBooks(title, 10),
-      searchOpenLibraryByTitle(title),
-    ]);
-
-    const gbBooks = gbRes.status === 'fulfilled' ? gbRes.value : [];
-    const olBooks = olRes.status === 'fulfilled' ? olRes.value : [];
-
-    // Index GB results by ISBN
-    const byIsbn = new Map();
-    for (const b of gbBooks) {
-      if (b.isbn) byIsbn.set(b.isbn, b);
-      else byIsbn.set('gb_' + b.gbId, b);
-    }
-
-    // Merge OL into GB where ISBN matches (fills any incomplete GB fields),
-    // or append OL-only results when there's no ISBN overlap
-    for (const ol of olBooks) {
-      if (ol.isbn && byIsbn.has(ol.isbn)) {
-        const gb = byIsbn.get(ol.isbn);
-        byIsbn.set(ol.isbn, {
-          ...gb,
-          // OL fills every field that GB left empty
-          pages:       gb.pages       || ol.pages,
-          publisher:   gb.publisher   || ol.publisher,
-          lang:        gb.lang        || ol.lang,
-          description: gb.description || ol.description,
-          subjects:    mergeSubjects(gb.subjects, ol.subjects),
-          coverUrl:    gb.coverUrl    || ol.coverUrl,
-          source:      'Google Books + Open Library',
-        });
-      } else {
-        // OL result has no GB counterpart — add it as-is
-        const key = ol.isbn || 'ol_' + Math.random();
-        byIsbn.set(key, ol);
-      }
-    }
-
-    return [...byIsbn.values()].slice(0, 12);
-  }
-
-  // ── Subject matching ──────────────────────────────────────────────────────
-
-  function matchSubject(rawSubjects) {
-    if (!rawSubjects || !rawSubjects.length) return { matched: '', candidates: [] };
-
-    // Flatten all subjects to lowercase words
-    const text = rawSubjects.join(' ').toLowerCase();
-    const scores = {};
-
-    for (const [subj, keywords] of Object.entries(SUBJECT_KEYWORDS)) {
-      let score = 0;
-      for (const kw of keywords) {
-        if (text.includes(kw)) score += kw.length; // longer keyword = higher confidence
-      }
-      if (score > 0) scores[subj] = score;
-    }
-
-    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-    if (!sorted.length) return { matched: '', candidates: [] };
-
-    return {
-      matched:    sorted[0][0],
-      candidates: sorted.slice(0, 3).map(s => s[0]),
-    };
   }
 
   // ── Render results ────────────────────────────────────────────────────────
@@ -802,7 +538,7 @@
     if (!file) return;
     document.getElementById('cover-status').textContent = 'Processing…';
     try {
-      coverBase64 = await fileToBase64(file);
+      coverBase64 = await fileToWebPBase64(file);
       document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
       document.getElementById('cover-status').textContent = 'Cover ready';
     } catch (err) {
@@ -811,21 +547,6 @@
       toast('Could not process cover image', 'error');
     }
   });
-
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width; canvas.height = img.height;
-        canvas.getContext('2d').drawImage(img, 0, 0);
-        resolve(canvas.toDataURL('image/webp', 0.85).split(',')[1]);
-        URL.revokeObjectURL(img.src);
-      };
-      img.onerror = () => { URL.revokeObjectURL(img.src); reject(new Error('Invalid image')); };
-      img.src = URL.createObjectURL(file);
-    });
-  }
 
   // ── Save ─────────────────────────────────────────────────────────────────
   document.getElementById('save-btn').addEventListener('click', async () => {
@@ -887,25 +608,6 @@
     currentMeta = null; coverBase64 = null;
   });
 
-  // ── Utilities ─────────────────────────────────────────────────────────────
-
-  function parseYear(str) {
-    if (!str) return null;
-    const m = str.match(/\d{4}/);
-    return m ? parseInt(m[0]) : null;
-  }
-
-  function stripHtml(html) {
-    if (!html) return '';
-    return html.replace(/<[^>]+>/g, '').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').trim();
-  }
-
-  function mergeSubjects(a, b) {
-    const all = [...(a || []), ...(b || [])];
-    return [...new Set(all.map(s => String(s).toLowerCase()))].map(s =>
-            all.find(x => String(x).toLowerCase() === s) || s
-    );
-  }
 </script>
 
 <script src="js/theme.js"></script>

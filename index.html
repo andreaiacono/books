@@ -84,6 +84,7 @@
   import { loadGrid } from './js/data.js';
   import { renderBookCard, showLoader, hideLoader, toast, escHtml } from './js/ui.js';
   import { buildSearchIndex, search, isIndexReady } from './js/search.js';
+  import { LANG_LABELS } from './js/constants.js';
 
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
@@ -119,8 +120,6 @@
       hideLoader();
     }
   }
-
-  const LANG_LABELS = { it: 'Italian', en: 'English', es: 'Spanish', fr: 'French' };
 
   function buildFilterBar(books) {
     const subjectCounts = {};
