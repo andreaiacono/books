@@ -67,13 +67,18 @@ export function search(query) {
   try {
     const terms = q.split(/\s+/);
 
-    // Multi-word: require all terms (stemmed only — no wildcard to avoid score inflation)
+    // Multi-word: require all terms; last term gets wildcard (may still be typed)
     // If REQUIRED fails (e.g. stop words like "il"), fall through to optional
     if (terms.length > 1) {
       try {
         const required = hydrateResults(_index.query(function () {
-          terms.forEach(term => {
-            this.term(term, { usePipeline: true, presence: lunr.Query.presence.REQUIRED });
+          terms.forEach((term, i) => {
+            const isLast = i === terms.length - 1;
+            this.term(term, {
+              usePipeline: true,
+              presence: lunr.Query.presence.REQUIRED,
+              ...(isLast ? { wildcard: lunr.Query.wildcard.TRAILING } : {}),
+            });
           });
         }), q);
         if (required.length) return required;
