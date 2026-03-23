@@ -108,7 +108,9 @@ function hydrateResults(results, query) {
   const q = stripDiacritics(query.trim().toLowerCase());
   const qTerms = q.split(/\s+/);
 
-  return books.sort((a, b) => titleScore(b, q, qTerms) - titleScore(a, q, qTerms));
+  const scored = books.map(b => ({ book: b, score: titleScore(b, q, qTerms) }));
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map(s => s.book);
 }
 
 function titleScore(book, query, queryTerms) {

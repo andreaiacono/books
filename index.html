@@ -311,13 +311,13 @@
         : searchResults;
       countEl.style.display = '';
       countEl.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
-      renderFlat(filtered);
+      renderFlat(filtered, true);
     } else {
       const filtered = getFilteredBooks();
       if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) {
         countEl.style.display = '';
         countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
-        renderFlat(filtered);
+        renderFlat(filtered, false);
       } else {
         countEl.style.display = 'none';
         renderGrid(allBooks, false);
@@ -420,7 +420,7 @@
     container.appendChild(fragment);
   }
 
-  function renderFlat(books) {
+  function renderFlat(books, preserveOrder = false) {
     const container = document.getElementById('book-grid');
     container.innerHTML = '';
 
@@ -434,11 +434,13 @@
       return;
     }
 
-    const sorted = [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
+    const ordered = preserveOrder
+      ? books
+      : [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
 
     const grid = document.createElement('div');
     grid.className = 'book-grid';
-    for (const book of sorted) {
+    for (const book of ordered) {
       const card = renderBookCard(book);
       if (book.added) {
         const info = card.querySelector('.book-card__info');
