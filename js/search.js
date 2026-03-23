@@ -63,13 +63,14 @@ export function search(query) {
     }
   }
 
-  // Plain query: stemmed match + trailing wildcard per term
+  // Plain query: all terms required, stemmed match + trailing wildcard per term
   try {
     const terms = q.split(/\s+/);
+    const presence = terms.length > 1 ? lunr.Query.presence.REQUIRED : lunr.Query.presence.OPTIONAL;
     return hydrateResults(_index.query(function () {
       terms.forEach(term => {
-        this.term(term, { usePipeline: true });  // applies stemmer
-        this.term(stripDiacritics(term.toLowerCase()), { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
+        this.term(term, { usePipeline: true, presence });
+        this.term(term, { usePipeline: true, wildcard: lunr.Query.wildcard.TRAILING, presence });
       });
     }));
   } catch {
