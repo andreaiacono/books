@@ -18,7 +18,7 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
   <div class="nav__actions">
-    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add</a>
+    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add Book</a>
     <button id="theme-toggle" class="theme-toggle">☀</button>
   </div>
 </nav>
@@ -32,8 +32,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { loadGrid, loadReadingLog, appendReadingLogEntry, isConfigured } from './js/data.js';
-  import { escHtml, formatDate, toast } from './js/ui.js';
+  import { loadGrid, loadReadingLog } from './js/data.js';
+  import { escHtml, formatDate } from './js/ui.js';
 
   async function init() {
     const params = new URLSearchParams(location.search);
@@ -113,73 +113,19 @@
                  </a>`
               : ''}
             <a href="edit.html?isbn=${encodeURIComponent(book.isbn)}" class="btn btn--ghost" style="font-size:13px">Edit</a>
-            <button id="add-log-btn" class="btn btn--ghost" style="font-size:13px">+ Add reading entry</button>
-          </div>
-
-          <div id="log-form" class="log-form" style="display:none">
-            <h3>New reading entry</h3>
-            <div class="form-group">
-              <label class="form-label" for="log-comment">Comment</label>
-              <textarea id="log-comment" rows="3" style="resize:vertical" placeholder="Your thoughts on this book…"></textarea>
-            </div>
-            <label class="log-form__marked">
-              <input type="checkbox" id="log-marked"> Mark as favourite
-            </label>
-            <div style="display:flex;gap:0.75rem;align-items:center">
-              <button id="log-submit" class="btn btn--primary">Save entry</button>
-              <button id="log-cancel" class="btn btn--ghost">Cancel</button>
-              <span id="log-status" style="font-size:13px;display:none"></span>
-            </div>
+            <a id="add-log-btn" class="btn btn--ghost" style="font-size:13px">+ Add reading entry</a>
           </div>
         </div>
       </div>
     `;
 
-    // Wire up form
-    document.getElementById('add-log-btn').addEventListener('click', () => {
-      if (!isConfigured()) {
-        toast('Configure GitHub settings first', 'warning');
-        return;
-      }
-      document.getElementById('log-form').style.display = '';
-      document.getElementById('add-log-btn').style.display = 'none';
+    // Wire up "Add reading entry" link
+    const logParams = new URLSearchParams({
+      title: book.title ?? '',
+      author: book.author ?? '',
+      isbn: book.isbn ?? '',
     });
-
-    document.getElementById('log-cancel').addEventListener('click', () => {
-      document.getElementById('log-form').style.display = 'none';
-      document.getElementById('add-log-btn').style.display = '';
-    });
-
-    document.getElementById('log-submit').addEventListener('click', async () => {
-      const comment = document.getElementById('log-comment').value.trim();
-      const marked  = document.getElementById('log-marked').checked;
-      const now     = new Date();
-      const date    = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
-
-      const submitBtn = document.getElementById('log-submit');
-      const status    = document.getElementById('log-status');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Saving…';
-      status.style.display = '';
-      status.style.color = 'var(--text-muted)';
-      status.textContent = 'Saving to GitHub…';
-
-      try {
-        await appendReadingLogEntry({
-          date, title: book.title, comment,
-          creators: book.author ?? '', isbn: book.isbn ?? '', marked,
-        });
-        status.style.color = 'var(--read-green)';
-        status.textContent = '✓ Saved!';
-        toast(`Entry for "${book.title}" saved`, 'success');
-        setTimeout(() => location.reload(), 1200);
-      } catch (err) {
-        status.style.color = 'var(--danger)';
-        status.textContent = `Error: ${err.message}`;
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Save entry';
-      }
-    });
+    document.getElementById('add-log-btn').href = `reading-log.html?${logParams}`;
   }
 
   function metaItem(label, value) {

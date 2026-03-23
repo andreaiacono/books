@@ -18,7 +18,7 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
   <div class="nav__actions">
-    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add</a>
+    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add Book</a>
     <button id="theme-toggle" class="theme-toggle">☀</button>
   </div>
 </nav>
@@ -190,6 +190,19 @@
     // Default date to today
     dateInput.value = new Date().toISOString().slice(0, 10);
 
+    // Prefill from query params (e.g. coming from book detail page)
+    const qp = new URLSearchParams(location.search);
+    if (qp.has('title')) {
+      document.getElementById('le-title').value = qp.get('title');
+      document.getElementById('le-author').value = qp.get('author') || '';
+      document.getElementById('le-isbn').value = qp.get('isbn') || '';
+      // Auto-open the form
+      form.style.display = '';
+      toggleBtn.style.display = 'none';
+      // Clean URL without reloading
+      history.replaceState(null, '', location.pathname);
+    }
+
     toggleBtn.addEventListener('click', () => {
       if (!isConfigured()) {
         toast('Configure GitHub settings first', 'warning');
@@ -222,10 +235,13 @@
       status.textContent = 'Saving to GitHub…';
 
       try {
+        let comment = document.getElementById('le-comment').value.trim();
+        if (comment && !/[.!?…]$/.test(comment)) comment += '.';
+
         await appendReadingLogEntry({
           date,
           title,
-          comment:  document.getElementById('le-comment').value.trim(),
+          comment,
           creators: document.getElementById('le-author').value.trim(),
           isbn:     document.getElementById('le-isbn').value.trim().replace(/[^0-9X]/gi, ''),
           marked:   document.getElementById('le-marked').checked,
