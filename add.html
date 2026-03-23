@@ -122,30 +122,6 @@
     }
 
     /* search mode tabs */
-    .search-tabs {
-      display: flex;
-      gap: 0;
-      margin-bottom: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      width: fit-content;
-    }
-    .search-tab {
-      padding: 0.35rem 0.9rem;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      transition: background 0.15s, color 0.15s;
-    }
-    .search-tab.active {
-      background: var(--accent);
-      color: #fff;
-    }
-
     /* Spinner */
     .spinner {
       display: inline-block;
@@ -202,12 +178,6 @@
     <p>Search by title or ISBN to fetch metadata automatically, or fill in the fields manually.</p>
   </header>
 
-  <!-- Search mode tabs -->
-  <div class="search-tabs">
-    <button class="search-tab active" id="tab-title">By title</button>
-    <button class="search-tab" id="tab-isbn">By ISBN</button>
-  </div>
-
   <!-- Google Books API key (optional, stored in localStorage) -->
   <div id="api-key-row">
     <label for="gbooks-key">Google Books API key <em style="color:var(--text-faint)">(optional)</em></label>
@@ -218,7 +188,7 @@
   <!-- Search input row -->
   <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
     <input type="text" id="search-input"
-           placeholder="e.g. The Name of the Rose"
+           placeholder="Title or ISBN (e.g. The Name of the Rose, 9780141033570)"
            style="flex:1"
            maxlength="200">
     <button class="btn btn--primary" id="search-btn" style="white-space:nowrap">
@@ -420,39 +390,6 @@
     toast('API key saved', 'success');
   });
 
-  // ── Mode (title / isbn) ──────────────────────────────────────────────────
-  let searchMode = 'title'; // 'title' | 'isbn'
-
-  document.getElementById('tab-title').addEventListener('click', () => setMode('title'));
-  document.getElementById('tab-isbn').addEventListener('click',  () => setMode('isbn'));
-
-  function setMode(mode) {
-    searchMode = mode;
-    document.getElementById('tab-title').classList.toggle('active', mode === 'title');
-    document.getElementById('tab-isbn').classList.toggle('active',  mode === 'isbn');
-    const inp = document.getElementById('search-input');
-    if (mode === 'isbn') {
-      inp.placeholder = 'ISBN-13 (e.g. 9780141033570)';
-      inp.style.fontFamily = 'var(--font-mono)';
-      inp.style.letterSpacing = '0.05em';
-      inp.maxLength = 17;
-    } else {
-      inp.placeholder = 'e.g. The Name of the Rose';
-      inp.style.fontFamily = '';
-      inp.style.letterSpacing = '';
-      inp.maxLength = 200;
-    }
-    // Auto-detect ISBN if user just pasted something
-  }
-
-  // Auto-detect ISBN when user types
-  document.getElementById('search-input').addEventListener('input', e => {
-    const v = e.target.value.replace(/[^0-9X]/gi, '');
-    if ((v.length === 13 || v.length === 10) && /^[0-9]{9,12}[0-9X]$/i.test(v)) {
-      setMode('isbn');
-    }
-  });
-
   // ── State ─────────────────────────────────────────────────────────────────
   let currentMeta  = null;
   let coverBase64  = null;
@@ -477,10 +414,11 @@
 
     try {
       const isbnClean = raw.replace(/[^0-9X]/gi, '');
-      const looksLikeIsbn = (isbnClean.length === 10 || isbnClean.length === 13);
+      const looksLikeIsbn = (isbnClean.length === 10 || isbnClean.length === 13)
+              && /^[0-9]{9,12}[0-9X]$/i.test(isbnClean);
 
       let results = [];
-      if (looksLikeIsbn || searchMode === 'isbn') {
+      if (looksLikeIsbn) {
         // ISBN path: fetch a single definitive result, merge Google + OL
         const merged = await fetchByIsbn(isbnClean);
         if (merged) results = [merged];
