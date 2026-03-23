@@ -57,7 +57,7 @@ export function search(query) {
   // If query uses explicit Lunr syntax, pass through directly
   if (/[:"~^+\-]/.test(q) || q.includes('*')) {
     try {
-      return hydrateResults(_index.search(q));
+      return hydrateResults(_index.search(q), q);
     } catch {
       return [];
     }
@@ -75,7 +75,7 @@ export function search(query) {
           terms.forEach(term => {
             this.term(term, { usePipeline: true, presence: lunr.Query.presence.REQUIRED });
           });
-        }));
+        }), q);
         if (required.length) return required;
       } catch { /* stop word caused failure — fall through */ }
     }
@@ -86,7 +86,7 @@ export function search(query) {
       terms.forEach(term => {
         this.term(term, { usePipeline: true });
       });
-    }));
+    }), q);
     if (results.length) return results;
 
     // Last resort: trailing wildcard for prefix/partial input
@@ -94,16 +94,32 @@ export function search(query) {
       terms.forEach(term => {
         this.term(term, { usePipeline: true, wildcard: lunr.Query.wildcard.TRAILING });
       });
-    }));
+    }), q);
   } catch {
     return [];
   }
 }
 
-function hydrateResults(results) {
-  return results
-      .map(r => _bookMap.get(r.ref))
-      .filter(Boolean);
+function hydrateResults(results, query) {
+  const books = results.map(r => _bookMap.get(r.ref)).filter(Boolean);
+  if (!query) return books;
+
+  // Re-rank: promote books whose title contains the query terms
+  const q = stripDiacritics(query.trim().toLowerCase());
+  const qTerms = q.split(/\s+/);
+
+  return books.sort((a, b) => titleScore(b, q, qTerms) - titleScore(a, q, qTerms));
+}
+
+function titleScore(book, query, queryTerms) {
+  const t = stripDiacritics((book.title ?? '').toLowerCase());
+  // Exact substring match (e.g. "materia oscura" in "La materia oscura")
+  if (t.includes(query)) return 3;
+  // All query terms present in title
+  if (queryTerms.every(w => t.includes(w))) return 2;
+  // At least one term in title
+  if (queryTerms.some(w => t.includes(w))) return 1;
+  return 0;
 }
 
 export function isIndexReady() {
