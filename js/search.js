@@ -63,14 +63,36 @@ export function search(query) {
     }
   }
 
-  // Plain query: all terms required, stemmed match + trailing wildcard per term
+  // Plain query: stemmed match, all content terms required for multi-word
   try {
     const terms = q.split(/\s+/);
-    const presence = terms.length > 1 ? lunr.Query.presence.REQUIRED : lunr.Query.presence.OPTIONAL;
+
+    // Multi-word: require all terms (stemmed only — no wildcard to avoid score inflation)
+    // If REQUIRED fails (e.g. stop words like "il"), fall through to optional
+    if (terms.length > 1) {
+      try {
+        const required = hydrateResults(_index.query(function () {
+          terms.forEach(term => {
+            this.term(term, { usePipeline: true, presence: lunr.Query.presence.REQUIRED });
+          });
+        }));
+        if (required.length) return required;
+      } catch { /* stop word caused failure — fall through */ }
+    }
+
+    // Single word or multi-word fallback: stemmed match only
+    // (wildcard on stemmed terms is too broad — stemming already handles variants)
+    const results = hydrateResults(_index.query(function () {
+      terms.forEach(term => {
+        this.term(term, { usePipeline: true });
+      });
+    }));
+    if (results.length) return results;
+
+    // Last resort: trailing wildcard for prefix/partial input
     return hydrateResults(_index.query(function () {
       terms.forEach(term => {
-        this.term(term, { usePipeline: true, presence });
-        this.term(term, { usePipeline: true, wildcard: lunr.Query.wildcard.TRAILING, presence });
+        this.term(term, { usePipeline: true, wildcard: lunr.Query.wildcard.TRAILING });
       });
     }));
   } catch {
