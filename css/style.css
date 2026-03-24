@@ -271,6 +271,11 @@ input:focus, select:focus, textarea:focus {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-raised);
+  transition: width 0.2s ease;
+}
+.filter-group.collapsed {
+  display: inline-block;
+  padding: 0.4rem 0.7rem;
 }
 .filter-group__label {
   display: block;
