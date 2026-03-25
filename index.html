@@ -58,6 +58,9 @@
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
       <div class="filter-group collapsed">
         <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span></span>
+        <div style="margin:0.35rem 0 0.25rem">
+          <button id="subject-sort-toggle" class="btn btn--ghost" style="font-size:11px;padding:0.2rem 0.6rem">A→Z</button>
+        </div>
         <div id="filter-bar" class="filter-bar"></div>
       </div>
       <div class="filter-group collapsed">
@@ -94,6 +97,7 @@
   let activeFilters = new Set();
   let activeLangFilters = new Set();
   let activeYearFilters = new Set();
+  let subjectSortBy = 'alpha'; // 'alpha' or 'count'
 
   async function init() {
     showLoader('Loading your library…');
@@ -159,24 +163,40 @@
 
     // Subject buttons
     const bar = document.getElementById('filter-bar');
-    for (const [subject, count] of sortedSubjects) {
-      const btn = document.createElement('button');
-      btn.className = 'filter-btn';
-      btn.dataset.key = subject;
-      btn.dataset.label = subject;
-      btn.textContent = `${subject} (${count})`;
-      btn.addEventListener('click', () => {
-        if (activeFilters.has(subject)) {
-          activeFilters.delete(subject);
-          btn.classList.remove('filter-btn--active');
-        } else {
-          activeFilters.add(subject);
-          btn.classList.add('filter-btn--active');
-        }
-        applyFilters();
-      });
-      bar.appendChild(btn);
+    function renderSubjectButtons() {
+      const sorted = subjectSortBy === 'alpha'
+        ? [...Object.entries(subjectCounts)].sort((a, b) => a[0].localeCompare(b[0]))
+        : [...Object.entries(subjectCounts)].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+      bar.innerHTML = '';
+      for (const [subject, count] of sorted) {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (activeFilters.has(subject) ? ' filter-btn--active' : '');
+        btn.dataset.key = subject;
+        btn.dataset.label = subject;
+        btn.textContent = `${subject} (${count})`;
+        btn.addEventListener('click', () => {
+          if (activeFilters.has(subject)) {
+            activeFilters.delete(subject);
+            btn.classList.remove('filter-btn--active');
+          } else {
+            activeFilters.add(subject);
+            btn.classList.add('filter-btn--active');
+          }
+          applyFilters();
+        });
+        bar.appendChild(btn);
+      }
     }
+    renderSubjectButtons();
+
+    // Subject sort toggle
+    const sortToggle = document.getElementById('subject-sort-toggle');
+    sortToggle.addEventListener('click', () => {
+      subjectSortBy = subjectSortBy === 'alpha' ? 'count' : 'alpha';
+      sortToggle.textContent = subjectSortBy === 'alpha' ? 'A→Z' : '#↓';
+      renderSubjectButtons();
+      if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) updateFilterCounts();
+    });
 
     // Language buttons
     const langBar = document.getElementById('lang-filter-bar');
@@ -256,11 +276,18 @@
         for (const s of b.subjects) subjectCounts[s] = (subjectCounts[s] || 0) + 1;
       }
     }
-    for (const btn of document.getElementById('filter-bar').querySelectorAll('.filter-btn')) {
+    const subjectBar = document.getElementById('filter-bar');
+    const subjectBtns = [...subjectBar.querySelectorAll('.filter-btn')];
+    for (const btn of subjectBtns) {
       const c = subjectCounts[btn.dataset.key] || 0;
       btn.textContent = `${btn.dataset.label} (${c})`;
       btn.hidden = c === 0 && !activeFilters.has(btn.dataset.key);
     }
+    // Re-sort visible buttons
+    const sortFn = subjectSortBy === 'alpha'
+      ? (a, b) => a.dataset.key.localeCompare(b.dataset.key)
+      : (a, b) => (subjectCounts[b.dataset.key] || 0) - (subjectCounts[a.dataset.key] || 0) || a.dataset.key.localeCompare(b.dataset.key);
+    subjectBtns.sort(sortFn).forEach(btn => subjectBar.appendChild(btn));
 
     // Language counts (filtered by subject + year)
     const langCounts = {};
