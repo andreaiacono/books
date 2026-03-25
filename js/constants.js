@@ -32,6 +32,8 @@ export const SUBJECT_KEYWORDS = {
                       'narrativa','romanzo','racconti','letterario','racconto','storie','novella'],
   'Food':            ['food','cooking','gastronomy','cuisine','recipe','chef','culinary','nutrition',
                       'cibo','cucina','gastronomia','ricetta','culinario','nutrizione','alimentazione'],
+  'Games':           ['games','game','chess','board game','card game','puzzle','strategy',
+                      'giochi','gioco','scacchi','puzzle','strategia'],
   'Genetics':        ['genetics','genome','genomics','heredity','dna','gene','inheritance','trait','mutation','chromosome',
                       'genetica','genoma','genomica','ereditarietà','gene','eredità','tratto','mutazione','cromosoma'],
   'Geography':       ['geography','cartography','map','region','landscape','territory','place',
