@@ -57,10 +57,9 @@
     </button>
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
       <div class="filter-group collapsed">
-        <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span></span>
-        <div style="margin:0.35rem 0 0.25rem">
-          <button id="subject-sort-toggle" class="btn btn--ghost" style="font-size:11px;padding:0.2rem 0.6rem">A→Z</button>
-        </div>
+        <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span>
+          <button id="subject-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:auto">A→Z</button>
+        </span>
         <div id="filter-bar" class="filter-bar"></div>
       </div>
       <div class="filter-group collapsed">
@@ -68,7 +67,9 @@
         <div id="lang-filter-bar" class="filter-bar"></div>
       </div>
       <div class="filter-group collapsed">
-        <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span></span>
+        <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span>
+          <button id="year-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:auto">New→Old</button>
+        </span>
         <div id="year-filter-bar" class="filter-bar"></div>
       </div>
     </div>
@@ -98,6 +99,7 @@
   let activeLangFilters = new Set();
   let activeYearFilters = new Set();
   let subjectSortBy = 'alpha'; // 'alpha' or 'count'
+  let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
 
   async function init() {
     showLoader('Loading your library…');
@@ -191,7 +193,8 @@
 
     // Subject sort toggle
     const sortToggle = document.getElementById('subject-sort-toggle');
-    sortToggle.addEventListener('click', () => {
+    sortToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       subjectSortBy = subjectSortBy === 'alpha' ? 'count' : 'alpha';
       sortToggle.textContent = subjectSortBy === 'alpha' ? 'A→Z' : '#↓';
       renderSubjectButtons();
@@ -221,24 +224,41 @@
 
     // Year buttons
     const yearBar = document.getElementById('year-filter-bar');
-    for (const [year, count] of sortedYears) {
-      const btn = document.createElement('button');
-      btn.className = 'filter-btn';
-      btn.dataset.key = String(year);
-      btn.dataset.label = String(year);
-      btn.textContent = `${year} (${count})`;
-      btn.addEventListener('click', () => {
-        if (activeYearFilters.has(year)) {
-          activeYearFilters.delete(year);
-          btn.classList.remove('filter-btn--active');
-        } else {
-          activeYearFilters.add(year);
-          btn.classList.add('filter-btn--active');
-        }
-        applyFilters();
-      });
-      yearBar.appendChild(btn);
+    function renderYearButtons() {
+      const sorted = yearSortBy === 'desc'
+        ? [...Object.entries(yearCounts)].sort((a, b) => b[0] - a[0])
+        : [...Object.entries(yearCounts)].sort((a, b) => b[1] - a[1] || b[0] - a[0]);
+      yearBar.innerHTML = '';
+      for (const [year, count] of sorted) {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (activeYearFilters.has(year) ? ' filter-btn--active' : '');
+        btn.dataset.key = String(year);
+        btn.dataset.label = String(year);
+        btn.textContent = `${year} (${count})`;
+        btn.addEventListener('click', () => {
+          if (activeYearFilters.has(year)) {
+            activeYearFilters.delete(year);
+            btn.classList.remove('filter-btn--active');
+          } else {
+            activeYearFilters.add(year);
+            btn.classList.add('filter-btn--active');
+          }
+          applyFilters();
+        });
+        yearBar.appendChild(btn);
+      }
     }
+    renderYearButtons();
+
+    // Year sort toggle
+    const yearSortToggle = document.getElementById('year-sort-toggle');
+    yearSortToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      yearSortBy = yearSortBy === 'desc' ? 'count' : 'desc';
+      yearSortToggle.textContent = yearSortBy === 'desc' ? 'New→Old' : '#↓';
+      renderYearButtons();
+      if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) updateFilterCounts();
+    });
   }
 
   function addedYear(b) { return b.added ? b.added.split('-')[0] : null; }
@@ -306,11 +326,18 @@
       const ay = addedYear(b);
       if (ay) yearCounts[ay] = (yearCounts[ay] || 0) + 1;
     }
-    for (const btn of document.getElementById('year-filter-bar').querySelectorAll('.filter-btn')) {
+    const yearBar2 = document.getElementById('year-filter-bar');
+    const yearBtns = [...yearBar2.querySelectorAll('.filter-btn')];
+    for (const btn of yearBtns) {
       const c = yearCounts[btn.dataset.key] || 0;
       btn.textContent = `${btn.dataset.label} (${c})`;
       btn.hidden = c === 0 && !activeYearFilters.has(btn.dataset.key);
     }
+    // Re-sort visible buttons
+    const yearSortFn = yearSortBy === 'desc'
+      ? (a, b) => b.dataset.key - a.dataset.key
+      : (a, b) => (yearCounts[b.dataset.key] || 0) - (yearCounts[a.dataset.key] || 0) || b.dataset.key - a.dataset.key;
+    yearBtns.sort(yearSortFn).forEach(btn => yearBar2.appendChild(btn));
   }
 
   function matchesFilters(b) {

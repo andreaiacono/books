@@ -278,12 +278,14 @@ input:focus, select:focus, textarea:focus {
   padding: 0.4rem 0.7rem;
 }
 .filter-group__label {
-  display: block;
+  display: flex; align-items: center;
   font-size: 11px; font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.06em; color: var(--text-faint);
   margin-bottom: 0.45rem;
   cursor: pointer; user-select: none;
 }
+.filter-sort-toggle { text-transform: none; letter-spacing: normal; }
+.filter-group.collapsed .filter-sort-toggle { display: none; }
 .filter-group__chevron {
   display: inline-block; transition: transform 0.2s ease;
 }
