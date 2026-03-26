@@ -157,7 +157,9 @@
         <td class="bulk-publisher">${escHtml(b.publisher ?? '')}</td>
         <td>
           <label class="bulk-upload-btn${changed ? ' changed' : ''}">
-            Choose
+            <br/>
+            Choose New Cover
+            <br/>
             <input type="file" accept="image/*" data-isbn="${escAttr(b.isbn)}" style="display:none" class="cover-input">
           </label>
         </td>
