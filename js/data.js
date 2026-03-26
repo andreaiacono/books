@@ -249,15 +249,62 @@ export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
 }
 
 export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onProgress) {
+  const { token, repo, branch: cfgBranch } = getConfig();
+  const branch = cfgBranch || 'main';
+  const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' };
+  const api = `${GITHUB_API}/repos/${repo}/git`;
+
+  // 1. Get HEAD commit & its tree SHA
+  const refRes = await fetch(`${api}/ref/heads/${branch}`, { headers });
+  if (!refRes.ok) throw new Error(`Failed to get ref: ${refRes.status}`);
+  const refData = await refRes.json();
+  const baseCommitSha = refData.object.sha;
+
+  const commitRes = await fetch(`${api}/commits/${baseCommitSha}`, { headers });
+  if (!commitRes.ok) throw new Error(`Failed to get commit: ${commitRes.status}`);
+  const baseTreeSha = (await commitRes.json()).tree.sha;
+
+  // 2. Create blobs for each cover
+  const treeItems = [];
   let done = 0;
   for (const [isbn, base64] of covers) {
-    const coverPath = `covers/${isbn}.webp`;
-    let coverSha;
-    try { const f = await ghGet(coverPath); coverSha = f.sha; } catch { /* new file */ }
-    await ghPut(coverPath, base64, coverSha, `cover: ${isbn}`);
+    const blobRes = await fetch(`${api}/blobs`, {
+      method: 'POST', headers,
+      body: JSON.stringify({ content: base64, encoding: 'base64' }),
+    });
+    if (!blobRes.ok) throw new Error(`Failed to create blob for ${isbn}: ${blobRes.status}`);
+    const blob = await blobRes.json();
+    treeItems.push({ path: `covers/${isbn}.webp`, mode: '100644', type: 'blob', sha: blob.sha });
     done++;
-    if (onProgress) onProgress(done, covers.size);
+    if (onProgress) onProgress(done, covers.size, 'blobs');
   }
+
+  // 3. Create tree
+  const treeRes = await fetch(`${api}/trees`, {
+    method: 'POST', headers,
+    body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems }),
+  });
+  if (!treeRes.ok) throw new Error(`Failed to create tree: ${treeRes.status}`);
+  const newTreeSha = (await treeRes.json()).sha;
+
+  // 4. Create commit
+  const commitCreateRes = await fetch(`${api}/commits`, {
+    method: 'POST', headers,
+    body: JSON.stringify({
+      message: `bulk: update ${covers.size} cover(s)`,
+      tree: newTreeSha,
+      parents: [baseCommitSha],
+    }),
+  });
+  if (!commitCreateRes.ok) throw new Error(`Failed to create commit: ${commitCreateRes.status}`);
+  const newCommitSha = (await commitCreateRes.json()).sha;
+
+  // 5. Update ref
+  const updateRes = await fetch(`${api}/refs/heads/${branch}`, {
+    method: 'PATCH', headers,
+    body: JSON.stringify({ sha: newCommitSha }),
+  });
+  if (!updateRes.ok) throw new Error(`Failed to update ref: ${updateRes.status}`);
 }
 
 // ─── Reading log persistence ─────────────────────────────────────────────────

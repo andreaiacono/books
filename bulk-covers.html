@@ -203,8 +203,8 @@
     btn.textContent = 'Saving...';
 
     try {
-      await saveBulkCovers(pending, (done, total) => {
-        progress.textContent = `${done}/${total}`;
+      await saveBulkCovers(pending, (done, total, phase) => {
+        progress.textContent = phase === 'blobs' ? `Uploading ${done}/${total}...` : '';
       });
       toast(`Updated ${pending.size} cover(s)`, 'success');
       pending.clear();
