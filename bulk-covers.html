@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBooks — Bulk Cover Editor</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
+  <style>
+    .bulk-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .bulk-table th { text-align:left; padding:0.5rem 0.4rem; border-bottom:2px solid var(--border);
+      position:sticky; top:0; background:var(--bg); z-index:2; }
+    .bulk-table td { padding:0.35rem 0.4rem; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .bulk-table tr.changed { background:color-mix(in srgb, var(--accent) 12%, transparent); }
+    .bulk-cover { width:56px; height:84px; object-fit:cover; border-radius:3px; vertical-align:middle;
+      transition:transform 0.25s ease, box-shadow 0.25s ease; position:relative; z-index:1; }
+    .bulk-cover:hover { transform:scale(4); z-index:100; box-shadow:0 4px 24px rgba(0,0,0,0.4); }
+    .bulk-title { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
+    .bulk-author, .bulk-publisher { max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .bulk-cover-cell { position:relative; }
+    .bulk-upload-btn { font-size:11px; padding:0.15rem 0.4rem; border:1px solid var(--border); border-radius:3px;
+      background:transparent; color:var(--text-muted); cursor:pointer; white-space:nowrap; margin-top:0.25rem; display:inline-block; }
+    .bulk-upload-btn:hover { border-color:var(--accent); color:var(--accent); }
+    .bulk-upload-btn.changed { border-color:var(--accent); color:var(--accent); }
+    .bulk-bar { position:sticky; bottom:0; background:var(--bg); border-top:2px solid var(--border);
+      padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; z-index:2; }
+    .bulk-bar__count { font-size:14px; color:var(--text-muted); }
+    .bulk-filter { font-size:13px; padding:0.3rem 0.5rem; }
+    .bulk-progress { font-size:13px; color:var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">MyBooks</a>
+  <ul class="nav__links">
+    <li><a href="reading-log.html">Reading Log</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="nav__actions">
+    <a href="add.html" class="btn btn--primary" style="padding:0.4rem 1rem;font-size:13px">+ Add Book</a>
+    <button id="theme-toggle" class="theme-toggle"></button>
+  </div>
+</nav>
+
+<main class="page" style="max-width:1100px">
+  <header class="page-header">
+    <h1>Bulk Cover Editor</h1>
+    <p id="subtitle">Loading...</p>
+  </header>
+  <div id="controls" style="display:none;margin-bottom:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center">
+    <input type="search" id="filter-text" placeholder="Search title/author..." class="bulk-filter" style="min-width:200px">
+    <label style="font-size:13px;color:var(--text-muted)">
+      <input type="checkbox" id="show-no-cover"> No cover only
+    </label>
+    <label style="font-size:13px;color:var(--text-muted);margin-left:0.5rem">
+      <input type="checkbox" id="show-changed-only"> Show changed only
+    </label>
+  </div>
+  <div id="table-wrap" style="overflow-x:auto">
+    <div class="empty-state">
+      <div class="loader__spinner" style="width:32px;height:32px;margin:0 auto"></div>
+    </div>
+  </div>
+</main>
+
+<div class="bulk-bar" id="bottom-bar" style="display:none">
+  <span class="bulk-bar__count" id="change-count">0 changes</span>
+  <span class="bulk-progress" id="save-progress"></span>
+  <button class="btn btn--primary" id="save-btn" disabled>Save All Changes</button>
+</div>
+
+<script type="module">
+  import { loadGrid, saveBulkCovers, isConfigured } from './js/data.js';
+  import { toast, escHtml } from './js/ui.js';
+  import { fileToWebPBase64 } from './js/image-utils.js';
+
+  let allBooks = [];
+  const pending = new Map(); // isbn -> base64 webp string
+
+  async function init() {
+    if (!isConfigured()) {
+      document.getElementById('table-wrap').innerHTML = `
+        <div class="empty-state">
+          <h2>GitHub not configured</h2>
+          <p>Set your PAT and repo in <a href="settings.html">Settings</a>.</p>
+        </div>`;
+      return;
+    }
+
+    allBooks = await loadGrid();
+    allBooks = [...allBooks].sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    document.getElementById('subtitle').textContent = `${allBooks.length} books`;
+
+    renderTable(allBooks);
+    document.getElementById('controls').style.display = '';
+    document.getElementById('bottom-bar').style.display = '';
+
+    document.getElementById('filter-text').addEventListener('input', applyFilters);
+    document.getElementById('show-no-cover').addEventListener('change', applyFilters);
+    document.getElementById('show-changed-only').addEventListener('change', applyFilters);
+
+    document.getElementById('save-btn').addEventListener('click', saveAll);
+  }
+
+  function applyFilters() {
+    const textFilter = document.getElementById('filter-text').value.trim().toLowerCase();
+    const noCoverOnly = document.getElementById('show-no-cover').checked;
+    const changedOnly = document.getElementById('show-changed-only').checked;
+
+    let filtered = allBooks;
+
+    if (textFilter) {
+      filtered = filtered.filter(b =>
+        (b.title || '').toLowerCase().includes(textFilter) ||
+        (b.author || '').toLowerCase().includes(textFilter)
+      );
+    }
+
+    if (noCoverOnly) {
+      filtered = filtered.filter(b => !b.cover || b.cover === 'assets/no-cover.svg');
+    }
+
+    if (changedOnly) {
+      filtered = filtered.filter(b => pending.has(b.isbn));
+    }
+
+    renderTable(filtered);
+  }
+
+  function renderTable(books) {
+    const wrap = document.getElementById('table-wrap');
+
+    if (!books.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted);padding:2rem 0;text-align:center">No books match the current filter.</p>';
+      return;
+    }
+
+    const rows = books.map(b => {
+      const changed = pending.has(b.isbn);
+      const coverSrc = changed
+        ? `data:image/webp;base64,${pending.get(b.isbn)}`
+        : escHtml(b.cover ?? 'assets/no-cover.svg');
+
+      return `<tr data-isbn="${escAttr(b.isbn)}" class="${changed ? 'changed' : ''}">
+        <td class="bulk-cover-cell">
+          <img class="bulk-cover" src="${coverSrc}" onerror="this.src='assets/no-cover.svg'" loading="lazy">
+          <br>
+          <label class="bulk-upload-btn${changed ? ' changed' : ''}">
+            Choose
+            <input type="file" accept="image/*" data-isbn="${escAttr(b.isbn)}" style="display:none" class="cover-input">
+          </label>
+        </td>
+        <td class="bulk-title" title="${escAttr(b.description ?? '')}">${escHtml(b.title)}</td>
+        <td class="bulk-author">${escHtml(b.author ?? '')}</td>
+        <td class="bulk-publisher">${escHtml(b.publisher ?? '')}</td>
+      </tr>`;
+    }).join('');
+
+    wrap.innerHTML = `<table class="bulk-table">
+      <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Publisher</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+    // Attach file input listeners
+    for (const input of wrap.querySelectorAll('.cover-input')) {
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const isbn = input.dataset.isbn;
+        const row = input.closest('tr');
+        const img = row.querySelector('.bulk-cover');
+        const btn = row.querySelector('.bulk-upload-btn');
+
+        try {
+          const base64 = await fileToWebPBase64(file);
+          pending.set(isbn, base64);
+          img.src = `data:image/webp;base64,${base64}`;
+          row.classList.add('changed');
+          btn.classList.add('changed');
+          updateCount();
+        } catch (err) {
+          console.error(err);
+          toast('Could not process image', 'error');
+        }
+      });
+    }
+  }
+
+  function updateCount() {
+    const n = pending.size;
+    document.getElementById('change-count').textContent = `${n} change${n !== 1 ? 's' : ''}`;
+    document.getElementById('save-btn').disabled = n === 0;
+  }
+
+  async function saveAll() {
+    if (!pending.size) return;
+
+    const btn = document.getElementById('save-btn');
+    const progress = document.getElementById('save-progress');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      await saveBulkCovers(pending, (done, total) => {
+        progress.textContent = `${done}/${total}`;
+      });
+      toast(`Updated ${pending.size} cover(s)`, 'success');
+      pending.clear();
+      updateCount();
+      progress.textContent = '';
+      applyFilters();
+    } catch (err) {
+      console.error(err);
+      toast(`Save failed: ${err.message}`, 'error');
+    } finally {
+      btn.disabled = pending.size === 0;
+      btn.textContent = 'Save All Changes';
+    }
+  }
+
+  function escAttr(s) {
+    return (s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  init();
+</script>
+
+<script src="js/theme.js"></script>
+</body>
+</html>
