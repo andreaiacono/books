@@ -248,6 +248,18 @@ export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
   }
 }
 
+export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onProgress) {
+  let done = 0;
+  for (const [isbn, base64] of covers) {
+    const coverPath = `covers/${isbn}.webp`;
+    let coverSha;
+    try { const f = await ghGet(coverPath); coverSha = f.sha; } catch { /* new file */ }
+    await ghPut(coverPath, base64, coverSha, `cover: ${isbn}`);
+    done++;
+    if (onProgress) onProgress(done, covers.size);
+  }
+}
+
 // ─── Reading log persistence ─────────────────────────────────────────────────
 
 export async function appendReadingLogEntry({ date, title, comment, creators, isbn, marked }) {
