@@ -250,12 +250,12 @@ export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
 
 export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onProgress) {
   const { token, repo, branch: cfgBranch } = getConfig();
-  const branch = cfgBranch || 'main';
+  const branch = cfgBranch || 'master';
   const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' };
   const api = `${GITHUB_API}/repos/${repo}/git`;
 
   // 1. Get HEAD commit & its tree SHA
-  const refRes = await fetch(`${api}/ref/heads/${branch}`, { headers });
+  const refRes = await fetch(`${api}/refs/heads/${branch}`, { headers });
   if (!refRes.ok) throw new Error(`Failed to get ref: ${refRes.status}`);
   const refData = await refRes.json();
   const baseCommitSha = refData.object.sha;
@@ -300,7 +300,7 @@ export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onPro
   const newCommitSha = (await commitCreateRes.json()).sha;
 
   // 5. Update ref
-  const updateRes = await fetch(`${api}/refs/heads/${branch}`, {
+  const updateRes = await fetch(`${GITHUB_API}/repos/${repo}/git/refs/heads/${branch}`, {
     method: 'PATCH', headers,
     body: JSON.stringify({ sha: newCommitSha }),
   });

@@ -151,20 +151,21 @@
           <a href="https://www.google.com/search?q=${encodeURIComponent(b.isbn + ' ' + (b.title || ''))}&tbm=isch" target="_blank" rel="noopener">
             <img class="bulk-cover" src="${coverSrc}" onerror="this.src='assets/no-cover.svg'" loading="lazy">
           </a>
-          <br>
+        </td>
+        <td class="bulk-title" title="${escAttr(b.description ?? '')}">${escHtml(b.title)}</td>
+        <td class="bulk-author">${escHtml(b.author ?? '')}</td>
+        <td class="bulk-publisher">${escHtml(b.publisher ?? '')}</td>
+        <td>
           <label class="bulk-upload-btn${changed ? ' changed' : ''}">
             Choose
             <input type="file" accept="image/*" data-isbn="${escAttr(b.isbn)}" style="display:none" class="cover-input">
           </label>
         </td>
-        <td class="bulk-title" title="${escAttr(b.description ?? '')}">${escHtml(b.title)}</td>
-        <td class="bulk-author">${escHtml(b.author ?? '')}</td>
-        <td class="bulk-publisher">${escHtml(b.publisher ?? '')}</td>
       </tr>`;
     }).join('');
 
     wrap.innerHTML = `<table class="bulk-table">
-      <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Publisher</th></tr></thead>
+      <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Publisher</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 
