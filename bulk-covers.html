@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script>(function(){var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t;})();</script>
   <style>
-    .bulk-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .bulk-table { width:100%; border-collapse:separate; border-spacing:0; font-size:14px; overflow:visible; }
     .bulk-table th { text-align:left; padding:0.5rem 0.4rem; border-bottom:2px solid var(--border);
       position:sticky; top:0; background:var(--bg); z-index:2; }
     .bulk-table td { padding:0.35rem 0.4rem; border-bottom:1px solid var(--border); vertical-align:middle; }
@@ -16,8 +16,8 @@
     .bulk-table tr { position:relative; }
     .bulk-table tr:hover { z-index:100; }
     .bulk-cover { width:56px; height:84px; object-fit:cover; border-radius:3px; vertical-align:middle;
-      transition:transform 0.25s ease, box-shadow 0.25s ease; position:relative; z-index:1; }
-    .bulk-cover:hover { transform:scale(4); z-index:101; box-shadow:0 4px 24px rgba(0,0,0,0.4); }
+      transition:transform 50ms ease, box-shadow 50ms ease; position:relative; z-index:1; }
+    .bulk-cover:hover { transform:scale(4); z-index:101; box-shadow:0 4px 24px rgba(0,0,0,0.4); object-fit:contain; }
     .bulk-title { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
     .bulk-author, .bulk-publisher { max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .bulk-cover-cell { position:relative; }
