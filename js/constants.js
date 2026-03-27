@@ -1,9 +1,9 @@
 export const SUBJECTS = [
-  'Art','Biography','Biology','Chemistry','Crafts','Crime','Diary','Drama',
-  'Economics','Fiction','Food','History','Geography','Humor','Language',
-  'Math','Medicine','Misc','Music','Mythology','Nature','Neuroscience','Philosophy',
+  'Art','Astro','Biography','Biology','Chemistry','Crafts','Crime','Diary','Drama',
+  'Economics','Fiction','Food','Games','Genetics','Geography','History','Humor','Language',
+  'Logic','Math','Medicine','Misc','Music','Mythology','Nature','Neuroscience','Philosophy',
   'Photography','Physics','Poetry','Politics','Psychology','Religion','Reportage',
-   'Rights','Science','Science Fiction','Sociology','Sport','Technology','Travel','War'
+  'Rights','Science','Science Fiction','Sociology','Sport','Technology','Travel','War'
 ];
 
 // Keyword → subject mapping: raw subject words from APIs → our category
