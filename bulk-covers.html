@@ -148,7 +148,7 @@
 
       return `<tr data-isbn="${escAttr(b.isbn)}" class="${changed ? 'changed' : ''}">
         <td class="bulk-cover-cell">
-          <a href="https://www.google.com/search?q=${encodeURIComponent(b.isbn + ' ' + (b.title || ''))}&tbm=isch" target="_blank" rel="noopener">
+          <a href="https://www.google.com/search?q=${encodeURIComponent(b.isbn + ' ' + b.author + ' ' + (b.title || ''))}&tbm=isch" target="_blank" rel="noopener">
             <img class="bulk-cover" src="${coverSrc}" onerror="this.src='assets/no-cover.svg'" loading="lazy">
           </a>
         </td>
