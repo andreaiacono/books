@@ -159,6 +159,58 @@ def print_report(
         print()
 
 
+def run_values(books_path: Path, field: str, sort_by: str = "count") -> None:
+    """List all distinct values for a field with their occurrence counts."""
+    all_books = load_books(books_path)
+
+    counts: dict[str, int] = defaultdict(int)
+    missing = 0
+
+    for book in all_books:
+        value = book.get(field)
+        if value is None or (isinstance(value, str) and value.strip() == ""):
+            missing += 1
+        elif isinstance(value, list):
+            if not value:
+                missing += 1
+            else:
+                for item in value:
+                    counts[str(item)] += 1
+        else:
+            for item in str(value).split(","):
+                item = item.strip()
+                if item:
+                    counts[item] += 1
+
+    if not counts and not missing:
+        print(f"  Field '{field}' not found in any book.")
+        return
+
+    if sort_by == "alpha":
+        sorted_values = sorted(counts.items(), key=lambda x: x[0].lower())
+    else:
+        sorted_values = sorted(counts.items(), key=lambda x: (-x[1], x[0].lower()))
+
+    total_books = len(all_books)
+    distinct = len(counts)
+
+    print(f"\n{'='*60}")
+    print(f"  DISTINCT VALUES FOR: '{field}'")
+    print(f"  Total books: {total_books}  |  Distinct values: {distinct}")
+    if missing:
+        print(f"  Books with missing/empty '{field}': {missing}")
+    print(f"{'='*60}\n")
+
+    max_val_len = max((len(v) for v in counts), default=0)
+    col_width = min(max(max_val_len, 20), 50)
+
+    for value, count in sorted_values:
+        bar = "█" * min(count, 40)
+        print(f"  {value:<{col_width}}  {count:>4}  {bar}")
+
+    print()
+
+
 def run_prune(books_path: Path, field: str) -> None:
     """Interactively prune list fields with more than one entry."""
     with open(books_path, "r", encoding="utf-8") as f:
@@ -167,8 +219,8 @@ def run_prune(books_path: Path, field: str) -> None:
     targets = [
         b for b in all_books
         if not b.get("isbn", "").startswith("noisbn_")
-        and isinstance(b.get(field), list)
-        and len(b[field]) > 1
+           and isinstance(b.get(field), list)
+           and len(b[field]) > 1
     ]
 
     if not targets:
@@ -257,6 +309,26 @@ def main() -> None:
             "e.g. --prune subjects"
         ),
     )
+    parser.add_argument(
+        "--values",
+        metavar="FIELD",
+        default=None,
+        help=(
+            "List all distinct values for a field with occurrence counts. "
+            "List fields (e.g. subjects) enumerate individual items; "
+            "scalar fields (e.g. lang, publisher) enumerate unique strings. "
+            "e.g. --values subjects"
+        ),
+    )
+    parser.add_argument(
+        "--sort",
+        choices=["count", "alpha"],
+        default="count",
+        help=(
+            "Sort order for --values output: "
+            "'count' (most frequent first, default) or 'alpha' (alphabetical)."
+        ),
+    )
 
     args = parser.parse_args()
 
@@ -266,6 +338,10 @@ def main() -> None:
 
     if args.prune:
         run_prune(args.books, args.prune)
+        return
+
+    if args.values:
+        run_values(args.books, args.values, args.sort)
         return
 
     groups = group_books(args.books, args.fields)
