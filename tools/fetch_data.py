@@ -57,7 +57,21 @@ def load_books(path, limit=None):
 def save_books(path, books):
     tmp = path.with_suffix(".tmp")
     with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(books, f, ensure_ascii=False, separators=(",", ":"))
+        f.write("[\n")
+        for i, book in enumerate(books):
+            # Ensure description is the last property
+            ordered = {}
+            for k, v in book.items():
+                if k != "description":
+                    ordered[k] = v
+            if book.get("description"):
+                ordered["description"] = book["description"]
+            line = json.dumps(ordered, ensure_ascii=False)
+            f.write(line)
+            if i < len(books) - 1:
+                f.write(",")
+            f.write("\n")
+        f.write("]\n")
     tmp.replace(path)
 
 
@@ -382,6 +396,102 @@ def fetch_open_library_meta(isbn, session):
     return meta
 
 
+def _normalize(s):
+    """Lowercase, strip punctuation/whitespace for fuzzy title/author matching."""
+    return _re.sub(r"[^\w\s]", "", s.lower()).strip()
+
+
+def _titles_match(a, b):
+    return _normalize(a) == _normalize(b)
+
+
+def _authors_match(a, b):
+    """Match if any surname token from one side appears in the other."""
+    na, nb = _normalize(a), _normalize(b)
+    if na == nb:
+        return True
+    # Compare last-name tokens (words with len >= 3)
+    tokens_a = {w for w in na.split() if len(w) >= 3}
+    tokens_b = {w for w in nb.split() if len(w) >= 3}
+    return bool(tokens_a & tokens_b)
+
+
+def search_open_library_by_title(title, author, session):
+    """Search Open Library by title+author, return description if match found."""
+    import urllib.parse
+    params = urllib.parse.urlencode({"title": title, "author": author, "limit": 5})
+    url = f"https://openlibrary.org/search.json?{params}"
+    try:
+        r = session.get(url, timeout=10)
+        r.raise_for_status()
+        docs = r.json().get("docs", [])
+    except Exception:
+        return None
+
+    for doc in docs:
+        doc_title = doc.get("title", "")
+        doc_authors = ", ".join(doc.get("author_name", []))
+        if not _titles_match(title, doc_title) or not _authors_match(author, doc_authors):
+            continue
+        # Check if this doc already has a description snippet
+        # OL search docs don't include full description; we need the work endpoint
+        work_key = doc.get("key")  # e.g. "/works/OL12345W"
+        if not work_key:
+            continue
+        try:
+            r2 = session.get(f"https://openlibrary.org{work_key}.json", timeout=10)
+            r2.raise_for_status()
+            work = r2.json()
+        except Exception:
+            continue
+        desc = work.get("description")
+        if isinstance(desc, dict):
+            desc = desc.get("value")
+        if isinstance(desc, str) and len(desc.strip()) > 40:
+            return desc.strip()
+
+    return None
+
+
+def search_google_books_by_title(title, author, session, api_key=None):
+    """Search Google Books by title+author, return description if match found."""
+    import urllib.parse
+    q = f"intitle:{title} inauthor:{author}"
+    url = f"https://www.googleapis.com/books/v1/volumes?q={urllib.parse.quote(q)}&maxResults=5"
+    if api_key:
+        url += f"&key={api_key}"
+    try:
+        r = session.get(url, timeout=10)
+        if r.status_code in (429, 403):
+            return None
+        r.raise_for_status()
+        items = r.json().get("items", [])
+    except Exception:
+        return None
+
+    for item in items:
+        info = item.get("volumeInfo", {})
+        item_title = info.get("title", "")
+        item_authors = ", ".join(info.get("authors", []))
+        if not _titles_match(title, item_title) or not _authors_match(author, item_authors):
+            continue
+        desc = info.get("description", "").strip()
+        if desc and len(desc) > 40:
+            return desc
+        # Try the detail endpoint for a fuller description
+        if self_link := item.get("selfLink"):
+            try:
+                r2 = session.get(self_link, timeout=10)
+                if r2.status_code == 200:
+                    detail_desc = r2.json().get("volumeInfo", {}).get("description", "").strip()
+                    if detail_desc and len(detail_desc) > 40:
+                        return detail_desc
+            except Exception:
+                pass
+
+    return None
+
+
 def fetch_cover(isbn, session, google_thumb=None):
     """Try AbeBooks → Google thumbnail → Open Library. Returns bytes or None."""
     # AbeBooks
@@ -600,6 +710,7 @@ def run_fetch(args):
     meta_not_found = cover_ok = cover_missing = 0
     google_quota_hit = False
     missing_covers = []
+    title_author_hits = []  # track descriptions found via title+author fallback
 
     for book in iterate(real_books):
         isbn = book["isbn"]
@@ -683,6 +794,38 @@ def run_fetch(args):
                     filled[f] = ("OL", ol_meta[f])
                 elif f in api_meta:
                     filled[f] = ("GB-API", api_meta[f])
+
+            # 5) Fallback: search by title+author if description still missing
+            if "description" in needed and "description" not in filled:
+                book_title = book.get("title", "")
+                book_author = book.get("author", "")
+                if book_title and book_author:
+                    log(f"     title+author fallback for: {book_title} / {book_author}")
+                    # Try Open Library search
+                    ta_desc = search_open_library_by_title(book_title, book_author, session)
+                    time.sleep(args.delay)
+                    if ta_desc:
+                        filled["description"] = ("OL-title", ta_desc)
+                        log(f"     OL-title → description ({len(ta_desc)} chars)")
+                    else:
+                        log(f"     OL-title → (nothing)")
+                        # Try Google Books search
+                        if not google_quota_hit:
+                            ta_desc = search_google_books_by_title(
+                                book_title, book_author, session, args.api_key)
+                            time.sleep(args.delay)
+                            if ta_desc:
+                                filled["description"] = ("GB-title", ta_desc)
+                                log(f"     GB-title → description ({len(ta_desc)} chars)")
+                            else:
+                                log(f"     GB-title → (nothing)")
+                    if "description" in filled:
+                        title_author_hits.append({
+                            "title": book_title,
+                            "author": book_author,
+                            "source": filled["description"][0],
+                            "description": filled["description"][1],
+                        })
 
             if filled:
                 parts = [f"{f}[{src}]" for f, (src, _) in sorted(filled.items())]
@@ -783,6 +926,12 @@ def run_fetch(args):
             print("  No missing covers.")
     elif args.interactive and args.dry_run:
         print("  [dry-run] interactive skipped.")
+
+    if title_author_hits:
+        print(f"\n-- Descriptions found via title+author ({len(title_author_hits)}) ------")
+        for h in title_author_hits:
+            print(f"  {h['title']} / {h['author']}")
+            print(f"    \033[36m[{h['source']}] {h['description'][:120]}\033[0m")
 
     if google_quota_hit:
         print(f"\n  WARNING: Google quota exhausted. Progress saved to {args.progress_file}")
