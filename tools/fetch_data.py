@@ -15,6 +15,7 @@ Usage:
   python3 fetch_data.py --covers --interactive           # auto then manual
   python3 fetch_data.py --metadata --fields description  # specific fields only
   python3 fetch_data.py --metadata --limit 20 --dry-run  # test run
+  python3 fetch_data.py --metadata --fields description --from-check-report  # only books missing description
 """
 
 import argparse
@@ -544,6 +545,33 @@ def run_fetch(args):
     if args.covers or args.interactive:
         args.covers_dir.mkdir(parents=True, exist_ok=True)
 
+    # ── Filter by check_report if requested ──────────────────────────────────
+    if args.from_check_report:
+        report_path = args.check_report
+        if not report_path.exists():
+            sys.exit(
+                f"Error: check_report not found at {report_path}.\n"
+                f"  Run first:  python3 fetch_data.py --check"
+            )
+        with open(report_path, encoding="utf-8") as f:
+            report = json.load(f)
+
+        # Collect ISBNs that are missing at least one of our target fields
+        candidate_isbns = set()
+        for entry in report.get("books", []):
+            missing_in_report = set(entry.get("issues", {}).get("missing_fields", []))
+            if args.metadata and (missing_in_report & target_fields):
+                candidate_isbns.add(entry["isbn"])
+            if args.covers and entry.get("issues", {}).get("missing_cover"):
+                candidate_isbns.add(entry["isbn"])
+
+        before = len(real_books)
+        real_books = [b for b in real_books if b["isbn"] in candidate_isbns]
+        print(
+            f"  Filtered by check_report: {before} → {len(real_books)} books"
+            + (f" missing {', '.join(sorted(target_fields))}" if args.metadata else "")
+        )
+
     # Progress
     if args.reset_progress or args.force:
         progress = {"meta": set(), "covers": set()}
@@ -783,6 +811,8 @@ def main():
     p.add_argument("--api-key",     default=None, help="Google Books API key")
     p.add_argument("--progress-file", type=Path, default=SCRIPT_DIR / "fetch_progress.json")
     p.add_argument("--check-report",  type=Path, default=SCRIPT_DIR / "check_report.json")
+    p.add_argument("--from-check-report", action="store_true",
+                   help="Process only ISBNs listed in check_report.json as missing the requested fields")
     p.add_argument("--reset-progress", action="store_true")
     p.add_argument("--delay",       type=float, default=1.0, help="Seconds between API calls")
     p.add_argument("--limit",       type=int,   default=None, help="Process only first N books")
