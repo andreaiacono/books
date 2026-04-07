@@ -77,8 +77,8 @@
   import { appendReadingLogEntry, isConfigured } from './js/data.js';
   import { escHtml, toast } from './js/ui.js';
 
-  const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-                     'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
 
   async function init() {
     const res = await fetch('data/reading-log.csv');
@@ -109,7 +109,7 @@
       if (!byYear.has(year)) byYear.set(year, new Map());
       const yearMap = byYear.get(year);
       if (!yearMap.has(monthKey)) {
-        const monthLabel = date ? MONTHS_IT[parseInt(date.slice(3, 5)) - 1] : 'Data sconosciuta';
+        const monthLabel = date ? MONTHS[parseInt(date.slice(3, 5)) - 1] : 'Unknown date';
         yearMap.set(monthKey, { label: monthLabel, entries: [] });
       }
       yearMap.get(monthKey).entries.push(entry);
@@ -129,7 +129,7 @@
       yearHeader.innerHTML = `
         <span class="year-chevron">▾</span>
         <h2>${escHtml(year)}</h2>
-        <span class="year-count">${totalInYear} libri</span>`;
+        <span class="year-count">${totalInYear} book${totalInYear !== 1 ? 's' : ''}</span>`;
       yearHeader.addEventListener('click', () => yearSection.classList.toggle('collapsed'));
 
       const yearBody = document.createElement('div');
@@ -141,7 +141,8 @@
 
         const monthHeader = document.createElement('div');
         monthHeader.className = 'month-header';
-        monthHeader.innerHTML = `<span class="month-chevron">▾</span><span>${escHtml(label)}</span>`;
+        const monthCount = entries.length;
+        monthHeader.innerHTML = `<span class="month-chevron">▾</span><span>${escHtml(label)}</span> <span class="month-count">${monthCount} book${monthCount !== 1 ? 's' : ''}</span>`;
         monthHeader.addEventListener('click', () => monthSection.classList.toggle('collapsed'));
         monthSection.appendChild(monthHeader);
 
@@ -161,7 +162,7 @@
 
           const row = document.createElement('p');
           row.className = 'log-entry';
-          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} <span class="log-comment"> di </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
+          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} <span class="log-comment"> by </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
           entriesDiv.appendChild(row);
         }
 
