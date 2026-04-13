@@ -15,6 +15,9 @@ const removeDiacritics = function (token) {
 };
 lunr.Pipeline.registerFunction(removeDiacritics, 'removeDiacritics');
 
+// Split on apostrophes so "L'altra" tokenises as ["l", "altra"]
+lunr.tokenizer.separator = /[\s\-''\u2019]+/;
+
 // ─── Index builder ───────────────────────────────────────────────────────────
 
 export function buildSearchIndex(books) {
@@ -65,7 +68,7 @@ export function search(query) {
 
   // Plain query: stemmed match, all content terms required for multi-word
   try {
-    const terms = q.split(/\s+/);
+    const terms = q.split(/[\s''\u2019]+/).filter(Boolean);
 
     // Multi-word: require all terms; last term gets wildcard (may still be typed)
     // If REQUIRED fails (e.g. stop words like "il"), fall through to optional
