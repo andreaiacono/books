@@ -60,11 +60,13 @@
     originalBook = grid.find(b => b.isbn === isbn);
     if (!originalBook) { render404(); return; }
 
+    const publishers = [...new Set(grid.map(b => b.publisher).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+
     document.title = `Edit: ${originalBook.title} — MyBooks`;
-    renderForm(originalBook);
+    renderForm(originalBook, publishers);
   }
 
-  function renderForm(book) {
+  function renderForm(book, publishers) {
     const main = document.getElementById('main-content');
     const subjects = Array.isArray(book.subjects) ? book.subjects : [];
     const currentSubject = subjects[0] || '';
@@ -113,7 +115,10 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-publisher">Publisher</label>
-          <input type="text" id="f-publisher" value="${escHtml(book.publisher)}">
+          <input type="text" id="f-publisher" list="publisher-list" value="${escHtml(book.publisher)}">
+          <datalist id="publisher-list">
+            ${publishers.map(p => `<option value="${escHtml(p)}">`).join('')}
+          </datalist>
         </div>
         <div class="form-group">
           <label class="form-label" for="f-pages">Pages</label>
