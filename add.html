@@ -244,7 +244,8 @@
     <div class="form-row">
       <div class="form-group">
         <label class="form-label" for="f-publisher">Publisher</label>
-        <input type="text" id="f-publisher">
+        <input type="text" id="f-publisher" list="publisher-list">
+        <datalist id="publisher-list"></datalist>
       </div>
       <div class="form-group">
         <label class="form-label" for="f-pages">Pages</label>
@@ -293,7 +294,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { fetchCoverAsBase64, saveNewBook, isConfigured } from './js/data.js';
+  import { fetchCoverAsBase64, saveNewBook, isConfigured, loadGrid } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
   import { SUBJECTS } from './js/constants.js';
   import { fetchByIsbn, searchByTitle, matchSubject } from './js/book-apis.js';
@@ -308,6 +309,17 @@
       sel.appendChild(opt);
     }
   }
+
+  // ── Populate publisher datalist ───────────────────────────────────────────
+  loadGrid().then(grid => {
+    const publishers = [...new Set(grid.map(b => b.publisher).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const dl = document.getElementById('publisher-list');
+    for (const p of publishers) {
+      const opt = document.createElement('option');
+      opt.value = p;
+      dl.appendChild(opt);
+    }
+  });
 
   // ── GitHub config check ──────────────────────────────────────────────────
   if (!isConfigured()) {
