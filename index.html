@@ -74,7 +74,17 @@
       </div>
     </div>
   </div>
-  <p id="search-count" class="search-count" style="display:none"></p>
+  <div id="results-header" class="results-header">
+    <p id="search-count" class="search-count" style="display:none"></p>
+    <div class="view-toggle" role="group" aria-label="View mode">
+      <button id="view-flat" class="view-toggle__btn" type="button" aria-pressed="true" title="Flat list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg>
+      </button>
+      <button id="view-grouped" class="view-toggle__btn" type="button" aria-pressed="false" title="Grouped by year/month">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18"/><path d="M6 12h15"/><path d="M6 18h15"/><circle cx="3.5" cy="12" r="0.5" fill="currentColor"/><circle cx="3.5" cy="18" r="0.5" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
   <div id="book-grid"></div>
 </main>
 
@@ -100,6 +110,7 @@
   let activeYearFilters = new Set();
   let subjectSortBy = 'alpha'; // 'alpha' or 'count'
   let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
+  let resultsView = localStorage.getItem('results_view') === 'flat' ? 'flat' : 'grouped';
 
   async function init() {
     showLoader('Loading your library…');
@@ -108,7 +119,7 @@
       document.getElementById('book-count').textContent = `(${allBooks.length})`;
 
       buildFilterBar(allBooks);
-      renderGrid(allBooks);
+      renderResults(allBooks, false, false);
 
       // Build search index after first paint
       setTimeout(() => {
@@ -365,17 +376,23 @@
         : searchResults;
       countEl.style.display = '';
       countEl.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
-      renderFlat(filtered, true);
-    } else {
+      renderResults(filtered, true, true);
+    } else if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) {
       const filtered = getFilteredBooks();
-      if (activeFilters.size || activeLangFilters.size || activeYearFilters.size) {
-        countEl.style.display = '';
-        countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
-        renderFlat(filtered, false);
-      } else {
-        countEl.style.display = 'none';
-        renderGrid(allBooks, false);
-      }
+      countEl.style.display = '';
+      countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
+      renderResults(filtered, false, true);
+    } else {
+      countEl.style.display = 'none';
+      renderResults(allBooks, false, false);
+    }
+  }
+
+  function renderResults(books, preserveOrder, expandAllGrouped) {
+    if (resultsView === 'grouped') {
+      renderGrid(books, expandAllGrouped);
+    } else {
+      renderFlat(books, preserveOrder);
     }
   }
 
@@ -533,6 +550,28 @@
     toggleClearBtn();
     doSearch('');
     searchInput.focus();
+  });
+
+  const viewFlatBtn = document.getElementById('view-flat');
+  const viewGroupedBtn = document.getElementById('view-grouped');
+  function syncViewToggle() {
+    viewFlatBtn.setAttribute('aria-pressed', resultsView === 'flat');
+    viewGroupedBtn.setAttribute('aria-pressed', resultsView === 'grouped');
+  }
+  syncViewToggle();
+  viewFlatBtn.addEventListener('click', () => {
+    if (resultsView === 'flat') return;
+    resultsView = 'flat';
+    localStorage.setItem('results_view', 'flat');
+    syncViewToggle();
+    applyFilters();
+  });
+  viewGroupedBtn.addEventListener('click', () => {
+    if (resultsView === 'grouped') return;
+    resultsView = 'grouped';
+    localStorage.setItem('results_view', 'grouped');
+    syncViewToggle();
+    applyFilters();
   });
 
   init();

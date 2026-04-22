@@ -359,6 +359,37 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 1rem;
 }
 
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.results-header .search-count { margin-bottom: 0; }
+
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.view-toggle__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.35rem 0.7rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+.view-toggle__btn:hover { color: var(--text); }
+.view-toggle__btn[aria-pressed="true"] {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+.view-toggle__btn + .view-toggle__btn {
+  border-left: 1px solid var(--border);
+}
+
 /* ─── Buttons ─────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
