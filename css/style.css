@@ -225,6 +225,14 @@ input:focus, select:focus, textarea:focus {
   color: #fff;
 }
 
+.book-card--read {
+  border-color: var(--accent-dim);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
+}
+.book-card--read:hover {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg-card-hover));
+}
+
 .book-card--marked .book-card__cover-wrap::after {
   content: '';
   position: absolute; inset: 0;

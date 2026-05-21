@@ -89,13 +89,14 @@
 </main>
 
 <!-- Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.stemmer.support.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.multi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/lunr.it.min.js"></script>
 
 <script type="module">
-  import { loadGrid } from './js/data.js';
+  import { getEnrichedCatalog } from './js/data.js';
   import { renderBookCard, showLoader, hideLoader, toast, escHtml } from './js/ui.js';
   import { buildSearchIndex, search, isIndexReady } from './js/search.js';
   import { LANG_LABELS } from './js/constants.js';
@@ -115,7 +116,7 @@
   async function init() {
     showLoader('Loading your library…');
     try {
-      allBooks = await loadGrid();
+      allBooks = await getEnrichedCatalog();
       document.getElementById('book-count').textContent = `(${allBooks.length})`;
 
       buildFilterBar(allBooks);
