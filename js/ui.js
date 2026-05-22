@@ -65,6 +65,7 @@ export function renderBookCard(book) {
              onerror="this.src='assets/no-cover.svg'">
         ${isRead    ? '<span class="book-card__badge book-card__badge--read" title="Read">✓</span>' : ''}
         ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
+        ${(!isRead && !isMarked) ? '<span class="book-card__badge book-card__badge--none" title="Unread">?</span>' : ''}
       </div>
       <div class="book-card__info">
         <h3 class="book-card__title">${escHtml(book.title)}</h3>
