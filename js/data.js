@@ -310,15 +310,25 @@ export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onPro
 // ─── Reading log persistence ─────────────────────────────────────────────────
 
 export async function appendReadingLogEntry({ date, title, comment, creators, isbn, marked }) {
-  function csvField(v) {
-    const s = String(v ?? '');
-    return `"${s.replace(/"/g, '""')}"`;
-  }
-  const row = [date, title, comment, creators, isbn, String(marked)].map(csvField).join(',');
-
   const csvFile = await ghGet('data/reading-log.csv');
   const current = decodeURIComponent(escape(atob(csvFile.content.replace(/\n/g, ''))));
-  const updated = current.trimEnd() + '\n' + row;
+
+  // Parse existing rows, add the new entry, then keep the whole file sorted by date asc.
+  const fields = ['date', 'title', 'comment', 'creators', 'isbn', 'marked'];
+  const { data: rows } = Papa.parse(current.trim(), { header: true, skipEmptyLines: true });
+  rows.push({ date, title, comment, creators, isbn, marked: String(marked) });
+
+  // Dates are DD/MM/YYYY; undated rows sort to the top (time 0).
+  const toTime = (s) => {
+    const [d, m, y] = String(s ?? '').split('/');
+    return new Date(+y, +m - 1, +d).getTime() || 0;
+  };
+  rows.sort((a, b) => toTime(a.date) - toTime(b.date));
+
+  const updated = Papa.unparse(
+    { fields, data: rows.map(r => fields.map(f => r[f] ?? '')) },
+    { quotes: true },
+  );
   const content = btoa(unescape(encodeURIComponent(updated)));
   await ghPut('data/reading-log.csv', content, csvFile.sha, `log: ${title}`);
 }

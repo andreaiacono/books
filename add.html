@@ -218,6 +218,10 @@
           Upload cover
           <input type="file" id="cover-upload" accept="image/*" style="display:none">
         </label>
+        <button type="button" id="paste-cover-btn" class="btn btn--ghost" style="font-size:12px;margin-top:0.4rem;display:block;width:100%;text-align:center;cursor:pointer">
+          Paste cover
+        </button>
+        <p style="font-size:10px;color:var(--text-faint);margin-top:0.3rem;text-align:center">or press ⌘/Ctrl+V</p>
       </div>
       <div>
         <div class="form-group">
@@ -544,19 +548,53 @@
     document.getElementById('f-title').focus();
   });
 
-  // ── Cover upload ──────────────────────────────────────────────────────────
-  document.getElementById('cover-upload').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // ── Cover from a file/blob (upload, paste, drop) ───────────────────────────
+  async function setCoverFromBlob(blob) {
+    if (!blob || !blob.type.startsWith('image/')) return false;
+    // Make sure the form is visible so the preview is in view.
+    document.getElementById('form-area').style.display = '';
     document.getElementById('cover-status').textContent = 'Processing…';
     try {
-      coverBase64 = await fileToWebPBase64(file);
+      coverBase64 = await fileToWebPBase64(blob);
       document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
       document.getElementById('cover-status').textContent = 'Cover ready';
+      return true;
     } catch (err) {
       console.error(err);
       document.getElementById('cover-status').textContent = 'Failed to load image';
       toast('Could not process cover image', 'error');
+      return false;
+    }
+  }
+
+  // ── Cover upload ──────────────────────────────────────────────────────────
+  document.getElementById('cover-upload').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (file) await setCoverFromBlob(file);
+  });
+
+  // ── Cover paste ────────────────────────────────────────────────────────────
+  // Ctrl/Cmd+V anywhere on the page picks up an image from the clipboard.
+  document.addEventListener('paste', async (e) => {
+    const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+    if (!item) return;
+    e.preventDefault();
+    if (await setCoverFromBlob(item.getAsFile())) toast('Cover pasted', 'success');
+  });
+
+  // Button fallback for browsers/users that prefer a click (uses the Clipboard API).
+  document.getElementById('paste-cover-btn').addEventListener('click', async () => {
+    try {
+      for (const item of await navigator.clipboard.read()) {
+        const type = item.types.find(t => t.startsWith('image/'));
+        if (type) {
+          if (await setCoverFromBlob(await item.getType(type))) toast('Cover pasted', 'success');
+          return;
+        }
+      }
+      toast('No image in clipboard — copy a cover image first', 'warning');
+    } catch {
+      toast('Press ⌘/Ctrl+V to paste an image instead', 'warning');
     }
   });
 
@@ -619,6 +657,9 @@
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     currentMeta = null; coverBase64 = null;
   });
+
+  // ── Focus the title/ISBN input on load ─────────────────────────────────────
+  document.getElementById('search-input').focus();
 
 </script>
 
