@@ -479,6 +479,7 @@
 
         const grid = document.createElement('div');
         grid.className = 'book-grid';
+        monthBooks.sort((a, b) => (b.added || '').localeCompare(a.added || ''));
         for (const book of monthBooks) grid.appendChild(renderBookCard(book));
 
         monthGroup.appendChild(monthHeader);

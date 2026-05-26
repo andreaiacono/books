@@ -584,6 +584,10 @@
 
   // Button fallback for browsers/users that prefer a click (uses the Clipboard API).
   document.getElementById('paste-cover-btn').addEventListener('click', async () => {
+    if (!navigator.clipboard?.read) {
+      toast('This browser blocks clipboard reads — press ⌘/Ctrl+V to paste instead', 'warning');
+      return;
+    }
     try {
       for (const item of await navigator.clipboard.read()) {
         const type = item.types.find(t => t.startsWith('image/'));
@@ -593,8 +597,12 @@
         }
       }
       toast('No image in clipboard — copy a cover image first', 'warning');
-    } catch {
-      toast('Press ⌘/Ctrl+V to paste an image instead', 'warning');
+    } catch (err) {
+      console.error('clipboard.read() failed:', err);
+      const msg = err.name === 'NotAllowedError'
+        ? 'Clipboard access denied — press ⌘/Ctrl+V to paste instead'
+        : 'Could not read clipboard — press ⌘/Ctrl+V to paste instead';
+      toast(msg, 'warning');
     }
   });
 
