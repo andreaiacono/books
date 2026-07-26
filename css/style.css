@@ -225,9 +225,26 @@ input:focus, select:focus, textarea:focus {
   color: #fff;
 }
 
+.book-card__badge--removed {
+  bottom: 8px; right: 8px;
+  background: var(--text-faint);
+  color: var(--bg);
+  font-size: 10px;
+}
+
 .book-card--read {
   border-color: var(--accent-dim);
   background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
+}
+
+.book-card--removed {
+  opacity: 0.4;
+  filter: grayscale(0.5);
+}
+
+.book-card--removed:hover {
+  opacity: 0.6;
+  transform: translateY(-1px);
 }
 .book-card--read:hover {
   background: color-mix(in srgb, var(--accent) 14%, var(--bg-card-hover));
@@ -258,6 +275,16 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.73rem;
   color: var(--text-muted);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.book-card__author .author-link {
+  color: inherit;
+  transition: color var(--transition);
+}
+
+.book-card__author .author-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 .book-card__year {
@@ -706,6 +733,16 @@ html[data-theme="light"] .nav {
   font-weight: 700; line-height: 1.2; margin-bottom: 0.3rem;
 }
 .book-detail__author { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+.book-detail__author .author-link {
+  color: inherit;
+  transition: color var(--transition);
+}
+
+.book-detail__author .author-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
 
 .meta-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));

@@ -51,13 +51,16 @@ export function hideLoader() {
 export function renderBookCard(book) {
   const isRead    = book.reading !== null && book.reading !== undefined;
   const isMarked  = isRead && book.reading.marked;
+  const isRemoved = book.removed === true;
   const coverSrc  = book.cover ?? 'assets/no-cover.svg';
 
   const card = document.createElement('article');
-  card.className = `book-card${isRead ? ' book-card--read' : ''}${isMarked ? ' book-card--marked' : ''}`;
+  card.className = `book-card${isRead ? ' book-card--read' : ''}${isMarked ? ' book-card--marked' : ''}${isRemoved ? ' book-card--removed' : ''}`;
   card.dataset.isbn = book.isbn;
 
   const bookUrl = `book.html?isbn=${encodeURIComponent(book.isbn)}`;
+  const authorSearchUrl = book.author ? `index.html?q=${encodeURIComponent('author:"' + book.author + '"')}` : '#';
+
   card.innerHTML = `
     <a class="book-card__link" href="${bookUrl}">
       <div class="book-card__cover-wrap">
@@ -66,10 +69,15 @@ export function renderBookCard(book) {
         ${isRead    ? '<span class="book-card__badge book-card__badge--read" title="Read">✓</span>' : ''}
         ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
         ${(!isRead && !isMarked) ? '<span class="book-card__badge book-card__badge--none" title="Unread">?</span>' : ''}
+        ${isRemoved ? '<span class="book-card__badge book-card__badge--removed" title="Removed">Removed</span>' : ''}
       </div>
       <div class="book-card__info">
         <h3 class="book-card__title">${escHtml(book.title)}</h3>
-        <p  class="book-card__author">${escHtml(book.author ?? '')}</p>
+        <p class="book-card__author">
+          ${book.author
+            ? `<a href="${authorSearchUrl}" class="author-link" onclick="event.stopPropagation()">${escHtml(book.author)}</a>`
+            : ''}
+        </p>
         ${book.year ? `<p class="book-card__year">${book.year}</p>` : ''}
       </div>
     </a>

@@ -32,8 +32,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { loadGrid, loadReadingLog } from './js/data.js';
-  import { escHtml, formatDate } from './js/ui.js';
+  import { loadGrid, loadReadingLog, updateBook, isConfigured } from './js/data.js';
+  import { escHtml, formatDate, toast, showLoader, hideLoader } from './js/ui.js';
 
   async function init() {
     const params = new URLSearchParams(location.search);
@@ -59,6 +59,7 @@
     const main = document.getElementById('main-content');
     const subjects = Array.isArray(book.subjects) ? book.subjects : [];
     const reading = book.reading;
+    const authorSearchUrl = book.author ? `index.html?q=${encodeURIComponent('author:"' + book.author + '"')}` : '#';
 
     main.innerHTML = `
       <div class="book-detail">
@@ -70,7 +71,11 @@
         </div>
         <div>
           <h1 class="book-detail__title">${escHtml(book.title)}</h1>
-          <p class="book-detail__author">${escHtml(book.author ?? '')}</p>
+          <p class="book-detail__author">
+            ${book.author
+              ? `<a href="${authorSearchUrl}" class="author-link">${escHtml(book.author)}</a>`
+              : ''}
+          </p>
 
           <div class="meta-grid">
             ${book.year       ? metaItem('Year', book.year) : ''}
@@ -114,6 +119,7 @@
               : ''}
             <a href="edit.html?isbn=${encodeURIComponent(book.isbn)}" class="btn btn--ghost" style="font-size:13px">Edit</a>
             <a id="add-log-btn" class="btn btn--ghost" style="font-size:13px">+ Add reading entry</a>
+            ${!book.removed ? '<button id="remove-btn" class="btn btn--ghost" style="font-size:13px;color:var(--danger)">Remove book</button>' : ''}
           </div>
         </div>
       </div>
@@ -126,6 +132,37 @@
       isbn: book.isbn ?? '',
     });
     document.getElementById('add-log-btn').href = `reading-log.html?${logParams}`;
+
+    // Wire up "Remove book" button
+    const removeBtn = document.getElementById('remove-btn');
+    if (removeBtn) {
+      removeBtn.addEventListener('click', async () => {
+        if (!isConfigured()) {
+          toast('Configure GitHub settings first', 'warning');
+          return;
+        }
+
+        const confirmed = confirm(
+          `Remove "${book.title}" from your library?\n\n` +
+          `The book will be marked as removed and appear grayed out. ` +
+          `You can restore it later by editing the JSON file manually.`
+        );
+
+        if (!confirmed) return;
+
+        try {
+          showLoader('Removing book…');
+          await updateBook(book.isbn, { removed: true });
+          toast('Book removed', 'success');
+          setTimeout(() => window.location.reload(), 800);
+        } catch (err) {
+          console.error(err);
+          toast(`Failed to remove book: ${err.message}`, 'error');
+        } finally {
+          hideLoader();
+        }
+      });
+    }
   }
 
   function metaItem(label, value) {

@@ -234,8 +234,8 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="f-year">Year</label>
-            <input type="number" id="f-year" min="1000" max="2099">
+            <label class="form-label" for="f-year">Year *</label>
+            <input type="number" id="f-year" min="1000" max="2099" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="f-isbn-ro">ISBN</label>
@@ -247,32 +247,34 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label" for="f-publisher">Publisher</label>
-        <input type="text" id="f-publisher" list="publisher-list">
+        <label class="form-label" for="f-publisher">Publisher *</label>
+        <input type="text" id="f-publisher" list="publisher-list" required>
         <datalist id="publisher-list"></datalist>
+        <p id="publisher-warning" style="font-size:11px;color:var(--accent);margin-top:0.3rem;display:none">⚠ New publisher (not in your library yet)</p>
       </div>
       <div class="form-group">
-        <label class="form-label" for="f-pages">Pages</label>
-        <input type="number" id="f-pages" min="1">
+        <label class="form-label" for="f-pages">Pages *</label>
+        <input type="number" id="f-pages" min="1" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="f-subject">Subject</label>
-      <select id="f-subject">
+      <label class="form-label" for="f-subject">Subject *</label>
+      <select id="f-subject" required>
         <option value="">— None —</option>
       </select>
       <p id="subject-hint" style="font-size:11px;color:var(--text-faint);margin-top:0.3rem;display:none"></p>
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="f-description">Description</label>
-      <textarea id="f-description" rows="4" style="resize:vertical"></textarea>
+      <label class="form-label" for="f-description">Description *</label>
+      <textarea id="f-description" rows="4" style="resize:vertical" required></textarea>
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="f-language">Language</label>
-      <input type="text" id="f-language" placeholder="e.g. en">
+      <label class="form-label" for="f-language">Language *</label>
+      <input type="text" id="f-language" placeholder="e.g. en, it" required>
+      <p id="language-warning" style="font-size:11px;color:var(--accent);margin-top:0.3rem;display:none">⚠ New language (not in your library yet)</p>
     </div>
 
     <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
@@ -314,14 +316,20 @@
     }
   }
 
-  // ── Populate publisher datalist ───────────────────────────────────────────
+  // ── Populate publisher datalist & language set ────────────────────────────
   loadGrid().then(grid => {
     const publishers = [...new Set(grid.map(b => b.publisher).filter(Boolean))].sort((a, b) => a.localeCompare(b));
     const dl = document.getElementById('publisher-list');
     for (const p of publishers) {
+      existingPublishers.add(p.toLowerCase());
       const opt = document.createElement('option');
       opt.value = p;
       dl.appendChild(opt);
+    }
+
+    const languages = [...new Set(grid.map(b => b.lang).filter(Boolean))];
+    for (const lang of languages) {
+      existingLanguages.add(lang.toLowerCase());
     }
   });
 
@@ -359,6 +367,8 @@
   let currentMeta  = null;
   let coverBase64  = null;
   let searchResults = [];   // Array of normalised book objects
+  let existingPublishers = new Set();
+  let existingLanguages = new Set();
 
   // ── Search ────────────────────────────────────────────────────────────────
   document.getElementById('search-btn').addEventListener('click', doSearch);
@@ -528,6 +538,15 @@
       hint.textContent = `API tags: ${raw}`;
       hint.style.display = '';
     }
+
+    // Check for new publisher/language
+    const publisherVal = (meta.publisher ?? '').trim().toLowerCase();
+    const languageVal = (meta.lang ?? '').trim().toLowerCase();
+
+    document.getElementById('publisher-warning').style.display =
+      (publisherVal && !existingPublishers.has(publisherVal)) ? '' : 'none';
+    document.getElementById('language-warning').style.display =
+      (languageVal && !existingLanguages.has(languageVal)) ? '' : 'none';
   }
 
   // ── Manual entry ──────────────────────────────────────────────────────────
@@ -542,6 +561,8 @@
     document.getElementById('f-pages').value = '';
     document.getElementById('f-subject').value = '';
     document.getElementById('subject-hint').style.display = 'none';
+    document.getElementById('publisher-warning').style.display = 'none';
+    document.getElementById('language-warning').style.display = 'none';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
     document.getElementById('cover-status').textContent = '';
     document.getElementById('form-area').style.display = '';
@@ -613,26 +634,37 @@
     let isbn     = document.getElementById('f-isbn-ro').value.trim();
     const title  = document.getElementById('f-title').value.trim();
     const author = document.getElementById('f-author').value.trim();
+    const year   = parseInt(document.getElementById('f-year').value);
+    const publisher = document.getElementById('f-publisher').value.trim();
+    const pages  = parseInt(document.getElementById('f-pages').value);
+    const subject  = document.getElementById('f-subject').value;
+    const description = document.getElementById('f-description').value.trim();
+    const language = document.getElementById('f-language').value.trim();
 
     if (!title)  { toast('Title is required', 'warning');  return; }
     if (!author) { toast('Author is required', 'warning'); return; }
+    if (!year || year < 1000 || year > 2099) { toast('Valid year is required', 'warning'); return; }
+    if (!publisher) { toast('Publisher is required', 'warning'); return; }
+    if (!pages || pages < 1) { toast('Valid page count is required', 'warning'); return; }
+    if (!subject) { toast('Subject is required', 'warning'); return; }
+    if (!description) { toast('Description is required', 'warning'); return; }
+    if (!language) { toast('Language is required', 'warning'); return; }
 
     if (!isbn) isbn = 'no-isbn-' + Date.now().toString(36);
 
-    const subject  = document.getElementById('f-subject').value;
-    const subjects = subject ? [subject] : [];
+    const subjects = [subject];
 
     const entry = {
       isbn,
       title,
       author,
-      year:        parseInt(document.getElementById('f-year').value) || null,
+      year,
       cover:       `covers/${isbn}.webp`,
       added:       new Date().toISOString().slice(0, 10),
-      publisher:   document.getElementById('f-publisher').value.trim(),
-      pages:       parseInt(document.getElementById('f-pages').value) || null,
-      lang:        document.getElementById('f-language').value.trim(),
-      description: document.getElementById('f-description').value.trim(),
+      publisher,
+      pages,
+      lang:        language,
+      description,
       subjects,
     };
 
@@ -663,7 +695,33 @@
     document.getElementById('form-area').style.display = 'none';
     document.getElementById('search-input').value = '';
     document.getElementById('cover-preview').src = 'assets/no-cover.svg';
+    document.getElementById('publisher-warning').style.display = 'none';
+    document.getElementById('language-warning').style.display = 'none';
     currentMeta = null; coverBase64 = null;
+  });
+
+  // ── Publisher & language warning checks ────────────────────────────────────
+  const publisherInput = document.getElementById('f-publisher');
+  const publisherWarning = document.getElementById('publisher-warning');
+  const languageInput = document.getElementById('f-language');
+  const languageWarning = document.getElementById('language-warning');
+
+  publisherInput.addEventListener('input', () => {
+    const val = publisherInput.value.trim().toLowerCase();
+    if (val && !existingPublishers.has(val)) {
+      publisherWarning.style.display = '';
+    } else {
+      publisherWarning.style.display = 'none';
+    }
+  });
+
+  languageInput.addEventListener('input', () => {
+    const val = languageInput.value.trim().toLowerCase();
+    if (val && !existingLanguages.has(val)) {
+      languageWarning.style.display = '';
+    } else {
+      languageWarning.style.display = 'none';
+    }
   });
 
   // ── Focus the title/ISBN input on load ─────────────────────────────────────

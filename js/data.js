@@ -209,6 +209,44 @@ export async function saveBulkSubjects(changes /* Map<isbn, string[]> */) {
   }
 }
 
+export async function updateBook(isbn, updates) {
+  // updates: object with fields to update (e.g., { removed: true })
+  const { sha, grid: currentGrid } = await ghGetGridJson();
+  const book = currentGrid.find(b => b.isbn === isbn);
+  if (!book) throw new Error(`Book with ISBN ${isbn} not found`);
+
+  // Apply updates
+  Object.assign(book, updates);
+
+  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
+
+  let putRes;
+  try {
+    putRes = await ghPut('data/books.json', gridContent, sha, `update: ${book.title}`);
+  } catch (e) {
+    if (!e.message?.includes('409')) throw e;
+    // SHA conflict — clear cache, re-fetch, and retry once
+    sessionStorage.removeItem('books_json_sha');
+    sessionStorage.removeItem('books_json_grid');
+    const fresh = await ghGetGridJson();
+    const freshBook = fresh.grid.find(b => b.isbn === isbn);
+    if (!freshBook) throw new Error(`Book with ISBN ${isbn} not found`);
+    Object.assign(freshBook, updates);
+    const js2 = '[\n' + fresh.grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    putRes = await ghPut('data/books.json', btoa(unescape(encodeURIComponent(js2))), fresh.sha, `update: ${freshBook.title}`);
+  }
+
+  sessionStorage.setItem('books_json_sha', putRes.content?.sha ?? '');
+  sessionStorage.setItem('books_json_grid', JSON.stringify(currentGrid));
+
+  // Update local cache
+  if (DATA.grid) {
+    const localBook = DATA.grid.find(b => b.isbn === isbn);
+    if (localBook) Object.assign(localBook, updates);
+  }
+}
+
 export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
   const { sha, grid: currentGrid } = await ghGetGridJson();
   let actualChanges = 0;

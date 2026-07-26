@@ -52,9 +52,15 @@
     </div>
   </div>
   <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
-    <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
-      Filters ▾
-    </button>
+    <div style="display:flex;gap:0.75rem;align-items:center">
+      <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
+        Filters ▾
+      </button>
+      <label style="font-size:13px;color:var(--text-muted);cursor:pointer;user-select:none;display:flex;align-items:center;gap:0.4rem">
+        <input type="checkbox" id="hide-removed-toggle" style="width:auto;cursor:pointer">
+        Hide removed books
+      </label>
+    </div>
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
       <div class="filter-group collapsed">
         <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span>
@@ -112,15 +118,26 @@
   let subjectSortBy = 'alpha'; // 'alpha' or 'count'
   let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
   let resultsView = localStorage.getItem('results_view') === 'flat' ? 'flat' : 'grouped';
+  let hideRemoved = localStorage.getItem('hide_removed') === 'true';
 
   async function init() {
     showLoader('Loading your library…');
     try {
       allBooks = await getEnrichedCatalog();
-      document.getElementById('book-count').textContent = `(${allBooks.length})`;
+      updateBookCount();
 
       buildFilterBar(allBooks);
-      renderResults(allBooks, false, false);
+
+      // Set initial state of hide removed toggle
+      const hideRemovedToggle = document.getElementById('hide-removed-toggle');
+      hideRemovedToggle.checked = hideRemoved;
+      hideRemovedToggle.addEventListener('change', () => {
+        hideRemoved = hideRemovedToggle.checked;
+        localStorage.setItem('hide_removed', hideRemoved);
+        applyFilters();
+      });
+
+      renderResults(getVisibleBooks(), false, false);
 
       // Build search index after first paint
       setTimeout(() => {
@@ -128,6 +145,15 @@
         const input = document.getElementById('search-input');
         input.disabled = false;
         input.placeholder = 'Title, author, publisher, description…';
+
+        // Check for query parameter in URL
+        const params = new URLSearchParams(location.search);
+        const urlQuery = params.get('q');
+        if (urlQuery) {
+          input.value = urlQuery;
+          toggleClearBtn();
+          doSearch(urlQuery);
+        }
       }, 0);
 
     } catch (err) {
@@ -275,31 +301,46 @@
 
   function addedYear(b) { return b.added ? b.added.split('-')[0] : null; }
 
+  function updateBookCount() {
+    const total = allBooks.length;
+    const removed = allBooks.filter(b => b.removed === true).length;
+    const countText = removed > 0
+      ? `(${total} books, ${removed} removed)`
+      : `(${total})`;
+    document.getElementById('book-count').textContent = countText;
+  }
+
+  function getVisibleBooks() {
+    if (!hideRemoved) return allBooks;
+    return allBooks.filter(b => b.removed !== true);
+  }
+
   function updateFilterCounts() {
     // For each filter type, count against books matching the OTHER two filter types
+    const baseBooks = getVisibleBooks();
     const matchesLangYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
-      ? allBooks.filter(b => {
+      ? baseBooks.filter(b => {
           if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
           if (activeYearFilters.size && !activeYearFilters.has(addedYear(b))) return false;
           return true;
         })
-      : allBooks;
+      : baseBooks;
 
     const matchesSubjectYear = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
-      ? allBooks.filter(b => {
+      ? baseBooks.filter(b => {
           if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
           if (activeYearFilters.size && !activeYearFilters.has(addedYear(b))) return false;
           return true;
         })
-      : allBooks;
+      : baseBooks;
 
     const matchesSubjectLang = (activeFilters.size || activeLangFilters.size || activeYearFilters.size)
-      ? allBooks.filter(b => {
+      ? baseBooks.filter(b => {
           if (activeFilters.size && !(Array.isArray(b.subjects) && b.subjects.some(s => activeFilters.has(s)))) return false;
           if (activeLangFilters.size && !activeLangFilters.has(b.lang)) return false;
           return true;
         })
-      : allBooks;
+      : baseBooks;
 
     // Subject counts (filtered by lang + year)
     const subjectCounts = {};
@@ -360,8 +401,9 @@
   }
 
   function getFilteredBooks() {
-    if (!activeFilters.size && !activeLangFilters.size && !activeYearFilters.size) return allBooks;
-    return allBooks.filter(matchesFilters);
+    const baseBooks = getVisibleBooks();
+    if (!activeFilters.size && !activeLangFilters.size && !activeYearFilters.size) return baseBooks;
+    return baseBooks.filter(matchesFilters);
   }
 
   function applyFilters() {
@@ -371,10 +413,11 @@
 
     if (query) {
       const searchResults = search(query);
+      const visibleSearchResults = hideRemoved ? searchResults.filter(b => b.removed !== true) : searchResults;
       const hasFilters = activeFilters.size || activeLangFilters.size || activeYearFilters.size;
       const filtered = hasFilters
-        ? searchResults.filter(matchesFilters)
-        : searchResults;
+        ? visibleSearchResults.filter(matchesFilters)
+        : visibleSearchResults;
       countEl.style.display = '';
       countEl.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
       renderResults(filtered, true, true);
@@ -385,7 +428,7 @@
       renderResults(filtered, false, true);
     } else {
       countEl.style.display = 'none';
-      renderResults(allBooks, false, false);
+      renderResults(getVisibleBooks(), false, false);
     }
   }
 
