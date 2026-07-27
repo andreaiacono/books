@@ -89,6 +89,14 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18"/><path d="M6 12h15"/><path d="M6 18h15"/><circle cx="3.5" cy="12" r="0.5" fill="currentColor"/><circle cx="3.5" cy="18" r="0.5" fill="currentColor"/></svg>
       </button>
     </div>
+    <div class="sort-toggle" role="group" aria-label="Sort order">
+      <button id="sort-relevance" class="sort-toggle__btn" type="button" aria-pressed="true"
+              title="Sort by search relevance">Relevance</button>
+      <button id="sort-added" class="sort-toggle__btn" type="button" aria-pressed="false"
+              title="Sort by date added — click again to reverse">Added <span class="sort-toggle__dir"></span></button>
+      <button id="sort-year" class="sort-toggle__btn" type="button" aria-pressed="false"
+              title="Sort by publication year — click again to reverse">Year <span class="sort-toggle__dir"></span></button>
+    </div>
     <p id="search-count" class="search-count" style="display:none"></p>
   </div>
   <div id="book-grid"></div>
@@ -119,6 +127,9 @@
   let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
   let resultsView = localStorage.getItem('results_view') === 'flat' ? 'flat' : 'grouped';
   let hideRemoved = localStorage.getItem('hide_removed') === 'true';
+  // 'relevance' (Lunr score order), 'added' (date added) or 'year' (publication year)
+  let sortBy  = localStorage.getItem('results_sort') || 'relevance';
+  let sortDir = localStorage.getItem('results_sort_dir') === 'asc' ? 'asc' : 'desc';
 
   async function init() {
     showLoader('Loading your library…');
@@ -408,6 +419,7 @@
 
   function applyFilters() {
     updateFilterCounts();
+    syncSortToggle();
     const query = document.getElementById('search-input').value.trim();
     const countEl = document.getElementById('search-count');
 
@@ -432,15 +444,36 @@
     }
   }
 
+  // `relevanceOrder` is true when `books` arrives in Lunr's ranked order.
+  function sortBooks(books, relevanceOrder) {
+    if (sortBy === 'relevance') {
+      // With no query there is no ranking, so fall back to newest-added first.
+      return relevanceOrder
+        ? books
+        : [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
+    }
+    const dir = sortDir === 'asc' ? -1 : 1;
+    return [...books].sort((a, b) => {
+      if (sortBy === 'year') {
+        // Unknown publication year always sinks to the bottom, either direction.
+        if (a.year == null && b.year == null) return 0;
+        if (a.year == null) return 1;
+        if (b.year == null) return -1;
+        return (b.year - a.year) * dir;
+      }
+      return (b.added || '').localeCompare(a.added || '') * dir;
+    });
+  }
+
   function renderResults(books, preserveOrder, expandAllGrouped) {
     if (resultsView === 'grouped') {
-      renderGrid(books, expandAllGrouped);
+      renderGrid(books, expandAllGrouped, preserveOrder);
     } else {
       renderFlat(books, preserveOrder);
     }
   }
 
-  function renderGrid(books, expandAll = false) {
+  function renderGrid(books, expandAll = false, preserveOrder = false) {
     const container = document.getElementById('book-grid');
     container.innerHTML = '';
 
@@ -522,8 +555,7 @@
 
         const grid = document.createElement('div');
         grid.className = 'book-grid';
-        monthBooks.sort((a, b) => (b.added || '').localeCompare(a.added || ''));
-        for (const book of monthBooks) grid.appendChild(renderBookCard(book));
+        for (const book of sortBooks(monthBooks, preserveOrder)) grid.appendChild(renderBookCard(book));
 
         monthGroup.appendChild(monthHeader);
         monthGroup.appendChild(grid);
@@ -551,9 +583,7 @@
       return;
     }
 
-    const ordered = preserveOrder
-      ? books
-      : [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
+    const ordered = sortBooks(books, preserveOrder);
 
     const grid = document.createElement('div');
     grid.className = 'book-grid';
@@ -619,6 +649,40 @@
     syncViewToggle();
     applyFilters();
   });
+
+  const sortBtns = {
+    relevance: document.getElementById('sort-relevance'),
+    added:     document.getElementById('sort-added'),
+    year:      document.getElementById('sort-year'),
+  };
+  function syncSortToggle() {
+    // Relevance only means something while a query is active.
+    const hasQuery = searchInput.value.trim().length > 0;
+    sortBtns.relevance.disabled = !hasQuery;
+    const arrow = sortDir === 'asc' ? '↑' : '↓';
+    for (const [key, btn] of Object.entries(sortBtns)) {
+      const active = sortBy === key;
+      btn.setAttribute('aria-pressed', active);
+      const dirEl = btn.querySelector('.sort-toggle__dir');
+      if (dirEl) dirEl.textContent = active ? arrow : '';
+    }
+  }
+  for (const [key, btn] of Object.entries(sortBtns)) {
+    btn.addEventListener('click', () => {
+      if (sortBy === key) {
+        if (key === 'relevance') return; // ranking has only one meaningful direction
+        sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+      } else {
+        sortBy = key;
+        sortDir = 'desc';
+      }
+      localStorage.setItem('results_sort', sortBy);
+      localStorage.setItem('results_sort_dir', sortDir);
+      syncSortToggle();
+      applyFilters();
+    });
+  }
+  syncSortToggle();
 
   init();
 </script>

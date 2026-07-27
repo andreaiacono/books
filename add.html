@@ -271,10 +271,16 @@
       <textarea id="f-description" rows="4" style="resize:vertical" required></textarea>
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="f-language">Language *</label>
-      <input type="text" id="f-language" placeholder="e.g. en, it" required>
-      <p id="language-warning" style="font-size:11px;color:var(--accent);margin-top:0.3rem;display:none">⚠ New language (not in your library yet)</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="f-language">Language *</label>
+        <input type="text" id="f-language" placeholder="e.g. en, it" required>
+        <p id="language-warning" style="font-size:11px;color:var(--accent);margin-top:0.3rem;display:none">⚠ New language (not in your library yet)</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="f-added">Added</label>
+        <input type="date" id="f-added">
+      </div>
     </div>
 
     <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
@@ -512,6 +518,12 @@
     }
   }
 
+  // Local (not UTC) calendar day, so a late-evening add doesn't jump to tomorrow.
+  function todayISO() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
   function populateForm(meta) {
     document.getElementById('f-title').value     = meta.title ?? '';
     document.getElementById('f-author').value    = meta.author ?? '';
@@ -521,6 +533,7 @@
     document.getElementById('f-pages').value     = meta.pages ?? '';
     document.getElementById('f-description').value = meta.description ?? '';
     document.getElementById('f-language').value  = meta.lang ?? '';
+    document.getElementById('f-added').value     = meta.added || todayISO();
 
     // Subject
     const sel   = document.getElementById('f-subject');
@@ -559,6 +572,7 @@
     });
     document.getElementById('f-year').value  = '';
     document.getElementById('f-pages').value = '';
+    document.getElementById('f-added').value = todayISO();
     document.getElementById('f-subject').value = '';
     document.getElementById('subject-hint').style.display = 'none';
     document.getElementById('publisher-warning').style.display = 'none';
@@ -660,7 +674,7 @@
       author,
       year,
       cover:       `covers/${isbn}.webp`,
-      added:       new Date().toISOString().slice(0, 10),
+      added:       document.getElementById('f-added').value || todayISO(),
       publisher,
       pages,
       lang:        language,

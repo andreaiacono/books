@@ -425,6 +425,36 @@ input:focus, select:focus, textarea:focus {
   border-left: 1px solid var(--border);
 }
 
+.sort-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-right: auto;
+}
+.sort-toggle__btn {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  padding: 0.35rem 0.75rem;
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 12px; white-space: nowrap;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+.sort-toggle__btn:hover { color: var(--text); }
+.sort-toggle__btn[aria-pressed="true"] {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+.sort-toggle__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.sort-toggle__btn:disabled:hover { color: var(--text-muted); }
+.sort-toggle__btn + .sort-toggle__btn {
+  border-left: 1px solid var(--border);
+}
+.sort-toggle__dir { font-size: 10px; }
+
 /* ─── Buttons ─────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
