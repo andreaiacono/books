@@ -1,6 +1,6 @@
 // sw.js — MyBooks Service Worker
 
-const CACHE_NAME = 'mybooks-v2';
+const CACHE_NAME = 'mybooks-v3';
 const CACHE_SHELL = [
   '/',
   '/index.html',
@@ -78,8 +78,11 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // App shell: cache-first
-  event.respondWith(cacheFirst(event.request));
+  // App shell: stale-while-revalidate. Cache-first here meant a shipped change
+  // to any HTML/CSS/JS was served from the old cache indefinitely — until
+  // CACHE_NAME happened to be bumped — so deploys silently did nothing. Still
+  // renders instantly and still works offline; updates land on the next load.
+  event.respondWith(staleWhileRevalidate(event.request));
 });
 
 async function cacheFirst(request) {
