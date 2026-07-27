@@ -317,6 +317,26 @@ export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onPro
     if (onProgress) onProgress(done, covers.size, 'blobs');
   }
 
+  // 2b. Point books.json at any cover it does not yet reference. Entries with
+  // no cover file carry cover: null, so uploading one here has to record the
+  // path or the book would keep showing the placeholder.
+  const { grid } = await ghGetGridJson();
+  let gridChanged = false;
+  for (const isbn of covers.keys()) {
+    const entry = grid.find(b => b.isbn === isbn);
+    const path = `covers/${isbn}.webp`;
+    if (entry && entry.cover !== path) { entry.cover = path; gridChanged = true; }
+  }
+  if (gridChanged) {
+    const gridJson = '[\n' + grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const gridBlobRes = await fetch(`${api}/blobs`, {
+      method: 'POST', headers,
+      body: JSON.stringify({ content: gridJson, encoding: 'utf-8' }),
+    });
+    if (!gridBlobRes.ok) throw new Error(`Failed to create blob for books.json: ${gridBlobRes.status}`);
+    treeItems.push({ path: 'data/books.json', mode: '100644', type: 'blob', sha: (await gridBlobRes.json()).sha });
+  }
+
   // 3. Create tree
   const treeRes = await fetch(`${api}/trees`, {
     method: 'POST', headers,
@@ -343,6 +363,14 @@ export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onPro
     body: JSON.stringify({ sha: newCommitSha }),
   });
   if (!updateRes.ok) throw new Error(`Failed to update ref: ${updateRes.status}`);
+
+  // This commit went through the git tree API, so there is no Contents-API SHA
+  // to cache. Drop the cached pair: keeping a stale SHA would make the next
+  // Contents-API save conflict, and a stale grid would undo the covers above.
+  if (gridChanged) {
+    sessionStorage.removeItem('books_json_sha');
+    sessionStorage.removeItem('books_json_grid');
+  }
 }
 
 // ─── Reading log persistence ─────────────────────────────────────────────────
