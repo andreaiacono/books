@@ -143,9 +143,15 @@
         <textarea id="f-description" rows="5" style="resize:vertical">${escHtml(book.description ?? '')}</textarea>
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="f-language">Language</label>
-        <input type="text" id="f-language" value="${escHtml(book.lang)}" placeholder="e.g. en">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-language">Language</label>
+          <input type="text" id="f-language" value="${escHtml(book.lang)}" placeholder="e.g. en">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-added">Added</label>
+          <input type="date" id="f-added" value="${escHtml(book.added ?? '')}">
+        </div>
       </div>
 
       <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
@@ -244,6 +250,9 @@
       subjects:    subject ? [subject] : [],
       description: document.getElementById('f-description').value.trim(),
       lang:        document.getElementById('f-language').value.trim(),
+      // Falls back to the stored date if the field is cleared — `added` drives
+      // the year/month grouping, so it should never end up empty.
+      added:       document.getElementById('f-added').value || originalBook.added,
       // saveNewBook writes the upload to covers/<isbn>.webp, but `cover` is
       // spread from the original entry — null for a book that had none — so it
       // has to be pointed at the new file or the book keeps the placeholder.
