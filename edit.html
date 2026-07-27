@@ -244,6 +244,10 @@
       subjects:    subject ? [subject] : [],
       description: document.getElementById('f-description').value.trim(),
       lang:        document.getElementById('f-language').value.trim(),
+      // saveNewBook writes the upload to covers/<isbn>.webp, but `cover` is
+      // spread from the original entry — null for a book that had none — so it
+      // has to be pointed at the new file or the book keeps the placeholder.
+      ...(coverChanged ? { cover: `covers/${originalBook.isbn}.webp` } : {}),
     };
     delete entry.source;
 
