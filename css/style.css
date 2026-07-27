@@ -425,14 +425,17 @@ input:focus, select:focus, textarea:focus {
   border-left: 1px solid var(--border);
 }
 
-.sort-toggle {
+/* Text pill groups: results sorting, and the removed-books filter. */
+.sort-toggle,
+.seg-toggle {
   display: inline-flex;
   border: 1px solid var(--border);
   border-radius: 999px;
   overflow: hidden;
-  margin-right: auto;
 }
-.sort-toggle__btn {
+.sort-toggle { margin-right: auto; }
+.sort-toggle__btn,
+.seg-toggle__btn {
   display: inline-flex; align-items: center; gap: 0.25rem;
   padding: 0.35rem 0.75rem;
   background: none; border: none; cursor: pointer;
@@ -440,12 +443,15 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-muted);
   transition: all var(--transition);
 }
-.sort-toggle__btn:hover { color: var(--text); }
-.sort-toggle__btn[aria-pressed="true"] {
+.sort-toggle__btn:hover,
+.seg-toggle__btn:hover { color: var(--text); }
+.sort-toggle__btn[aria-pressed="true"],
+.seg-toggle__btn[aria-pressed="true"] {
   background: var(--accent-dim);
   color: var(--text);
 }
-.sort-toggle__btn + .sort-toggle__btn {
+.sort-toggle__btn + .sort-toggle__btn,
+.seg-toggle__btn + .seg-toggle__btn {
   border-left: 1px solid var(--border);
 }
 .sort-toggle__dir { font-size: 10px; }

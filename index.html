@@ -56,10 +56,14 @@
       <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
         Filters ▾
       </button>
-      <label style="font-size:13px;color:var(--text-muted);cursor:pointer;user-select:none;display:flex;align-items:center;gap:0.4rem">
-        <input type="checkbox" id="hide-removed-toggle" style="width:auto;cursor:pointer">
-        Hide removed books
-      </label>
+      <div class="seg-toggle" role="group" aria-label="Removed books">
+        <button id="removed-all" class="seg-toggle__btn" type="button" aria-pressed="true"
+                title="Show every book">All</button>
+        <button id="removed-owned" class="seg-toggle__btn" type="button" aria-pressed="false"
+                title="Hide books marked as removed">Owned</button>
+        <button id="removed-only" class="seg-toggle__btn" type="button" aria-pressed="false"
+                title="Show only books marked as removed">Removed</button>
+      </div>
     </div>
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
       <div class="filter-group collapsed">
@@ -126,7 +130,10 @@
   let subjectSortBy = 'alpha'; // 'alpha' or 'count'
   let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
   let resultsView = localStorage.getItem('results_view') === 'flat' ? 'flat' : 'grouped';
-  let hideRemoved = localStorage.getItem('hide_removed') === 'true';
+  // 'all' | 'owned' (hide removed) | 'removed' (only removed).
+  // Migrates the old boolean hide_removed setting.
+  let removedFilter = localStorage.getItem('removed_filter')
+    || (localStorage.getItem('hide_removed') === 'true' ? 'owned' : 'all');
   // 'relevance' (Lunr score order), 'added' (date added) or 'year' (publication year)
   let sortBy  = localStorage.getItem('results_sort') || 'relevance';
   let sortDir = localStorage.getItem('results_sort_dir') === 'asc' ? 'asc' : 'desc';
@@ -139,14 +146,26 @@
 
       buildFilterBar(allBooks);
 
-      // Set initial state of hide removed toggle
-      const hideRemovedToggle = document.getElementById('hide-removed-toggle');
-      hideRemovedToggle.checked = hideRemoved;
-      hideRemovedToggle.addEventListener('change', () => {
-        hideRemoved = hideRemovedToggle.checked;
-        localStorage.setItem('hide_removed', hideRemoved);
-        applyFilters();
-      });
+      const removedBtns = {
+        all:     document.getElementById('removed-all'),
+        owned:   document.getElementById('removed-owned'),
+        removed: document.getElementById('removed-only'),
+      };
+      const syncRemovedToggle = () => {
+        for (const [key, btn] of Object.entries(removedBtns)) {
+          btn.setAttribute('aria-pressed', removedFilter === key);
+        }
+      };
+      syncRemovedToggle();
+      for (const [key, btn] of Object.entries(removedBtns)) {
+        btn.addEventListener('click', () => {
+          if (removedFilter === key) return;
+          removedFilter = key;
+          localStorage.setItem('removed_filter', key);
+          syncRemovedToggle();
+          applyFilters();
+        });
+      }
 
       renderResults(getVisibleBooks(), false, false);
 
@@ -321,9 +340,14 @@
     document.getElementById('book-count').textContent = countText;
   }
 
+  function matchesRemoved(b) {
+    if (removedFilter === 'owned')   return b.removed !== true;
+    if (removedFilter === 'removed') return b.removed === true;
+    return true;
+  }
+
   function getVisibleBooks() {
-    if (!hideRemoved) return allBooks;
-    return allBooks.filter(b => b.removed !== true);
+    return removedFilter === 'all' ? allBooks : allBooks.filter(matchesRemoved);
   }
 
   function updateFilterCounts() {
@@ -425,7 +449,7 @@
 
     if (query) {
       const searchResults = search(query);
-      const visibleSearchResults = hideRemoved ? searchResults.filter(b => b.removed !== true) : searchResults;
+      const visibleSearchResults = removedFilter === 'all' ? searchResults : searchResults.filter(matchesRemoved);
       const hasFilters = activeFilters.size || activeLangFilters.size || activeYearFilters.size;
       const filtered = hasFilters
         ? visibleSearchResults.filter(matchesFilters)

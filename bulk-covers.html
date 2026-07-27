@@ -59,6 +59,11 @@
     <label style="font-size:13px;color:var(--text-muted);margin-left:0.5rem">
       <input type="checkbox" id="show-changed-only"> Show changed only
     </label>
+    <select id="removed-filter" class="bulk-filter" title="Filter by removed status">
+      <option value="all">All books</option>
+      <option value="owned">Owned only</option>
+      <option value="removed">Removed only</option>
+    </select>
   </div>
   <div id="table-wrap">
     <div class="empty-state">
@@ -103,6 +108,7 @@
     document.getElementById('filter-text').addEventListener('input', applyFilters);
     document.getElementById('show-no-cover').addEventListener('change', applyFilters);
     document.getElementById('show-changed-only').addEventListener('change', applyFilters);
+    document.getElementById('removed-filter').addEventListener('change', applyFilters);
 
     document.getElementById('save-btn').addEventListener('click', saveAll);
   }
@@ -127,6 +133,13 @@
 
     if (changedOnly) {
       filtered = filtered.filter(b => pending.has(b.isbn));
+    }
+
+    const removedFilter = document.getElementById('removed-filter').value;
+    if (removedFilter === 'owned') {
+      filtered = filtered.filter(b => b.removed !== true);
+    } else if (removedFilter === 'removed') {
+      filtered = filtered.filter(b => b.removed === true);
     }
 
     renderTable(filtered);
