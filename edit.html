@@ -33,7 +33,7 @@
   import { loadGrid, saveNewBook, isConfigured } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
   import { SUBJECTS } from './js/constants.js';
-  import { readFileAsDataURL, dataUrlToWebPBase64 } from './js/image-utils.js';
+  import { fileToWebPBase64 } from './js/image-utils.js';
 
 
   let originalBook = null;
@@ -88,6 +88,10 @@
             Change cover
             <input type="file" id="cover-file" accept="image/*" style="display:none">
           </label>
+          <button type="button" id="paste-cover-btn" class="btn btn--ghost" style="font-size:12px;margin-top:0.4rem;display:block;width:100%;text-align:center;cursor:pointer">
+            Paste cover
+          </button>
+          <p style="font-size:10px;color:var(--text-faint);margin-top:0.3rem;text-align:center">or press ⌘/Ctrl+V</p>
           <p id="cover-status" style="font-size:11px;color:var(--text-faint);margin-top:0.25rem;text-align:center"></p>
         </div>
         <div>
@@ -157,24 +161,60 @@
       </div>
     `;
 
+    // Cover from a file or a pasted blob
+    async function setCoverFromBlob(blob) {
+      if (!blob || !blob.type.startsWith('image/')) return false;
+      const statusEl = document.getElementById('cover-status');
+      statusEl.textContent = 'Processing…';
+      try {
+        coverBase64 = await fileToWebPBase64(blob);
+        coverChanged = true;
+        document.getElementById('cover-preview').src = `data:image/webp;base64,${coverBase64}`;
+        statusEl.textContent = 'New cover ready';
+        return true;
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Failed to process image';
+        toast('Could not process cover image', 'error');
+        return false;
+      }
+    }
+
     // Cover file picker
     document.getElementById('cover-file').addEventListener('change', async (e) => {
       const file = e.target.files[0];
-      if (!file) return;
+      if (file) await setCoverFromBlob(file);
+    });
 
-      const statusEl = document.getElementById('cover-status');
-      statusEl.textContent = 'Processing…';
+    // Ctrl/Cmd+V anywhere on the page picks up an image from the clipboard.
+    document.addEventListener('paste', async (e) => {
+      const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+      if (!item) return;
+      e.preventDefault();
+      if (await setCoverFromBlob(item.getAsFile())) toast('Cover pasted', 'success');
+    });
 
+    // Button fallback for browsers/users that prefer a click (uses the Clipboard API).
+    document.getElementById('paste-cover-btn').addEventListener('click', async () => {
+      if (!navigator.clipboard?.read) {
+        toast('This browser blocks clipboard reads — press ⌘/Ctrl+V to paste instead', 'warning');
+        return;
+      }
       try {
-        const dataUrl = await readFileAsDataURL(file);
-        const webpBase64 = await dataUrlToWebPBase64(dataUrl);
-        coverBase64 = webpBase64;
-        coverChanged = true;
-        document.getElementById('cover-preview').src = `data:image/webp;base64,${webpBase64}`;
-        statusEl.textContent = 'New cover ready';
+        for (const item of await navigator.clipboard.read()) {
+          const type = item.types.find(t => t.startsWith('image/'));
+          if (type) {
+            if (await setCoverFromBlob(await item.getType(type))) toast('Cover pasted', 'success');
+            return;
+          }
+        }
+        toast('No image in clipboard — copy a cover image first', 'warning');
       } catch (err) {
-        statusEl.textContent = 'Failed to process image';
-        console.error(err);
+        console.error('clipboard.read() failed:', err);
+        const msg = err.name === 'NotAllowedError'
+          ? 'Clipboard access denied — press ⌘/Ctrl+V to paste instead'
+          : 'Could not read clipboard — press ⌘/Ctrl+V to paste instead';
+        toast(msg, 'warning');
       }
     });
 
