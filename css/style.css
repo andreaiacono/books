@@ -445,11 +445,6 @@ input:focus, select:focus, textarea:focus {
   background: var(--accent-dim);
   color: var(--text);
 }
-.sort-toggle__btn:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-.sort-toggle__btn:disabled:hover { color: var(--text-muted); }
 .sort-toggle__btn + .sort-toggle__btn {
   border-left: 1px solid var(--border);
 }

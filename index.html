@@ -89,7 +89,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18"/><path d="M6 12h15"/><path d="M6 18h15"/><circle cx="3.5" cy="12" r="0.5" fill="currentColor"/><circle cx="3.5" cy="18" r="0.5" fill="currentColor"/></svg>
       </button>
     </div>
-    <div class="sort-toggle" role="group" aria-label="Sort order">
+    <div class="sort-toggle" role="group" aria-label="Sort order" style="display:none">
       <button id="sort-relevance" class="sort-toggle__btn" type="button" aria-pressed="true"
               title="Sort by search relevance">Relevance</button>
       <button id="sort-added" class="sort-toggle__btn" type="button" aria-pressed="false"
@@ -444,9 +444,15 @@
     }
   }
 
+  function hasQuery() {
+    return document.getElementById('search-input').value.trim().length > 0;
+  }
+
   // `relevanceOrder` is true when `books` arrives in Lunr's ranked order.
   function sortBooks(books, relevanceOrder) {
-    if (sortBy === 'relevance') {
+    // The sort control is hidden without a query, so fall back to the default
+    // order there rather than letting an invisible setting reorder the library.
+    if (!hasQuery() || sortBy === 'relevance') {
       // With no query there is no ranking, so fall back to newest-added first.
       return relevanceOrder
         ? books
@@ -655,10 +661,12 @@
     added:     document.getElementById('sort-added'),
     year:      document.getElementById('sort-year'),
   };
+  const sortToggle = document.querySelector('.sort-toggle');
   function syncSortToggle() {
-    // Relevance only means something while a query is active.
-    const hasQuery = searchInput.value.trim().length > 0;
-    sortBtns.relevance.disabled = !hasQuery;
+    // Only meaningful against search results, so it stays hidden until there
+    // is a query — relevance has nothing to rank, and the library's own
+    // year/month grouping is the natural order otherwise.
+    sortToggle.style.display = hasQuery() ? '' : 'none';
     const arrow = sortDir === 'asc' ? '↑' : '↓';
     for (const [key, btn] of Object.entries(sortBtns)) {
       const active = sortBy === key;
