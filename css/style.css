@@ -250,14 +250,20 @@ input:focus, select:focus, textarea:focus {
   background: color-mix(in srgb, var(--accent) 14%, var(--bg-card-hover));
 }
 
+/* The cover well paints --bg-card over the top of the card, which would cut the
+   tint off at the cover's bottom edge and leave a seam. Inheriting keeps the
+   whole card one colour, and follows the hover state too. */
+.book-card--read .book-card__cover-wrap {
+  background: inherit;
+}
+
 /* On dark, an 8% wash of the light gold accent already lifts the card well
    clear of the near-black background. On light the accent is dark and the card
-   is pale, so the same mix barely registers — read books need a heavier tint,
-   a full-strength border and a spine down the edge to stay distinguishable. */
+   is pale, so the same mix barely registers — read books need a heavier tint
+   and a full-strength border to stay distinguishable. */
 html[data-theme="light"] .book-card--read {
   border-color: var(--accent);
   background: color-mix(in srgb, var(--accent) 16%, var(--bg-card));
-  box-shadow: inset 3px 0 0 var(--accent);
 }
 html[data-theme="light"] .book-card--read:hover {
   background: color-mix(in srgb, var(--accent) 24%, var(--bg-card-hover));
