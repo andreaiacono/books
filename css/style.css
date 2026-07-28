@@ -744,6 +744,8 @@ html[data-theme="light"] .nav {
 .year-header h2 { font-size: 1.2rem; font-weight: 600; }
 .year-header .year-count { font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); }
 .month-header .month-count { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+/* Read tally in a year/month header, tinted to match the read card accent. */
+.group-count__read { color: var(--accent); }
 .year-header .year-chevron { color: var(--text-faint); transition: transform 0.2s ease; }
 .year-section.collapsed .year-chevron { transform: rotate(-90deg); }
 .year-section.collapsed .year-body { display: none; }
