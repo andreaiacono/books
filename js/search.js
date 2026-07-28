@@ -70,7 +70,9 @@ export function search(query) {
   if (/[:"~^+\-]/.test(q) || q.includes('*')) {
     return runQuery(b => {
       const parsed = new lunr.Query(_index.fields);
-      new lunr.QueryParser(q, parsed).parse();
+      // Lowercased and de-quoted first: see expandPhrases() and the note on
+      // lowercasing in stemOf().
+      new lunr.QueryParser(expandPhrases(q.toLowerCase()), parsed).parse();
       // Punctuation-only input parses to nothing, and a clauseless Lunr query
       // matches every document — throw so runQuery() reports no results.
       if (!parsed.clauses.length) throw new Error('no clauses');
@@ -91,7 +93,7 @@ export function search(query) {
   // applies the stop word filter, so it alone says which tokens actually made
   // it into the index. A stop word like "il" stems to nothing and is dropped,
   // rather than requiring a term no document can hold.
-  const stems = terms.map(t => _indexPipeline.runString(t, {})[0]).filter(Boolean);
+  const stems = terms.map(stemOf).filter(Boolean);
 
   if (stems.length) {
     // Pass 1 — all terms required, exact stemmed match.
@@ -124,6 +126,28 @@ export function search(query) {
       addTerm(b, stripDiacritics(term.toLowerCase()), true);
     }
   }, q);
+}
+
+// Stem a raw term the way the indexer did. Lowercasing matters and is easy to
+// miss: lunr lowercases in its *tokenizer*, which the indexer runs but a direct
+// runString() call does not — so "Calvino" would stem to "Calvino" and never
+// match the indexed "calvin".
+function stemOf(term) {
+  return _indexPipeline.runString(term.toLowerCase(), {})[0];
+}
+
+// Lunr has no phrase support: it would lex "jack london" into the terms
+// `"jack` and `london"`, quotes included, which match nothing. Rewrite a quoted
+// group as one required clause per word, keeping any field prefix — so
+// author:"jack london" becomes +author:jack +author:london. That is "all these
+// words in this field" rather than strict adjacency, which lunr cannot express
+// without positional metadata, but it is what the quotes are used for here.
+function expandPhrases(q) {
+  return q.replace(/(?:(\w+):)?"([^"]*)"/g, (whole, field, phrase) => {
+    const words = phrase.split(/\s+/).filter(Boolean);
+    if (!words.length) return '';
+    return words.map(w => (field ? `${field}:${w}` : w)).join(' ');
+  });
 }
 
 // Add one REQUIRED clause for an already-stemmed token.

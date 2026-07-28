@@ -59,7 +59,10 @@ export function renderBookCard(book) {
   card.dataset.isbn = book.isbn;
 
   const bookUrl = `book.html?isbn=${encodeURIComponent(book.isbn)}`;
-  const authorSearchUrl = book.author ? `index.html?q=${encodeURIComponent('author:"' + book.author + '"')}` : '#';
+  // An exact-author param rather than a search query: index.html can apply it
+  // to the catalog directly, so the page paints just this author's books
+  // instead of rendering the whole library and waiting on the Lunr index.
+  const authorSearchUrl = book.author ? `index.html?author=${encodeURIComponent(book.author)}` : '#';
 
   card.innerHTML = `
     <a class="book-card__link" href="${bookUrl}">

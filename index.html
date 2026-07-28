@@ -137,6 +137,8 @@
   // 'relevance' (Lunr score order), 'added' (date added) or 'year' (publication year)
   let sortBy  = localStorage.getItem('results_sort') || 'relevance';
   let sortDir = localStorage.getItem('results_sort_dir') === 'asc' ? 'asc' : 'desc';
+  // Exact author from ?author=, set by the author links on book cards.
+  let authorFilter = new URLSearchParams(location.search).get('author');
 
   async function init() {
     showLoader('Loading your library…');
@@ -167,7 +169,10 @@
         });
       }
 
-      renderResults(getVisibleBooks(), false, false);
+      // applyFilters() so an ?author= view also gets its count line and the
+      // link back to the full library; the plain case renders directly.
+      if (authorFilter) applyFilters();
+      else renderResults(getVisibleBooks(), false, false);
 
       // Build search index after first paint
       setTimeout(() => {
@@ -340,6 +345,10 @@
     document.getElementById('book-count').textContent = countText;
   }
 
+  function matchesAuthor(b) {
+    return !authorFilter || (b.author || '') === authorFilter;
+  }
+
   function matchesRemoved(b) {
     if (removedFilter === 'owned')   return b.removed !== true;
     if (removedFilter === 'removed') return b.removed === true;
@@ -347,7 +356,8 @@
   }
 
   function getVisibleBooks() {
-    return removedFilter === 'all' ? allBooks : allBooks.filter(matchesRemoved);
+    if (removedFilter === 'all' && !authorFilter) return allBooks;
+    return allBooks.filter(b => matchesRemoved(b) && matchesAuthor(b));
   }
 
   function updateFilterCounts() {
@@ -461,6 +471,12 @@
       const filtered = getFilteredBooks();
       countEl.style.display = '';
       countEl.textContent = `${filtered.length} book${filtered.length !== 1 ? 's' : ''}`;
+      renderResults(filtered, false, true);
+    } else if (authorFilter) {
+      const filtered = getVisibleBooks();
+      countEl.style.display = '';
+      countEl.innerHTML = `${filtered.length} book${filtered.length !== 1 ? 's' : ''} by `
+        + `${escHtml(authorFilter)} · <a href="index.html" style="color:var(--accent)">show all</a>`;
       renderResults(filtered, false, true);
     } else {
       countEl.style.display = 'none';
@@ -646,6 +662,10 @@
   }
 
   searchInput.addEventListener('input', e => {
+    // Typing starts a fresh search over the whole library, so an author view
+    // arrived at from a book card gets dropped rather than silently narrowing
+    // the results with no visible control to undo it.
+    authorFilter = null;
     toggleClearBtn();
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => doSearch(e.target.value), 200);
