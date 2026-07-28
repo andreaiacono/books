@@ -225,11 +225,18 @@ input:focus, select:focus, textarea:focus {
   color: #fff;
 }
 
+/* Full-width band across the foot of the cover rather than a corner badge:
+   it stays legible over any artwork, and sits where covers carry the least. */
 .book-card__badge--removed {
-  bottom: 8px; right: 8px;
-  background: var(--text-faint);
-  color: var(--bg);
+  left: 0; right: 0; bottom: 0;
+  background: var(--danger);
+  color: #fff;
   font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 0;
 }
 
 .book-card--read {
@@ -237,13 +244,14 @@ input:focus, select:focus, textarea:focus {
   background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
 }
 
+/* The band carries the state, so the card only needs to recede a little. At the
+   old 0.4 plus grayscale the title and author were barely readable. */
 .book-card--removed {
-  opacity: 0.4;
-  filter: grayscale(0.5);
+  opacity: 0.75;
 }
 
 .book-card--removed:hover {
-  opacity: 0.6;
+  opacity: 1;
   transform: translateY(-1px);
 }
 .book-card--read:hover {
