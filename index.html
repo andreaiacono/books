@@ -206,8 +206,15 @@
 
       // applyFilters() so an ?author= view also gets its count line and the
       // link back to the full library; the plain case renders directly.
-      if (authorFilter) applyFilters();
-      else renderResults(getVisibleBooks(), false, false);
+      if (authorFilter) {
+        // Show what is being filtered on, in the syntax that reproduces it.
+        const input = document.getElementById('search-input');
+        input.value = `author:"${authorFilter}"`;
+        toggleClearBtn();
+        applyFilters();
+      } else {
+        renderResults(getVisibleBooks(), false, false);
+      }
 
       // Build search index after first paint
       setTimeout(() => {
@@ -503,7 +510,7 @@
     updateFilterCounts();
     syncSortToggle();
     syncViewToggle();
-    const query = document.getElementById('search-input').value.trim();
+    const query = hasQuery() ? document.getElementById('search-input').value.trim() : '';
     const countEl = document.getElementById('search-count');
 
     if (query) {
@@ -535,8 +542,12 @@
     }
   }
 
+  // The author view puts its equivalent query in the box for visibility, but it
+  // is filtered directly from the catalog rather than searched — so that text
+  // must not count as a live query, or it would send the page through Lunr and
+  // undo the point of the ?author= fast path.
   function hasQuery() {
-    return document.getElementById('search-input').value.trim().length > 0;
+    return !authorFilter && document.getElementById('search-input').value.trim().length > 0;
   }
 
   function effectiveView() {
@@ -728,6 +739,7 @@
 
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
+    authorFilter = null;
     toggleClearBtn();
     doSearch('');
     searchInput.focus();
