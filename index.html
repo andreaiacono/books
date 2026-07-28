@@ -130,6 +130,10 @@
   let subjectSortBy = 'alpha'; // 'alpha' or 'count'
   let yearSortBy = 'desc'; // 'desc' (new→old) or 'count'
   let resultsView = localStorage.getItem('results_view') === 'flat' ? 'flat' : 'grouped';
+  // Search results come back in relevance order, which the grouping — by added
+  // date — cuts straight across. So a query falls back to the flat list, unless
+  // the user picks grouped for this particular search.
+  let viewOverride = null;
   // 'all' | 'owned' (hide removed) | 'removed' (only removed).
   // Migrates the old boolean hide_removed setting.
   let removedFilter = localStorage.getItem('removed_filter')
@@ -452,8 +456,10 @@
   }
 
   function applyFilters() {
+    if (!hasQuery()) viewOverride = null;
     updateFilterCounts();
     syncSortToggle();
+    syncViewToggle();
     const query = document.getElementById('search-input').value.trim();
     const countEl = document.getElementById('search-count');
 
@@ -488,6 +494,10 @@
     return document.getElementById('search-input').value.trim().length > 0;
   }
 
+  function effectiveView() {
+    return hasQuery() ? (viewOverride ?? 'flat') : resultsView;
+  }
+
   // `relevanceOrder` is true when `books` arrives in Lunr's ranked order.
   function sortBooks(books, relevanceOrder) {
     // The sort control is hidden without a query, so fall back to the default
@@ -512,7 +522,7 @@
   }
 
   function renderResults(books, preserveOrder, expandAllGrouped) {
-    if (resultsView === 'grouped') {
+    if (effectiveView() === 'grouped') {
       renderGrid(books, expandAllGrouped, preserveOrder);
     } else {
       renderFlat(books, preserveOrder);
@@ -681,24 +691,27 @@
   const viewFlatBtn = document.getElementById('view-flat');
   const viewGroupedBtn = document.getElementById('view-grouped');
   function syncViewToggle() {
-    viewFlatBtn.setAttribute('aria-pressed', resultsView === 'flat');
-    viewGroupedBtn.setAttribute('aria-pressed', resultsView === 'grouped');
+    const view = effectiveView();
+    viewFlatBtn.setAttribute('aria-pressed', view === 'flat');
+    viewGroupedBtn.setAttribute('aria-pressed', view === 'grouped');
+  }
+  function pickView(view) {
+    if (effectiveView() === view) return;
+    // Mid-search this is a one-off override: the stored preference describes
+    // the no-query library view and shouldn't be rewritten by a choice made
+    // about a set of search results.
+    if (hasQuery()) {
+      viewOverride = view;
+    } else {
+      resultsView = view;
+      localStorage.setItem('results_view', view);
+    }
+    syncViewToggle();
+    applyFilters();
   }
   syncViewToggle();
-  viewFlatBtn.addEventListener('click', () => {
-    if (resultsView === 'flat') return;
-    resultsView = 'flat';
-    localStorage.setItem('results_view', 'flat');
-    syncViewToggle();
-    applyFilters();
-  });
-  viewGroupedBtn.addEventListener('click', () => {
-    if (resultsView === 'grouped') return;
-    resultsView = 'grouped';
-    localStorage.setItem('results_view', 'grouped');
-    syncViewToggle();
-    applyFilters();
-  });
+  viewFlatBtn.addEventListener('click', () => pickView('flat'));
+  viewGroupedBtn.addEventListener('click', () => pickView('grouped'));
 
   const sortBtns = {
     relevance: document.getElementById('sort-relevance'),
