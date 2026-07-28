@@ -11,9 +11,22 @@ function stripDiacritics(s) {
   return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[øØłŁđĐæÆß]/g, c => EXTRA_MAP[c]);
 }
 
+// Shared by anything that compares user-facing strings — the search index and
+// the author filter — so folding rules are defined once and can't drift apart.
+export function fold(s) {
+  return stripDiacritics(s ?? '').trim().toLowerCase();
+}
+
 const removeDiacritics = function (token) {
   return token.update(stripDiacritics);
 };
+
+// lunr's Pipeline only appends, so rebuild the stack with `fn` at the front.
+function prependToPipeline(pipeline, fn) {
+  const rest = pipeline._stack.slice();
+  pipeline.reset();
+  pipeline.add(fn, ...rest);
+}
 lunr.Pipeline.registerFunction(removeDiacritics, 'removeDiacritics');
 
 // Split on apostrophes so "L'altra" tokenises as ["l", "altra"]
@@ -28,9 +41,14 @@ export function buildSearchIndex(books) {
     this.use(lunr.multiLanguage('en', 'it'));
     this.ref('isbn');
 
-    // Strip diacritics in both index and search pipelines
-    this.pipeline.add(removeDiacritics);
-    this.searchPipeline.add(removeDiacritics);
+    // Fold diacritics *first*, ahead of lunr's trimmer and the stemmers.
+    // The trimmer strips characters outside \w from a token's edges, and \w is
+    // ASCII-only — so appending this step meant "perché" was cut to "perch"
+    // before the accent could be folded, while a typed "perche" stemmed to
+    // "perc". They became different terms: "perché" matched nothing at all and
+    // "più" matched a different set from "piu".
+    prependToPipeline(this.pipeline, removeDiacritics);
+    prependToPipeline(this.searchPipeline, removeDiacritics);
 
     // Keep a handle on the indexing pipeline: unlike the search pipeline it
     // includes the stop word filter, so it is the only way to tell what tokens

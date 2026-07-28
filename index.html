@@ -124,7 +124,7 @@
 <script type="module">
   import { getEnrichedCatalog } from './js/data.js';
   import { renderBookCard, showLoader, hideLoader, toast, escHtml } from './js/ui.js';
-  import { buildSearchIndex, search, isIndexReady } from './js/search.js';
+  import { buildSearchIndex, search, isIndexReady, fold } from './js/search.js';
   import { LANG_LABELS } from './js/constants.js';
 
   const MONTHS = ['January','February','March','April','May','June',
@@ -387,12 +387,12 @@
     document.getElementById('book-count').textContent = countText;
   }
 
-  // Case-insensitive: the catalog spells some authors both ways ("Marcus Du
+  // Folded, not exact: the catalog spells some authors both ways ("Marcus Du
   // Sautoy" and "Marcus du Sautoy"), and an exact match silently drops the odd
-  // one out of that author's page.
+  // one out of that author's page. fold() is the same case/diacritic folding
+  // the search index uses, so "Saint-Exupery" reaches "Saint-Exupéry" too.
   function matchesAuthor(b) {
-    return !authorFilter
-      || (b.author || '').trim().toLowerCase() === authorFilter.trim().toLowerCase();
+    return !authorFilter || fold(b.author) === fold(authorFilter);
   }
 
   function matchesRemoved(b) {
