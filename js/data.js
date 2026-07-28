@@ -90,6 +90,21 @@ async function ghPut(path, content /* base64 */, sha, message) {
 
 // ─── Book persistence ───────────────────────────────────────────────────────
 
+// books.json is stored one entry per line and kept sorted by `added`. Sorting
+// here rather than at the call sites means an edited date can't strand a row
+// at its old position — every writer goes through this.
+function serializeGrid(grid) {
+  const sorted = [...grid].sort((a, b) => {
+    // A missing date sorts last, matching the "unknown" group the views render
+    // after the dated ones. The sort is stable, so same-date entries keep the
+    // order they came in with.
+    if (!a.added) return b.added ? 1 : 0;
+    if (!b.added) return -1;
+    return a.added.localeCompare(b.added);
+  });
+  return '[\n' + sorted.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+}
+
 async function ghGetGridJson() {
   // If we recently saved and have a cached SHA + grid data, use those.
   // The API content may be stale for several seconds after a commit, so using
@@ -143,7 +158,7 @@ export async function saveNewBook(entry, coverBase64, coverMime) {
     const isUpdate = idx >= 0;
     if (isUpdate) currentGrid[idx] = entry;
     else currentGrid.push(entry);
-    const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const jsonStr = serializeGrid(currentGrid);
     const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
     return { gridContent, sha, isUpdate, updatedGrid: currentGrid };
   }
@@ -181,7 +196,7 @@ export async function saveBulkSubjects(changes /* Map<isbn, string[]> */) {
     const book = currentGrid.find(b => b.isbn === isbn);
     if (book) book.subjects = subjects;
   }
-  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const jsonStr = serializeGrid(currentGrid);
   const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
 
   let putRes;
@@ -196,7 +211,7 @@ export async function saveBulkSubjects(changes /* Map<isbn, string[]> */) {
       const book = fresh.grid.find(b => b.isbn === isbn);
       if (book) book.subjects = subjects;
     }
-    const js2 = '[\n' + fresh.grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const js2 = serializeGrid(fresh.grid);
     putRes = await ghPut('data/books.json', btoa(unescape(encodeURIComponent(js2))), fresh.sha, `bulk: update ${changes.size} subject(s)`);
   }
   sessionStorage.setItem('books_json_sha', putRes.content?.sha ?? '');
@@ -218,7 +233,7 @@ export async function updateBook(isbn, updates) {
   // Apply updates
   Object.assign(book, updates);
 
-  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const jsonStr = serializeGrid(currentGrid);
   const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
 
   let putRes;
@@ -233,7 +248,7 @@ export async function updateBook(isbn, updates) {
     const freshBook = fresh.grid.find(b => b.isbn === isbn);
     if (!freshBook) throw new Error(`Book with ISBN ${isbn} not found`);
     Object.assign(freshBook, updates);
-    const js2 = '[\n' + fresh.grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const js2 = serializeGrid(fresh.grid);
     putRes = await ghPut('data/books.json', btoa(unescape(encodeURIComponent(js2))), fresh.sha, `update: ${freshBook.title}`);
   }
 
@@ -256,7 +271,7 @@ export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
   }
   if (actualChanges === 0) throw new Error('No actual changes to save (authors already match)');
 
-  const jsonStr = '[\n' + currentGrid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+  const jsonStr = serializeGrid(currentGrid);
   const gridContent = btoa(unescape(encodeURIComponent(jsonStr)));
 
   let putRes;
@@ -273,7 +288,7 @@ export async function saveBulkAuthors(changes /* Map<isbn, string> */) {
       if (book && book.author !== author) { book.author = author; actualChanges++; }
     }
     if (actualChanges === 0) throw new Error('No actual changes to save (authors already match)');
-    const js2 = '[\n' + fresh.grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const js2 = serializeGrid(fresh.grid);
     putRes = await ghPut('data/books.json', btoa(unescape(encodeURIComponent(js2))), fresh.sha, `bulk: update ${actualChanges} author(s)`);
   }
   sessionStorage.setItem('books_json_sha', putRes.content?.sha ?? '');
@@ -328,7 +343,7 @@ export async function saveBulkCovers(covers /* Map<isbn, base64string> */, onPro
     if (entry && entry.cover !== path) { entry.cover = path; gridChanged = true; }
   }
   if (gridChanged) {
-    const gridJson = '[\n' + grid.map(b => JSON.stringify(b)).join(',\n') + '\n]\n';
+    const gridJson = serializeGrid(grid);
     const gridBlobRes = await fetch(`${api}/blobs`, {
       method: 'POST', headers,
       body: JSON.stringify({ content: gridJson, encoding: 'utf-8' }),
