@@ -387,8 +387,12 @@
     document.getElementById('book-count').textContent = countText;
   }
 
+  // Case-insensitive: the catalog spells some authors both ways ("Marcus Du
+  // Sautoy" and "Marcus du Sautoy"), and an exact match silently drops the odd
+  // one out of that author's page.
   function matchesAuthor(b) {
-    return !authorFilter || (b.author || '') === authorFilter;
+    return !authorFilter
+      || (b.author || '').trim().toLowerCase() === authorFilter.trim().toLowerCase();
   }
 
   function matchesRemoved(b) {
