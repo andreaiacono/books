@@ -64,6 +64,14 @@
         <button id="removed-only" class="seg-toggle__btn" type="button" aria-pressed="false"
                 title="Show only books marked as removed">Removed</button>
       </div>
+      <div class="seg-toggle" role="group" aria-label="Read status">
+        <button id="read-all" class="seg-toggle__btn" type="button" aria-pressed="true"
+                title="Show read and unread alike">All</button>
+        <button id="read-only" class="seg-toggle__btn" type="button" aria-pressed="false"
+                title="Show only books in the reading log">Read</button>
+        <button id="read-unread" class="seg-toggle__btn" type="button" aria-pressed="false"
+                title="Show only books not yet in the reading log">Unread</button>
+      </div>
     </div>
     <div id="filter-panel" style="display:none;margin-top:0.5rem">
       <div class="filter-group collapsed">
@@ -138,6 +146,8 @@
   // Migrates the old boolean hide_removed setting.
   let removedFilter = localStorage.getItem('removed_filter')
     || (localStorage.getItem('hide_removed') === 'true' ? 'owned' : 'all');
+  // 'all' | 'read' | 'unread' — read means the book has a reading-log entry.
+  let readFilter = localStorage.getItem('read_filter') || 'all';
   // 'relevance' (Lunr score order), 'added' (date added) or 'year' (publication year)
   let sortBy  = localStorage.getItem('results_sort') || 'relevance';
   let sortDir = localStorage.getItem('results_sort_dir') === 'asc' ? 'asc' : 'desc';
@@ -169,6 +179,27 @@
           removedFilter = key;
           localStorage.setItem('removed_filter', key);
           syncRemovedToggle();
+          applyFilters();
+        });
+      }
+
+      const readBtns = {
+        all:    document.getElementById('read-all'),
+        read:   document.getElementById('read-only'),
+        unread: document.getElementById('read-unread'),
+      };
+      const syncReadToggle = () => {
+        for (const [key, btn] of Object.entries(readBtns)) {
+          btn.setAttribute('aria-pressed', readFilter === key);
+        }
+      };
+      syncReadToggle();
+      for (const [key, btn] of Object.entries(readBtns)) {
+        btn.addEventListener('click', () => {
+          if (readFilter === key) return;
+          readFilter = key;
+          localStorage.setItem('read_filter', key);
+          syncReadToggle();
           applyFilters();
         });
       }
@@ -359,9 +390,21 @@
     return true;
   }
 
+  function matchesRead(b) {
+    if (readFilter === 'read')   return !!b.reading;
+    if (readFilter === 'unread') return !b.reading;
+    return true;
+  }
+
+  // The removed/read pair, which applies to search results as well as the
+  // library; the author view is separate because typing clears it.
+  function matchesVisibility(b) {
+    return matchesRemoved(b) && matchesRead(b);
+  }
+
   function getVisibleBooks() {
-    if (removedFilter === 'all' && !authorFilter) return allBooks;
-    return allBooks.filter(b => matchesRemoved(b) && matchesAuthor(b));
+    if (removedFilter === 'all' && readFilter === 'all' && !authorFilter) return allBooks;
+    return allBooks.filter(b => matchesVisibility(b) && matchesAuthor(b));
   }
 
   function updateFilterCounts() {
@@ -465,7 +508,9 @@
 
     if (query) {
       const searchResults = search(query);
-      const visibleSearchResults = removedFilter === 'all' ? searchResults : searchResults.filter(matchesRemoved);
+      const visibleSearchResults = (removedFilter === 'all' && readFilter === 'all')
+        ? searchResults
+        : searchResults.filter(matchesVisibility);
       const hasFilters = activeFilters.size || activeLangFilters.size || activeYearFilters.size;
       const filtered = hasFilters
         ? visibleSearchResults.filter(matchesFilters)
