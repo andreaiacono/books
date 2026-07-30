@@ -222,8 +222,9 @@ input:focus, select:focus, textarea:focus {
 .book-card__info { position: relative; isolation: isolate; }
 .book-card__star {
   position: absolute;
-  right: -8px; bottom: -20px;
-  font-size: 88px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 76px;
   line-height: 1;
   color: var(--fav-gold);
   opacity: 0.18;
