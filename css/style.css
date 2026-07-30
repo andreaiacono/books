@@ -327,6 +327,15 @@ html[data-theme="light"] .book-card--read:hover {
 }
 
 /* ─── Filter bar ─────────────────────────────────────────────────────────── */
+/* One row holding the removed/read pills and the three collapsible groups.
+   A collapsed group is a small inline chip, so they all sit together; opening
+   one gives it the full width, since its chips need the room. */
+.filter-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
+}
+.filter-row .filter-group { margin-bottom: 0; }
+.filter-row .filter-group:not(.collapsed) { flex: 1 0 100%; }
+
 .filter-group {
   margin-bottom: 0.75rem;
   padding: 0.65rem 0.75rem;

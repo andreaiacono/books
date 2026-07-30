@@ -51,45 +51,38 @@
       <button id="search-clear" class="search-clear" type="button" aria-label="Clear search" style="display:none">&times;</button>
     </div>
   </div>
-  <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
-    <div style="display:flex;gap:0.75rem;align-items:center">
-      <button id="filter-toggle" class="btn btn--ghost" style="font-size:13px;padding:0.35rem 0.85rem">
-        Filters ▾
-      </button>
-      <div class="seg-toggle" role="group" aria-label="Removed books">
-        <button id="removed-all" class="seg-toggle__btn" type="button" aria-pressed="true"
-                title="Show every book">All</button>
-        <button id="removed-owned" class="seg-toggle__btn" type="button" aria-pressed="false"
-                title="Hide books marked as removed">Owned</button>
-        <button id="removed-only" class="seg-toggle__btn" type="button" aria-pressed="false"
-                title="Show only books marked as removed">Removed</button>
-      </div>
-      <div class="seg-toggle" role="group" aria-label="Read status">
-        <button id="read-all" class="seg-toggle__btn" type="button" aria-pressed="true"
-                title="Show read and unread alike">All</button>
-        <button id="read-only" class="seg-toggle__btn" type="button" aria-pressed="false"
-                title="Show only books in the reading log">Read</button>
-        <button id="read-unread" class="seg-toggle__btn" type="button" aria-pressed="false"
-                title="Show only books not yet in the reading log">Unread</button>
-      </div>
+  <div id="filter-wrap" class="filter-row" style="display:none;margin-bottom:1.25rem">
+    <div class="seg-toggle" role="group" aria-label="Removed books">
+      <button id="removed-all" class="seg-toggle__btn" type="button" aria-pressed="true"
+              title="Show every book">All</button>
+      <button id="removed-owned" class="seg-toggle__btn" type="button" aria-pressed="false"
+              title="Hide books marked as removed">Owned</button>
+      <button id="removed-only" class="seg-toggle__btn" type="button" aria-pressed="false"
+              title="Show only books marked as removed">Removed</button>
     </div>
-    <div id="filter-panel" style="display:none;margin-top:0.5rem">
-      <div class="filter-group collapsed">
-        <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span>
-          <button id="subject-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">A→Z</button>
-        </span>
-        <div id="filter-bar" class="filter-bar"></div>
-      </div>
-      <div class="filter-group collapsed">
-        <span class="filter-group__label">Language <span class="filter-group__chevron">▾</span></span>
-        <div id="lang-filter-bar" class="filter-bar"></div>
-      </div>
-      <div class="filter-group collapsed">
-        <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span>
-          <button id="year-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">New→Old</button>
-        </span>
-        <div id="year-filter-bar" class="filter-bar"></div>
-      </div>
+    <div class="seg-toggle" role="group" aria-label="Read status">
+      <button id="read-all" class="seg-toggle__btn" type="button" aria-pressed="true"
+              title="Show read and unread alike">All</button>
+      <button id="read-only" class="seg-toggle__btn" type="button" aria-pressed="false"
+              title="Show only books in the reading log">Read</button>
+      <button id="read-unread" class="seg-toggle__btn" type="button" aria-pressed="false"
+              title="Show only books not yet in the reading log">Unread</button>
+    </div>
+    <div class="filter-group collapsed">
+      <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span>
+        <button id="subject-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">A→Z</button>
+      </span>
+      <div id="filter-bar" class="filter-bar"></div>
+    </div>
+    <div class="filter-group collapsed">
+      <span class="filter-group__label">Language <span class="filter-group__chevron">▾</span></span>
+      <div id="lang-filter-bar" class="filter-bar"></div>
+    </div>
+    <div class="filter-group collapsed">
+      <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span>
+        <button id="year-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">New→Old</button>
+      </span>
+      <div id="year-filter-bar" class="filter-bar"></div>
     </div>
   </div>
   <div id="results-header" class="results-header">
@@ -261,18 +254,10 @@
     if (!sortedSubjects.length && !sortedLangs.length && !sortedYears.length) return;
 
     const wrap = document.getElementById('filter-wrap');
-    const panel = document.getElementById('filter-panel');
-    const toggle = document.getElementById('filter-toggle');
     wrap.style.display = '';
 
-    toggle.addEventListener('click', () => {
-      const open = panel.style.display !== 'none';
-      panel.style.display = open ? 'none' : '';
-      toggle.textContent = open ? 'Filters ▾' : 'Filters ▴';
-    });
-
     // Collapsible filter groups
-    for (const group of panel.querySelectorAll('.filter-group')) {
+    for (const group of wrap.querySelectorAll('.filter-group')) {
       group.querySelector('.filter-group__label').addEventListener('click', () => {
         group.classList.toggle('collapsed');
       });
