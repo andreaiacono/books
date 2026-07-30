@@ -374,13 +374,16 @@
 
   function addedYear(b) { return b.added ? b.added.split('-')[0] : null; }
 
+  // Library-wide totals, phrased like the year/month headers so the two read the
+  // same way. Deliberately counts the whole catalog, not the current filters —
+  // it is the summary of the library, not of what is on screen.
   function updateBookCount() {
     const total = allBooks.length;
+    const read = allBooks.filter(b => b.reading).length;
     const removed = allBooks.filter(b => b.removed === true).length;
-    const countText = removed > 0
-      ? `(${total} books, ${removed} removed)`
-      : `(${total})`;
-    document.getElementById('book-count').textContent = countText;
+    const parts = [`${total} books · ${read} read, ${total - read} unread`];
+    if (removed > 0) parts.push(`${removed} removed`);
+    document.getElementById('book-count').textContent = `(${parts.join(' · ')})`;
   }
 
   // Folded, not exact: the catalog spells some authors both ways ("Marcus Du
