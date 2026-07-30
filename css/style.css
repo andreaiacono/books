@@ -219,12 +219,15 @@ input:focus, select:focus, textarea:focus {
    A row of stars was the other option but would read as a 5-star rating, and
    this is a boolean. Kept as a real element, not a ::before, so it keeps its
    title tooltip. The card's overflow:hidden crops the overhang. */
-.book-card__info { position: relative; isolation: isolate; }
+/* overflow:hidden so an oversized star crops at the block edge instead of
+   spilling up over the cover — the info block's stacking context paints above
+   the cover, so it would otherwise land right back on the artwork. */
+.book-card__info { position: relative; isolation: isolate; overflow: hidden; }
 .book-card__star {
   position: absolute;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 76px;
+  font-size: 112px;
   line-height: 1;
   color: var(--fav-gold);
   opacity: 0.18;
