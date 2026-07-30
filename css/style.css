@@ -327,14 +327,26 @@ html[data-theme="light"] .book-card--read:hover {
 }
 
 /* ─── Filter bar ─────────────────────────────────────────────────────────── */
-/* One row holding the removed/read pills and the three collapsible groups.
-   A collapsed group is a small inline chip, so they all sit together; opening
-   one gives it the full width, since its chips need the room. */
+/* One row holding the removed/read pills and the three group chips. The chip
+   lists render as panels below the row rather than inside it, so opening one
+   never reflows the row — every chip keeps its position. */
 .filter-row {
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
 }
-.filter-row .filter-group { margin-bottom: 0; }
-.filter-row .filter-group:not(.collapsed) { flex: 1 0 100%; }
+.filter-row .filter-group {
+  margin-bottom: 0;
+  padding: 0.4rem 0.7rem;
+}
+.filter-row .filter-group__label { margin-bottom: 0; }
+
+.filter-panel {
+  margin-top: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+}
+.filter-panel[hidden] { display: none; }
 
 .filter-group {
   margin-bottom: 0.75rem;
@@ -355,8 +367,9 @@ html[data-theme="light"] .book-card--read:hover {
   margin-bottom: 0.45rem;
   cursor: pointer; user-select: none;
 }
-.filter-sort-toggle { text-transform: none; letter-spacing: normal; }
-.filter-group.collapsed .filter-sort-toggle { display: none; }
+/* Sorting belongs with the list it sorts, not in the row chip — keeping it out
+   of the chip is what makes the chip a fixed width, so nothing shifts. */
+.filter-sort-toggle { text-transform: none; letter-spacing: normal; margin-bottom: 0.5rem; }
 .filter-group__chevron {
   display: inline-block; transition: transform 0.2s ease;
 }

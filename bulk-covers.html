@@ -61,7 +61,7 @@
     </label>
     <select id="removed-filter" class="bulk-filter" title="Filter by removed status">
       <option value="all">All books</option>
-      <option value="owned">Kept only</option>
+      <option value="kept">Kept only</option>
       <option value="removed">Removed only</option>
     </select>
   </div>
@@ -136,7 +136,7 @@
     }
 
     const removedFilter = document.getElementById('removed-filter').value;
-    if (removedFilter === 'owned') {
+    if (removedFilter === 'kept') {
       filtered = filtered.filter(b => b.removed !== true);
     } else if (removedFilter === 'removed') {
       filtered = filtered.filter(b => b.removed === true);

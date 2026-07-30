@@ -51,11 +51,12 @@
       <button id="search-clear" class="search-clear" type="button" aria-label="Clear search" style="display:none">&times;</button>
     </div>
   </div>
-  <div id="filter-wrap" class="filter-row" style="display:none;margin-bottom:1.25rem">
+  <div id="filter-wrap" style="display:none;margin-bottom:1.25rem">
+    <div class="filter-row">
     <div class="seg-toggle" role="group" aria-label="Kept or removed">
       <button id="removed-all" class="seg-toggle__btn" type="button" aria-pressed="true"
               title="Show every book">All</button>
-      <button id="removed-owned" class="seg-toggle__btn" type="button" aria-pressed="false"
+      <button id="removed-kept" class="seg-toggle__btn" type="button" aria-pressed="false"
               title="Show only books you still have">Kept</button>
       <button id="removed-only" class="seg-toggle__btn" type="button" aria-pressed="false"
               title="Show only books marked as removed">Removed</button>
@@ -68,20 +69,25 @@
       <button id="read-unread" class="seg-toggle__btn" type="button" aria-pressed="false"
               title="Show only books not yet in the reading log">Unread</button>
     </div>
-    <div class="filter-group collapsed">
-      <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span>
-        <button id="subject-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">A→Z</button>
-      </span>
+    <div class="filter-group collapsed" data-panel="subject-panel">
+      <span class="filter-group__label">Subjects <span class="filter-group__chevron">▾</span></span>
+    </div>
+    <div class="filter-group collapsed" data-panel="lang-panel">
+      <span class="filter-group__label">Language <span class="filter-group__chevron">▾</span></span>
+    </div>
+    <div class="filter-group collapsed" data-panel="year-panel">
+      <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span></span>
+    </div>
+    </div>
+    <div id="subject-panel" class="filter-panel" hidden>
+      <button id="subject-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem">A→Z</button>
       <div id="filter-bar" class="filter-bar"></div>
     </div>
-    <div class="filter-group collapsed">
-      <span class="filter-group__label">Language <span class="filter-group__chevron">▾</span></span>
+    <div id="lang-panel" class="filter-panel" hidden>
       <div id="lang-filter-bar" class="filter-bar"></div>
     </div>
-    <div class="filter-group collapsed">
-      <span class="filter-group__label">Year Added <span class="filter-group__chevron">▾</span>
-        <button id="year-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem;margin-left:0.5rem">New→Old</button>
-      </span>
+    <div id="year-panel" class="filter-panel" hidden>
+      <button id="year-sort-toggle" class="btn btn--ghost filter-sort-toggle" style="font-size:11px;padding:0.2rem 0.6rem">New→Old</button>
       <div id="year-filter-bar" class="filter-bar"></div>
     </div>
   </div>
@@ -135,10 +141,11 @@
   // date — cuts straight across. So a query falls back to the flat list, unless
   // the user picks grouped for this particular search.
   let viewOverride = null;
-  // 'all' | 'owned' (hide removed) | 'removed' (only removed).
-  // Migrates the old boolean hide_removed setting.
+  // 'all' | 'kept' (hide removed) | 'removed' (only removed). Migrates both the
+  // old boolean hide_removed setting and the earlier 'owned' name for 'kept'.
   let removedFilter = localStorage.getItem('removed_filter')
-    || (localStorage.getItem('hide_removed') === 'true' ? 'owned' : 'all');
+    || (localStorage.getItem('hide_removed') === 'true' ? 'kept' : 'all');
+  if (removedFilter === 'owned') removedFilter = 'kept';
   // 'all' | 'read' | 'unread' — read means the book has a reading-log entry.
   let readFilter = localStorage.getItem('read_filter') || 'all';
   // 'relevance' (Lunr score order), 'added' (date added) or 'year' (publication year)
@@ -157,7 +164,7 @@
 
       const removedBtns = {
         all:     document.getElementById('removed-all'),
-        owned:   document.getElementById('removed-owned'),
+        kept:    document.getElementById('removed-kept'),
         removed: document.getElementById('removed-only'),
       };
       const syncRemovedToggle = () => {
@@ -256,10 +263,14 @@
     const wrap = document.getElementById('filter-wrap');
     wrap.style.display = '';
 
-    // Collapsible filter groups
+    // Collapsible filter groups. The chip list lives outside the row, so
+    // opening one leaves every chip in the row exactly where it was.
     for (const group of wrap.querySelectorAll('.filter-group')) {
+      const panel = document.getElementById(group.dataset.panel);
+      panel.hidden = group.classList.contains('collapsed');
       group.querySelector('.filter-group__label').addEventListener('click', () => {
         group.classList.toggle('collapsed');
+        panel.hidden = group.classList.contains('collapsed');
       });
     }
 
@@ -381,7 +392,7 @@
   }
 
   function matchesRemoved(b) {
-    if (removedFilter === 'owned')   return b.removed !== true;
+    if (removedFilter === 'kept')    return b.removed !== true;
     if (removedFilter === 'removed') return b.removed === true;
     return true;
   }
