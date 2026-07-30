@@ -213,11 +213,21 @@ input:focus, select:focus, textarea:focus {
   border-radius: 4px;
 }
 
-/* The favourite marker sits in the title line rather than over the artwork —
-   a badge on the cover competes with whatever the cover already shows. */
+/* The favourite marker is a large watermark behind the info text, not a glyph
+   in the title line: big enough to spot across a grid, while sitting under the
+   text rather than displacing it, and over the card rather than the artwork.
+   A row of stars was the other option but would read as a 5-star rating, and
+   this is a boolean. Kept as a real element, not a ::before, so it keeps its
+   title tooltip. The card's overflow:hidden crops the overhang. */
+.book-card__info { position: relative; isolation: isolate; }
 .book-card__star {
+  position: absolute;
+  right: -8px; bottom: -20px;
+  font-size: 88px;
+  line-height: 1;
   color: var(--fav-gold);
-  margin-right: 0.3rem;
+  opacity: 0.18;
+  z-index: -1;
 }
 
 /* Full-width band across the foot of the cover rather than a corner badge:
