@@ -69,11 +69,10 @@ export function renderBookCard(book) {
       <div class="book-card__cover-wrap">
         <img class="book-card__cover" src="${coverSrc}" alt="${escHtml(book.title)}" loading="lazy"
              onerror="this.src='assets/no-cover.svg'">
-        ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
         ${isRemoved ? '<span class="book-card__badge book-card__badge--removed" title="Removed">Removed</span>' : ''}
       </div>
       <div class="book-card__info">
-        <h3 class="book-card__title">${escHtml(book.title)}</h3>
+        <h3 class="book-card__title">${isMarked ? '<span class="book-card__star" title="Favourite">★</span>' : ''}${escHtml(book.title)}</h3>
         <p class="book-card__author">
           ${book.author
             ? `<a href="${authorSearchUrl}" class="author-link" onclick="event.stopPropagation()">${escHtml(book.author)}</a>`

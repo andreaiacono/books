@@ -213,10 +213,11 @@ input:focus, select:focus, textarea:focus {
   border-radius: 4px;
 }
 
-.book-card__badge--fav {
-  top: 8px; left: 8px;
-  background: var(--fav-gold);
-  color: #fff;
+/* The favourite marker sits in the title line rather than over the artwork —
+   a badge on the cover competes with whatever the cover already shows. */
+.book-card__star {
+  color: var(--fav-gold);
+  margin-right: 0.3rem;
 }
 
 /* Full-width band across the foot of the cover rather than a corner badge:
@@ -233,9 +234,12 @@ input:focus, select:focus, textarea:focus {
   border-radius: 0;
 }
 
+/* Green, not the gold accent: gold is the app's "active/selected" colour and
+   says nothing about having read the book, whereas green already means read
+   here — it is what the reading log uses. */
 .book-card--read {
-  border-color: var(--accent-dim);
-  background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
+  border-color: var(--read-green);
+  background: color-mix(in srgb, var(--read-green) 8%, var(--bg-card));
 }
 
 /* A removed card has to differ in kind, not in shade: a grey border a couple of
@@ -268,7 +272,7 @@ input:focus, select:focus, textarea:focus {
   filter: grayscale(0);
 }
 .book-card--read:hover {
-  background: color-mix(in srgb, var(--accent) 14%, var(--bg-card-hover));
+  background: color-mix(in srgb, var(--read-green) 14%, var(--bg-card-hover));
 }
 
 /* The cover well paints --bg-card over the top of the card, which would cut the
@@ -278,16 +282,14 @@ input:focus, select:focus, textarea:focus {
   background: inherit;
 }
 
-/* On dark, an 8% wash of the light gold accent already lifts the card well
-   clear of the near-black background. On light the accent is dark and the card
-   is pale, so the same mix barely registers — read books need a heavier tint
-   and a full-strength border to stay distinguishable. */
+/* On dark an 8% wash already lifts the card clear of the near-black
+   background. On light both the green and the card are pale, so the same mix
+   barely registers — read books need a heavier tint to stay distinguishable. */
 html[data-theme="light"] .book-card--read {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 16%, var(--bg-card));
+  background: color-mix(in srgb, var(--read-green) 16%, var(--bg-card));
 }
 html[data-theme="light"] .book-card--read:hover {
-  background: color-mix(in srgb, var(--accent) 24%, var(--bg-card-hover));
+  background: color-mix(in srgb, var(--read-green) 24%, var(--bg-card-hover));
 }
 
 /* Placed after the read rules so a book that is both read and removed shows the
@@ -296,13 +298,6 @@ html[data-theme="light"] .book-card--read:hover {
 html[data-theme="light"] .book-card--removed,
 html[data-theme="light"] .book-card--removed:hover {
   border-color: var(--danger);
-}
-
-.book-card--marked .book-card__cover-wrap::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(212,168,67,0.12) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 .book-card__info {
@@ -791,8 +786,8 @@ html[data-theme="light"] .nav {
 .year-header h2 { font-size: 1.2rem; font-weight: 600; }
 .year-header .year-count { font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); }
 .month-header .month-count { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
-/* Read tally in a year/month header, tinted to match the read card accent. */
-.group-count__read { color: var(--accent); }
+/* Read tally in a year/month header, in the same green as a read card. */
+.group-count__read { color: var(--read-green); }
 .year-header .year-chevron { color: var(--text-faint); transition: transform 0.2s ease; }
 .year-section.collapsed .year-chevron { transform: rotate(-90deg); }
 .year-section.collapsed .year-body { display: none; }
