@@ -414,6 +414,30 @@ export async function appendReadingLogEntry({ date, title, comment, creators, is
   await ghPut('data/reading-log.csv', content, csvFile.sha, `log: ${title}`);
 }
 
+// Drops every reading-log row for an ISBN, i.e. marks the book unread again.
+// Returns how many rows went, so the caller can tell a no-op from a change.
+export async function deleteReadingLogEntries(isbn) {
+  const csvFile = await ghGet('data/reading-log.csv');
+  const current = decodeURIComponent(escape(atob(csvFile.content.replace(/\n/g, ''))));
+
+  const fields = ['date', 'title', 'comment', 'creators', 'isbn', 'marked'];
+  const { data: rows } = Papa.parse(current.trim(), { header: true, skipEmptyLines: true });
+  const kept = rows.filter(r => (r.isbn ?? '').trim() !== isbn);
+  const removed = rows.length - kept.length;
+  if (!removed) return 0;
+
+  const title = rows.find(r => (r.isbn ?? '').trim() === isbn)?.title ?? isbn;
+  const updated = Papa.unparse(
+    { fields, data: kept.map(r => fields.map(f => r[f] ?? '')) },
+    { quotes: true },
+  );
+  const content = btoa(unescape(encodeURIComponent(updated)));
+  await ghPut('data/reading-log.csv', content, csvFile.sha, `unread: ${title}`);
+
+  DATA.readMap = null;   // the cached join is stale now
+  return removed;
+}
+
 // ─── ISBN metadata fetch ─────────────────────────────────────────────────────
 // Priority: IBS.it → Google Books web → Open Library → Google Books API
 // (mirrors tools/fetch_data.py)

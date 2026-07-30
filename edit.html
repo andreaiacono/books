@@ -29,14 +29,16 @@
   </div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script type="module">
-  import { loadGrid, saveNewBook, isConfigured } from './js/data.js';
+  import { loadGrid, loadReadingLog, saveNewBook, deleteReadingLogEntries, isConfigured } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
   import { SUBJECTS } from './js/constants.js';
   import { fileToWebPBase64 } from './js/image-utils.js';
 
 
   let originalBook = null;
+  let originalReading = null;   // this book's reading-log entry, if it has one
   let coverBase64 = null;
   let coverChanged = false;
 
@@ -61,6 +63,7 @@
     if (!originalBook) { render404(); return; }
 
     const publishers = [...new Set(grid.map(b => b.publisher).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    originalReading = (await loadReadingLog()).get(isbn) ?? null;
 
     document.title = `Edit: ${originalBook.title} — MyBooks`;
     renderForm(originalBook, publishers);
@@ -153,6 +156,18 @@
           <input type="date" id="f-added" value="${escHtml(book.added ?? '')}">
         </div>
       </div>
+
+      ${originalReading ? `
+      <div class="form-group">
+        <label class="form-label">Reading log</label>
+        <label style="display:flex;align-items:center;gap:0.5rem;font-size:13px;color:var(--text-muted);cursor:pointer;user-select:none">
+          <input type="checkbox" id="f-read" checked style="width:auto;cursor:pointer">
+          Read on ${escHtml(originalReading.dateFinished ?? 'an unknown date')}${originalReading.marked ? ' · favourite' : ''}
+        </label>
+        <p style="font-size:11px;color:var(--text-faint);margin-top:0.3rem">
+          Untick to mark this book unread — its reading-log entry${originalReading.comment ? ', including the comment,' : ''} is deleted when you save.
+        </p>
+      </div>` : ''}
 
       <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
         <button class="btn btn--primary" id="save-btn">Save Changes</button>
@@ -268,11 +283,21 @@
     status.textContent = 'Saving…';
     bar.style.width = '30%';
 
+    // Read state lives in reading-log.csv, not in the book entry, so unsetting
+    // it is a second write rather than a field on `entry`.
+    const readBox = document.getElementById('f-read');
+    const unsetRead = !!readBox && !readBox.checked;
+
     try {
       await saveNewBook(entry, coverChanged ? coverBase64 : null, 'image/webp');
+      if (unsetRead) {
+        status.textContent = 'Removing reading-log entry…';
+        bar.style.width = '70%';
+        await deleteReadingLogEntries(originalBook.isbn);
+      }
       bar.style.width = '100%';
       status.textContent = 'Saved! Redirecting…';
-      toast(`"${title}" updated`, 'success');
+      toast(unsetRead ? `"${title}" updated and marked unread` : `"${title}" updated`, 'success');
       setTimeout(() => window.location.href = `book.html?isbn=${originalBook.isbn}`, 1200);
     } catch (err) {
       console.error(err);
