@@ -338,6 +338,8 @@ html[data-theme="light"] .book-card--read:hover {
   padding: 0.4rem 0.7rem;
 }
 .filter-row .filter-group__label { margin-bottom: 0; }
+/* View mode is a display choice, not a filter — sit it at the far end. */
+.filter-row .view-toggle { margin-left: auto; }
 
 .filter-panel {
   margin-top: 0.6rem;
@@ -446,7 +448,9 @@ html[data-theme="light"] .book-card--read:hover {
 .results-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* The view toggle moved into the filter row, so this row holds only the sort
+     control and the count — keep the count hard right, as it was before. */
+  justify-content: flex-end;
   gap: 1rem;
   margin-bottom: 1rem;
 }
