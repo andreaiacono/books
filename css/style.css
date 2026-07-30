@@ -245,7 +245,15 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* The band carries the state, so the card only needs to recede a little. At the
-   old 0.4 plus grayscale the title and author were barely readable. */
+   old 0.4 plus grayscale the title and author were barely readable.
+   The border is pushed well past the default so a removed card is separable
+   from a kept one at a glance, without relying on the band — which is easy to
+   miss when the covers are small. Repeated on :hover because .book-card:hover
+   sets its own border-color and would otherwise win. */
+.book-card--removed,
+.book-card--removed:hover {
+  border-color: var(--border-lighter);
+}
 .book-card--removed {
   opacity: 0.75;
 }
@@ -275,6 +283,14 @@ html[data-theme="light"] .book-card--read {
 }
 html[data-theme="light"] .book-card--read:hover {
   background: color-mix(in srgb, var(--accent) 24%, var(--bg-card-hover));
+}
+
+/* On light the contrast has to go the other way — darker than the default
+   border, not lighter. Placed after the read rules so a book that is both read
+   and removed shows the removed border, the stronger of the two states. */
+html[data-theme="light"] .book-card--removed,
+html[data-theme="light"] .book-card--removed:hover {
+  border-color: var(--text-muted);
 }
 
 .book-card--marked .book-card__cover-wrap::after {
