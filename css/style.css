@@ -244,23 +244,34 @@ input:focus, select:focus, textarea:focus {
   background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
 }
 
-/* The band carries the state, so the card only needs to recede a little. At the
-   old 0.4 plus grayscale the title and author were barely readable.
-   The border is pushed well past the default so a removed card is separable
-   from a kept one at a glance, without relying on the band — which is easy to
-   miss when the covers are small. Repeated on :hover because .book-card:hover
-   sets its own border-color and would otherwise win. */
+/* A removed card has to differ in kind, not in shade: a grey border a couple of
+   steps off the default reads as the same card. It takes the band's red, at
+   double width, and its cover is desaturated — the cover is most of the card,
+   so draining it is what makes these findable while scanning. The text keeps
+   full contrast, unlike the old 0.4-opacity-plus-grayscale treatment where the
+   title and author were barely readable.
+   Border rules are repeated on :hover because .book-card:hover sets its own
+   border-color at the same specificity and would otherwise win. */
 .book-card--removed,
 .book-card--removed:hover {
-  border-color: var(--border-lighter);
+  border-color: var(--danger);
+  border-width: 2px;
 }
 .book-card--removed {
-  opacity: 0.75;
+  opacity: 0.72;
+}
+.book-card--removed .book-card__cover {
+  filter: grayscale(0.85);
+  transition: filter var(--transition);
 }
 
+/* Hovering restores the cover, so a removed book can still be looked at. */
 .book-card--removed:hover {
   opacity: 1;
   transform: translateY(-1px);
+}
+.book-card--removed:hover .book-card__cover {
+  filter: grayscale(0);
 }
 .book-card--read:hover {
   background: color-mix(in srgb, var(--accent) 14%, var(--bg-card-hover));
@@ -285,12 +296,12 @@ html[data-theme="light"] .book-card--read:hover {
   background: color-mix(in srgb, var(--accent) 24%, var(--bg-card-hover));
 }
 
-/* On light the contrast has to go the other way — darker than the default
-   border, not lighter. Placed after the read rules so a book that is both read
-   and removed shows the removed border, the stronger of the two states. */
+/* Placed after the read rules so a book that is both read and removed shows the
+   red removed border rather than the gold read one — removed is the stronger
+   signal, and the read state still shows via the badge and the tinted card. */
 html[data-theme="light"] .book-card--removed,
 html[data-theme="light"] .book-card--removed:hover {
-  border-color: var(--text-muted);
+  border-color: var(--danger);
 }
 
 .book-card--marked .book-card__cover-wrap::after {
