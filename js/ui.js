@@ -69,9 +69,7 @@ export function renderBookCard(book) {
       <div class="book-card__cover-wrap">
         <img class="book-card__cover" src="${coverSrc}" alt="${escHtml(book.title)}" loading="lazy"
              onerror="this.src='assets/no-cover.svg'">
-        ${isRead    ? '<span class="book-card__badge book-card__badge--read" title="Read">✓</span>' : ''}
         ${isMarked  ? '<span class="book-card__badge book-card__badge--fav"  title="Favourite">★</span>' : ''}
-        ${(!isRead && !isMarked) ? '<span class="book-card__badge book-card__badge--none" title="Unread">?</span>' : ''}
         ${isRemoved ? '<span class="book-card__badge book-card__badge--removed" title="Removed">Removed</span>' : ''}
       </div>
       <div class="book-card__info">
