@@ -35,6 +35,9 @@
   import { toast, escHtml } from './js/ui.js';
   import { SUBJECTS } from './js/constants.js';
   import { fileToWebPBase64 } from './js/image-utils.js';
+  import { languageSelectHtml, bindLanguageSelect } from './js/lang-select.js';
+
+  let langField = null;
 
 
   let originalBook = null;
@@ -63,13 +66,14 @@
     if (!originalBook) { render404(); return; }
 
     const publishers = [...new Set(grid.map(b => b.publisher).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const languages = [...new Set(grid.map(b => b.lang).filter(Boolean))];
     originalReading = (await loadReadingLog()).get(isbn) ?? null;
 
     document.title = `Edit: ${originalBook.title} — MyBooks`;
-    renderForm(originalBook, publishers);
+    renderForm(originalBook, publishers, languages);
   }
 
-  function renderForm(book, publishers) {
+  function renderForm(book, publishers, languages) {
     const main = document.getElementById('main-content');
     const subjects = Array.isArray(book.subjects) ? book.subjects : [];
     const currentSubject = subjects[0] || '';
@@ -149,7 +153,7 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-language">Language</label>
-          <input type="text" id="f-language" value="${escHtml(book.lang)}" placeholder="e.g. en">
+          ${languageSelectHtml({ selected: book.lang, extra: languages })}
         </div>
         <div class="form-group">
           <label class="form-label" for="f-added">Added</label>
@@ -181,6 +185,8 @@
         <p id="save-status" style="font-size:13px;color:var(--text-muted);margin-top:0.5rem"></p>
       </div>
     `;
+
+    langField = bindLanguageSelect('f-language', 'f-language-new');
 
     // Cover from a file or a pasted blob
     async function setCoverFromBlob(blob) {
@@ -264,7 +270,7 @@
       pages:       parseInt(document.getElementById('f-pages').value) || null,
       subjects:    subject ? [subject] : [],
       description: document.getElementById('f-description').value.trim(),
-      lang:        document.getElementById('f-language').value.trim(),
+      lang:        langField.get(),
       // Falls back to the stored date if the field is cleared — `added` drives
       // the year/month grouping, so it should never end up empty.
       added:       document.getElementById('f-added').value || originalBook.added,

@@ -274,7 +274,7 @@
     <div class="form-row">
       <div class="form-group">
         <label class="form-label" for="f-language">Language *</label>
-        <input type="text" id="f-language" placeholder="e.g. en, it" required>
+        <div id="language-field"></div>
         <p id="language-warning" style="font-size:11px;color:var(--accent);margin-top:0.3rem;display:none">⚠ New language (not in your library yet)</p>
       </div>
       <div class="form-group">
@@ -311,6 +311,13 @@
   import { SUBJECTS } from './js/constants.js';
   import { fetchByIsbn, searchByTitle, matchSubject } from './js/book-apis.js';
   import { fileToWebPBase64 } from './js/image-utils.js';
+  import { languageSelectHtml, bindLanguageSelect, addLanguageOptions } from './js/lang-select.js';
+
+  // ── Language dropdown ─────────────────────────────────────────────────────
+  // Rendered up front with the canonical codes so the form works before the
+  // catalog has loaded; anything else in the library is appended below.
+  document.getElementById('language-field').innerHTML = languageSelectHtml();
+  const langField = bindLanguageSelect('f-language', 'f-language-new', checkLanguageWarning);
 
   // ── Populate subject dropdown ────────────────────────────────────────────
   {
@@ -337,6 +344,8 @@
     for (const lang of languages) {
       existingLanguages.add(lang.toLowerCase());
     }
+    addLanguageOptions('f-language', languages);
+    langField.set(langField.get());   // keep a pre-filled custom code selected
   });
 
   // ── GitHub config check ──────────────────────────────────────────────────
@@ -532,7 +541,7 @@
     document.getElementById('f-publisher').value = meta.publisher ?? '';
     document.getElementById('f-pages').value     = meta.pages ?? '';
     document.getElementById('f-description').value = meta.description ?? '';
-    document.getElementById('f-language').value  = meta.lang ?? '';
+    langField.set(meta.lang ?? '');
     document.getElementById('f-added').value     = meta.added || todayISO();
 
     // Subject
@@ -554,12 +563,10 @@
 
     // Check for new publisher/language
     const publisherVal = (meta.publisher ?? '').trim().toLowerCase();
-    const languageVal = (meta.lang ?? '').trim().toLowerCase();
 
     document.getElementById('publisher-warning').style.display =
       (publisherVal && !existingPublishers.has(publisherVal)) ? '' : 'none';
-    document.getElementById('language-warning').style.display =
-      (languageVal && !existingLanguages.has(languageVal)) ? '' : 'none';
+    checkLanguageWarning(langField.get());
   }
 
   // ── Manual entry ──────────────────────────────────────────────────────────
@@ -567,9 +574,10 @@
     e.preventDefault();
     currentMeta = null; coverBase64 = null;
     hideResults();
-    ['f-title','f-author','f-isbn-ro','f-publisher','f-description','f-language'].forEach(id => {
+    ['f-title','f-author','f-isbn-ro','f-publisher','f-description'].forEach(id => {
       document.getElementById(id).value = '';
     });
+    langField.set('');
     document.getElementById('f-year').value  = '';
     document.getElementById('f-pages').value = '';
     document.getElementById('f-added').value = todayISO();
@@ -653,7 +661,7 @@
     const pages  = parseInt(document.getElementById('f-pages').value);
     const subject  = document.getElementById('f-subject').value;
     const description = document.getElementById('f-description').value.trim();
-    const language = document.getElementById('f-language').value.trim();
+    const language = langField.get();
 
     if (!title)  { toast('Title is required', 'warning');  return; }
     if (!author) { toast('Author is required', 'warning'); return; }
@@ -717,8 +725,6 @@
   // ── Publisher & language warning checks ────────────────────────────────────
   const publisherInput = document.getElementById('f-publisher');
   const publisherWarning = document.getElementById('publisher-warning');
-  const languageInput = document.getElementById('f-language');
-  const languageWarning = document.getElementById('language-warning');
 
   publisherInput.addEventListener('input', () => {
     const val = publisherInput.value.trim().toLowerCase();
@@ -729,14 +735,11 @@
     }
   });
 
-  languageInput.addEventListener('input', () => {
-    const val = languageInput.value.trim().toLowerCase();
-    if (val && !existingLanguages.has(val)) {
-      languageWarning.style.display = '';
-    } else {
-      languageWarning.style.display = 'none';
-    }
-  });
+  // Hoisted: bindLanguageSelect() above takes this as its change callback.
+  function checkLanguageWarning(code) {
+    document.getElementById('language-warning').style.display =
+      (code && !existingLanguages.has(code)) ? '' : 'none';
+  }
 
   // ── Focus the title/ISBN input on load ─────────────────────────────────────
   document.getElementById('search-input').focus();
