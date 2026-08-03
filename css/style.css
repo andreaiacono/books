@@ -596,6 +596,41 @@ html[data-theme="light"] .book-card--removed:hover {
 .toast--error   { background: #3d1f1f; border: 1px solid #7a3333; color: #e07070; }
 .toast--warning { background: #3d3010; border: 1px solid #7a6020; color: #e0c060; }
 
+/* ─── Inline field warnings (new publisher / new language) ───────────────── */
+.field-warning {
+  display: flex; align-items: center; gap: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #7a6020;
+  border-radius: var(--radius);
+  background: #3d3010;
+  color: #e0c060;
+  font-size: 12px; font-weight: 600;
+  /* Restarts every time the element goes from display:none back to visible,
+     so it re-announces itself for each new value instead of nagging forever. */
+  animation: field-warning-pulse 0.8s ease-in-out 3;
+}
+
+@keyframes field-warning-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224,192,96,0); }
+  50%      { box-shadow: 0 0 0 4px rgba(224,192,96,0.28); border-color: #e0c060; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-warning { animation: none; border-color: #e0c060; }
+}
+
+html[data-theme="light"] .field-warning {
+  border-color: #c9a227;
+  background: #fdf6d8;
+  color: #6b5200;
+}
+html[data-theme="light"] .field-warning { animation-name: field-warning-pulse-light; }
+@keyframes field-warning-pulse-light {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139,105,20,0); }
+  50%      { box-shadow: 0 0 0 4px rgba(139,105,20,0.25); border-color: #8b6914; }
+}
+
 /* ─── Global loader ──────────────────────────────────────────────────────── */
 #global-loader {
   position: fixed; inset: 0; z-index: 9998;
