@@ -29,6 +29,22 @@ function prependToPipeline(pipeline, fn) {
 }
 lunr.Pipeline.registerFunction(removeDiacritics, 'removeDiacritics');
 
+// Drop the English and Italian stop word filters from a pipeline.
+//
+// They belong in prose search, but a book catalogue is mostly title lookup and
+// titles are made of exactly these words. "The Every" (Dave Eggers) is both a
+// stop word and a stop word, so the title contributed *nothing* to the index and
+// the book was reachable only through its description — likewise "It", "Why We
+// Die", "No Logo". lunr keeps the filters out of its search pipeline already, so
+// removing them here is what makes the two sides agree.
+function removeStopWordFilters(pipeline) {
+  const registered = lunr.Pipeline.registeredFunctions;
+  const labelOf = fn => Object.keys(registered).find(k => registered[k] === fn) ?? '';
+  const kept = pipeline._stack.filter(fn => !/stopWordFilter/i.test(labelOf(fn)));
+  pipeline.reset();
+  pipeline.add(...kept);
+}
+
 // Split on apostrophes so "L'altra" tokenises as ["l", "altra"]
 lunr.tokenizer.separator = /[\s\-''\u2019]+/;
 
@@ -50,8 +66,11 @@ export function buildSearchIndex(books) {
     prependToPipeline(this.pipeline, removeDiacritics);
     prependToPipeline(this.searchPipeline, removeDiacritics);
 
-    // Keep a handle on the indexing pipeline: unlike the search pipeline it
-    // includes the stop word filter, so it is the only way to tell what tokens
+    // Index every word, stop words included — see removeStopWordFilters().
+    removeStopWordFilters(this.pipeline);
+
+    // Keep a handle on the indexing pipeline: it still differs from the search
+    // one (it runs the trimmer), so it remains the only way to tell what tokens
     // actually made it into the index.
     _indexPipeline = this.pipeline;
 
@@ -108,9 +127,9 @@ export function search(query) {
   if (!terms.length) return [];
 
   // Stem through the *indexing* pipeline, not the search one: only the former
-  // applies the stop word filter, so it alone says which tokens actually made
-  // it into the index. A stop word like "il" stems to nothing and is dropped,
-  // rather than requiring a term no document can hold.
+  // runs the trimmer, so it alone says which tokens actually made it into the
+  // index. A term that survives nothing is dropped rather than requiring a term
+  // no document can hold.
   const stems = terms.map(stemOf).filter(Boolean);
 
   if (stems.length) {
@@ -136,9 +155,9 @@ export function search(query) {
     }, q);
   }
 
-  // Nothing survived the stop word filter — someone typed only "il", or is one
-  // keystroke into a word. Retry on the raw terms so typing still gives
-  // feedback instead of an empty list.
+  // Nothing survived the pipeline — the term was punctuation, or the trimmer ate
+  // it. Retry on the raw terms so typing still gives feedback instead of an
+  // empty list.
   return runQuery(b => {
     for (const term of terms) {
       addTerm(b, stripDiacritics(term.toLowerCase()), true);

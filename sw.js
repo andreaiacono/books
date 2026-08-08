@@ -1,6 +1,6 @@
 // sw.js — MyBooks Service Worker
 
-const CACHE_NAME = 'mybooks-v3';
+const CACHE_NAME = 'mybooks-v4';
 const CACHE_SHELL = [
   '/',
   '/index.html',
