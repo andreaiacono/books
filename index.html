@@ -636,35 +636,41 @@
 
     const currentYear = new Date().getFullYear().toString();
 
-    // Group by year → month, on whichever date the current sort is about: with
-    // "Read" selected the sections answer "what did I read in 2024", which is
-    // the point of the sort. Reordering books inside added-date sections would
-    // leave the ordering invisible.
-    const groupingByRead = sortBy === 'read';
-    const unknownLabel = groupingByRead ? 'Not read' : 'Unknown date';
+    // The sections follow whatever the current sort is about, so the ordering is
+    // visible in the headers rather than hidden inside them. Publication year is
+    // the odd one out: we only store the year, so it gets no month level.
+    const groupMode = sortBy === 'read' ? 'read' : sortBy === 'year' ? 'year' : 'added';
+    const unknownLabel = { read: 'Not read', year: 'Unknown year', added: 'Unknown date' }[groupMode];
 
     const byYear = new Map();
     for (const book of books) {
-      const dateKey = groupingByRead ? readKey(book) : book.added;
+      const dateKey = groupMode === 'read' ? readKey(book)
+                    : groupMode === 'year' ? (book.year != null ? `${book.year}-00` : '')
+                    : book.added;
       const [y, m] = dateKey ? dateKey.split('-') : [];
       if (y && m) {
         if (!byYear.has(y)) byYear.set(y, new Map());
         const key = `${y}-${m.padStart(2, '0')}`;
         const yearMap = byYear.get(y);
-        if (!yearMap.has(key)) yearMap.set(key, { label: MONTHS[parseInt(m) - 1], books: [] });
+        // label null = no month level; the year section holds one plain grid.
+        if (!yearMap.has(key)) {
+          yearMap.set(key, { label: groupMode === 'year' ? null : MONTHS[parseInt(m) - 1], books: [] });
+        }
         yearMap.get(key).books.push(book);
       } else {
         if (!byYear.has('unknown')) byYear.set('unknown', new Map());
         const yearMap = byYear.get('unknown');
-        if (!yearMap.has('unknown')) yearMap.set('unknown', { label: unknownLabel, books: [] });
+        if (!yearMap.has('unknown')) {
+          yearMap.set('unknown', { label: groupMode === 'year' ? null : unknownLabel, books: [] });
+        }
         yearMap.get('unknown').books.push(book);
       }
     }
 
-    // Sections follow the chosen direction for the two date sorts. Left always
-    // descending, an ascending sort would show newest years first with oldest
-    // books inside them. The unknown/not-read bucket stays last either way.
-    const sectionDir = ((sortBy === 'added' || sortBy === 'read') && sortDir === 'asc') ? -1 : 1;
+    // Sections follow the chosen direction. Left always descending, an ascending
+    // sort would show newest years first with oldest books inside them. The
+    // unknown/not-read bucket stays last either way.
+    const sectionDir = (sortBy !== 'relevance' && sortDir === 'asc') ? -1 : 1;
 
     const sortedYears = [...byYear.keys()]
       .filter(k => k !== 'unknown')
@@ -698,6 +704,17 @@
 
       for (const monthKey of sortedMonths) {
         const { label, books: monthBooks } = monthMap.get(monthKey);
+
+        // Publication year has no month, so the year section holds one grid and
+        // no sub-header — inventing "August 2018" for a print date we do not
+        // have would be worse than showing nothing.
+        if (label === null) {
+          const grid = document.createElement('div');
+          grid.className = 'book-grid';
+          for (const book of sortBooks(monthBooks, preserveOrder)) grid.appendChild(renderBookCard(book));
+          yearBody.appendChild(grid);
+          continue;
+        }
 
         const monthGroup = document.createElement('section');
         monthGroup.className = 'month-group';
