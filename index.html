@@ -100,11 +100,13 @@
     </div>
   </div>
   <div id="results-header" class="results-header">
-    <div class="sort-toggle" role="group" aria-label="Sort order" style="display:none">
+    <div class="sort-toggle" role="group" aria-label="Sort order">
       <button id="sort-relevance" class="sort-toggle__btn" type="button" aria-pressed="true"
               title="Sort by search relevance">Relevance</button>
       <button id="sort-added" class="sort-toggle__btn" type="button" aria-pressed="false"
               title="Sort by date added — click again to reverse">Added <span class="sort-toggle__dir"></span></button>
+      <button id="sort-read" class="sort-toggle__btn" type="button" aria-pressed="false"
+              title="Sort by reading date — click again to reverse">Read <span class="sort-toggle__dir"></span></button>
       <button id="sort-year" class="sort-toggle__btn" type="button" aria-pressed="false"
               title="Sort by publication year — click again to reverse">Year <span class="sort-toggle__dir"></span></button>
     </div>
@@ -557,13 +559,21 @@
     return hasQuery() ? (viewOverride ?? 'flat') : resultsView;
   }
 
+  // Reading-log dates are DD/MM/YYYY, unlike `added` which is already sortable
+  // as text. Normalise to YYYY-MM-DD so both go through the same comparison.
+  function readKey(book) {
+    const d = book.reading?.dateFinished;
+    if (!d) return '';
+    const [dd, mm, yyyy] = d.split('/');
+    return yyyy && mm && dd ? `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}` : '';
+  }
+
   // `relevanceOrder` is true when `books` arrives in Lunr's ranked order.
   function sortBooks(books, relevanceOrder) {
-    // The sort control is hidden without a query, so fall back to the default
-    // order there rather than letting an invisible setting reorder the library.
-    if (!hasQuery() || sortBy === 'relevance') {
-      // With no query there is no ranking, so fall back to newest-added first.
-      return relevanceOrder
+    // Relevance only means something against a query; everywhere else it stands
+    // for the library's own default of newest-added first.
+    if (sortBy === 'relevance') {
+      return relevanceOrder && hasQuery()
         ? books
         : [...books].sort((a, b) => (b.added || '').localeCompare(a.added || ''));
     }
@@ -575,6 +585,15 @@
         if (a.year == null) return 1;
         if (b.year == null) return -1;
         return (b.year - a.year) * dir;
+      }
+      if (sortBy === 'read') {
+        // Books with no reading-log entry sink to the bottom, either direction,
+        // matching the "Not read" section the grouped view gives them.
+        const ka = readKey(a), kb = readKey(b);
+        if (!ka && !kb) return (b.added || '').localeCompare(a.added || '');
+        if (!ka) return 1;
+        if (!kb) return -1;
+        return kb.localeCompare(ka) * dir;
       }
       return (b.added || '').localeCompare(a.added || '') * dir;
     });
@@ -594,7 +613,9 @@
   function groupCountLabel(list) {
     const n = list.length;
     const base = `${n} book${n !== 1 ? 's' : ''}`;
-    if (readFilter !== 'all') return base;
+    // Grouping by reading date already sorts the two apart: every section but
+    // "Not read" is wholly read, so the breakdown would just repeat the header.
+    if (readFilter !== 'all' || sortBy === 'read') return base;
     const read = list.filter(b => b.reading).length;
     return `${base} · <span class="group-count__read">${read} read</span>, ${n - read} unread`;
   }
@@ -615,10 +636,17 @@
 
     const currentYear = new Date().getFullYear().toString();
 
-    // Group by year → month
+    // Group by year → month, on whichever date the current sort is about: with
+    // "Read" selected the sections answer "what did I read in 2024", which is
+    // the point of the sort. Reordering books inside added-date sections would
+    // leave the ordering invisible.
+    const groupingByRead = sortBy === 'read';
+    const unknownLabel = groupingByRead ? 'Not read' : 'Unknown date';
+
     const byYear = new Map();
     for (const book of books) {
-      const [y, m] = book.added ? book.added.split('-') : [];
+      const dateKey = groupingByRead ? readKey(book) : book.added;
+      const [y, m] = dateKey ? dateKey.split('-') : [];
       if (y && m) {
         if (!byYear.has(y)) byYear.set(y, new Map());
         const key = `${y}-${m.padStart(2, '0')}`;
@@ -628,15 +656,19 @@
       } else {
         if (!byYear.has('unknown')) byYear.set('unknown', new Map());
         const yearMap = byYear.get('unknown');
-        if (!yearMap.has('unknown')) yearMap.set('unknown', { label: 'Unknown date', books: [] });
+        if (!yearMap.has('unknown')) yearMap.set('unknown', { label: unknownLabel, books: [] });
         yearMap.get('unknown').books.push(book);
       }
     }
 
-    // Sort years descending, unknown last
+    // Sections follow the chosen direction for the two date sorts. Left always
+    // descending, an ascending sort would show newest years first with oldest
+    // books inside them. The unknown/not-read bucket stays last either way.
+    const sectionDir = ((sortBy === 'added' || sortBy === 'read') && sortDir === 'asc') ? -1 : 1;
+
     const sortedYears = [...byYear.keys()]
       .filter(k => k !== 'unknown')
-      .sort((a, b) => b.localeCompare(a));
+      .sort((a, b) => b.localeCompare(a) * sectionDir);
     if (byYear.has('unknown')) sortedYears.push('unknown');
 
     const fragment = document.createDocumentFragment();
@@ -651,17 +683,17 @@
       yearHeader.className = 'year-header';
       yearHeader.innerHTML = `
         <span class="year-chevron">▾</span>
-        <h2>${yearKey === 'unknown' ? 'Unknown date' : yearKey}</h2>
+        <h2>${yearKey === 'unknown' ? unknownLabel : yearKey}</h2>
         <span class="year-count">${groupCountLabel(yearBooks)}</span>`;
       yearHeader.addEventListener('click', () => yearSection.classList.toggle('collapsed'));
 
       const yearBody = document.createElement('div');
       yearBody.className = 'year-body';
 
-      // Sort months descending within year
+      // Sort months within the year, same direction as the sections
       const sortedMonths = [...monthMap.keys()]
         .filter(k => k !== 'unknown')
-        .sort((a, b) => b.localeCompare(a));
+        .sort((a, b) => b.localeCompare(a) * sectionDir);
       if (monthMap.has('unknown')) sortedMonths.push('unknown');
 
       for (const monthKey of sortedMonths) {
@@ -787,17 +819,21 @@
   const sortBtns = {
     relevance: document.getElementById('sort-relevance'),
     added:     document.getElementById('sort-added'),
+    read:      document.getElementById('sort-read'),
     year:      document.getElementById('sort-year'),
   };
-  const sortToggle = document.querySelector('.sort-toggle');
   function syncSortToggle() {
-    // Only meaningful against search results, so it stays hidden until there
-    // is a query — relevance has nothing to rank, and the library's own
-    // year/month grouping is the natural order otherwise.
-    sortToggle.style.display = hasQuery() ? '' : 'none';
-    const arrow = sortDir === 'asc' ? '↑' : '↓';
+    // The bar stays visible: sorting the library is as useful as sorting search
+    // results. Only Relevance is query-only — it has nothing to rank otherwise —
+    // so it is hidden rather than left as a dead button.
+    sortBtns.relevance.hidden = !hasQuery();
+    // With Relevance hidden it cannot show as the active button, and no
+    // highlight at all reads as "nothing is selected". Relevance without a
+    // query *is* newest-added-first, so let Added carry the highlight.
+    const activeKey = (!hasQuery() && sortBy === 'relevance') ? 'added' : sortBy;
+    const arrow = (activeKey === sortBy && sortDir === 'asc') ? '↑' : '↓';
     for (const [key, btn] of Object.entries(sortBtns)) {
-      const active = sortBy === key;
+      const active = activeKey === key;
       btn.setAttribute('aria-pressed', active);
       const dirEl = btn.querySelector('.sort-toggle__dir');
       if (dirEl) dirEl.textContent = active ? arrow : '';
@@ -805,8 +841,14 @@
   }
   for (const [key, btn] of Object.entries(sortBtns)) {
     btn.addEventListener('click', () => {
-      if (sortBy === key) {
+      // Added shows as active while the stored sort is still the query-only
+      // "relevance", so clicking it must reverse rather than appear to do
+      // nothing — the two produce the same order.
+      const actingAsActive = sortBy === key
+        || (key === 'added' && sortBy === 'relevance' && !hasQuery());
+      if (actingAsActive) {
         if (key === 'relevance') return; // ranking has only one meaningful direction
+        sortBy = key;
         sortDir = sortDir === 'desc' ? 'asc' : 'desc';
       } else {
         sortBy = key;
