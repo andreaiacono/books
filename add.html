@@ -110,6 +110,24 @@
       background: var(--accent);
       color: #fff;
     }
+    /* Deliberately stays quiet on hover, unlike Select: it leaves the page, so
+       it should never be the thing the eye lands on when picking a result. */
+    .result-lookup-btn {
+      font-size: 12px;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .result-lookup-btn:hover {
+      border-color: var(--border-light);
+      color: var(--text);
+    }
 
     /* Subject match indicator */
     .subject-match {
@@ -434,6 +452,14 @@
     }
   }
 
+  // Google search for one result: ISBN first when we have one, since it pins
+  // the exact edition, with the title after it so the results stay readable
+  // when the ISBN is unknown to Google.
+  function googleSearchUrl(b) {
+    const q = [b.isbn, b.title].filter(Boolean).join(' ').trim();
+    return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+  }
+
   // ── Render results ────────────────────────────────────────────────────────
 
   function renderResults(books) {
@@ -475,9 +501,16 @@
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem">
           <span class="result-badge">${escHtml(b.source)}</span>
           <button class="result-select-btn">Select</button>
+          <a class="result-lookup-btn" href="${escHtml(googleSearchUrl(b))}"
+             target="_blank" rel="noopener noreferrer"
+             title="Look this edition up on Google in a new tab">Search book</a>
         </div>
       `;
 
+      // The whole card selects a result, so the lookup link has to stop the
+      // event: opening a tab should not also fill the form behind it.
+      card.querySelector('.result-lookup-btn')
+          .addEventListener('click', e => e.stopPropagation());
       card.addEventListener('click', () => selectResult(i));
       list.appendChild(card);
     }
