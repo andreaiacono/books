@@ -53,6 +53,7 @@ export function renderBookCard(book) {
   const isMarked  = isRead && book.reading.marked;
   const isRemoved = book.removed === true;
   const coverSrc  = book.cover ?? 'assets/no-cover.svg';
+  const comment   = isRead && book.reading.comment?.trim() ? book.reading.comment.trim() : '';
 
   const card = document.createElement('article');
   card.className = `book-card${isRead ? ' book-card--read' : ''}${isMarked ? ' book-card--marked' : ''}${isRemoved ? ' book-card--removed' : ''}`;
@@ -65,7 +66,7 @@ export function renderBookCard(book) {
   const authorSearchUrl = book.author ? `index.html?author=${encodeURIComponent(book.author)}` : '#';
 
   card.innerHTML = `
-    <a class="book-card__link" href="${bookUrl}">
+    <a class="book-card__link" href="${bookUrl}"${comment ? ` title="${escHtml(comment)}"` : ''}>
       <div class="book-card__cover-wrap">
         <img class="book-card__cover" src="${coverSrc}" alt="${escHtml(book.title)}" loading="lazy"
              onerror="this.src='assets/no-cover.svg'">
