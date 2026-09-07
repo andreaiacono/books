@@ -513,9 +513,15 @@
   function applyFilters() {
     if (!hasQuery()) viewOverride = null;
     updateFilterCounts();
+    const query = hasQuery() ? document.getElementById('search-input').value.trim() : '';
+
+    // When searching, always sort by relevance
+    if (query && sortBy !== 'relevance') {
+      sortBy = 'relevance';
+      localStorage.setItem('results_sort', sortBy);
+    }
     syncSortToggle();
     syncViewToggle();
-    const query = hasQuery() ? document.getElementById('search-input').value.trim() : '';
     const countEl = document.getElementById('search-count');
 
     if (query) {
