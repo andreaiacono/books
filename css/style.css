@@ -286,6 +286,7 @@ input:focus, select:focus, textarea:focus {
   filter: grayscale(0);
 }
 .book-card--read:hover {
+  border-color: var(--read-green);
   background: color-mix(in srgb, var(--read-green) 14%, var(--bg-card-hover));
 }
 
@@ -303,6 +304,7 @@ html[data-theme="light"] .book-card--read {
   background: color-mix(in srgb, var(--read-green) 16%, var(--bg-card));
 }
 html[data-theme="light"] .book-card--read:hover {
+  border-color: var(--read-green);
   background: color-mix(in srgb, var(--read-green) 24%, var(--bg-card-hover));
 }
 
