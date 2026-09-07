@@ -164,10 +164,12 @@ input:focus, select:focus, textarea:focus {
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1.25rem;
 }
-
-/*@media (min-width: 768px) {*/
-/*  .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }*/
-/*}*/
+@media (max-width: 480px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.75rem;
+  }
+}
 
 /* ─── Book card ──────────────────────────────────────────────────────────── */
 .book-card {
@@ -356,6 +358,12 @@ html[data-theme="light"] .book-card--removed:hover {
   font-size: 0.65rem;
   color: var(--text-faint);
   font-family: var(--font-mono);
+}
+@media (max-width: 480px) {
+  .book-card__info { padding: 0.5rem 0.5rem 0.6rem; }
+  .book-card__title { font-size: 0.72rem; -webkit-line-clamp: 2; }
+  .book-card__author { font-size: 0.65rem; }
+  .book-card__year { font-size: 0.62rem; }
 }
 
 /* ─── Filter bar ─────────────────────────────────────────────────────────── */
