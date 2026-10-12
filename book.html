@@ -83,7 +83,7 @@
             ${book.pages      ? metaItem('Pages', book.pages) : ''}
             ${book.lang       ? metaItem('Language', book.lang.toUpperCase()) : ''}
             ${book.isbn && !book.isbn.startsWith('no-isbn-') ? metaItem('ISBN', `<span style="font-family:var(--font-mono);font-size:12px">${escHtml(book.isbn)}</span>`) : ''}
-            ${book.added      ? metaItem('Added', book.added) : ''}
+            ${book.added      ? metaItem('Added', formatDate(book.added)) : ''}
           </div>
 
           ${subjects.length ? `

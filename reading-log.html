@@ -74,11 +74,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { appendReadingLogEntry, isConfigured } from './js/data.js';
-  import { escHtml, toast } from './js/ui.js';
-
-  const MONTHS = ['January','February','March','April','May','June',
-                  'July','August','September','October','November','December'];
+  import { appendReadingLogEntry, isConfigured, todayISO, todayLogDate } from './js/data.js';
+  import { escHtml, toast, formatDate } from './js/ui.js';
+  import { MONTHS } from './js/constants.js';
 
   async function init() {
     const res = await fetch('data/reading-log.csv');
@@ -162,7 +160,7 @@
 
           const row = document.createElement('p');
           row.className = 'log-entry';
-          row.innerHTML = `<span class="log-date">${escHtml(entry.date ?? '')}</span>${titleEl} <span class="log-comment"> by </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
+          row.innerHTML = `<span class="log-date">${escHtml(formatDate(entry.date))}</span>${titleEl} <span class="log-comment"> by </span> ${author}${comment ? `: <span class="log-comment">${escHtml(comment)}</span>` : ''}`;
           entriesDiv.appendChild(row);
         }
 
@@ -189,7 +187,7 @@
     const dateInput = document.getElementById('le-date');
 
     // Default date to today
-    dateInput.value = new Date().toISOString().slice(0, 10);
+    dateInput.value = todayISO();
 
     // Prefill from query params (e.g. coming from book detail page)
     const qp = new URLSearchParams(location.search);
@@ -225,7 +223,7 @@
       const rawDate = dateInput.value; // YYYY-MM-DD
       const date = rawDate
         ? `${rawDate.slice(8,10)}/${rawDate.slice(5,7)}/${rawDate.slice(0,4)}`
-        : `${String(new Date().getDate()).padStart(2,'0')}/${String(new Date().getMonth()+1).padStart(2,'0')}/${new Date().getFullYear()}`;
+        : todayLogDate();
 
       const submitBtn = document.getElementById('le-submit');
       const status = document.getElementById('le-status');

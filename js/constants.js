@@ -94,6 +94,13 @@ export const SUBJECT_KEYWORDS = {
                       'guerra','militare','battaglia','conflitto','esercito','marina','aeronautica','soldato','combattimento','armi'],
 };
 
+// Month names for the year/month grouping on the library and reading-log pages,
+// and for formatDate() in ui.js. One copy so the three cannot drift apart.
+export const MONTHS = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December'
+];
+
 export const LANG_LABELS = {
   it: 'Italian', en: 'English', es: 'Spanish', fr: 'French'
 };

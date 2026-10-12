@@ -324,7 +324,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script type="module">
-  import { fetchCoverAsBase64, saveNewBook, isConfigured, loadGrid } from './js/data.js';
+  import { fetchCoverAsBase64, saveNewBook, isConfigured, loadGrid, todayISO } from './js/data.js';
   import { toast, escHtml } from './js/ui.js';
   import { SUBJECTS } from './js/constants.js';
   import { fetchByIsbn, searchByTitle, matchSubject } from './js/book-apis.js';
@@ -558,12 +558,6 @@
       document.getElementById('cover-preview').src = 'assets/no-cover.svg';
       document.getElementById('cover-status').textContent = '';
     }
-  }
-
-  // Local (not UTC) calendar day, so a late-evening add doesn't jump to tomorrow.
-  function todayISO() {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   }
 
   function populateForm(meta) {

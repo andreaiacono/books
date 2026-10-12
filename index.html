@@ -126,10 +126,8 @@
   import { getEnrichedCatalog } from './js/data.js';
   import { renderBookCard, showLoader, hideLoader, toast, escHtml } from './js/ui.js';
   import { buildSearchIndex, search, isIndexReady, fold } from './js/search.js';
-  import { LANG_LABELS } from './js/constants.js';
+  import { LANG_LABELS, MONTHS } from './js/constants.js';
 
-  const MONTHS = ['January','February','March','April','May','June',
-                  'July','August','September','October','November','December'];
 
   let allBooks = [];
   let searchTimeout = null;

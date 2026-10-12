@@ -34,6 +34,23 @@ export async function loadReadingLog() {
   return DATA.readMap;
 }
 
+// ─── Dates ──────────────────────────────────────────────────────────────────
+
+// Today as YYYY-MM-DD on the *local* calendar. toISOString() would give the UTC
+// day, which east of Greenwich is still yesterday during the small hours — in
+// Italy (UTC+1/+2) anything added between 00:00 and 01:59 was being dated to the
+// previous day.
+export function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// Today as DD/MM/YYYY, the shape the reading log stores.
+export function todayLogDate() {
+  const [y, m, d] = todayISO().split('-');
+  return `${d}/${m}/${y}`;
+}
+
 // ─── Enriched catalog ───────────────────────────────────────────────────────
 
 export async function getEnrichedCatalog() {
@@ -608,7 +625,7 @@ export async function fetchISBNMetadata(isbn) {
     author:      merged.author ?? '',
     year:        merged.year ?? null,
     cover:       `covers/${isbn}.webp`,
-    added:       new Date().toISOString().slice(0, 10),
+    added:       todayISO(),
     publisher:   merged.publisher ?? '',
     pages:       merged.pages ?? null,
     lang:        merged.lang ?? '',

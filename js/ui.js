@@ -1,3 +1,5 @@
+import { MONTHS } from './constants.js';
+
 // js/ui.js — Shared UI utilities
 
 // ─── Toast notifications ─────────────────────────────────────────────────────
@@ -108,10 +110,21 @@ export function escHtml(str) {
   return (str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-export function formatDate(ddmmyyyy) {
-  if (!ddmmyyyy) return '';
-  const [d, m, y] = ddmmyyyy.split('/');
-  const months = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
-                  'luglio','agosto','settembre','ottobre','novembre','dicembre'];
-  return `${parseInt(d)} ${months[parseInt(m) - 1]} ${y}`;
+// The app stores two date shapes — books.json `added` is YYYY-MM-DD, the reading
+// log's `date` is DD/MM/YYYY — and both reach the UI. Accepting either keeps one
+// display format everywhere and removes the chance of handing a date to the
+// wrong parser: the separator tells them apart unambiguously.
+export function formatDate(value) {
+  const str = String(value ?? '').trim();
+  if (!str) return '';
+
+  let y, m, d;
+  if (str.includes('-')) [y, m, d] = str.split('-');
+  else if (str.includes('/')) [d, m, y] = str.split('/');
+  else return str;
+
+  const month = MONTHS[parseInt(m, 10) - 1];
+  // Unparseable input is returned as-is rather than rendered "NaN undefined".
+  if (!month || !parseInt(d, 10) || !y) return str;
+  return `${parseInt(d, 10)} ${month} ${y}`;
 }
