@@ -132,6 +132,53 @@ input:focus, select:focus, textarea:focus {
   margin-left: auto;
 }
 
+/* The nav's Add Book button, on every page. Was eight copies of the same
+   inline style, which also outranked any media query trying to shrink it. */
+.btn--nav { padding: 0.4rem 1rem; font-size: 13px; }
+
+/* The library's book count runs to ~50 characters and .nav__brand is nowrap,
+   so with it the bar needs ~910px. Below that it pushed the actions off the
+   right edge — at 768px the theme toggle was already unreachable. The count is
+   the only purely decorative part of the nav, so it is what gives way. */
+@media (max-width: 900px) {
+  .nav__brand #book-count { display: none; }
+}
+
+/* Small screens — the nav has to hold brand, two links, Add Book and the theme
+   toggle in ~350px. The library page also puts a book count in the brand, and
+   .nav__brand is nowrap: at 360px the brand alone measured 385px, which pushed
+   "+ Add Book" out to x=433 (off-screen), collapsed the links to zero width and
+   gave the whole page a horizontal scrollbar. The count is the one piece that
+   is purely informational, so it goes; everything else just tightens up. */
+@media (max-width: 640px) {
+  .nav { gap: 0.3rem; padding: 0 0.6rem; }
+  .nav__brand { font-size: 1.05rem; gap: 0.3rem; flex-shrink: 0; }
+  /* flex:1 means flex-basis:0 — the list is sized purely from leftover space,
+     so once the brand and actions fill the bar it collapses to zero width and
+     the links vanish rather than the bar overflowing. Size it from content. */
+  .nav__links { flex: 0 1 auto; gap: 0; }
+  .nav__links a { padding: 0.35rem 0.4rem; font-size: 13px; white-space: nowrap; }
+  .nav__actions { gap: 0.35rem; }
+  .btn--nav { padding: 0.35rem 0.55rem; font-size: 12px; }
+  .theme-toggle { width: 28px; height: 28px; }
+}
+
+/* Narrow phones cannot hold brand + both links + a labelled button. The label
+   goes rather than the links: "+" on a gold button still reads as add, whereas
+   a hidden Reading Log is simply unreachable. */
+@media (max-width: 480px) {
+  .btn--nav__label { display: none; }
+  .btn--nav { padding: 0.35rem 0.6rem; font-size: 14px; }
+  .nav__links a { padding: 0.35rem 0.3rem; }
+  .nav__brand { font-size: 1rem; }
+}
+
+/* 320px-class phones: the last notch, so "Reading Log" stays on one line. */
+@media (max-width: 360px) {
+  .nav__links a { font-size: 12px; padding: 0.35rem 0.25rem; }
+  .nav__brand { font-size: 0.95rem; }
+}
+
 /* ─── Page layout ─────────────────────────────────────────────────────────── */
 .page {
   max-width: 2000px;
@@ -954,7 +1001,9 @@ html[data-theme="light"] .nav {
 }
 
 /* ─── Responsive nav ─────────────────────────────────────────────────────── */
+/* .nav__links used to be display:none here, which hid Reading Log and Settings
+   on every phone with nothing — no hamburger, no drawer — to reach them by.
+   They are kept and tightened in the nav media query instead. */
 @media (max-width: 600px) {
-  .nav__links { display: none; }
   .form-row { grid-template-columns: 1fr; }
 }
