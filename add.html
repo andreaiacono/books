@@ -75,6 +75,17 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    /* ── Scan button ──────────────────────────────────────────────── */
+    #scan-btn {
+      display: flex; align-items: center; gap: 0.45rem;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    /* The search row is input + Scan + Search; on a narrow phone the icon
+       alone has to carry it, or the ISBN field gets squeezed to nothing. */
+    @media (max-width: 480px) {
+      .scan-btn__label { display: none; }
+    }
+
     .result-isbn {
       font-size: 11px;
       font-family: var(--font-mono);
@@ -209,6 +220,14 @@
            placeholder="Title or ISBN (e.g. The Name of the Rose, 9780141033570)"
            style="flex:1"
            maxlength="200">
+    <button class="btn btn--ghost" id="scan-btn" type="button"
+            title="Scan an ISBN barcode with the camera" aria-label="Scan an ISBN barcode with the camera">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <rect x="2" y="5" width="2" height="14"/><rect x="6" y="5" width="1" height="14"/>
+        <rect x="9" y="5" width="2" height="14"/><rect x="13" y="5" width="1" height="14"/>
+        <rect x="16" y="5" width="3" height="14"/><rect x="21" y="5" width="1" height="14"/>
+      </svg><span class="scan-btn__label">Scan</span>
+    </button>
     <button class="btn btn--primary" id="search-btn" style="white-space:nowrap">
       Search
     </button>
@@ -330,6 +349,7 @@
   import { fetchByIsbn, searchByTitle, matchSubject } from './js/book-apis.js';
   import { fileToWebPBase64 } from './js/image-utils.js';
   import { languageSelectHtml, bindLanguageSelect, addLanguageOptions } from './js/lang-select.js';
+  import { scanIsbn } from './js/barcode.js';
 
   // ── Language dropdown ─────────────────────────────────────────────────────
   // Rendered up front with the canonical codes so the form works before the
@@ -408,6 +428,28 @@
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch();
   });
+
+  // ── Barcode scan ──────────────────────────────────────────────────────────
+  // getUserMedia only exists in a secure context, so over a plain LAN IP there
+  // is no camera to offer: drop the button rather than show one that fails.
+  {
+    const scanBtn = document.getElementById('scan-btn');
+    if (!navigator.mediaDevices?.getUserMedia) {
+      scanBtn.remove();
+    } else {
+      scanBtn.addEventListener('click', async () => {
+        scanBtn.disabled = true;
+        const { isbn, error } = await scanIsbn();
+        scanBtn.disabled = false;
+        if (error) { toast(error, 'error'); return; }
+        if (!isbn) return;                      // cancelled
+        // Hand the code to the normal ISBN path, so a scan and a typed ISBN
+        // fetch metadata through exactly the same code.
+        document.getElementById('search-input').value = isbn;
+        doSearch();
+      });
+    }
+  }
 
   async function doSearch() {
     const raw = document.getElementById('search-input').value.trim();
