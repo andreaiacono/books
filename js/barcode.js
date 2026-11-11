@@ -183,36 +183,43 @@ export function scanIsbn() {
       });
     }
 
-    const constraints = {
-      video: {
-        facingMode: { ideal: 'environment' },
-        width:  { ideal: 1280 },
-        height: { ideal: 720 },
-      },
-    };
+    // A phone's rear camera autofocuses, so a barcode held close is both big
+    // and sharp and 720p is plenty. A laptop webcam is fixed-focus, sharp only
+    // past roughly 30 cm, and at that distance an EAN-13 covers about a tenth
+    // of the frame — some 130 px of bars at 720p, under the ~150–200 px the
+    // decoder needs. Pixels are the only lever left, so ask a camera that
+    // isn't a rear one for as much as it has: the same framing then gives
+    // ~190 px, which does decode. Phones are left at 720p, where they already
+    // work and where each frame is quicker to scan.
+    function cameraConstraints(preferRear) {
+      return {
+        video: {
+          facingMode: { ideal: 'environment' },
+          width:  { ideal: preferRear ? 1280 : 1920 },
+          height: { ideal: preferRear ? 720  : 1080 },
+        },
+      };
+    }
+
+    // Reopen a non-rear camera at the highest resolution it will give. Done
+    // before any decoding starts: ZXing sizes its capture canvas off the first
+    // frame it sees and keeps it, so a resolution change afterwards would be
+    // cropped away.
+    async function upgradeIfWebcam() {
+      const track = stream?.getVideoTracks()[0];
+      const settings = track?.getSettings?.() ?? {};
+      if (settings.facingMode === 'environment') return false;
+      try {
+        await track.applyConstraints(cameraConstraints(false).video);
+      } catch { /* the camera has nothing better to give */ }
+      return true;
+    }
 
     (async () => {
       try {
         const detector = await nativeDetector();
 
-        if (detector) {
-          stream = await navigator.mediaDevices.getUserMedia(constraints);
-          if (done) { stream.getTracks().forEach(t => t.stop()); return; }
-          ui.video.srcObject = stream;
-          await ui.video.play().catch(() => {});   // muted + inline: allowed
-          let last = 0;
-          const tick = async ts => {
-            if (done) return;
-            if (ts - last >= DECODE_INTERVAL_MS) {
-              last = ts;
-              try {
-                for (const code of await detector.detect(ui.video)) offer(code.rawValue);
-              } catch { /* a frame the detector could not read */ }
-            }
-            if (!done) rafId = requestAnimationFrame(tick);
-          };
-          rafId = requestAnimationFrame(tick);
-        } else {
+        if (!detector) {
           // Load the decoder before opening the camera, so the permission
           // prompt isn't followed by a black preview while 360 KB downloads.
           ui.status.textContent = 'Loading scanner…';
@@ -229,19 +236,38 @@ export function scanIsbn() {
           ]);
           reader = new ZXing.BrowserMultiFormatReader(hints, DECODE_INTERVAL_MS);
           reader.timeBetweenDecodingAttempts = DECODE_INTERVAL_MS;
-
-          // Lets ZXing own getUserMedia and the <video> attachment; the stream
-          // comes back off the element for the torch.
-          await reader.decodeFromConstraints(constraints, ui.video, result => {
-            if (result) offer(result.getText());
-          });
-          // Cancelled while the permission prompt was up: settle() already ran
-          // and found no stream to stop, so stop the one ZXing has just opened.
-          if (done) { reader.reset(); return; }
-          stream = ui.video.srcObject;
         }
 
-        ui.status.textContent = 'Point the camera at the barcode on the back cover';
+        stream = await navigator.mediaDevices.getUserMedia(cameraConstraints(true));
+        if (done) { stream.getTracks().forEach(t => t.stop()); return; }
+        const isWebcam = await upgradeIfWebcam();
+        if (done) { stream.getTracks().forEach(t => t.stop()); return; }
+
+        if (detector) {
+          ui.video.srcObject = stream;
+          await ui.video.play().catch(() => {});   // muted + inline: allowed
+          let last = 0;
+          const tick = async ts => {
+            if (done) return;
+            if (ts - last >= DECODE_INTERVAL_MS) {
+              last = ts;
+              try {
+                for (const code of await detector.detect(ui.video)) offer(code.rawValue);
+              } catch { /* a frame the detector could not read */ }
+            }
+            if (!done) rafId = requestAnimationFrame(tick);
+          };
+          rafId = requestAnimationFrame(tick);
+        } else {
+          await reader.decodeFromStream(stream, ui.video, result => {
+            if (result) offer(result.getText());
+          });
+          if (done) { reader.reset(); return; }
+        }
+
+        ui.status.textContent = isWebcam
+          ? 'Hold the book where the preview looks sharp, filling the frame — webcams rarely focus closer than about 30 cm'
+          : 'Point the camera at the barcode on the back cover';
         setupTorch();
       } catch (err) {
         console.error(err);
